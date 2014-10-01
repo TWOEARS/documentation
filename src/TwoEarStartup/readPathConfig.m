@@ -6,4 +6,8 @@ function partPath = readPathConfig( rcXmlFileName, tagname )
 
 rcXml = xmlread( rcXmlFileName );
 
-partPath = char( rcXml.getElementsByTagName( tagname ).item(0).getFirstChild.getData );
+try
+    partPath = char( rcXml.getElementsByTagName( tagname ).item(0).getFirstChild.getData );
+catch ME
+    error('Your definition of the Two!Ears pathes in %s uses the wrong tag names.',rcXmlFileName);
+end
