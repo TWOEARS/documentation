@@ -9,5 +9,5 @@ rcXml = xmlread( rcXmlFileName );
 try
     partPath = char( rcXml.getElementsByTagName( tagname ).item(0).getFirstChild.getData );
 catch ME
-    error('Your definition of the Two!Ears pathes in %s uses the wrong tag names.',rcXmlFileName);
+    error('Your Two!Ears pathes file %s misses an entry for "%s"',rcXmlFileName,tagname);
 end
