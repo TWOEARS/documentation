@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Configuration file for the Two!Ears auditory model -->
 
 <!-- In the following entries please specify the pathes were you have stored the
@@ -5,7 +6,6 @@
      apllication it can be the case that you only need some of those repositories.
      If this is the case the entries for the other ones will be ignored. -->
 
-<?xml version="1.0" encoding="utf-8"?>
 <repoPaths>
     <!-- https://github.com/TWOEARS/twoears-wp1 -->
     <wp1>~/git/twoears/twoears-wp1</wp1>
