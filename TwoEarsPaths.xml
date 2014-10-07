@@ -7,8 +7,10 @@
      If this is the case the entries for the other ones will be ignored. -->
 
 <repoPaths>
-    <!-- https://github.com/TWOEARS/twoears-wp1 -->
-    <wp1>~/git/twoears/twoears-wp1</wp1>
+    <!-- https://github.com/TWOEARS/binaural-simulator -->
+    <binaural-simulator>~/git/twoears/binaural-simulator</binaural-simulator>
+    <!-- https://github.com/TWOEARS/SOFA -->
+    <sofa>~/git/twoears/SOFA</sofa>
     <!-- https://github.com/TWOEARS/data -->
     <data>~/git/twoears/twoears-data</data>
     <!-- https://github.com/TWOEARS/tools -->
