@@ -1,6 +1,6 @@
 function setupPartConfig( configFileName )
 
-[reposNeeded, subsNeeded, recursiveSubsNeeded, branchesNeeded, startupNeeded] = getPartRequirements( configFileName );
+[reposNeeded, subsNeeded, recursiveSubsNeeded, branchesNeeded, startupNeeded] = getPartRequirements( configFileName )
 
 for k = 1:length(reposNeeded)
     % Get path of TwoEars part (repository)
@@ -15,9 +15,13 @@ for k = 1:length(reposNeeded)
         end
     end
     % Adding single subs (without subfolders)
-    addpath( fullfile( repoPath, subsNeeded{k} ) );
+    if subsNeeded{k}
+        addpath( fullfile( repoPath, subsNeeded{k} ) );
+    end
     % Adding subs with all subfolders
-    addpath( genpath( fullfile( repoPath, recursiveSubsNeeded{k} ) ) );
+    if recursiveSubsNeeded{k}
+        addpath( genpath( fullfile( repoPath, recursiveSubsNeeded{k} ) ) );
+    end
     % Execute startup function
     if ~isempty( startupNeeded{k} )
         startupFunc = str2func( startupNeeded{k} );
