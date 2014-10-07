@@ -1,31 +1,31 @@
-function [paths, subs, branches, startup] = getPartRequirements( rrqXmlFileName )
+function [paths, subs, subsRecursive, branches, startup] = getPartRequirements( configFileName )
 
-rrqXml = xmlread( rrqXmlFileName );
+config = xmlread( configFileName );
 
-requirements = rrqXml.getElementsByTagName( 'TwoEarsPart' );
+requirements = config.getElementsByTagName( 'TwoEarsPart' );
 
 paths = {};
 branches = {};
 startup = {};
 subs = {};
+subsRecursive = {};
 for k = 1:requirements.getLength()
     paths{end+1,1} = char( requirements.item(k-1).getFirstChild.getData() );
     subAttr = requirements.item(k-1).getAttributes.getNamedItem('sub');
-    if ~isempty( subAttr )
-        subs{end+1,1} = char( subAttr.getFirstChild.getData() );
-    else
-        subs{end+1,1} = '';
-    end
+    subs = getAttributeData( subAttr, subs );
+    subRecursiveAttr = requirements.item(k-1).getAttributes.getNamedItem('sub-all');
+    subsRecursive = getAttributeData( subRecursiveAttr, subsRecursive );
     branchAttr = requirements.item(k-1).getAttributes.getNamedItem('branch');
-    if ~isempty( branchAttr )
-        branches{end+1,1} = char( branchAttr.getFirstChild.getData() );
-    else
-        branches{end+1,1} = '';
-    end
+    branches = getAttributeData( branchAttr, branches );
     startupAttr = requirements.item(k-1).getAttributes.getNamedItem('startup');
-    if ~isempty( startupAttr )
-        startup{end+1,1} = char( startupAttr.getFirstChild.getData() );
+    startup = getAttributeData( startupAttr, startup );
+end
+end
+
+function data = getAttributeData( attr, data )
+    if ~isempty( attr )
+        data{end+1,1} = char( attr.getFirstChild.getData() );
     else
-        startup{end+1,1} = [];
+        data{end+1,1} = '';
     end
 end
