@@ -41,7 +41,7 @@ like in the following example:
 <requirements>
     <TwoEarsPart sub="src" startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
     <TwoEarsPart sub="API_MO" startup="SOFAstart" branch="BRIRs">sofa</TwoEarsPart>
-    <TwoEarsPart sub="src" startup="startData" branch="master">data</TwoEarsPart>
+    <TwoEarsPart startup="startData" branch="master">data</TwoEarsPart>
     <TwoEarsPart sub-all="src" startup="startTools" >tools</TwoEarsPart>
 </requirements>
 ```
