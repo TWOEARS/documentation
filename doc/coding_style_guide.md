@@ -28,24 +28,32 @@ I propose the following standard.
 %functionName   This function is calculating fancy stuff1, not so fancy stuff2,
 %               and provides you a nice solution.
 %
-%USAGE
-%   outputParameter = functionName(inputParameter1)
-%   outputParameter = functionName(inputParameter1,inputParameter2)
+%   USAGE
+%       outputParameter = functionName(inputParameter1)
+%       outputParameter = functionName(inputParameter1,inputParameter2)
 %
-%INPUT PARAMETERS
-%   inputParameter1 :   description of inputParameter1
-%   inputParameter2 :   description of inputParameter2
+%   INPUT PARAMETERS
+%       inputParameter1 :   description of inputParameter1
+%       inputParameter2 :   description of inputParameter2
 %
-%OUTPUT PARAMETERS
-%   outputParameter :   description of outputParameter
+%   OUTPUT PARAMETERS
+%       outputParameter :   description of outputParameter
 %
-%DETAILS
-%   Here, more details could be presented. But only, if really needed.
+%   DETAILS
+%       Here, more details could be presented. But only, if really needed.
 ```
 
 This means that we follow not the Matlab standard of writing the function name
 in capital letter at the beginning `FUNCTIONNAME`. This is not useful in our
 case, because we use CamelCase notation.
+
+
+### Comments
+
+* Add comments into your code at places that are not self explanatory.
+* If you implement a particular equation from a paper, please add a citation of
+  that paper and equation as a comment.
+* Avoid meaningless comments like `ildValue = 10; % ild value`
 
 
 ### License
@@ -57,8 +65,8 @@ In order to avoid clutter with the `help` command add an empty line between the
 header and the license.
 
 ```matlab
-%OUTPUT PARAMETERS
-%   outputParameter :   description of outputParameter
+%   OUTPUT PARAMETERS
+%       outputParameter :   description of outputParameter
 
 % LICENSE: license
 ```
@@ -246,6 +254,26 @@ In vim this behavior can be achieved with the following setting.
 set sw=4 ts=4 expandtab
 ```
 
+### White spaces
+
+**please discuss**
+
+In order to enhance readability insert white spaces between `=` and function
+parameters. 
+
+```matlab
+someVar = computeValue( oneArgument, anotherParameter );
+```
+
+Different proposal
+
+```matlab
+someVar = computeValue(oneArgument, anotherParameter);
+```
+
+Avoid to insert white spaces into blank lines.
+
+
 ### Line Width
 
 **please discuss**
@@ -257,7 +285,7 @@ Pros:
 
 * this is THE common setting
 * enhances compatibility for viewing code in different applications, for example
-  online at github
+  online at github (TODO: check how long exactly a line at github could be)
 
 Cons:
 
