@@ -185,14 +185,17 @@ end
 
 ### Constants
 
-**please discuss**
-
 I don't know if we need this, but if you have constants in your function that
 can not be changed, you should write them completely uppercase.
 
 ```matlab
 TRESHOLD = 3.2;
 ```
+
+For usage of costants in classes, see also the [Matlab documentation on
+properties
+(Constant)](http://www.mathworks.de/de/help/matlab/matlab_oop/properties-with-constant-values.html).
+
 
 ### Functions
 
