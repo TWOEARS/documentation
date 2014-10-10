@@ -133,13 +133,44 @@ inputSignal
 auditoryFrontEndCues
 ```
 
-Use the prefix `n` for indicating the number of objects. Avoid `i` or `j` as
-variables, because they could be the imaginary unit. A common solution to that
-problem is the usage of `ii`, `jj`, `kk`, `nn` as indices of in a loop.
+Use the prefix `n` for indicating the number of objects and `i` as an iterator
+prefix.
 
 ```matlab
-for ii = 1:nFiles
-    destroyFile(Files{ii});
+for iFile = 1:nFiles
+    destroyFile(Files{iFile});
+end
+```
+
+For loops over matrices in mathematics single letter like `i` or `j` are used.
+Avoid those in Matlab, because they could be the imaginary unit. A common
+solution is to use `ii`, `jj`, `kk`, `nn` as indices.
+
+```matlab
+savedPoints = zeros(size(pointMatrix);
+for ii = 1:size(pointMatrix,1)
+    for jj = 1:size(pointMatrix,2)
+        savedPoints(ii,jj) = getPoint(pointMatrix(ii,jj));
+    end
+end
+```
+
+Note, if you don't have to use the indices for different things in the loop the
+above statement can be better written as
+
+```matlab
+savedPoints = zeros(size(pointMatrix);
+for ii = 1:numel(pointMatrix)
+    savedPoints(ii) = pointMatrix(ii);
+end
+```
+
+If you want to access column vectors stored in a matrix, like the left and right
+ear canal you could also use the following syntax
+
+```matlab
+for singleChannel = binauralSignal
+    printRmsDb(singleChannel)
 end
 ```
 
@@ -168,11 +199,14 @@ disableAuditoryFrontEnd()
 For finding the correct name for a function the following points should be
 considered.
 
+* function names should include a verb (**please discuss** have we to state
+  this?)
 * name a function with a single output based on that output,
   `confidenceInterval`
 * name a function with no output after what they do, `plotSignal`
 * use the prefix `is` for boolean functions, `isFinished`
 * avoid unintentional shadowing, e.g. use `convolution` not `conv`
+
 
 ### Classes/Objects
 
