@@ -48,20 +48,54 @@ in capital letter at the beginning `FUNCTIONNAME`. This is not useful in our
 case, because we use CamelCase notation.
 
 
-### Author and License
+### License
 
-If you want to specify a license or author in a function, do it at the top of
-that function directly after the function header. Insert an empty line between
-the function header and the author/license, this will avoid that the `help`
-message is cluttered.
+If a function comes with a different license (and only then) than the one
+specified in the main README.md of the single repositories the license has
+to be stated in the function.
+In order to avoid clutter with the `help` command add an empty line between the
+header and the license.
 
 ```matlab
 %OUTPUT PARAMETERS
 %   outputParameter :   description of outputParameter
 
-% AUTHOR: Name
 % LICENSE: license
 ```
+
+
+### Author
+
+**please discuss**
+
+Because we have lots of different authors that might also contribute to lots of
+different files it could be discussed if it is really necessary to put an
+author in to the function. On the other hand its easier to find the right person
+to talk to, if you copy and paste this function out of the repository.
+
+Possible solutions:
+
+* State the authors only under the point *Credits* in the main README.md file of
+  the repositories and not in the single functions
+* In every function, add a field `AUTHOR:` and fill it with every one who
+  modifies the function.
+* Create a field `AUTHOR:` in every function and name only the one who created
+  the function
+
+
+### Versioning
+
+If you don't use a version control system you are maybe used to put changes with
+dates into the file header directly like
+
+```matlab
+% 10.10.2014: Completely changed everything
+% 11.10.2014: Was not so good, undo changes
+```
+
+Since we are using git for versioning such lines should be deleted from the
+code.
+
 
 ## Naming Conventions
 
