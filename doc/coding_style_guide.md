@@ -40,11 +40,11 @@ I propose the following standard.
 %       outputParameter = functionName(inputParameter1,inputParameter2)
 %
 %   INPUT PARAMETERS
-%       inputParameter1 :   description of inputParameter1
-%       inputParameter2 :   description of inputParameter2
+%       inputParameter1     -   description of inputParameter1
+%       inputParameter2     -   description of inputParameter2
 %
 %   OUTPUT PARAMETERS
-%       outputParameter :   description of outputParameter
+%       outputParameter     -   description of outputParameter
 %
 %   DETAILS
 %       Here, more details could be presented. But only, if really needed.
