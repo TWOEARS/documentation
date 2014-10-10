@@ -55,6 +55,13 @@ that function directly after the function header. Insert an empty line between
 the function header and the author/license, this will avoid that the `help`
 message is cluttered.
 
+```matlab
+%OUTPUT PARAMETERS
+%   outputParameter :   description of outputParameter
+
+% AUTHOR: Name
+% LICENSE: license
+```
 
 ## Naming Conventions
 
@@ -62,8 +69,6 @@ message is cluttered.
 
 Avoid abbreviations of names if they are not common to the whole community as it
 is the case with `fs`.
-
-Example:
 
 ```matlab
 % do not write
@@ -89,8 +94,6 @@ enahncedILDlimit
 Variables should start with a lower case letter and use upper case letters for
 every starting word.
 
-Examples
-
 ```matlab
 signal
 inputSignal
@@ -115,7 +118,6 @@ end
 I don't know if we need this, but if you have constants in your function that
 can not be changed, you should write them completely uppercase.
 
-Example
 ```matlab
 TRESHOLD = 3.2;
 ```
@@ -161,8 +163,6 @@ the [Two!Ears Blackboard System].
 ### Code Indention
 
 Use exactly 4 white spaces (not a tab) for indention.
-
-Example
 
 ```matlab
 if true
