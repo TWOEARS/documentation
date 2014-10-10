@@ -217,8 +217,7 @@ disableAuditoryFrontEnd()
 For finding the correct name for a function the following points should be
 considered.
 
-* function names should include a verb (**please discuss** have we to state
-  this?)
+* function names should include a verb
 * name a function with a single output based on that output,
   `confidenceInterval`
 * name a function with no output after what they do, `plotSignal`
