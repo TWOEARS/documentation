@@ -78,15 +78,14 @@ signalProcessing
 ```
 
 Abbreviations that are normally given in uppercase like `ILD` should be changed
-to one of the following (**please discuss** what we should use):
+in the following way:
 
-```
-% solution 1
+```matlab
+% variables
 ildLimit
 enhancedIldLimit
-% solution 2
-ILDlimit
-enahncedILDlimit
+% objects
+IldLimit
 ```
 
 ### Variables
