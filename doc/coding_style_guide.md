@@ -154,8 +154,9 @@ AuditoryFrontEnd
 **please discuss**
 
 When is the correct moment to use something like `+simulator` as it is done in
-the [Two!Ears Binaural Simulator] compared to the `knowledge_sources` folder in
-the [Two!Ears Blackboard System].
+the [Two!Ears Binaural Simulator](https://github.com/TWOEARS/binaural-simulator)
+compared to the `knowledge_sources` folder in the
+[Two!Ears Blackboard System](https://github.com/TWOEARS/blackboard-system).
 
 
 ## Layout
@@ -198,5 +199,3 @@ Cons:
 * monitors nowadays a much larger than the 80 characters
 
 
-[Two!Ears Binaural Simulator](https://github.com/TWOEARS/binaural-simulator)
-[Two!Ears Blackboard System](https://github.com/TWOEARS/blackboard-system)
