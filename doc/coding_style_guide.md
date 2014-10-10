@@ -16,6 +16,13 @@ Add documentation to every function or class you contribute to the Two!Ears
 model.
 
 
+### Class Headers
+
+**please discuss**
+
+Could anyone provide an example for a good class header?
+
+
 ### Function Headers
 
 It is a good idea to have a consistent function header in all Two!Ears functions,
@@ -217,6 +224,9 @@ considered.
 * name a function with no output after what they do, `plotSignal`
 * use the prefix `is` for boolean functions, `isFinished`
 * avoid unintentional shadowing, e.g. use `convolution` not `conv`
+
+Try to avoid the creation of functions consisting out of hundreds of lines. In
+Matlab the most common approach is to create functions that do one thing.
 
 
 ### Classes/Objects
