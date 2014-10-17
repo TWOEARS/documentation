@@ -20,7 +20,24 @@ model.
 
 **please discuss**
 
-Could anyone provide an example for a good class header?
+Class headers should contain a brief description of what the class is doing and
+probably contain a few examples on how to use the methods that the class provides.
+A good example is the description of the Gaussian-Mixture distribution class that
+is provided by the Matlab Statistics Toolbox. Type `help gmdistribution` in the
+command window for more details.
+
+```matlab
+%ClassName    This class contains several fancy methods to solve problems that
+%             are even more fancy. To create a fancy problem solving environment,
+%             use the ClassName constructor. You can solve problems by running
+%             ClassName.solveFancyProblems(fancyProblem). A fancy problem can be
+%             specified as a Matlab cell-array, containing...
+```
+
+The class header does not need to contain a description of the class methods,
+as they should be properly documented in their own headers. Additionally, there
+is no need to put additional comments to the class properties, as long as they
+are properly named (see the section on naming conventions below).
 
 
 ### Function Headers
