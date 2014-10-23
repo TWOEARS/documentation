@@ -16,7 +16,7 @@ These guidelines are introduced at a stage where we have already written code
 and you are of course not forced to rewrite the existing code. For your existing
 code the following points should be considered:
 
-* Make shure your old code includes a function/class header for documentation
+* Make sure your old code includes a function/class header for documentation
 * If you have to read code that you have not written yourself and which does not
   comply to the guidelines presented here, you should create an issue if you are
   not able to understand the code, because of bad readability
@@ -228,7 +228,7 @@ can not be changed, you should write them completely uppercase.
 TRESHOLD = 3.2;
 ```
 
-For usage of costants in classes, see also the [Matlab documentation on
+For usage of constants in classes, see also the [Matlab documentation on
 properties
 (Constant)](http://www.mathworks.de/de/help/matlab/matlab_oop/properties-with-constant-values.html).
 
