@@ -334,6 +334,6 @@ set sw=4 ts=4 expandtab textwidth=90
 
 ## Credits
 
-This document was inspired by
-[MATLAB Style Guidelines 2.0](http://www.mathworks.com/matlabcentral/fileexchange/46056-matlab-style-guidelines-2-0)
-[PEP 8](http://legacy.python.org/dev/peps/pep-0008)
+This document was inspired by  
+[MATLAB Style Guidelines 2.0](http://www.mathworks.com/matlabcentral/fileexchange/46056-matlab-style-guidelines-2-0)  
+[PEP 8](http://legacy.python.org/dev/peps/pep-0008)  
