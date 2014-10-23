@@ -4,11 +4,23 @@ Two!Ears Matlab Coding Style Guide
 
 ## Introduction
 
-This is a first proposal of coding guide style lines for our Two!Ears model. At
-the moment this document is limited to Matlab only.
+This document gives coding conventions for Matlab code as part of the Two!Ears
+auditory model.
 
-Feel free to discuss every point of the proposal, but definitely those that are
-especially marked with a **please discuss**.
+Code is read much more often than it is written. The guidelines provided here
+are intended to improve the **readability** of code and make it **consistent** across
+the whole Two!Ears model. Both points are, besides a good documentation, also
+a big part of the impression our software gives to other users.
+
+These guidelines are introduced at a stage where we have already written code
+and you are of course not forced to rewrite the existing code. For your existing
+code the following points should be considered:
+
+* Make shure your old code includes a function/class header for documentation
+* If you have to read code that you have not written yourself and which does not
+  comply to the guidelines presented here, you should create an issue if you are
+  not able to understand the code, because of bad readability
+
 
 ## Documentation and Comments
 
@@ -319,3 +331,9 @@ above.
 ```vim
 set sw=4 ts=4 expandtab textwidth=90
 ```
+
+## Credits
+
+This document was inspired by
+[MATLAB Style Guidelines 2.0](http://www.mathworks.com/matlabcentral/fileexchange/46056-matlab-style-guidelines-2-0)
+[PEP 8](http://legacy.python.org/dev/peps/pep-0008)
