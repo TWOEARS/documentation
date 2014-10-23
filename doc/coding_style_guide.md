@@ -362,7 +362,7 @@ end
 % Add a comment for separation
 if (theFirstThing & ...
     theSecondThing)
-    # Both conditions are met, we can party
+    % Both conditions are met, we can party
     doFunnyStuff();
 end
 
