@@ -337,8 +337,8 @@ following way.
 
 ```Matlab
 % Aligned with opening delimiter
-foo = loadFile(['/path/to/a/veryveryveryveryandsoon/'], ...
-               ['filenaaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmeeeeeeeee.txt']);
+foo = loadFile(['/path/to/a/veryveryveryveryandsoon/', ...
+                'filenaaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmeeeeeeeee.txt']);
 % Start with function parameters in same line
 foo = longFunctionName(parameterOne, parameterTwo, ...
                        parameterThree, parameterFour);
