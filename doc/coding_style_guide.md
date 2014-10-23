@@ -307,19 +307,15 @@ Avoid to insert white spaces into blank lines.
 
 **please discuss**
 
-The usual setting is to limit the line width in code to 80 characters. Should we
-do the same?
+Due to the large monitor sizes we have nowadays it is not mandatory to stick to
+the common line width of 79 characters. Nonetheless, the maximum line width on
+github for code is 89 characters.
+As reading code online is a very nice feature I would propose to stick to that
+setting.
 
-Pros:
+In vim this will add the following setting to the settings line introduced
+above.
 
-* this is THE common setting
-* enhances compatibility for viewing code in different applications, for example
-  online at github (TODO: check how long exactly a line at github could be)
-
-Cons:
-
-* due to the usage of long variable names it can often happen that we have to
-  break a line, which could decrease its readability
-* monitors nowadays a much larger than the 80 characters
-
-
+```vim
+set sw=4 ts=4 expandtab textwidth=90
+```
