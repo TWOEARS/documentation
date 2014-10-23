@@ -315,7 +315,7 @@ someVar = computeValue(oneArgument, anotherParameter);
 Avoid to insert white spaces into blank lines.
 
 
-### Line Width
+### Line Width and Breaks
 
 **please discuss**
 
@@ -331,6 +331,66 @@ above.
 ```vim
 set sw=4 ts=4 expandtab textwidth=90
 ```
+
+If you have to break a line the elements should be aligned vertically in the
+following way.
+
+```Matlab
+% Aligned with opening delimiter
+foo = loadFile(['/path/to/a/veryveryveryveryandsoon/'], ...
+               ['filenaaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmeeeeeeeee.txt']);
+% Start with function parameters in same line
+foo = longFunctionName(parameterOne, parameterTwo, ...
+                       parameterThree, parameterFour);
+% Start with function parameters on next line
+foo = longFunctionName( ...
+    parameterOne, parameterTwo, ...
+    parameterThree, parameterFour);
+```
+
+With `if`-statements it could happen that you run into trouble if you have to do
+a line break. The reason is that the 4 characters indentation are exactly the same
+size as `if (` which is used for alignment. Here are solutions to deal with it.
+
+```Matlab
+% No extra indentation
+if (theFirstThing & ...
+    theSecondThing)
+    doFunnyStuff();
+end
+
+% Add a comment for separation
+if (theFirstThing & ...
+    theSecondThing)
+    # Both conditions are met, we can party
+    doFunnyStuff();
+end
+
+% Add some extra indentation on the conditional continuation line
+if (theFirstThing & ...
+        theSecondThing)
+    doFunnyStuff();
+end
+```
+
+For multiline statements the closing bracket may line up at the end of the last
+line, under the first non-whitespace character of the last line, or it may line
+up under the first character of the line that starts the statement.
+
+```Matlab
+largeMatrix = [
+    1, 2, 3
+    4, 5, 6];
+largeMatrix = [
+    1, 2, 3
+    4, 5, 6
+    ];
+largeMatrix = [
+    1, 2, 3
+    4, 5, 6
+];
+```
+
 
 ## Credits
 
