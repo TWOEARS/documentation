@@ -30,8 +30,6 @@ model.
 
 ### Class Headers
 
-**please discuss**
-
 Class headers should contain a brief description of what the class is doing and
 probably contain a few examples on how to use the methods that the class provides.
 A good example is the description of the Gaussian-Mixture distribution class that
@@ -110,21 +108,12 @@ header and the license.
 
 ### Author
 
-**please discuss**
+We have lots of different authors that might also contribute to lots of
+different files. Hence, we mention no single author in the signle files as the
+single contributions could also be seen in the git repository.
 
-Because we have lots of different authors that might also contribute to lots of
-different files it could be discussed if it is really necessary to put an
-author in to the function. On the other hand its easier to find the right person
-to talk to, if you copy and paste this function out of the repository.
-
-Possible solutions:
-
-* State the authors only under the point *Credits* in the main README.md file of
-  the repositories and not in the single functions
-* In every function, add a field `AUTHOR:` and fill it with every one who
-  modifies the function.
-* Create a field `AUTHOR:` in every function and name only the one who created
-  the function
+Instead, we state the authors under the point *Credits* in the main
+README.md file of the single repositories
 
 
 ### Versioning
