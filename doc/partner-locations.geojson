@@ -67,11 +67,11 @@
       "properties": {
         "UNIVERSITY": "The University of Sheffield",
         "CHAIR": "Department of Computer Science",
-        "ADDRESS": "Western Bank",
+	"ADDRESS": "Regent Court, 211 Portobello",
         "CITY": "Sheffield",
         "COUNTRY": "UK",
-        "TELEPHONE": "+44 114 222 2000",
-        "WEBURL": "http://www.sheffield.ac.uk/dcs/computer-science-home" },
+        "TELEPHONE": "+44 114 222 1800",
+        "WEBURL": "http://www.sheffield.ac.uk/dcs" },
       "geometry": { "type": "Point", "coordinates": [ -1.488243, 53.380884 ] } },
     { "type": "Feature",
       "properties": {
