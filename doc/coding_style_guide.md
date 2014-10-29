@@ -181,9 +181,9 @@ solution is to use `ii`, `jj`, `kk`, `nn` as indices.
 
 ```matlab
 savedPoints = zeros(size(pointMatrix);
-for ii = 1:size(pointMatrix,1)
-    for jj = 1:size(pointMatrix,2)
-        savedPoints(ii,jj) = getPoint(pointMatrix(ii,jj));
+for ii = 1:size(pointMatrix, 1)
+    for jj = 1:size(pointMatrix, 2)
+        savedPoints(ii, jj) = getPoint(pointMatrix(ii, jj));
     end
 end
 ```
@@ -281,21 +281,13 @@ end
 In vim this behavior can be achieved with the following setting.
 
 ```vim
-set sw=4 ts=4 expandtab
+set sw=4 ts=4 et
 ```
 
 ### White spaces
 
-**please discuss**
-
 In order to enhance readability insert white spaces between `=` and function
 parameters. 
-
-```matlab
-someVar = computeValue( oneArgument, anotherParameter );
-```
-
-Different proposal
 
 ```matlab
 someVar = computeValue(oneArgument, anotherParameter);
@@ -309,16 +301,14 @@ Avoid to insert white spaces into blank lines.
 **please discuss**
 
 Due to the large monitor sizes we have nowadays it is not mandatory to stick to
-the common line width of 79 characters. Nonetheless, the maximum line width on
-github for code is 89 characters.
-As reading code online is a very nice feature I would propose to stick to that
-setting.
+the common line width of 79 characters. As the code at github is limited to 90
+characters, we should also use that limit instead.
 
 In vim this will add the following setting to the settings line introduced
 above.
 
 ```vim
-set sw=4 ts=4 expandtab textwidth=90
+set sw=4 ts=4 et tw=90
 ```
 
 If you have to break a line the elements should be aligned vertically in the
