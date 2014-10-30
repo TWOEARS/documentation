@@ -293,7 +293,7 @@ someVar = computeValue(oneArgument, anotherParameter);
 Avoid to insert white spaces into blank lines.
 
 
-### Line Width and Breaks
+### Line Width
 
 Due to the large monitor sizes we have nowadays it is not mandatory to stick to
 the common line width of 79 characters. As the code at github is limited to 90
