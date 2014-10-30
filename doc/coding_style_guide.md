@@ -170,7 +170,7 @@ inputSignal
 auditoryFrontEndCues
 ```
 
-Use the prefix `b` for boolean variable and avoid negative names.
+Use the prefix `b` for boolean variables and avoid negative names.
 
 ```matlab
 bRemove
