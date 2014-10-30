@@ -174,9 +174,9 @@ Use the prefix `b` for boolean variable and avoid negative names.
 
 ```matlab
 bRemove
-% use not
+% do not write
 bNotRealiable
-% instead use
+% do write instead
 ~bRealiable
 ```
 
