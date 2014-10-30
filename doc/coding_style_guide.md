@@ -18,8 +18,8 @@ code the following points should be considered:
 
 * Make sure your old code includes a function/class header for documentation
 * If you have to read code that you have not written yourself and which does not
-  comply to the guidelines presented here, you should create an issue if you are
-  not able to understand the code, because of bad readability
+  comply to the guidelines presented here, you could create an issue if you are
+  not able to understand the code
 
 
 ## Documentation and Comments
@@ -109,11 +109,15 @@ header and the license.
 ### Author
 
 We have lots of different authors that might also contribute to lots of
-different files. Hence, we mention no single author in the signle files as the
-single contributions could also be seen in the git repository.
+different files. Hence, we mention no single author in the individual files.
+The contributions of the authors could be seen in the git commit history.
 
 Instead, we state the authors under the point *Credits* in the main
-README.md file of the single repositories
+README.md file of the single repositories.
+
+An exception to this case is the usage of code from a person, that is not part
+of the Two!Ears project. In that case the author should be properly cited in
+the code.
 
 
 ### Versioning
@@ -175,12 +179,12 @@ for iFile = 1:nFiles
 end
 ```
 
-For loops over matrices in mathematics single letter like `i` or `j` are used.
+For loops over matrices in mathematics single letters like `i` or `j` are used.
 Avoid those in Matlab, because they could be the imaginary unit. A common
 solution is to use `ii`, `jj`, `kk`, `nn` as indices.
 
 ```matlab
-savedPoints = zeros(size(pointMatrix);
+savedPoints = zeros(size(pointMatrix));
 for ii = 1:size(pointMatrix, 1)
     for jj = 1:size(pointMatrix, 2)
         savedPoints(ii, jj) = getPoint(pointMatrix(ii, jj));
@@ -210,8 +214,8 @@ end
 
 ### Constants
 
-I don't know if we need this, but if you have constants in your function that
-can not be changed, you should write them completely uppercase.
+If you have constants in your function that can not be changed, you should write
+them completely uppercase.
 
 ```matlab
 TRESHOLD = 3.2;
@@ -233,7 +237,7 @@ disableAuditoryFrontEnd()
 ```
 
 For finding the correct name for a function the following points should be
-considered.
+considered:
 
 * function names should include a verb
 * name a function with a single output based on that output,
@@ -255,13 +259,6 @@ Signals
 BlackboardSystem
 AuditoryFrontEnd
 ```
-
-**please discuss**
-
-When is the correct moment to use something like `+simulator` as it is done in
-the [Two!Ears Binaural Simulator](https://github.com/TWOEARS/binaural-simulator)
-compared to the `knowledge_sources` folder in the
-[Two!Ears Blackboard System](https://github.com/TWOEARS/blackboard-system).
 
 
 ## Layout
@@ -298,8 +295,6 @@ Avoid to insert white spaces into blank lines.
 
 ### Line Width and Breaks
 
-**please discuss**
-
 Due to the large monitor sizes we have nowadays it is not mandatory to stick to
 the common line width of 79 characters. As the code at github is limited to 90
 characters, we should also use that limit instead.
@@ -311,8 +306,10 @@ above.
 set sw=4 ts=4 et tw=90
 ```
 
-If you have to break a line the elements should be aligned vertically in the
-following way.
+### Line Breaks
+
+If you have to break a line the elements should be aligned vertically in one of
+the following ways.
 
 ```Matlab
 % Aligned with opening delimiter
@@ -337,14 +334,12 @@ if (theFirstThing & ...
     theSecondThing)
     doFunnyStuff();
 end
-
 % Add a comment for separation
 if (theFirstThing & ...
     theSecondThing)
     % Both conditions are met, we can party
     doFunnyStuff();
 end
-
 % Add some extra indentation on the conditional continuation line
 if (theFirstThing & ...
         theSecondThing)
