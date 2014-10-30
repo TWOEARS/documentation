@@ -170,6 +170,16 @@ inputSignal
 auditoryFrontEndCues
 ```
 
+Use the prefix `b` for boolean variable and avoid negative names.
+
+```matlab
+bRemove
+% use not
+bNotRealiable
+% instead use
+~bRealiable
+```
+
 Use the prefix `n` for indicating the number of objects and `i` as an iterator
 prefix.
 
