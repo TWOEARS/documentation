@@ -59,8 +59,3 @@ master branch you have to explicitly state `branch="master"`.
 * If you put a `startup` attribute to the requirement, the respective function will be executed after adding the path of this requirement.
 
 As first action in your script, call `startTwoEars( 'yourConfig.xml' )`.
-
-
-## Credits
-Ivo Trowitzsch, Neural Processing Group, TU Berlin.  
-Hagen Wierstorf, Assessment of IP-based Applications, TU Berlin.
