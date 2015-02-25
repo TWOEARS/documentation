@@ -1,6 +1,32 @@
 Two!Ears Matlab Coding Style Guide
 ==================================
 
+## Table of Contents
+
+**[Introduction](#introduction)**
+
+**[Documentation and Comments](#documentation-and-comments)**  
+  [Class Headers](#class-headers)  
+  [Function Headers](#function-headers)  
+  [Comments](#comments)  
+  [License](#license)  
+  [Author](#author)  
+  [Versioning](#versioning)  
+
+**[Naming Conventions](#naming-conventions)**  
+  [General](#general)  
+  [Variables](#variables)  
+  [Constants](#constants)  
+  [Functions](#functions)  
+  [Classes/Objects](#classesobjects)
+
+**[Layout](#layout)**  
+  [Code Indention](#code-indention)  
+  [White Spaces](#white-spaces)  
+  [Line Width](#line-width)  
+  [Line Breaks](#line-breaks)  
+
+**[Credits](#credits)**
 
 ## Introduction
 
@@ -291,7 +317,7 @@ In vim this behavior can be achieved with the following setting.
 set sw=4 ts=4 et
 ```
 
-### White spaces
+### White Spaces
 
 In order to enhance readability insert white spaces between `=` and function
 parameters. 
