@@ -3,8 +3,7 @@ Two!Ears Matlab Coding Style Guide
 
 ## Table of Contents
 
-**[Introduction](#introduction)**
-
+**[Introduction](#introduction)**  
 **[Documentation and Comments](#documentation-and-comments)**  
   [Class Headers](#class-headers)  
   [Function Headers](#function-headers)  
@@ -12,20 +11,17 @@ Two!Ears Matlab Coding Style Guide
   [License](#license)  
   [Author](#author)  
   [Versioning](#versioning)  
-
 **[Naming Conventions](#naming-conventions)**  
   [General](#general)  
   [Variables](#variables)  
   [Constants](#constants)  
   [Functions](#functions)  
-  [Classes/Objects](#classesobjects)
-
+  [Classes/Objects](#classesobjects)  
 **[Layout](#layout)**  
   [Code Indention](#code-indention)  
   [White Spaces](#white-spaces)  
   [Line Width](#line-width)  
   [Line Breaks](#line-breaks)  
-
 **[Credits](#credits)**
 
 ## Introduction
