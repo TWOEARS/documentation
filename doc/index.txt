@@ -1,0 +1,108 @@
+
+.. _index:
+
+======================
+Two!Ears documentation
+======================
+
+.. rubric:: Everything you need to know about Two!Ears.
+
+Getting help
+============
+
+Having trouble? We'd like to help!
+
+* Try the :doc:`FAQ <faq/index>` -- it's got answers to many common questions.
+
+* Looking for specific information? Try the :ref:`genindex`, :ref:`modindex` or
+  the :doc:`detailed table of contents <contents>`.
+
+* Search for information in the archives of the |twoears| mailing list, or
+  `post a question`_.
+
+* Report bugs or ask for new features in our `issue tracker`_.
+
+.. _archives: http://groups.google.com/group/twoears/
+.. _post a question: https://groups.google.com/d/forum/twoears
+.. _issue tracker: https://github.com/TWOEARS/TwoEars/issues
+
+First Steps
+===========
+
+New to Two!Ears or auditory modelling? This is the place to start!
+
+* **Introduction:**
+  :doc:`Overview <intro/overview>` |
+  :doc:`Installation <intro/install>` |
+  :doc:`Two!Ears modular structure <intro/modules>`
+
+* **Tutorial:**
+  :doc:`Part 1: Auditory Models <intro/tutorial01>` |
+  :doc:`Part 2: Setting up an acoustic scene <intro/tutorial02>` |
+  :doc:`Part 3: Setting up an auditory model <intro/tutorial03>` |
+  :doc:`Part 4: Working with the database <intro/tutorial04>` |
+  :doc:`Part 5: Use a robotic plattform <intro/tutorial05>`
+
+Modular Structure
+=================
+
+Two!Ears is build up in a completely modular fashion. Find all you need to know
+about it below:
+
+Binaural Simulator
+==================
+
+The Two!Ears Binaural Simulator enables you to create dynamic binaural ear
+signals, that can be used by later parts of the model to actively explore a
+scene.
+
+Robotic Platform
+================
+
+If you have a robotic platform ready to record the binaural signals, no
+simulation of them will be needed. Learn to set up your own robot below:
+
+Auditory Front-End
+==================
+
+The Two!Ears Auditory Front-End extracts all kinds of auditory cues from the ear
+signals like the loudness or interaural differences. For detailed description
+see:
+
+.. * :doc:`Overview <afe/overview>`
+   * :doc:`Technical description <afe/description>`
+   * :doc:`Available processors <afe/processors>`
+   * :doc:`Add your own processor <afe/add-processor>`
+
+Blackboard System
+=================
+
+The Two!Ears Blackboard System is the *brain* of the Two!Ears Auditory Model as
+it provides a way to interpret the auditory cues and extract meaning from them.
+Learn how this happens below:
+
+Database
+========
+
+The Two!Ears Binaural Simulator and the Two!Ears Blackboard System uses a lot of
+different data to perform their tasks. This is achieved by a large collection of
+data:
+
+Evaluation
+==========
+
+A key concept of the Two!Ears Auditory Model is reproducible research. Here, you
+will find scripts that can redo plots of our publications.
+
+Misc
+====
+
+Developement
+============
+
+If you are part of the Two!Ears development team or would like to become part of
+it, read on:
+
+* :doc:`How to get involved <dev/index>`
+* :doc:`Coding style guide <dev/coding-style-guide>`
+* :doc:`Writing this documentation <dev/writing-documentation>`

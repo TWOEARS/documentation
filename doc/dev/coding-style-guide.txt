@@ -1,6 +1,8 @@
 ==================================
-Two!Ears Matlab Coding Style Guide
+Two!Ears Matlab coding style guide
 ==================================
+
+.. highlight:: Matlab
 
 Introduction
 ------------
@@ -23,15 +25,15 @@ code the following points should be considered:
   not able to understand the code
 
 
-Documentation and Comments
+Documentation and comments
 --------------------------
 
 Add documentation to every function or class you contribute to the Two!Ears
 model.
 
 
-Class Headers
-^^^^^^^^^^^^^
+Class headers
+~~~~~~~~~~~~~
 
 Class headers should contain a brief description of what the class is doing and
 probably contain a few examples on how to use the methods that the class provides.
@@ -39,7 +41,7 @@ A good example is the description of the Gaussian-Mixture distribution class tha
 is provided by the Matlab Statistics Toolbox. Type ``help gmdistribution`` in the
 command window for more details.
 
-.. code:: Matlab
+::
 
     %ClassName    This class contains several fancy methods to solve problems that
     %             are even more fancy. To create a fancy problem solving environment,
@@ -53,14 +55,12 @@ is no need to put additional comments to the class properties, as long as they
 are properly named (see the section on naming conventions below).
 
 
-Function Headers
-^^^^^^^^^^^^^^^^
+Function headers
+~~~~~~~~~~~~~~~~
 
 It is a good idea to have a consistent function header in all Two!Ears functions,
 this makes a much better impression and enhances the understanding if people
-uses the ``help`` function. They should look like the following:
-
-.. code:: Matlab
+uses the ``help`` function. They should look like the following::
 
     %functionName   This function is calculating fancy stuff1, not so fancy stuff2,
     %               and provides you a nice solution.
@@ -85,7 +85,7 @@ case as we use CamelCase notation.
 
 
 Comments
-^^^^^^^^
+~~~~~~~~
 
 * Add comments into your code at places that are not self explanatory.
 * If you implement a particular equation from a paper, please add a citation of
@@ -94,7 +94,7 @@ Comments
 
 
 License
-^^^^^^^
+~~~~~~~
 
 If a function comes with a different license (and only then) than the one
 specified in the main ``README.md`` of the single repositories the license has
@@ -102,7 +102,7 @@ to be stated in the function.
 In order to avoid clutter with the ``help`` command add an empty line between the
 header and the license.
 
-.. code:: Matlab
+::
 
     %   OUTPUT PARAMETERS
     %       outputParameter :   description of outputParameter
@@ -111,7 +111,7 @@ header and the license.
 
 
 Author
-^^^^^^
+~~~~~~
 
 We have lots of different authors that might also contribute to lots of
 different files. Hence, we mention no single author in the individual files.
@@ -126,12 +126,12 @@ the code.
 
 
 Versioning
-^^^^^^^^^^
+~~~~~~~~~~
 
 If you don't use a version control system you are maybe used to put changes with
 dates into the file header directly like
 
-.. code:: Matlab
+::
 
     % 10.10.2014: Completely changed everything
     % 11.10.2014: Was not so good, undo changes
@@ -144,12 +144,12 @@ Naming Conventions
 ------------------
 
 General
-^^^^^^^
+~~~~~~~
 
 Avoid abbreviations of names if they are not common to the whole community as it
 is the case with ``fs``.
 
-.. code:: Matlab
+::
 
     % do not write
     sigProc
@@ -157,9 +157,7 @@ is the case with ``fs``.
     signalProcessing
 
 Abbreviations that are normally given in uppercase like ``ILD`` should be changed
-in the following way:
-
-.. code:: Matlab
+in the following way::
 
     % variables
     ildLimit
@@ -168,12 +166,12 @@ in the following way:
     IldLimit
 
 Variables
-^^^^^^^^^
+~~~~~~~~~
 
 Variables should start with a lower case letter and use upper case letters for
 every starting word.
 
-.. code:: Matlab
+::
 
     signal
     inputSignal
@@ -181,7 +179,7 @@ every starting word.
 
 Use the prefix ``b`` for boolean variables and avoid negative names.
 
-.. code:: Matlab
+::
 
     bRemove
     % do not write
@@ -192,7 +190,7 @@ Use the prefix ``b`` for boolean variables and avoid negative names.
 Use the prefix ``n`` for indicating the number of objects and ``i`` as an iterator
 prefix.
 
-.. code:: Matlab
+::
 
     for iFile = 1:nFiles
         destroyFile(Files{iFile});
@@ -202,7 +200,7 @@ For loops over matrices in mathematics single letters like ``i`` or ``j`` are us
 Avoid those in Matlab, because they could be the imaginary unit. A common
 solution is to use ``ii``, ``jj``, ``kk``, ``nn`` as indices.
 
-.. code:: Matlab
+::
 
     savedPoints = zeros(size(pointMatrix));
     for ii = 1:size(pointMatrix, 1)
@@ -214,7 +212,7 @@ solution is to use ``ii``, ``jj``, ``kk``, ``nn`` as indices.
 Note, if you don't have to use the indices for different things in the loop the
 above statement can be better written as
 
-.. code:: Matlab
+::
 
     savedPoints = zeros(size(pointMatrix);
     for ii = 1:numel(pointMatrix)
@@ -224,7 +222,7 @@ above statement can be better written as
 If you want to access column vectors stored in a matrix, like the left and right
 ear canal you could also use the following syntax
 
-.. code:: Matlab
+::
 
     for singleChannel = binauralSignal
         printRmsDb(singleChannel)
@@ -232,12 +230,12 @@ ear canal you could also use the following syntax
 
 
 Constants
-^^^^^^^^^
+~~~~~~~~~
 
 If you have constants in your function that can not be changed, you should write
 them completely uppercase.
 
-.. code:: Matlab
+::
 
     TRESHOLD = 3.2;
 
@@ -248,11 +246,11 @@ properties (Constant)`_
 
 
 Functions
-^^^^^^^^^
+~~~~~~~~~
 
 For functions the naming convention is exactly the same as for variables.
 
-.. code:: Matlab
+::
 
     limit()
     limitSignal()
@@ -273,11 +271,11 @@ Matlab the most common approach is to create functions that do one thing.
 
 
 Classes/Objects
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 Like functions, but always start with a uppercase letter.
 
-.. code:: Matlab
+::
 
     Signals
     BlackboardSystem
@@ -288,11 +286,11 @@ Layout
 ------
 
 Code Indention
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 Use exactly 4 white spaces (not a tab) for indention.
 
-.. code:: Matlab
+::
 
     if true
         while true
@@ -302,17 +300,17 @@ Use exactly 4 white spaces (not a tab) for indention.
 
 In vim this behavior can be achieved with the following setting.
 
-::
+.. code:: vim
 
     set sw=4 ts=4 et
 
 White Spaces
-^^^^^^^^^^^^
+~~~~~~~~~~~~
 
 In order to enhance readability insert white spaces between ``=`` and function
 parameters.
 
-.. code:: Matlab
+::
 
     someVar = computeValue(oneArgument, anotherParameter);
 
@@ -320,7 +318,7 @@ Avoid to insert white spaces into blank lines.
 
 
 Line Width
-^^^^^^^^^^
+~~~~~~~~~~
 
 Due to the large monitor sizes we have nowadays it is not mandatory to stick to
 the common line width of 79 characters. As the code at github is limited to 90
@@ -329,17 +327,17 @@ characters, we should also use that limit instead.
 In vim this will add the following setting to the settings line introduced
 above.
 
-::
+.. code:: vim
 
     set sw=4 ts=4 et tw=90
 
 Line Breaks
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 If you have to break a line the elements should be aligned vertically in one of
 the following ways.
 
-.. code:: Matlab
+::
 
     % Aligned with opening delimiter
     foo = loadFile(['/path/to/a/veryveryveryveryandsoon/', ...
@@ -356,7 +354,7 @@ With ``if``-statements it could happen that you run into trouble if you have to 
 a line break. The reason is that the 4 characters indentation are exactly the same
 size as ``if (`` which is used for alignment. Here are solutions to deal with it.
 
-.. code:: Matlab
+::
 
     % No extra indentation
     if (theFirstThing & ...
@@ -379,7 +377,7 @@ For multi-line statements the closing bracket may line up at the end of the last
 line, under the first non-whitespace character of the last line, or it may line
 up under the first character of the line that starts the statement.
 
-.. code:: Matlab
+::
 
     largeMatrix = [
         1, 2, 3

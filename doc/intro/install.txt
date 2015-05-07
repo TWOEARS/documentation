@@ -13,12 +13,6 @@ its main repository:
 * `Two!Ears Database`_
 * `SOFA`_
 
-.. _Two!Ears: https://github.com/TWOEARS/twoears
-.. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator
-.. _Two!Ears Auditory Front-End: https://github.com/TWOEARS/auditory-front-end
-.. _Two!Ears Blackboard System: https://github.com/TWOEARS/blackboard-system
-.. _Two!Ears Tools: https://github.com/TWOEARS/tools
-.. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
 .. _SOFA: https://github.com/TWOEARS/SOFA
 
 If you have downloaded the desired model part you have to setup the path

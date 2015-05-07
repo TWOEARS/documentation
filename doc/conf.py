@@ -206,7 +206,13 @@ htmlhelp_basename = 'Theauditoryfront-endframeworkdoc'
 
 # Appended to every page
 rst_epilog = """
-.. |twoears-mail| replace:: :ref:`twoears <twoears-mailing-list>`
+.. |twoears| replace:: :ref:`twoears <twoears-mailing-list>`
+.. _Two!Ears: https://github.com/TWOEARS/twoears
+.. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator
+.. _Two!Ears Auditory Front-End: https://github.com/TWOEARS/auditory-front-end
+.. _Two!Ears Blackboard System: https://github.com/TWOEARS/blackboard-system
+.. _Two!Ears Tools: https://github.com/TWOEARS/tools
+.. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
 """
 
 # -- Options for LaTeX output ---------------------------------------------
