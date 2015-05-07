@@ -206,7 +206,7 @@ htmlhelp_basename = 'Theauditoryfront-endframeworkdoc'
 
 # Appended to every page
 rst_epilog = """
-.. |twoears| replace:: :ref:`twoears <twoears-mailing-list>`
+.. |twoears| replace:: `twoears <twoears@mailing-list.com>`
 .. _Two!Ears: https://github.com/TWOEARS/twoears
 .. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator
 .. _Two!Ears Auditory Front-End: https://github.com/TWOEARS/auditory-front-end

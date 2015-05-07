@@ -32,7 +32,7 @@ First Steps
 New to Two!Ears or auditory modelling? This is the place to start!
 
 * **Introduction:**
-  :doc:`Overview <intro/overview>` |
+  :doc:`Overview <intro/index>` |
   :doc:`Installation <intro/install>` |
   :doc:`Two!Ears modular structure <intro/modules>`
 
