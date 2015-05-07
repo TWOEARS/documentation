@@ -1,0 +1,51 @@
+Two!Ears Auditory Front-End
+===========================
+
+The goal of the Two!Ears project is to develop an intelligent, active
+computational model of auditory perception and experience in a
+multi-modal context. The `Two!Ears Auditory Front-End`_
+represents the first stage of the system
+architecture and concerns bottom-up auditory signal processing, which
+transforms binaural signals into multi-dimensional auditory
+representations. The output provided by this consists of several
+transformed versions of ear signals enriched by perception-based
+descriptors which form the input to the higher model stages. Specific
+emphasis is given on the modularity of the software framework, making
+this more than just a collection of models documented in the literature.
+Bottom-up signal processing is implemented as a collection of processor
+modules, which are instantiated and routed by a manager object. A
+variety of processor modules is provided to compute auditory cues such
+as ratemaps, interaural time and level differences, interaural
+coherence, onsets and offsets. An object-oriented approach is used
+throughout, giving benefits of reusability, encapsulation and
+extensibility. This affords great flexibility, and allows modification
+of bottom-up processing in response to feedback from higher levels of
+the system during run time. Such top-down feedback could, for instance,
+lead to on-the-fly changes in parameter values of peripheral modules,
+like the filter bandwidths of the basilar-membrane filters. In addition,
+the object-oriented  framework allows direct switching between
+alternative peripheral filter modules, while keeping all other
+components unchanged, allowing for a systematic comparison of
+alternative processors. Finally, the framework supports online
+processing of the two-channel ear signals.
+
+To get in touch with the `Two!Ears Auditory Front-End`_,
+requests auditory cues or even write your own auditory processor
+read on:
+
+.. toctree::
+ :maxdepth: 2
+
+ overview
+ description
+ processors
+ add-processor
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

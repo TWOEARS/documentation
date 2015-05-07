@@ -69,10 +69,11 @@ The Two!Ears Auditory Front-End extracts all kinds of auditory cues from the ear
 signals like the loudness or interaural differences. For detailed description
 see:
 
-.. * :doc:`Overview <afe/overview>`
-   * :doc:`Technical description <afe/description>`
-   * :doc:`Available processors <afe/processors>`
-   * :doc:`Add your own processor <afe/add-processor>`
+* :doc:`Introduction <afe/index>`
+* :doc:`Overview <afe/overview>`
+* :doc:`Technical description <afe/description>`
+* :doc:`Available processors <afe/processors>`
+* :doc:`Add your own processor <afe/add-processor>`
 
 Blackboard System
 =================
