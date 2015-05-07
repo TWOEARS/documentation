@@ -1,0 +1,45 @@
+Quick install guide
+===================
+
+At the moment no official download package of the Two!Ears Auditory Model
+exists, but in order to install it you can download its single modules starting with
+its main repository:
+
+* `Two!Ears`_
+* `Two!Ears Binaural Simulator`_
+* `Two!Ears Auditory Front-End`_
+* `Two!Ears Blackboard System`_
+* `Two!Ears Tools`_
+* `Two!Ears Database`_
+* `SOFA`_
+
+.. _Two!Ears: https://github.com/TWOEARS/twoears
+.. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator
+.. _Two!Ears Auditory Front-End: https://github.com/TWOEARS/auditory-front-end
+.. _Two!Ears Blackboard System: https://github.com/TWOEARS/blackboard-system
+.. _Two!Ears Tools: https://github.com/TWOEARS/tools
+.. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
+.. _SOFA: https://github.com/TWOEARS/SOFA
+
+If you have downloaded the desired model part you have to setup the path
+configuration file ``TwoEarsPaths.xml`` of the main repository to include your
+local paths to all of the installed model parts. Please don't change the names
+in the brackets like ``<auditory-front-end>``, they are used internally but put the
+corresponding paths between the xml tags. On a linux PC the file could be
+looking like this:
+
+.. code:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <repoPaths>
+        <binaural-simulator>~/git/twoears/binaural-simulator</binaural-simulator>
+        <auditory-front-end>~/git/twoears/auditory-cues</auditory-front-end>
+        <blackboard-system>~/git/twoears/cognition</blackboard-system>
+        <tools>~/git/twoears/tools</tools>
+        <sofa>~/git/twoears/sofa</sofa>
+        <data>~/git/twoears/data</data>
+    </repoPaths>
+
+If you have set up all the paths you can start the model with::
+
+    >> startTwoEars;

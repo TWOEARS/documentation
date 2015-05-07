@@ -1,0 +1,28 @@
+=======================
+Development of Two!Ears
+=======================
+
+Two!Ears is developed by different Universities in a collaborate fashion.
+This section should help to streamline the development and gave guides on how to
+write code and documentation.
+
+If you want to become involved yourself you can do the following things:
+
+* Join the |twoears| mailing list and ask your questions or share your ideas.
+
+* Clone our code from https://github.com/TWOEARS, change it and create `pull
+  requests`_.
+
+* Report bugs or request new features in our `ticket tracker`_. 
+
+If you are want to contribute code or documentation to Two!Ears
+browse the following sections to find out how:
+
+.. toctree::
+   :maxdepth: 2
+
+   coding-style-guide
+   writing-documentation
+
+.. _pull requests: https://help.github.com/articles/using-pull-requests/
+.. _ticket tracker: https://github.com/TWOEARS/TwoEars/issues 
