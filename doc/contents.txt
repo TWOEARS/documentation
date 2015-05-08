@@ -1,0 +1,31 @@
+.. _contents:
+
+===============================
+Two!Ears documentation contents
+===============================
+
+.. toctree::
+    :hidden:
+
+    index
+
+.. toctree::
+    :maxdepth: 3
+
+    intro/index
+    modules/index
+    binsim/index
+    robo/index
+    afe/index
+    blackboard/index
+    database/index
+    evaluation/index
+    misc/index
+    dev/index
+
+Indices, glossary and tables
+============================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`glossary`

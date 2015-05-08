@@ -22,7 +22,7 @@ You could of course use your own audio files, but you can also use files from
 the large `Two!Ears Database`_. In that case you only have to specify the
 path of the desired files in the database and the `Two!Ears Binaural Simulator`_
 will download them during processing. For further information on that have a
-look at the :doc:`Introduction into the database <../database/index>.
+look at the :doc:`Introduction into the database <../database/index>`.
 
 Configuration using a Matlab script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,9 +63,9 @@ name in Matlab::
         ReverberationMaxOrder: 0
 
 For a more detailed description of each parameter refer to the
-`API documentation on the Simulator`_. In order to change various processing
-parameters of the simulator the build-in set/get functionality of Matlab should
-be used, e.g.
+`API documentation on the Two!Ears Binaural Simulator`_. In order to change
+various processing parameters of the simulator the build-in set/get
+functionality of Matlab should be used, e.g.
 
 ::
 
@@ -86,6 +86,7 @@ size aka. frame size of 4096 Samples. To define the acoustic scene, e.g.
 the sound sources and the listener.
 
 ::
+
     % acoustic scene
     set(sim, ...
       'Sources', {simulator.source.Point(), simulator.source.Point()}, ...
@@ -165,6 +166,7 @@ the filename of a XML scene description file.
 The content of file:`test_binaural.xml` is shown below.
 
 .. code:: xml
+
     <scene
       BlockSize="4096"
       SampleRate="44100"
