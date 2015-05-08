@@ -26,11 +26,13 @@ First you have to ensure some prerequisites:
 * Debian or Debian-based Linux operating system (e.g. Ubuntu) recommended
 * MATLAB + mex-compiler
 * packages (install with apt-get, aptitude, synaptic, macports, ...)
+
   * **make**
   * **g++** (at least version 4.7.3)
   * **libsndfile1-dev**
   * **libxml2-dev**
   * **libfftw3-dev**
+
 * optional: get SoundScape Renderer (location will be denoted as ``SSR_DIR``)
   ::
 
@@ -75,7 +77,7 @@ Alternative 2 (requires optional prerequisites)
 
 * open Matlab and add ``SSR_DIR/mex/`` to MATLAB-path using ``pathtool`` or ``addpath``
 
-That's all, now you should be able to :doc:`use it <usage>`.
+That's all, now you should be able to :doc:`use the Two!Ears Binaural Simulator <usage>`.
 
 
 Windows 7 64bit
@@ -129,6 +131,6 @@ Alternative 2 (requires optional prerequisites)
 
 * open Matlab and add ``SSR_DIR/mex/`` to MATLAB-path using ``pathtool`` or ``addpath``
 
-That's all, now you should be able to :doc:`use it <usage>`.
+That's all, now you should be able to :doc:`use the Two!Ears Binaural Simulator <usage>`.
 
 .. vim: filetype=rst spell:

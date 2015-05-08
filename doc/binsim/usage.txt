@@ -10,6 +10,7 @@ the `Two!Ears Auditory Model`_ you can start it as a single module with the
 :doc:`Two!Ears Main module <../modules/main>`.
 
 ::
+
     startTwoEars('BinauralSimulator.xml');
 
 Configuration
