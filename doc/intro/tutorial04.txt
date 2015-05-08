@@ -1,2 +1,4 @@
 Working with the database
 =========================
+
+.. vim: filetype=rst spell:

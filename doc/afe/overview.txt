@@ -719,3 +719,4 @@ available MATLAB toolboxes or classes:
 
 -  `circVBuf <http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf>`_
 
+.. vim: filetype=rst spell:

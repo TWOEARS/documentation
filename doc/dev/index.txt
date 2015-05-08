@@ -26,3 +26,5 @@ browse the following sections to find out how:
 
 .. _pull requests: https://help.github.com/articles/using-pull-requests/
 .. _ticket tracker: https://github.com/TWOEARS/TwoEars/issues 
+
+.. vim: filetype=rst spell:

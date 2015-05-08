@@ -131,3 +131,4 @@ Alternative 2 (requires optional prerequisites)
 
 That's all, now you should be able to :doc:`use it <usage>`.
 
+.. vim: filetype=rst spell:

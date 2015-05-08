@@ -193,3 +193,5 @@ environment using BRIR recordings. The resulting binaural signal as stored in
     sim.Sinks.saveFile('out_brirs.wav',sim.SampleRate);
     %% clean up
     sim.set('ShutDown',true);
+
+.. vim: filetype=rst spell:

@@ -1,2 +1,4 @@
 Use a robotic plattform
 =======================
+
+.. vim: filetype=rst spell:

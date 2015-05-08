@@ -1,2 +1,4 @@
 Setting up an auditory model
 ============================
+
+.. vim: filetype=rst spell:

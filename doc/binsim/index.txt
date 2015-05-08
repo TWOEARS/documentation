@@ -40,3 +40,5 @@ The `Two!Ears Binaural Simulator`_ is released under `GNU General Public License
 version 2`.
 
 .. _GNU General Public License, version 2: http://www.gnu.org/licenses/gpl-2.0.html
+
+.. vim: filetype=rst spell:

@@ -112,3 +112,5 @@ it, read on:
 * :doc:`How to get involved <dev/index>`
 * :doc:`Coding style guide <dev/coding-style-guide>`
 * :doc:`Writing this documentation <dev/writing-documentation>`
+
+.. vim: filetype=rst spell:

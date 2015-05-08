@@ -49,3 +49,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. vim: filetype=rst spell:

@@ -37,3 +37,5 @@ looking like this:
 If you have set up all the paths you can start the model with::
 
     >> startTwoEars;
+
+.. vim: filetype=rst spell:

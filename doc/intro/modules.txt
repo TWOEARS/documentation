@@ -48,3 +48,4 @@ how to apply the model.
                                                    │ └───────────┘ │
                                                    └───────────────┘
 
+.. vim: filetype=rst spell:

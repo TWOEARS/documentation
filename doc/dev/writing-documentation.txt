@@ -170,3 +170,5 @@ one of the following:
 * Find synonyms that the spell checker recognizes.
 * If, and only if, you are sure the word you are using is correct - add it
   to :file:`doc/spelling_wordlist` (please keep the list in alphabetical order).
+
+.. vim: filetype=rst spell:

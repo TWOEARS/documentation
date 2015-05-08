@@ -42,3 +42,5 @@ Read the following material to quickly get up and running.
     tutorial03
     tutorial04
     tutorial05
+
+.. vim: filetype=rst spell:
