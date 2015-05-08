@@ -56,6 +56,11 @@ The Two!Ears Binaural Simulator enables you to create dynamic binaural ear
 signals, that can be used by later parts of the model to actively explore a
 scene.
 
+* :doc:`Overview <binsim/index>`
+* :doc:`Installation <binsim/install>`
+* :doc:`Usage <binsim/usage>`
+* :doc:`Examples <binsim/examples>`
+
 Robotic Platform
 ================
 

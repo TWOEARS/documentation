@@ -1,5 +1,5 @@
-Quick install guide
-===================
+Installation guide
+==================
 
 At the moment no official download package of the Two!Ears Auditory Model
 exists, but in order to install it you can download its single modules starting with
