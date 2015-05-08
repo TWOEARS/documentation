@@ -141,10 +141,7 @@ shows the system class diagram.
 
 .. _fig-blackboard-system-class-diagram:
 
-.. figure:: graphics/chapter3/blackboardSystem_classDiagram.pdf
-   :alt: Class diagram of the whole blackboard system. The
-   BlackboardSystem class is the integrative system component holding
-   the other modules and giving access to system functionality.
+.. figure:: img/blackboard-system-class-diagram.png
 
    Class diagram of the whole blackboard system. The BlackboardSystem
    class is the integrative system component holding the other modules
@@ -397,8 +394,6 @@ agenda (first in ``executing``, afterwards in ``pastAgenda``).
 .. _fig-lackboard-event-system:
 
 .. figure:: img/blackboard-event-system.png
-   :alt: The different possibilities of event binding between knowledge
-   sources with the blackboard system.
 
    The different possibilities of event binding between knowledge
    sources with the blackboard system.
