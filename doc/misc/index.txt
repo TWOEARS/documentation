@@ -1,0 +1,10 @@
+====
+Misc
+====
+
+Different stuff
+
+.. toctree::
+    :maxdepth: 1
+
+.. vim: filetype=rst spell:
