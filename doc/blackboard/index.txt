@@ -2,9 +2,13 @@
 Two!Ears Blackboard System
 ==========================
 
-Different stuff
+This is not up to date, but for testing the following is included:
 
 .. toctree::
     :maxdepth: 1
+
+    overview
+    development
+    implementation
 
 .. vim: filetype=rst spell:

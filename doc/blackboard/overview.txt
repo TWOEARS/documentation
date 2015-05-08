@@ -1,0 +1,71 @@
+Overview of software architecture
+=================================
+
+The goal of the Two!Ears project is to develop an intelligent, active
+computational model of auditory perception and experience in a
+multi-modal context. In order to do so, the system must be able to
+recognise acoustic sources and optical objects, and achieve perceptual
+organisation of sound in the same manner as human listeners do. [Bregman1990]_ has
+referred to the latter phenomenon as *ASA*, and to reproduce this ability in
+a machine system a number of factors must be considered:
+
+-  ASA involves diverse sources of knowledge, including both primitive
+   (innate) grouping heuristics and schema-driven (learned) grouping
+   principles;
+
+-  Solving the ASA problem requires the close interaction of top-down and
+   bottom-up processes through feedback loops;
+
+-  Auditory processing is flexible, adaptive, opportunistic and
+   context-dependent.
+
+The characteristics of ASA are well-matched to those of *blackboard*
+problem-solving architectures. A blackboard system consists of a group
+of independent experts (*knowledge sources*) that communicate by reading
+and writing data on a globally-accessible data structure (*blackboard*).
+The blackboard is typically divided into layers, corresponding to data,
+hypotheses and partial solutions at different levels of abstraction.
+Given the contents of the blackboard, each knowledge source indicates
+the actions that it would like to perform; these actions are then
+coordinated by a scheduler, which determines the order in which actions
+will be carried out.
+
+Blackboard systems were introduced by [Erman1980]_ as an architecture for speech
+understanding, in their Hearsay-II system. In the 1990s, a number of
+authors described blackboard-based systems for machine hearing [Cooke1993]_,
+[Lesser1995]_, [Ellis1996]_, [Godsmark1999]_. All of
+these systems were in most respects ‘conventional’ blackboard
+architectures, in which the knowledge sources employed rule-based
+heuristics. In contrast, the Two!Ears architecture aims to exploit
+recent developments in machine learning, by combining the flexibility of
+a blackboard architecture with powerful learning algorithms afforded by
+probabilistic graphical models.
+
+.. _fig-blackboard-architecture:
+
+.. figure:: img/blackboard-architecture.png
+
+    Overview of the general software architecture across all
+    work-packages.
+
+The general structure of the complete Two!Ears software architecture is
+shown in Figure :ref:`fig-blackboard-architecture`.
+Since Deliverable D3.1, major progress has been made
+towards integration of all related software modules across work
+packages. The current system includes the auralization environment
+developed by WP1, which is interfaced with the peripheral processing and
+feature extraction stage of WP2. The blackboard system, developed by WP3, acts
+as the core of the integrated framework and provides additional
+interfaces to include feedback mechanisms investigated within WP4 and a
+robotic interface to communicate with WP5. Recent development on the
+[Morse2014]_ software architecture is focused on integrating simulated visual
+processing, based on the simulator provided by WP5, into the framework.
+This will provide capabilities necessary to simulate acoustic and visual
+scenes that will be investigated within the Two!Ears application
+scenarios.
+
+In the following sections, we describe in more detail the progress on
+the design and implementation of the integrated framework as well as
+individual knowledge sources.
+
+.. vim: filetype=rst spell:
