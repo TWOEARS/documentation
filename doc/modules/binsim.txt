@@ -1,0 +1,4 @@
+Two!Ears Binaural Simulator module
+==================================
+
+.. vim: filetype=rst spell:
