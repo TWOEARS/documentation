@@ -36,6 +36,8 @@ of tediously accessing the object.
 Data handling
 -------------
 
+.. _sec-afe-circular-buffer:
+
 Circular buffer
 ~~~~~~~~~~~~~~~
 

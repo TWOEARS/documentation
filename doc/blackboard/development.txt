@@ -315,7 +315,7 @@ signals from the |AFE| requested by
 :ref:`knowledge sources` inheriting from ``AuditoryFrontEndDepKS``.
 The actual memory in which these signals are stored for recall is
 implemented in the |AFE| through :ref:`circular buffers
-<afe-circular-buffers>`.
+<sec-afe-circular-buffers>`.
 
 Dynamic blackboard interactions
 -------------------------------
