@@ -2,15 +2,14 @@ Available processors
 ====================
 
 This chapter presents a detailed description of all processors that are
-currently supported by the framework. Each processor can be controlled
+currently supported by the |AFE| framework. Each processor can be controlled
 by a set of parameters, which will be explained and all default settings
 will be listed. Finally, a demonstration will be given, showing the
 functionality of each processor. The corresponding Matlab files are
-contained in the folder ``/test`` an can be used to reproduce the
-individual plots. A summary of all demo scripts can be found in appendix
-. A full list of available processors can be displayed by using the
+contained in the |AFE| folder ``/test`` and can be used to reproduce the
+individual plots. A full list of available processors can be displayed by using the
 command ``requestList``. An overview of the commands for instantiating
-processors is given in Sec. .
+processors is given in Section :ref:`missing-ref`.
 
 Pre-processing (``preProc.m``)
 ------------------------------
@@ -19,13 +18,13 @@ Prior to computing any of the supported auditory representations, the
 input signal stored in the data object can be pre-processed with one of
 the following elements:
 
-#.  bias removal
+#. Direct current (DC) bias removal
 
 #. Pre-emphasis
 
-#.  normalization using an
+#. Root mean square (RMS) normalization using an automatic gain control
 
-#. Level scaling to a pre-defiend reference
+#. Level scaling to a pre-defined sound pressure level (SPL) reference
 
 #. Middle ear filtering
 
@@ -33,86 +32,89 @@ The order of processing is fixed. However, individual stages can be
 activated or deactivated, depending on the requirement of the user. The
 output is a time domain signal representation that is used as input to
 the next processors. Moreover, a list of adjustable parameters is listed
-in Tab. .
+in Table :ref:`tab-time-parameters`.
 
 .. _tab-time-parameters:
 
 .. table:: List of parameters related to the auditory representation ’time’.
 
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  Parameter	                        | Default    |	Description                                                                      |   
-    +===========================================+============+===================================================================================+
-    |  ``pp\_bRemoveDC``                        | false      |  Activate *DC* removal filter	                                                 |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_cutoffHzDC``                       | 20         |  Cut-off frequency in *hertz* of the high-pass filter                             |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_bPreEmphasis``                     | false      |  Activate pre-emphasis filter                                                     |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_coefPreEmphasis``                  | 0.97       |  Coefficient of first-order high-pass filter                                      |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_bNormalizeRMS``	                | false      |  Activate *RMS* normalization	                                                 |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_intTimeSecRMS``                    | 2          |  Time constant in *second* used for *RMS* estimation                              |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_bBinauralRMS``                     | true       |  Link *RMS* normalization across both ear signals                                 |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_bLevelScaling``	                | false      |  Apply level scaling to the given reference                                       |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_refSPLdB``		                | 100        |  Reference :math:`decibel` *spl* to correspond to the input *RMS* of 1            |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_bMiddleEarFiltering``              | false      |  Apply middle ear filtering		                                         |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-    |  ``pp\_middleEarModel``	                | jepsen     |  Middle ear filter model                                                          |   
-    +-------------------------------------------+------------+-----------------------------------------------------------------------------------+
-
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  Parameter                   | Default      |   Description                                         |   
+    +==============================+==============+=======================================================+
+    |  ``pp\_bRemoveDC``           | ``false``    |  Activate DC removal filter                           |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_cutoffHzDC``          | ``20``       |  Cut-off frequency in Hz of the high-pass filter      |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_bPreEmphasis``        | ``false``    |  Activate pre-emphasis filter                         |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_coefPreEmphasis``     | ``0.97``     |  Coefficient of first-order high-pass filter          |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_bNormalizeRMS``       | ``false``    |  Activate RMS normalization                           |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_intTimeSecRMS``       | ``2``        |  Time constant in s used for RMS estimation           |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_bBinauralRMS``        | ``true``     |  Link RMS normalization across both ear signals       |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_bLevelScaling``       | ``false``    |  Apply level scaling to the given reference           |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_refSPLdB``            | ``100``      |  Reference dB SPL to correspond to the input RMS of 1 |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_bMiddleEarFiltering`` | ``false``    |  Apply middle ear filtering                           |   
+    +------------------------------+--------------+-------------------------------------------------------+
+    |  ``pp\_middleEarModel``      | ``'jepsen'`` |  Middle ear filter model                              |   
+    +------------------------------+--------------+-------------------------------------------------------+
 
 
 The influence of each individual pre-processing stage except for the
-level scaling is illustrated in Fig. , which can be reproduced by
+level scaling is illustrated in Figure :ref:`Illustration of the individual
+pre-processing steps <fig-pre-proc>`,
+which can be reproduced by
 running the script ``DEMO_PreProcessing.m``. Panel 1 shows the left and
 the right ears signals of two sentences at two different levels. The ear
-signals are then mixed with a sinusoid at :math:`0.5 hertz` to
+signals are then mixed with a sinusoid at 0.5 Hz to
 simulate an interfering humming noise. This humming can be effectively
-removed by the removal filter, as shown in panel 3. Panel 4 shows the
-influence of the pre-emphasis stage. The can be used to equalize the
-long-term level difference between the two sentences. However, if the
+removed by the DC removal filter, as shown in panel 3. Panel 4 shows the
+influence of the pre-emphasis stage. The AGC can be used to equalize the
+long-term RMS level difference between the two sentences. However, if the
 level difference between both ear signals should be preserved, it is
-important to synchronize the across both channels, as illustrated in
+important to synchronize the AGC across both channels, as illustrated in
 panel 5 and 6. Panel 7 shows the influence of the level scaling when
-using a reference value of 100dB . Panel 8 shows the signals after
+using a reference value of 100 dB SPL. Panel 8 shows the signals after
 middle ear filtering, as the stapes motion velocity. Each individual
 pre-processing stage is described in the following subsections.
+
+.. _fig-pre-proc:
 
 .. figure:: images/Pre_Proc.png
 
    Illustration of the individual pre-processing steps.
    1) Ear signals consisting of two sentences recorded at different levels,
-   2) ear signals mixed with a :math:`0.5 hertz` humming 3), ear signals
-   after removal filter, 4) influence of pre-emphasis filter, 5) monaural
-   normalization, 6) binaural normalization, 7) level scaling and 8) middle
+   2) ear signals mixed with a 0.5 Hz humming, 3) ear signals
+   after DC removal filter, 4) influence of pre-emphasis filter, 5) monaural
+   RMS normalization, 6) binaural RMS normalization, 7) level scaling and 8) middle
    ear filtering.
 
 
 DC removal filter
 ~~~~~~~~~~~~~~~~~
 
-To remove low-frequency humming, a removal filter can be activated by
-using the flag ``pp_bRemoveDC = true``. The removal filter is based on a
-fourth-order butterworth filter with a cut-off frequency of
-:math:`20 hertz`, as specified by the parameter
-``pp_cutoffHzDC = 20``.
+To remove low-frequency humming, a DC removal filter can be activated by
+using the flag ``pp_bRemoveDC = true``. The DC removal filter is based on a
+fourth-order IIR Butterworth filter with a cut-off frequency of
+20 Hz, as specified by the parameter ``pp_cutoffHzDC = 20``.
 
 Pre-emphasis
 ~~~~~~~~~~~~
 
-A common pre-processing stage in the context of includes a signal
+A common pre-processing stage in the context of automatic speech recognition
+(ASR) includes a signal
 whitening. The goal of this pre-processing stage is to roughly
 compensate for the decreased energy at higher frequencies (e.g. due to
-lip radiation). Therefore, a first-order high-pass filter is employed,
+lip radiation). Therefore, a first-order FIR high-pass filter is employed,
 where the filter coefficient ``pp_coefPreEmphasis`` determines the
 amount of pre-emphasis and is typically selected from the range between
-:math:`0.9` and :math:`1`. Here, we set the coefficient to
-``pp_coefPreEmphasis = 0.97`` by default according to . This
+0.9 and 1. Here, we set the coefficient to
+``pp_coefPreEmphasis = 0.97`` by default according to [Young2006]_. This
 pre-emphasis filter can be activated by setting the flag
 ``pp_bPreEmphasis = true``.
 
@@ -121,15 +123,16 @@ RMS normalization
 
 A signal level normalization stage is available which can be used to
 equalize long-term level differences (e.g. when recording two speakers
-at two different distances). For some applications, such as and speaker
+at two different distances). For some applications, such as ASR and speaker
 identification systems, it can be advantageous to maintain a constant
 signal power, such that the features extracted by subsequent processors
 are invariant to the overall signal level. To achieve this, the input
-signal is normalized by its value that has been estimated by a
+signal is normalized by its RMS value that has been estimated by a
 first-order low-pass filter with a time constant of
 ``pp_intTimeSecRMS = 2``. Such a normalization stage has also been
-suggested in the context of feature extraction , which are described in
-Sec. . The choice of the time constant is a balance between maintaining
+suggested in the context of amplitude modulation spectrogram (AMS)
+feature extraction [Tchorz2003]_, which are described in
+Section :ref:`missing-ref`. The choice of the time constant is a balance between maintaining
 the level fluctuations across individual words and allowing the
 normalization stage to follow sudden level changes.
 
@@ -137,9 +140,9 @@ The normalization can be either applied independently for the left and
 the right ear signal by setting the parameter
 ``pp_bBinauralRMS = false``, or the processing can be linked across ear
 signals by setting ``pp_bBinauralRMS = true``. When being used in the
-binaural mode, the larger value of both ear signals is used for
-normalization, which will preserve the binaural cues (e.g. and ) that
-are encoded in the signal. The normalizaion can be activated by the
+binaural mode, the larger RMS value of both ear signals is used for
+normalization, which will preserve the binaural cues (e.g. ITD and ILD) that
+are encoded in the signal. The RMS normalization can be activated by the
 parameter ``pp_bNormalizeRMS = true``.
 
 Level reference and scaling
@@ -148,16 +151,17 @@ Level reference and scaling
 This stage is designed to implement the effect of calibration, in which
 the amplitude of the incoming digital signal is matched to sound
 pressure in the physical domain. This operation is necessary when any of
-the models requires the input to be represented in physical units (such
+the |AFE| models requires the input to be represented in physical units (such
 as pascals, see the middle ear filtering stage below). Within the
-current framework, the filterbank model requires this signal
-representation (see Sec. ). The request for this is given by setting
+current |AFE| framework, the dual-resonance non-linear (DRNL)
+filterbank model requires this signal
+representation (see Section :ref:`missing-ref`). The request for this is given by setting
 ``pp_bApplyLevelScaling = true``, with a reference value ``pp_refSPLdB``
-in :math:`decibel` which should correspond to the input of 1. Then the
+in dB SPL which should correspond to the input RMS of 1. Then the
 input signal is scaled accordingly, if it had been calibrated to a
 different reference. The default value of ``pp_refSPLdB`` is 100, which
-corresponds to the convention used in the work of . The implementation
-is adopted from the `AMToolbox <http://amtoolbox.sourceforge.net/>`__ .
+corresponds to the convention used in the work of [Jespen2008]_.
+The implementation is adopted from the |amtoolbox| [Soendergaard2013]_.
 
 Middle ear filtering
 ~~~~~~~~~~~~~~~~~~~~
@@ -165,21 +169,27 @@ Middle ear filtering
 This stage corresponds to the operation of the middle ear where the
 vibration from the eardrum is transformed into the stapes motion. The
 filter model is based on the findings from the measurement of human
-stapes displacement by . Its implementation is adopted from the
-`AMToolbox <http://amtoolbox.sourceforge.net/>`__ , which derives the
-stapes velocity as the output . The input is assumed to be the eardrum
+stapes displacement by [Godde1994]_. Its implementation is adopted from the
+|amtoolbox| [Soendergaard2013]_, which derives the
+stapes velocity as the output [Lopez-Poveda2001]_, [Jepsen2008]_.
+The input is assumed to be the eardrum
 pressure represented in pascals which in turn assumes prior calibration.
 This input-output representation in physical units is required
-particularly when the filterbank model is used for the operation,
+particularly when the DRNL filterbank model is used for the basilar membrane
+(BM) operation,
 because of its level-dependent nonlinearity, designed based on that
-representation (see Sec. ). When including the middle-ear filtering in
+representation (see Section :ref:`missing-ref`). When including the middle-ear filtering in
 combination with the linear gammatone filter, only the simple band-pass
 characteristic of this model is needed without the need for input
 calibration or consideration of the input/output units. The middle ear
 filtering can be applied by setting ``pp_bMiddleEarFiltering = true``.
-The filter data from or from can be used for the processing, by
-specifying the model ``pp_middleEarModel = ’lopezpoveda’`` or
-``pp_middleEarModel = ’jepsen’`` respectively.
+The filter data from [Lopez-Poveda2001]_ or from [Jepsen2008]_ can be
+used for the processing, by
+specifying the model ``pp_middleEarModel = 'lopezpoveda'`` or
+``pp_middleEarModel = 'jepsen'`` respectively.
+
+
+.. _sec-auditory-filterbank:
 
 Auditory filterbank
 -------------------
@@ -212,33 +222,33 @@ corresponding parameters.
 .. table:: List of parameters related to the auditory representation ’filterbank’
 
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  Parameter	                        | Default     | Description			                                                     |   
+    |  Parameter                            | Default     | Description                                                              |   
     +===========================================+=============+======================================================================================+
-    |  ``fb\_type``                             | 'gammatone' | Filterbank type, *'gammatone'* or *'drnl'*					     |   
+    |  ``fb\_type``                             | 'gammatone' | Filterbank type, *'gammatone'* or *'drnl'*                       |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_lowFreqHz``                        | 80          | Lowest characteristic frequency in *hertz*        	 	                     |   
+    |  ``fb\_lowFreqHz``                        | 80          | Lowest characteristic frequency in *hertz*                                   |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_highFreqHz``                       | 8000        | Highest characteristic frequency in *\hertz*	                                     |   
+    |  ``fb\_highFreqHz``                       | 8000        | Highest characteristic frequency in *\hertz*                                         |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_nERBs``	         	        | 1           | Distance between adjacent filters in *erb*                                           |   
+    |  ``fb\_nERBs``                        | 1           | Distance between adjacent filters in *erb*                                           |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_nChannels``	                | []          | Number of frequency channels	         	                                     |   
+    |  ``fb\_nChannels``                    | []          | Number of frequency channels                                                     |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
     |  ``fb\_cfHz``                             | []          | Vector of characteristic frequencies in *hertz*                                      |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_nGamma``	                        | 4           | Filter order, *'gammatone'*-only       	                                             |   
+    |  ``fb\_nGamma``                           | 4           | Filter order, *'gammatone'*-only                                                     |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_bwERBs``	                        | 1.01859     | Filter bandwidth in *erb*, *'gammatone'*-only                                        |   
+    |  ``fb\_bwERBs``                           | 1.01859     | Filter bandwidth in *erb*, *'gammatone'*-only                                        |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_lowFreqHz``	                | 80          | Lowest characteristic frequency in *\hertz*, *'gammatone'*-only                      |   
+    |  ``fb\_lowFreqHz``                    | 80          | Lowest characteristic frequency in *\hertz*, *'gammatone'*-only                      |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_mocIpsi``            	        | 1           | Ipsilateral MOC factor (0 to 1). Given as a scalar (across all frequency channels)   |
+    |  ``fb\_mocIpsi``                      | 1           | Ipsilateral MOC factor (0 to 1). Given as a scalar (across all frequency channels)   |
     |                                           |             |                                                                                      |
-    |                                           |             | or a vector (individual per frequency channel), ``'drnl'``-only 	             |
+    |                                           |             | or a vector (individual per frequency channel), ``'drnl'``-only                  |
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_mocContra``	                | 1           | Contralateral MOC factor (0 to 1). Same format as ``fb\_mocIpsi``, ``'drnl'``-only   |   
+    |  ``fb\_mocContra``                    | 1           | Contralateral MOC factor (0 to 1). Same format as ``fb\_mocIpsi``, ``'drnl'``-only   |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_model``		                | CASP        | \ac{drnl} model (reserved for future extension), *'drnl'*-only	    	 	     |   
+    |  ``fb\_model``                        | CASP        | \ac{drnl} model (reserved for future extension), *'drnl'*-only                   |   
     +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
 
 

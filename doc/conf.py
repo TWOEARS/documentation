@@ -207,12 +207,13 @@ htmlhelp_basename = 'Theauditoryfront-endframeworkdoc'
 # Appended to every page
 rst_epilog = """
 .. |twoears| replace:: `twoears <twoears@mailing-list.com>`
-.. |AFE| replace:: `Two!Ears Auditory Front-End`
-.. |BinSim| replace:: `Two!Ears Binaural Simulator`
-.. |robot| replace:: `Two!Ears Robotic Platform`
-.. |data| replace:: `Two!Ears Database`
-.. |blackboard| replace:: `Two!Ears Blackboard System`
-.. |tools| replace:: `Two!Ears Tools`
+.. |AFE| replace:: `Two!Ears Auditory Front-End`_
+.. |BinSim| replace:: `Two!Ears Binaural Simulator`_
+.. |robot| replace:: `Two!Ears Robotic Platform`_
+.. |data| replace:: `Two!Ears Database`_
+.. |blackboard| replace:: `Two!Ears Blackboard System`_
+.. |tools| replace:: `Two!Ears Tools`_
+.. |amtoolbox| replace:: `Auditory Modeling Toolbox`_
 .. _Two!Ears: https://github.com/TWOEARS/twoears
 .. _Two!Ears Auditory Model: https://github.com/TWOEARS/twoears
 .. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator
@@ -221,6 +222,7 @@ rst_epilog = """
 .. _Two!Ears Tools: https://github.com/TWOEARS/tools
 .. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
 .. _Two!Ears Robotic Platform: https://github.com/TWOEARS
+.. _Auditory Modeling Toolbox: http://amtoolbox.sf.net
 """
 
 # -- Options for LaTeX output ---------------------------------------------
