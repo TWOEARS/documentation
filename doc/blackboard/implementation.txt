@@ -1,3 +1,5 @@
+.. _knowledge sources:
+
 Progress on implementation of knowledge sources
 ===============================================
 
@@ -252,7 +254,7 @@ Identification knowledge sources
 
 This section focuses on implementation of sound identification knowledge
 sources within the blackboard framework. See
-Section :ref:`ses:source-type` for more details of the models used to
+Section :ref:`sec-source-type` for more details of the models used to
 estimate the type of auditory events.
 
 Identity knowledge source
