@@ -220,6 +220,7 @@ rst_epilog = """
 .. _Two!Ears Blackboard System: https://github.com/TWOEARS/blackboard-system
 .. _Two!Ears Tools: https://github.com/TWOEARS/tools
 .. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
+.. _Two!Ears Robotic Platform: https://github.com/TWOEARS
 """
 
 # -- Options for LaTeX output ---------------------------------------------
