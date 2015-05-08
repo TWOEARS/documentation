@@ -207,6 +207,12 @@ htmlhelp_basename = 'Theauditoryfront-endframeworkdoc'
 # Appended to every page
 rst_epilog = """
 .. |twoears| replace:: `twoears <twoears@mailing-list.com>`
+.. |AFE| replace:: `Two!Ears Auditory Front-End`
+.. |BinSim| replace:: `Two!Ears Binaural Simulator`
+.. |robot| replace:: `Two!Ears Robotic Platform`
+.. |data| replace:: `Two!Ears Database`
+.. |blackboard| replace:: `Two!Ears Blackboard System`
+.. |tools| replace:: `Two!Ears Tools`
 .. _Two!Ears: https://github.com/TWOEARS/twoears
 .. _Two!Ears Auditory Model: https://github.com/TWOEARS/twoears
 .. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator
