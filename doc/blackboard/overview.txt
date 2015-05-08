@@ -68,4 +68,12 @@ In the following sections, we describe in more detail the progress on
 the design and implementation of the integrated framework as well as
 individual knowledge sources.
 
+.. [Bregamn1990] Bregman, A. S. (1990), Auditory scene analysis: The perceptual organization of sound, The MIT Press, Cambridge, MA, USA.
+.. [Erman1980] Erman, L. D., Hayes-Roth, F., Lesser, V. R., and Reddy, D. R. (1980), "The Hearsay-II speech understanding system: integrating knowledge to resolve uncertainty," Computing Surveys 12(2), pp. 213–253.
+.. [Cooke1993] Cooke, M., Brown, G. J., Crawford, M., and Green, P. (1993), "Computational auditory scene analysis: listening to several things at once," Endeavour 17(4), pp. 186–190.
+.. [Lesser1995] Lesser, V. R., Nawab, S. H., and Klassner, F. I. (1995), "IPUS: An architecture for the integrated processing and understanding of signals," Artificial Intelligence 77, pp. 129–171.
+.. [Ellis1996] Ellis, D. P. W. (1996), "Prediction-driven computational auditory scene analysis," Ph.D. thesis, Massachusetts Institute of Technology.
+.. [Godsmark1999] Godsmark, D. and Brown, G. J. (1999), "A Blackboard Architecture for Computational Auditory Scene Analysis," Speech Commun. 27(3-4), pp. 351–366, URL http://dx.doi.org/10.1016/S0167-6393(98)00082-X.
+.. [Morse2014] MORSE (2014), "MORSE, the Modular OpenRobots Simulation Engine," URL https://www.openrobots.org/wiki/morse/.
+
 .. vim: filetype=rst spell:

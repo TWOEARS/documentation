@@ -51,11 +51,11 @@ implementing their functionality.
 The Two!Ears architecture has been designed and
 implemented using an object-oriented approach. Accordingly, the
 implementation scheme :ref:`knowledge sources` must adhere to is provided in
-the form of an abstract class (see Section [subsec:abstractKS]).
+the form of an abstract class (see Section :ref:`sec-abstractKS`).
 Additionally, to enable creation of new knowledge sources that depend on
 auditory signals without needing to hard-code a signal request into the
 system, an *auditory front-end dependent knowledge source superclass*
-has been developed (see Section [subsec:afeDepKS]).
+has been developed (see Section :ref:`sec-afeDepKS`).
 
 Building a dynamic system
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -206,12 +206,12 @@ Several core functionalities are provided through the
   interaural time differences) needed by other :ref:`knowledge sources`. The
   |AFE| itself is connected to the `Two!Ears
   Robotic Platform`_ or the |BinSim| in order to
-  obtain the ear signals. See also Section [subsec:afeKS]
+  obtain the ear signals. See also Section :ref:`sec-afeKS`
   (``setDataConnect`` method).
 
 * Instantiating and adding knowledge sources. These :ref:`knowledge sources`
-  must inherit from ``AbstractKS`` (see Section [subsec:abstractKS]) or
-  ``AuditoryFrontEndDepKS`` (see Section [subsec:afeDepKS]) to be able
+  must inherit from ``AbstractKS`` (see Section :ref:`sec-abstractKS`) or
+  ``AuditoryFrontEndDepKS`` (see Section :ref:`sec-afeDepKS`) to be able
   to be interfaced and run by the system. Knowledge sources that
   inherit from ``AuditoryFrontEndDepKS`` automatically get connected
   with the |AFE| by the system in order to
@@ -515,12 +515,15 @@ within the solution space to either
 confirm or reject the hypothesis that was described by the query.
 
 The interface that is currently implemented is based on SWI-Prolog
-[wielemaker2002]_, an
+[Wielemaker2002]_, an
 open-source Prolog programming environment and interpreter. Recent
 developments focus on the integration of this environment into Matlab,
 allowing direct access to the interpreter from within the Two!Ears
 software architecture. For the next reporting period it is planned to
 provide an easy to use wrapper class which encapsulates all necessary
 SWI-Prolog functions and makes them available to the blackboard system.
+
+.. [Russel2003] Russell, S. J. and Norvig, P. (2003), Artificial Intelligence: A Modern Approach, Pearson Education, 2 ed.
+.. [Wielemaker2002] Wielemaker, J., Schrijvers, T., Triska, M., and Lager, T. (2012), "SWI-Prolog," Theory and Practice of Logic Programming 12(1-2), pp. 67–96.
 
 .. vim: filetype=rst spell:
