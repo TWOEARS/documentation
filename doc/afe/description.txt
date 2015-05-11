@@ -162,7 +162,7 @@ share the following common “read-only” properties:
    ``’Inner hair-cell envelope’``, used for example when plotting the
    signal.
 
--  ``Name``, which is a nametag unique to each signal type, e.g.,
+-  ``Name``, which is a name tag unique to each signal type, e.g.,
    ``’innerhaircell’``. This name corresponds to the name used for a
    request to the manager.
 
@@ -170,8 +170,8 @@ share the following common “read-only” properties:
    arranged in the signal, e.g., ``’nSamples x nFilters’``
 
 -  ``FsHz``, the sampling frequency of this specific signal. If the
-   signal is framed or downsampled (e.g., like a ratemap or an ) this
-   value will be different from the input signal’s sampling frequency.
+   signal is framed or down-sampled (e.g., like a rate-map or an ) this
+   value will be different from the input signal's sampling frequency.
 
 -  ``Channel``, which states ``’left’``, ``’right’`` or ``’mono’``,
    depending on which channel from the input signal this signal was
@@ -230,7 +230,7 @@ This allows to dynamically define properties of the class.
 This way, each signal involved in a given session of the framework will
 be grouped according to its class in a distinct property of the
 ``dataObject``, with name given by the signal ``signal.Name`` unique
-nametag. Extra properties of the data object include:
+name tag. Extra properties of the data object include:
 
 -  ``bufferSize_s`` which is the common duration of all ``circVBuf``
    objects in the signals.
@@ -240,7 +240,7 @@ nametag. Extra properties of the data object include:
 
 Data objects are constructed by providing an input signal (which can be
 empty in online scenarios), a mandatory sampling frequency in Hz, a
-global buffer size (10s by default), and the number of channels of the
+global buffer size (10 s by default), and the number of channels of the
 input (1 or 2). This number of channel is not necessary if an input
 signal is used as argument in the constructor but needs to be provided
 otherwise.
@@ -332,7 +332,7 @@ processor, abstract classes that each children must implement, and a
 couple of methods shared among children. Each processor shares the
 properties:
 
--  ``Type`` - describes formaly the processing performed
+-  ``Type`` - describes formally the processing performed
 
 -  ``Input`` - handle to input signal object
 
@@ -452,11 +452,11 @@ An example: ratemap
 ^^^^^^^^^^^^^^^^^^^
 
 A practical example to better illustrate the concepts described above is
-given in the following. The ratemap is conceptually a “framed” version
+given in the following. The rate-map is conceptually a “framed” version
 of an multichannel envelope. The envelope is a two-dimensional
-representation (time versus frequency), and the ratemap extraction is
+representation (time versus frequency), and the rate-map extraction is
 the same procedure repeated for every frequency channel. Hence the
-following is described for a single channel. To extract the ratemap, the
+following is described for a single channel. To extract the rate-map, the
 envelope is windowed by a set of overlapping windows, and its magnitude
 averaged in each window. This process is adapted to online processing as
 illustrated in Fig. 
@@ -491,7 +491,7 @@ Particular case for filters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The processing performed by the often involves filtering (e.g., in
-auditory filterbank processing, inner haircell envelope detection, or
+auditory filterbank processing, inner hair cell envelope detection, or
 amplitude modulation detection). While filtering by filters could in
 principle be made compatible with chunk-based processing using the
 principle described above, it will be impractical for filters with long
@@ -570,8 +570,8 @@ these steps:
    #. Add the signal(s) to ``dataObj``
 
    #. A handle to the output signal of the previous processor on the
-      list is stored as the current processor’s input (in
-      ``mObj.InputList`` as well as in the processor’s ``Input``
+      list is stored as the current processor's input (in
+      ``mObj.InputList`` as well as in the processor's ``Input``
       property). If it is the first element of the list, this will link
       to the original time domain signal.
 
@@ -580,7 +580,7 @@ these steps:
       loop.
 
    #. A handle to the previously instantiated processor is stored in the
-      current processor’s ``Dependencies`` property (possibly empty if
+      current processor's ``Dependencies`` property (possibly empty if
       first element of the list).
 
 #. Generate a linear mapping (vector of indexes of the processors
@@ -672,7 +672,7 @@ As of the current implementation, the processing is linear and the
 after the other when asking the manager to start processing (either via
 its ``processChunk`` or ``processSignal`` method). The order in which
 the processors are called is important, as some will take as input what
-was other’s output. This order is stored in the property ``Map`` of the
+was other's output. This order is stored in the property ``Map`` of the
 manager. ``Map`` is a vector of indexes corresponding to the lines in
 the ``Processors`` cell array property of the manager. It is constructed
 at instantiation of the processors. Conceptually, if there are ``N``

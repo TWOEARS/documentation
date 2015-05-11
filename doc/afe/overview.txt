@@ -122,7 +122,9 @@ processing will be explained in Sec. .
 Using default parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-As an example, extracting the interaural level difference ``’ild’`` for a stereo signal ``sIn`` (e.g., obtained from a ’\ ``.wav``\ ’ file through Matlab’s ``wavread``) sampled at a frequency ``fsHz`` (in Hz)
+As an example, extracting the interaural level difference ``’ild’`` for a stereo
+signal ``sIn`` (e.g., obtained from a ’\ ``.wav``\ ’ file through Matlab's
+``wavread``) sampled at a frequency ``fsHz`` (in Hz)
 can be done in the following steps::
 
     % Instantiation of data and manager objects
@@ -180,8 +182,8 @@ property ``.Data`` of signal objects is not a conventional Matlab array
 and one needs this syntax to access all the values it stores. The nature
 of the ``.Data`` property is further described in Sec. .
 
-Input/output signals dimensionality
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Input/output signals dimensions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The input signal ``sIn``, for which a given auditory representation
 needs be computed, is a simple array. Its first dimension (lines) should
@@ -328,7 +330,7 @@ Most auditory representations will depend on another representation,
 itself being derived from yet another one. Thus, there is a chain of
 *dependencies* between different representations, and multiple
 processing stages will be required to compute a particular output. The
-list of dependencies for a given request can be visualized using the
+list of dependencies for a given request can be visualised using the
 function ``getDependencies(’nametag’)``, e.g.
 
 ::
@@ -341,14 +343,14 @@ function ``getDependencies(’nametag’)``, e.g.
 
 shows that the depends on the inner hair-cell representation
 (``’innerhaircell’``), which itself is obtained from the output of a
-gammatone filterbank (``’filterbank’``). The filterbank is derived from
+gammatone filter bank (``’filterbank’``). The filter bank is derived from
 the time-domain signal, which itself has no further dependency as it is
 directly derived from the input signal.
 
 When placing a request to the manager, the user can also request a
-change in parameters of any of the request’s dependencies. For example,
+change in parameters of any of the request's dependencies. For example,
 the number of frequency channels in the representation is a property of
-the filterbank, controlled by the parameter ``’fb_nChannels’``. (which
+the filter bank, controlled by the parameter ``’fb_nChannels’``. (which
 name can be found using ``parameterHelper.m``). This parameter can also
 be requested to have a non-default value, although it is not a parameter
 of the processor in charge of computing the . This is done in the same
@@ -438,7 +440,7 @@ Access internal signals
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The optional output of the ``addProcessor`` method is provided for
-convenience. It is actually a pointer (or handle, in Matlabs terms) to
+convenience. It is actually a pointer (or handle, in Matlab's terms) to
 the actual signal object which is hosted by the data object on which the
 manager is based. Once the processing is carried out, the properties of
 the data object can be inspected::
@@ -462,10 +464,10 @@ the data object can be inspected::
 Apart from the properties ``bufferSize_s`` and ``isStereo`` which are
 inherent properties of the data object (and discussed later in chapter
 ), the remaining properties each correspond to one of the
-representations computed to achieve the user’s request(s). They are each
+representations computed to achieve the user's request(s). They are each
 arranged in cell arrays, with first column being the left, or mono
 channel, and the second column the right channel. For instance, to get a
-handle ``sGammaR`` to the right channel of the gammatone filterbank
+handle ``sGammaR`` to the right channel of the gammatone filter bank
 output, type::
 
     >> sGammaR = dataObj.gammatone{2}
@@ -572,7 +574,7 @@ chunk-based scenario, in comparison to a batch scenario::
     managerObj = manager(dataObj);
 
 Because the signal is not known before the processing is carried out,
-the data object cannot be initialized from the input signal. Hence, as
+the data object cannot be initialised from the input signal. Hence, as
 is seen on line 19, one needs to instantiate an empty data object, by
 leaving the first input argument blank. The sampling frequency is
 still necessary however. The third argument (here set to ``10``) is a
@@ -705,13 +707,13 @@ Manager ``mObj``
 | ``mObj.reset``                      | Resets all processors                                |
 +-------------------------------------+------------------------------------------------------+
 
-Acknowledgment
---------------
+Acknowledgement
+---------------
 
 The framework includes the following contributions from publicly
-available MATLAB toolboxes or classes:
+available Matlab toolboxes or classes:
 
--  `AMToolbox <http://amtoolbox.sourceforge.net/>`_
+-  |amtoolbox|
 
 -  `LTFAT <http://ltfat.sourceforge.net/>`_
 
