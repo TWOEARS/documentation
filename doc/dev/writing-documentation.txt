@@ -1,47 +1,40 @@
+.. warning::
+    This site is not complete yet.
+
 =====================
 Writing documentation
 =====================
 
-An impact of Two!Ears on the research community should be the possibility to
-reuse its code and to give other researcher the possibility to integrate their
-models and benchmark them. To achieve this the documentation of the whole
-Two!Ears Auditory Model is as important as the code itself.
+The impact of Two!Ears on the research community will be the greater
+the easier the code can be used and extended by other researchers.
+To achieve this the documentation of the whole
+`Two!Ears Auditory Model`_ is as important as the code itself.
 This means we are not only working constantly on our code base, but on the
 documentation as well.
 
-Documentation changes generally come in two forms:
-
-* General improvements: typo corrections, error fixes and better
-  explanations through clearer writing and more examples.
-
-* New features: documentation of features that have been added to the
-  framework since the last release.
-
-This section explains how writers can craft their documentation changes
-in the most useful and least error-prone ways.
+This section explains how we should write the Two!Ears documentation from both a
+technical and a writing standpoint.
 
 Getting the raw documentation
 -----------------------------
 
 Though Two!Ears' documentation is intended to be read as HTML or PDF at
 http://twoears.eu/doc/, we edit it as a collection of text files for
-maximum flexibility. These files live in the top-level ``doc/`` directory of a
-Two!Ears release.
+maximum flexibility. These files live in the top-level ``doc/`` directory of the
+`Two!Ears Main repository <https://github.com/TWOEARS/twoears>`_.
 
-If you'd like to start contributing to our docs, get the development version of
-Two!Ears from the source code repository
+If you'd like to start contributing to our docs, get the
+`main repository <https://github.com/TWOEARS/twoears>`_ of the
+`Two!Ears Auditory Model`_ from our development version
 (see :ref:`installing-development-version`). The development version has the
 latest-and-greatest documentation, just as it has latest-and-greatest code.
 
 Getting started with Sphinx
 ---------------------------
 
-Two!Ears' documentation uses the Sphinx__ documentation system, which in turn
-is based on docutils__. The basic idea is that lightly-formatted plain-text
+Two!Ears' documentation uses the Sphinx_ documentation system, which in turn
+is based on docutils_. The basic idea is that lightly-formatted plain-text
 documentation is transformed into HTML, PDF, and any other output format.
-
-__ http://sphinx-doc.org/
-__ http://docutils.sourceforge.net/
 
 To actually build the documentation locally, you'll currently need to install
 Sphinx -- ``pip install Sphinx`` or ``sudo apt-get install python-sphinx`` should
@@ -49,15 +42,19 @@ do the trick.
 
 .. note::
 
-    To install Sphinx__ under Windows, do ...
+    To install Sphinx_ under Windows, do ...
 
 Then, building the HTML is easy; just ``make html`` (or ``make.bat html`` on
 Windows) from the ``docs`` directory.
 
-To get started contributing, you'll want to read the :ref:`reStructuredText
-Primer <sphinx:rst-primer>`. After that, you'll want to read about the
-:ref:`Sphinx-specific markup <sphinx:sphinxmarkup>` that's used to manage
-metadata, indexing, and cross-references.
+To get started contributing, you'll want to read the `reStructuredText
+Primer`_. After that, you'll want to read about the `Sphinx-specific markup`_
+that's used to manage metadata, indexing, and cross-references.
+
+.. _Sphinx: http://sphinx-doc.org/
+.. _docutils: http://docutils.sourceforge.net/
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+.. _Sphinx-specific markup: http://sphinx-doc.org/markup/index.html
 
 Commonly used terms
 -------------------
@@ -88,11 +85,9 @@ These guidelines regulate the format of our reST (reStructuredText)
 documentation and provide tips for writing them:
 
 * In section titles, capitalize only initial words and proper nouns.
-
 * Wrap the documentation at 80 characters wide, unless a code example
   is significantly less readable when split over two lines, or for another
   good reason.
-
 * The order of headings is the following::
 
       =======
@@ -120,11 +115,145 @@ documentation and provide tips for writing them:
   This is because Sphinx will generate proper links for the latter, which
   greatly helps readers. There's basically no limit to the amount of
   useful markup you can add.
-
 * The file ending of the reST files should be ``*.txt`` instead of ``*.rst``
   this will force github to display them as raw text files. The downside is that
   you have to tell your editor that you are editing a reST file -- ``:setf rst``
   in vim.
+
+Add a figure
+~~~~~~~~~~~~
+
+A figure should always start with a label that can be later used to reference to
+the figure. This label should always start with ``fig-``.
+After that the figure with the actual image file is added. The image
+should be provided as a ``png``-file and stored in a ``img/`` folder::
+
+    .. _fig-super-result:
+
+    .. figure:: img/super-results.png
+
+        Figure caption explaining the results.
+
+    Text in which the Figure :ref:`fig-super-result` is referenced in.
+
+Add a table
+~~~~~~~~~~~
+
+Like a figure a table should always start with a label for referencing and gets
+a caption before the actual table::
+
+    .. _tab-super-result:
+
+    .. table:: Caption of the super result table.
+
+        =============== =============== ===============
+        Column1 heading Column2 heading Column3 heading
+        =============== =============== ===============
+        1               2               3
+        1               2               3
+        1               2               3
+        =============== =============== ===============
+
+    Text in which the Table :ref:`tab-super-result` is referenced in.
+
+There is another way to define the same table::
+
+    .. _tab-super-result:
+
+    .. table:: Caption of the super result table.
+
+        +-----------------+-----------------+-----------------+
+        | Column1 heading | Column2 heading | Column3 heading |
+        +=================+=================+=================+
+        | 1               | 2               | 3               |
+        +-----------------+-----------------+-----------------+
+        | 1               | 2               | 3               |
+        +-----------------+-----------------+-----------------+
+        | 1               | 2               | 3               |
+        +-----------------+-----------------+-----------------+
+
+This is especially interesting for more complex tables.
+
+Line breaking is unfortunately not handled automatically in a table. Instead,
+the table will be stretched out to fir the content in one line per cell. You can
+add line breaks manually by inserting blank lines::
+
+    .. _tab-super-result:
+
+    .. table:: Caption of the super result table.
+
+        +-----------------+-----------------+--------------------+
+        | Column1 heading | Column2 heading | Column3 heading    |
+        +=================+=================+====================+
+        | 1               | 2               | text in line1      |
+        |                 |                 | more text in line1 |
+        |                 |                 |                    |
+        |                 |                 | text in line2      |
+        |                 |                 |                    |
+        |                 |                 | text in line 3     |
+        +-----------------+-----------------+--------------------+
+        | 1               | 2               | 3                  |
+        +-----------------+-----------------+--------------------+
+        | 1               | 2               | 3                  |
+        +-----------------+-----------------+--------------------+
+
+This will result in
+
+.. _tab-super-result:
+
+.. table:: Caption of the super result table.
+
+    +-----------------+-----------------+--------------------+
+    | Column1 heading | Column2 heading | Column3 heading    |
+    +=================+=================+====================+
+    | 1               | 2               | text in line1      |
+    |                 |                 | more text in line1 |
+    |                 |                 |                    |
+    |                 |                 | text in line2      |
+    |                 |                 |                    |
+    |                 |                 | text in line 3     |
+    +-----------------+-----------------+--------------------+
+    | 1               | 2               | 3                  |
+    +-----------------+-----------------+--------------------+
+    | 1               | 2               | 3                  |
+    +-----------------+-----------------+--------------------+
+
+
+Dealing with referencing throughout the document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to add a reference to another section, figure, or table you can do
+it the following way::
+
+    See results in Figure :ref:`fig-super-result` in Section :ref:`sec-results`.
+
+This requires of course that the labels for the figure and the section is set
+accordingly::
+
+    .. _sec-results
+
+    Results
+    -------
+
+    .. _fig-super-results
+
+    .. figure:: img/results.png
+
+    Super results from the experiment.
+
+If you do the referencing as shown in the first code listing the
+``:ref:`label``` will be replaced by the title of the section or the caption of
+the figure. If the figure caption is very long it will be more appropriate to
+specify the text that will appear as reference yourself::
+
+    See results in Figure :ref:`Text to appear <fig-super-result>`.
+
+.. caution::
+    It is not yet decided what the final way of using references will be. Maybe
+    we find a way to use classical numbering like Fig. 4 instead of using names.
+    That means you don't have to enter manual reference text at every position
+    now, but just add the ``:ref:`fig-super-result``` and we will change it
+    later.
 
 
 Documenting new features
