@@ -295,7 +295,6 @@ along with the file and line number where they occur will be saved to
 If you encounter false-positives (error output that actually is correct), do
 one of the following:
 
-* Surround inline code or brand/technology names with grave accents (`).
 * Find synonyms that the spell checker recognises.
 * If, and only if, you are sure the word you are using is correct - add it
   to :file:`doc/spelling_wordlist` (please keep the list in alphabetical order).
