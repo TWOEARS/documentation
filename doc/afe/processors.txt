@@ -11,6 +11,8 @@ individual plots. A full list of available processors can be displayed by using 
 command ``requestList``. An overview of the commands for instantiating
 processors is given in Section :ref:`missing-ref`.
 
+.. _sec-chap4.1:
+
 Pre-processing (``preProc.m``)
 ------------------------------
 
@@ -258,7 +260,7 @@ corresponding parameters.
     +---------------------+-----------------+----------------------------------------------------------------+
 
 
-
+.. _sec-4.2.1:
 
 Gammatone (``gammatoneProc.m``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -326,48 +328,51 @@ Dual-resonance non-linear filterbank (``drnlProc.m``)
 
 The DRNL filterbank models the nonlinear operation of the cochlear, in
 addition to the frequency selective feature of the BM. The DRNL processor was
-motivated by attempts to better represent the nonlinear operation of the
+motivated by attempts to better represent the nonlinear operation of the BM
 in the modelling, and allows for testing the performance of peripheral
-models with the nonlinearity and feedback in comparison to that with the
-conventional linear model. All the internal representations that depend
-on the output can be extracted using the processor in the dependency
+models with the BM nonlinearity and medial olivocochlear
+(MOC) feedback in comparison to that with the
+conventional linear BM model. All the internal representations that depend
+on the BM output can be extracted using the DRNL processor in the dependency
 chain in place of the gammatone filterbank. This can reveal the
-implication of the nonlinearity and feedback for activities such as
-speech perception in noise (see for example) or source localisation. It
-is expected that the use of a nonlinear model, together with the
-adaptation loops (see Sec. ), will reduce the influence of overall level
+implication of the BM nonlinearity and MOC feedback for activities such as
+speech perception in noise (see [Brown2010]_ for example) or source localisation. It is expected that the use of a nonlinear model, together with the
+adaptation loops (see Sec. :ref:`sec-chap4.4`), will reduce the influence of overall level
 on the internal representations and extracted features. In this sense,
-the use of the model is a physiologically motivated alternative for a
-linear model where the influence of level is typically removed by the
-use of a level normalization stage (see in Sec.  for example). The
-structure of filterbank is based on the work of . The frequencies
-corresponding to the places along the , over which the responses are to
+the use of the DRNL model is a physiologically motivated alternative for a
+linear BM model where the influence of level is typically removed by the
+use of a level normalization stage (see AGC in Sec. :ref:`sec-chap4.1` for example). The
+structure of DRNL filterbank is based on the work of [Meddis2001]_. The frequencies
+corresponding to the places along the BM, over which the responses are to
 be derived and observed, are specified as a list of characteristic
 frequencies ``fb_cfHz``. For each characteristic frequency channel, the
 time domain input signal is passed through linear and nonlinear paths,
-as seen in Fig. . Currently the implementation follows the model defined
-as by , in terms of the detailed structure and operation, which is
+as seen in Fig. :ref:`DRNL filterbank channel <fig-DRNLfilterbank>`. Currently the implementation follows the model defined
+as computational auditory signal-processing and perception (CASP) by [Jepsen2008]_, in terms of the detailed structure and operation, which is
 specified by the default argument ’CASP’ for ``fb_model``.
+
+.. _fig-DRNLfilterbank:
 
 .. figure:: images/DRNL_Diagram.png
 
    filterbank channel structure, following the model specification as
    default, with an additional nonlinear gain stage to receive feedback.
 
-In the model, the linear path consists of a gain stage, two cascaded
+In the CASP model, the linear path consists of a gain stage, two cascaded
 gammatone filters, and four cascaded low-pass filters; the nonlinear
 path consists of a gain (attenuation) stage, two cascaded gammatone
 filters, a ’broken stick’ nonlinearity stage, two more cascaded
 gammatone filters, and a low-pass filter. The outputs at the two paths
-are then summed as the output motion. These sub-modules and their
+are then summed as the BM output motion. These sub-modules and their
 individual parameters (e.g., gammatone filter center frequencies) are
 specific to the model and hidden to the users. Details regarding the
-original idea behind the parameter derivation can be found in , which
-the model slightly modified to provide a better fit of the output to
-physiological findings from human cochlear research works. The feedback
-is implemented in an open-loop structure within the filterbank model as
+original idea behind the parameter derivation can be found in [Lopez-Poveda2001]_, which
+the CASP model slightly modified to provide a better fit of the output to
+physiological findings from human cochlear research works.
+ 
+The MOC feedback is implemented in an open-loop structure within the DRNL filterbank model as
 the gain factor to be applied to the nonlinear path. This approach is
-used by , where the attenuation caused by the feedback at each of the
+used by [Ferry2007]_, where the attenuation caused by MOC the feedback at each of the
 filterbank channels is controlled externally by the user. Two additional
 input arguments are introduced for this feature: ``fb_mocIpsi`` and
 ``fb_mocContra``. These represent the amount of reflexive feedback
@@ -376,19 +381,21 @@ from 0 to 1 that the nonlinear path input signal is multiplied by in
 conjunction. Conceptually, ``fb_mocIpsi = 1`` and ``fb_mocContra = 1``
 would mean that no attenuation is applied to the nonlinear path input,
 and ``fb_mocIpsi = 0`` and ``fb_mocContra = 0`` would mean that the
-nonlinear path is totally eliminated. Tab.  summarizes the parameters
-for the processor that can be controlled by the user. Note that
+nonlinear path is totally eliminated. Tab. :ref:`4.2` summarizes the parameters
+for DRNL the processor that can be controlled by the user. Note that
 ``fb_cfHz`` corresponds to the *characteristic* frequencies and not the
 *centre* frequencies as used in the gammatone filterbank, although they
 can have the same values for comparison. Otherwise, the characteristic
 frequencies can be generated in the same way as the center frequencies
-for the gammatone filterbank. Figure  shows the stage output at
-:math:`1 kilohertz` characteristic frequency using the processor (on
+for the gammatone filterbank.
+
+Figure :ref:`The gammatone processor output compared to the DRNL processor output <fig-DRNLOutput>` shows the BM stage output at
+1 kHz characteristic frequency using the DRNL processor (on
 the right hand side), compared to that using the gammatone filterbank
 (left hand side), based on the right ear input signal shown in panel 1
-of Fig.  (speech excerpt repeated twice with a level difference). The
+of Fig. :ref:`Illustration of the individual pre-processing steps <fig-pre-proc>` (speech excerpt repeated twice with a level difference). The
 plots can be generated by running the script ``DEMO_DRNL.m``. It should
-be noted that the model of filterbank expects the input signal to be
+be noted that the CASP model of DRNL filterbank expects the input signal to be
 transformed to the middle ear *stapes velocity* before processing.
 Therefore, for direct comparison of the outputs in this example, the
 same pre-processing was applied for the gammatone filterbank (stapes
@@ -401,26 +408,30 @@ changes as described earlier.
 
 .. figure:: images/DRNLs.png
 
-   The gammatone processor output (left panel) compared to the output of the processor (right panel), based on the right ear signal
-   shown in panel 1 of Fig. , at :math:`1 kilohertz` center or
+.. _fig-DRNLOutput:
+
+   The gammatone processor output (left panel) compared to the output of the DRNL processor (right panel), based on the right ear signal
+   shown in panel 1 of Fig. :ref:`Illustration of the individual pre-processing steps <fig-pre-proc>`, at 1 kHz center or
    characteristic frequency. Note that the input signal is converted to the
    stapes velocity before entering both processors for direct comparison.
-   The level difference between the two speech excerpts is reduced in the
+   The level difference between the two speech excerpts is reduced in the DRNL
    response, showing its compressive nature to input level variations.
+
+.. _sec-Inner-HC:
 
 Inner hair-cell (``ihcProc.m``)
 -------------------------------
 
-The functionality is simulated by extracting the envelope of the output
-of individual gammatone filters. The corresponding function is adopted
+The IHC functionality is simulated by extracting the envelope of the output
+of individual gammatone filters. The corresponding IHC function is adopted
 from the |amtoolbox| [Soendergaard2013]_. Typically,
 the envelope is extracted by combining half-wave rectification and
 low-pass filtering. The low-pass filter is motivated by the loss of
-phase-locking in the auditory nerve at higher frequencies . Depending on
-the cut-off frequency of the models, it is possible to control the
+phase-locking in the auditory nerve at higher frequencies [Bernstein1996]_ [Bernstein1999]_. Depending on
+the cut-off frequency of the IHC models, it is possible to control the
 amount of fine-structure information that is present in higher frequency
 channels. The cut-off frequency and the order of the corresponding
-low-pass filter vary across methods and a complete overview of supported
+low-pass filter vary across methods and a complete overview of supported IHC 
 models is given in Table :ref:`tab-ihc-models`.
 A particular model can be selected by using the parameter ``ihc_method``.
 
@@ -441,11 +452,11 @@ A particular model can be selected by using the parameter ``ihc_method``.
     ``'bernstein'``  Half-wave rectification, compression and low-pass filtering at 425 Hz [Bernstein1999]_
     ================ ======================================================================================
 
-The effect of the processor is demonstrated in Figure
+The effect of the IHC processor is demonstrated in Figure
 :ref:`Illustration of the envelope extraction processor <fig-ihc>`,
 where the output of the gammatone filterbank is compared with the output
-of an model by running the script ``DEMO_IHC.m``. Whereas individual peaks
-are resolved in the lowest channel of the output, only the envelope is
+of an IHC model by running the script ``DEMO_IHC.m``. Whereas individual peaks
+are resolved in the lowest channel of the IHC output, only the envelope is
 retained at higher frequencies.
 
 .. _fig-ihc:
@@ -453,20 +464,22 @@ retained at higher frequencies.
 .. figure:: images/IHC.png
 
    Illustration of the envelope extraction processor.
-   BM output (left panel) and the corresponding model output using
+   BM output (left panel) and the corresponding IHC model output using
    ``ihc_method = ’dau’`` (right panel). 
+
+.. _sec-chap4.4:
 
 Adaptation (``adaptationProc.m``)
 ---------------------------------
 
 This processor corresponds to the adaptive response of the auditory
 nerve fibers, in which abrupt changes in the input result in emphasised
-overshoots followed by gradual decay to compressed steady-state level .
+overshoots followed by gradual decay to compressed steady-state level [Smith1977]_ [Smith1983]_.
 The function is adopted from the |amtoolbox| [Soendergaard2013]_.
 The adaptation stage
 is modelled as a chain of five feedback loops in series. Each of the
 loops consists of a low-pass filter with its own time constant, and a
-division operator . At each stage, the input is divided by its low-pass
+division operator [Püschel988]_ [Dau1996]_ [Dau1997a]_. At each stage, the input is divided by its low-pass
 filtered version. The time constant affects the charging / releasing
 state of the filter output at a given moment, and thus affects the
 amount of attenuation caused by the division. This implementation
@@ -507,7 +520,7 @@ whereas stationary input signals go through logarithmic compression.
 
 
 The adaptation processor uses three parameters to generate the output
-from the representation: ``adpt_lim`` determines the maximum ratio of
+from the IHC representation: ``adpt_lim`` determines the maximum ratio of
 the onset response amplitude against the steady-state response, which
 sets a limit to the overshoot caused by the loops. ``adpt_mindB`` sets
 the lowest audible threshold of the input signal. ``adpt_tau`` are the
@@ -517,19 +530,19 @@ and thus five time constants, variable number of elements of
 specific sets of these parameters, as used in related studies, are also
 supported optionally with the ``adpt_model`` parameter. This can be
 given instead of the other three parameters, which will set them as used
-by the respective researchers. Tab. lists the parameters and their
-default values, and Tab. lists the supported models. The output signal
-is expressed in which deviates the input-output relation from a perfect
+by the respective researchers. Tab. :ref:`tab-adaption-parameters` lists the parameters and their
+default values, and Tab. :ref:`tab-supported-models` lists the supported models. The output signal
+is expressed in model units (MU) which deviates the input-output relation from a perfect
 logarithmic transform, such that the input level increment at low level
 range results in a smaller output level increment than the input
 increment at higher level range. This corresponds to a smaller
-just-noticeable level change at high levels than at low levels . , with
-the use of model for the stage, introduces an additional squaring
-expansion process between the output and the adaptation stage, which
-transforms the input that comes through the - processors into an
+just-noticeable level change at high levels than at low levels [Dau1996]_ [Jepsen2008]_, with
+the use of DRNL model for the BM stage, introduces an additional squaring
+expansion process between the IHC output and the adaptation stage, which
+transforms the input that comes through the DRNL-IHC processors into an
 intensity-like representation to be compatible with the adaptation
 implementation originally designed based on the use of gammatone
-filterbank. The adaptation processor recognises whether or gammatone
+filterbank. The adaptation processor recognises whether DRNL or gammatone
 processor is used in the chain and adjusts the input signal accordingly.
 
 
@@ -577,35 +590,39 @@ processor is used in the chain and adjusts the input signal accordingly.
 
 
 The effect of the adaptation processor - the exaggeration of rapid
-variations - is demonstrated in Fig. , where the output of the model
-from the same input as used in the example of Sec.  (the right panel of
-Fig. ) is compared to the adaptation output by running the script
+variations - is demonstrated in Fig. :ref:`Illustration of the adaptation processor. <fig-IHCadapt>`, where the output of the IHC model
+from the same input as used in the example of Sec. :ref:`sec-Inner-HC` (the right panel of
+Fig. :ref:`Illustration of the envelope extraction processor.<fig-ihc>`) is compared to the adaptation output by running the script
 ``DEMO_Adaptation.m``.
+
+.. _fig-IHCadapt:
 
 .. figure:: images/IHCadapt.png
 
-   Illustration of the adaptation processor. output (left panel) as the input to the adaptation
+   Illustration of the adaptation processor. IHC output (left panel) as the input to the adaptation
    processor and the corresponding output using ``adpt_model=’adt_dau’``
    (right panel). 
+
+.. _sec-chap4.5:
 
 Auto-correlation (``autocorrelationProc.m``)
 --------------------------------------------
 
 Auto-correlation is an important computational concept that has been
 extensively studied in the context of predicting human pitch
-perception . To measure the amount of periodicity that is present in
-individual frequency channels, the is computed in the domain for short
-time frames based on the representation. The *unbiased* scaling is used
-to account for the fact that fewer terms contribute to the at longer
-time lags. The resulting is normalized by the at lag zero to ensure
+perception [Licklider1951]_ [Meddis1991]_. To measure the amount of periodicity that is present in
+individual frequency channels, the auto-correlation function (ACF) is computed in the fast Fourier transform (FFT) domain for short
+time frames based on the IHC representation. The *unbiased* ACF scaling is used
+to account for the fact that fewer terms contribute to the ACF at longer
+time lags. The resulting ACF is normalized by the ACF at lag zero to ensure
 values between minus one and one. The window size ``ac_wSizeSec``
 determines how well low-frequency pitch signals can be reliably
 estimated and common choices are within the range of
-:math:`10 millisecond` – :math:`30 millisecond`.
+10 milliseconds – 30 milliseconds.
 
 For the purpose of pitch estimation, it has been suggested to modify the
 signal prior to correlation analysis in order to reduce the influence of
-the formant structure on the resulting  . This pre-processing can be
+the formant structure on the resulting ACF [Rabiner1977]_ . This pre-processing can be
 activated by the flag ``ac_bCenterClip`` and the following nonlinear
 operations can be selected for ``ac_ccMethod``: center clip and compress
 ``’clc’``, center clip ``’cc’``, and combined center and peak clip
@@ -613,17 +630,17 @@ operations can be selected for ``ac_ccMethod``: center clip and compress
 ``ac_ccAlpha``, which sets the clipping level to a fixed percentage of
 the frame-based maximum signal level.
 
-A generalized has been suggested by , where the exponent
+A generalized ACF has been suggested by [Tolonen2000]_, where the exponent
 ``ac\_K`` can be used to control the amount of compression
-that is applied to the . The conventional function is computed using a
+that is applied to the ACF. The conventional ACF function is computed using a
 value of ``ac\_K=2``, whereas the function is compressed
-when a smaller value than :math:`2` is used. The choice of this
-parameter is a trade-off between sharpening the peaks in the resulting
+when a smaller value than 2 is used. The choice of this
+parameter is a trade-off between sharpening the peaks in the resulting ACF
 function and amplifying the noise floor. A value of
-``ac\_K = 2/3`` has been suggested as a good compromise . A
-list of all -related parameters is given in Tab. . Note that these
+``ac\_K = 2/3`` has been suggested as a good compromise [Tolonen2000]_. A
+list of all ACF-related parameters is given in Tab. :ref:`tab-acorr-parameters`. Note that these
 parameters will influence the pitch processor, which is described in
-Sec. .
+Sec. :ref:`sec-chap4.11`.
 
 
 .. _tab-acorr-parameters:
@@ -643,31 +660,33 @@ Sec. .
     =================== ========== =========================================================
 
 
-A demonstration of the processor is shown in Fig. , which has been
-produced by the scrip ``DEMO_ACF.m``. It shows the output in response to
-a :math:`20 millisecond` speech signal for :math:`16` frequency
-channels (left panel). The corresponding is presented in the upper right
-panel, whereas the is shown in the bottom right panel. Prominent peaks
-in the indicate lag periods which correspond to integer multiples of the
+A demonstration of the ACF processor is shown in Fig. :ref:`fig-ACF`, which has been
+produced by the scrip ``DEMO_ACF.m``. It shows the IHC output in response to
+a 20 ms speech signal for 16 frequency
+channels (left panel). The corresponding ACF is presented in the upper right
+panel, whereas the summary auto-correlation function (SACF) is shown in the bottom right panel. Prominent peaks
+in the SACF indicate lag periods which correspond to integer multiples of the
 fundamental frequency of the analyzed speech signal. This relationship
-is exploited by the pitch processor, which is described in Sec. .
+is exploited by the pitch processor, which is described in Sec. :ref:`sec-chap4.11`.
+
+.. _fig-ACF:
 
 .. figure:: images/ACF.png
 
-   representation of a speech signal shown for one time
-   frame of :math:`20 millisecond` duration (left panel) and the
-   corresponding (right panel). The summarizes the across all frequency
+   IHC representation of a speech signal shown for one time
+   frame of 20 ms duration (left panel) and the
+   corresponding ACF (right panel). The SACF summarizes the ACF across all frequency
    channels (bottom right panel). 
 
 Ratemap (``ratemapProc.m``)
 ---------------------------
 
-The ratemap represents a map of auditory nerve firing rates  and is
-frequently employed as a spectral feature in systems ,   and speaker
-identification systems . The ratemap is computed for individual
-frequency channels by smoothing the signal representation with a leaky
+The ratemap represents a map of auditory nerve firing rates [Brown1994]_ and is
+frequently employed as a spectral feature in computational auditory scene analysis (CASA) systems [Wang2006]_, ASR [Cooke2001]_ and speaker
+identification systems [May2012]_. The ratemap is computed for individual
+frequency channels by smoothing the IHC signal representation with a leaky
 integrator that has a time constant of typically
-``rm\_decaySec=8 millisecond``. Then, the smoothed
+``rm\_decaySec=8 ms``. Then, the smoothed IHC
 signal is averaged across all samples within a time frame and thus the
 ratemap can be interpreted as an auditory spectrogram. Depending on
 whether the ratemap scaling ``rm_scaling`` has been set to
@@ -677,7 +696,7 @@ be adjusted by the window size ``rm_wSizeSec`` and the step size
 ``rm_hSizeSec``. Moreover, it is possible to control the shape of the
 window function ``rm_wname``, which is used to weight the individual
 samples within a frame prior to averaging. The default ratemap
-parameters are listed in Tab. .
+parameters are listed in Tab. :ref:`tab-ratemap`.
 
 .. _tab-ratemap:
 
@@ -698,15 +717,17 @@ parameters are listed in Tab. .
     +-------------------+---------------+--------------------------------------------------+
 
 The ratemap is demonstrated by the script ``DEMO_Ratemap`` and the
-corresponding plots are presented in Fig. . The representation of a
-speech signal is shown in the left panel, using a bank of :math:`64`
-gammatone filters spaced between :math:`80` and :math:`8000 hertz`.
-The corresponding ratemap representation scaled in :math:`decibel` is
+corresponding plots are presented in Fig. :ref:`IHC representation of s speech signal using 64 auditory filters and the corresponding ratemap representation <fig-ratemap>`. The IHC representation of a
+speech signal is shown in the left panel, using a bank of 64 
+gammatone filters spaced between 80 and 8000 Hz.
+The corresponding ratemap representation scaled in `dB` is
 presented in the right panel.
+
+.. _fig-ratemap:
 
 .. figure:: images/Ratemap.png
 
-   representation of s speech signal using :math:`64` auditory
+   IHC representation of s speech signal using 64 auditory
    filters (left panel) and the corresponding ratemap representation (right
    panel).
 
@@ -715,14 +736,14 @@ Spectral features (``spectralFeaturesProc.m``)
 
 In order to characterize the spectral content of the ear signals, a set
 of spectral features is available that can serve as a physical correlate
-to perceptual attributes, such as timbre and coloration . All spectral
+to perceptual attributes, such as timbre and coloration [Peeters2011]_. All spectral
 features summarize the spectral content of the ratemap representation
 across auditory filters and are computed for individual time frames. The
 following :math:`14` spectral features are available:
 
 #. ``'centroid'`` : The spectral centroid represents the center of
    gravity of the ratemap and is one of the most frequently-used timbre
-   parameters . The centroid is normalized by the highest ratemap center
+   parameters [Tzanetakis2002]_ [Jensen2004]_ [Peeters2001]_. The centroid is normalized by the highest ratemap center
    frequency to reduce the influence of the gammatone parameters.
 
 #. ``'spread'`` : The spectral spread describes the average deviation of
@@ -736,68 +757,68 @@ following :math:`14` spectral features are available:
 #. ``'brightness'`` : The brightness reflects the amount of high
    frequency information and is measured by relating the energy above a
    pre-defined cutoff frequency to the total energy. This cutoff
-   frequency is set to ``sf_br_cf = 1500`` Hz by default . This
+   frequency is set to ``sf_br_cf = 1500`` Hz by default [Jensen2004]_ [Peeters2011]_. This
    feature might be used to quantify the sensation of sharpness.
 
 #. ``'high-frequency content'`` : The high-frequency content is another
    metric that measures the energy associated with high frequencies. It
    is derived by weighting each channel in the ratemap by its squared
    center frequency and integrating this representation across all
-   frequency channels . To reduce the sensitivity of this feature to the
+   frequency channels [Jensen2004]_. To reduce the sensitivity of this feature to the
    overall signal level, the high-frequency content feature is
    normalized by the ratemap integrated across-frequency.
 
-#. ``'crest'`` : The is defined as the ratio between the maximum value
+#. ``'crest'`` : The spectral crest measure (SCM) is defined as the ratio between the maximum value
    and the arithmetic mean and can be used to characterize the peakiness
    of the ratemap. The feature value is low for signals with a flat
-   spectrum and high for a ratemap with a distinct spectral peak .
+   spectrum and high for a ratemap with a distinct spectral peak [Peeters2011]_ [Lerch2012]_.
 
 #. ``'decrease'`` : The spectral decrease describes the average spectral
    slope of the ratemap representation, putting a stronger emphasis on
-   the low frequencies. 
+   the low frequencies. [Peeters2011]_
 
 
 #. ``'entropy'`` : The entropy can be used to capture the peakiness of
-   the spectral representation . The resulting feature is low for a
+   the spectral representation [Misra2004]_. The resulting feature is low for a
    ratemap with many distinct spectral peaks and high for a flat ratemap
    spectrum.
 
-#. ``'flatness'`` : The is defined as the ratio of the geometric mean to
-   the arithmetic mean and can be used to distinguish between harmonic (
-   is close to zero) and a noisy signals ( is close to one) .
+#. ``'flatness'`` : The spectral flattness measure (SFM) is defined as the ratio of the geometric mean to
+   the arithmetic mean and can be used to distinguish between harmonic (SFM
+   is close to zero) and a noisy signals (SFM is close to one) [Peeters2011]_.
 
 #. ``'irregularity'`` : The spectral irregularity quantifies the
-   variations of the logarithmically-scaled ratemap across frequencies .
+   variations of the logarithmically-scaled ratemap across frequencies [Jensen2004]_.
 
 #. ``'kurtosis'`` : The excess kurtosis measures whether the spectrum
-   can be characterized by a Gaussian distribution . This feature will
+   can be characterized by a Gaussian distribution [Lerch2012]_. This feature will
    be zero for a Gaussian distribution.
 
 #. ``'skewness'`` : The spectral skewness measures the symmetry of the
-   spectrum around its arithmetic mean . The feature will be zero for
+   spectrum around its arithmetic mean [Lerch2012]_. The feature will be zero for
    silent segments and high for voiced speech where substantial energy
    is present around the fundamental frequency.
 
 #. ``'roll-off'`` : Determines the frequency in :math:`hertz` below
    which a pre-defined percentage ``sf_ro_perc`` of the total spectral
    energy is concentrated. Common values for this threshold are between
-   ``sf_ro_perc = 0.85`` and ``sf_ro_perc = 0.95``. The roll-off feature is
+   ``sf_ro_perc = 0.85`` [Tzanetakis2002]_ and ``sf_ro_perc = 0.95`` [Scheirer1997]_ [Peeters2011]_. The roll-off feature is
    normalized by the highest ratemap center frequency and ranges between
    zero and one. This feature can be useful to distinguish voiced from
    unvoiced signals.
 
 #. ``'flux'`` : The spectral flux evaluates the temporal variation of
-   the logarithmically-scaled ratemap across adjacent frames . It has
+   the logarithmically-scaled ratemap across adjacent frames [Lerch2012]_. It has
    been suggested to be useful for the distinction of music and speech
-   signals, since music has a higher rate of change .
+   signals, since music has a higher rate of change [Scheirer1997]_.
 
 #. ``'variation'`` : The spectral variation is defined as one minus the
    normalized correlation between two adjacent time frames of the
-   ratemap .
+   ratemap [Peeters2011]_.
 
-A list of all parameters is presented in Tab. .
+A list of all parameters is presented in Tab. :ref:`tab-spectral-features`.
 
-.. _tab_spectral-features:
+.. _tab-spectral-features:
 
 .. table:: List of parameters related to ``'spectral_features'``.
 
@@ -816,25 +837,29 @@ A list of all parameters is presented in Tab. .
     +-----------------+-----------+-------------------------------------------------------------+
 
 The extraction of spectral features is demonstrated by the script
-``Demo_SpectralFeatures.m``, which produces the plots shown in Fig. .
-The complete set of :math:`14` spectral features is computed for the
+``Demo_SpectralFeatures.m``, which produces the plots shown in Fig. :ref:`fig-Specfeatures`.
+The complete set of 14 spectral features is computed for the
 speech signal shown in the top left panel. Whenever the unit of the
 spectral feature was given in frequency, the feature is shown in black
 in combination with the corresponding ratemap representation.
 
+.. _fig-Specfeatures:
+
 .. figure:: images/SpecFeatures.png
 
-   Speech signal and :math:`14` spectral features that were extracted based on the ratemap
+   Speech signal and 14 spectral features that were extracted based on the ratemap
    representation.
+
+.. _sec-chap4.8:
 
 Onset strength (``onsetProc.m``)
 --------------------------------
 
-According to , common onsets and offsets across frequency are important
+According to [Bregman1990]_, common onsets and offsets across frequency are important
 grouping cues that are utilized by the human auditory system to organize
 and integrate sounds originating from the same source. The onset
 processor is based on the ratemap representation, and therefore, the
-choice of the ratemap parameters, as listed in Tab. , will influence the
+choice of the ratemap parameters, as listed in Tab. :ref:`tab-ratemap`, will influence the
 output of the onset processor. The temporal resolution is controlled by
 the window size ``rm_wSizeSec`` and the step size ``rm_hSizeSec``,
 respectively. The amount of temporal smoothing can be adjusted by the
@@ -842,9 +867,9 @@ leaky integrator time constant ``rm_decaySec``, which reduces the amount
 of temporal fluctuations in the ratemap. Onset are detected by measuring
 the frame-based increase in energy of the ratemap representation. This
 detection is performed based on the logarithmically-scaled energy, as
-suggested by . It is possible to limit the strength of individual onsets
+suggested by [Klapuri1999]_. It is possible to limit the strength of individual onsets
 to an upper limit, which is by default set to ``ons_maxOnsetdB = 30``. A
-list of all parameters is presented in Tab. .
+list of all parameters is presented in Tab. :ref:`tab-onset-strength`.
 
 .. _tab-onset-strength:
 
@@ -860,16 +885,20 @@ Table: List of parameters related to the auditory representation
 ``’onset_strength’``.
 
 The resulting onset strength expressed in `decibel`, which is a
-function of time frame and frequency channel, is shown in Fig. . The two
+function of time frame and frequency channel, is shown in Fig. :ref:`Ratemap representation of speech and the corresponding onset strength in decibel.<fig-onsetstrength>`. The two
 figures can be replicated by running the script
 ``DEMO_OnsetStrength.m``. When considering speech as an input signal, it
 can be seen that onsets appear simultaneously across a broad frequency
 range and typically mark the beginning of an auditory event.
 
+.. _fig-onsetstrength:
+
 .. figure:: images/OnsetStrength.png
 
    Ratemap representation (left panel) of speech and the corresponding
-   onset strength in `decibel` (right panel).
+   onset strength in decibel (right panel).
+
+.. _sec-chap4.9:
 
 Offset strength (``offsetProc.m``)
 ----------------------------------
@@ -877,12 +906,12 @@ Offset strength (``offsetProc.m``)
 Similarly to onsets, the strength of offsets can be estimated by
 measuring the frame-based decrease in logarithmically-scaled energy. As
 discussed in the previous section, the selected ratemap parameters as
-listed in Tab. will influence the offset processor. Similar to the
+listed in Tab :ref:`tab-ratemap`. will influence the offset processor. Similar to the
 onset strength, the offset strength can be constrained to a maximum
 value of ``ons_maxOffsetdB = 30``. A list of all parameters is presented
-in Tab. .
+in Tab. :ref:`tab-onset-strength`.
 
-.. _tab_offset-strength:
+.. _tab-offset-strength:
 
 .. table:: List of parameters related to ``'offset_strength'``.
 
@@ -894,9 +923,11 @@ in Tab. .
 
 The offset strength is demonstrated by the script
 ``DEMO_OffsetStrength.m`` and the corresponding figures are depicted in
-Fig. . It can be seen that the overall magnitude of the offset strength
+Fig. :ref:`Ratemap representation of speech and the corresponding offset strength in decibel.<fig-offsetstrength>`. It can be seen that the overall magnitude of the offset strength
 is lower compared to the onset strength. Moreover, the detected offsets
 are less synchronized across frequency.
+
+.. _fig-offsetstrength:
 
 .. figure:: images/OffsetStrength.png
 
@@ -914,27 +945,26 @@ is similar for both onsets and offsets, and is summarized by the term
 onset strength or offset strength, the user should use the request name
 ``’onset_map’`` or ``’offset_map’``, respectively. Based on the
 transient strength which is derived from the corresponding onset
-strength and offset strength processor (described in Sec.  and , a
+strength and offset strength processor (described in Sec. :ref:`sec-chap4.8` and :ref:`sec-chap4.9`, a
 binary decision about transient activity is formed, where only the most
 salient information is retained. To achieve this, temporal and
 across-frequency constraints are imposed for the transient information.
 Motivated by the observation that two sounds are perceived as separated
 auditory events when the difference in terms of their onset time is in
-the range of `20 millisecond` – `40 millisecond` ,
+the range of 20 ms – 40 ms [Turgeon2002]_,
 transients are fused if they appear within a pre-defined *time context*.
 If two transients appear within this time context, only the stronger one
 will be considered. This time context can be adjusted by
 ``trm_fuseWithinSec``. Moreover, the minimum across-frequency context
 can be controlled by the parameters ``trm_minSpread``. To allow for this
-selection, individual transients which are connected across multiple
-units are extracted using Matlab’s image labeling tool ``bwlabel`` . The
+selection, individual transients which are connected across multiple time-frequency (T-F) units are extracted using Matlab’s image labeling tool ``bwlabel`` . The
 binary transient map will only retain those transients which consists of
-at least ``trm_minSpread`` connected units. The salience of the cue can
+at least ``trm_minSpread`` connected T-F units. The salience of the cue can
 be specified by the detection thresholds ``trm_minStrengthdB``. Whereas
 this thresholds control the required relative change, a global threshold
 excludes transient activity if the corresponding ratemap level is below
 a pre-defined threshold, as determined by ``trm_minValuedB``. A summary
-of all parameters is given in Tab. .
+of all parameters is given in Tab. :ref:`tab-onset-map`.
 
 .. _tab-onset-map:
 
@@ -945,7 +975,7 @@ of all parameters is given in Tab. .
     +=======================+===========+================================================+
     | ``trm_fuseWithinSec`` | ``30E-3`` | Time constant below which transients are fused |
     +-----------------------+-----------+------------------------------------------------+
-    | ``trm_minSpread``     | ``5``     | Minimum number of connected units              |
+    | ``trm_minSpread``     | ``5``     | Minimum number of connected T-F units          |
     +-----------------------+-----------+------------------------------------------------+
     | ``trm_minStrengthdB`` | ``3``     | Minimum onset strength in dB                   |
     +-----------------------+-----------+------------------------------------------------+
@@ -953,7 +983,7 @@ of all parameters is given in Tab. .
     +-----------------------+-----------+------------------------------------------------+
 
 To illustrate the benefit of selecting onset and offset information, a
-ratemap representation is shown in Fig.  (left panel), where the
+ratemap representation is shown in Fig. :ref:`fig-onoffset` (left panel), where the
 corresponding onsets and offsets detected by the ``transientMapProc``,
 through two individual requests ``’onset_map’`` and ``’offset_map’``,
 and without applying any temporal or across-frequency constraints are
@@ -964,6 +994,8 @@ across-frequency constraints (right panel), the remaining onsets and
 offsets can be used as temporal markers, which clearly mark the
 beginning and the end of individual auditory events.
 
+.. _fig-onoffset:
+
 .. figure:: images/OnOffset.png
 
    Detected onsets and offsets indicated by the black and white vertical
@@ -971,58 +1003,62 @@ beginning and the end of individual auditory events.
    right panel applies temporal and across-frequency constraints in order
    to retain the most salient onset and offset events.
 
+.. _sec-chap4.11:
+
 Pitch (``pitchProc.m``)
 -----------------------
 
-Following , the subband periodicity analysis obtained by the can be
+Following [Slaney1990]_, [Meddis2001]_, [Meddis1997]_, the subband periodicity analysis obtained by the ACF can be
 integrated across frequency by giving equal weight to each frequency
-channel. The resulting reflects the strength of periodicity as a
+channel. The resulting SACF reflects the strength of periodicity as a
 function of the lag period for a given time frame, as illustrated in
-Fig. . Based on the representation, the most salient peak within the
+Fig. :ref:`fig-ACF` Based on the SACF representation, the most salient peak within the
 plausible pitch frequency range ``p_pitchRangeHz`` is detected for each
 frame in order to obtain an estimation of the fundamental frequency. In
-addition to the peak position, the corresponding amplitude of the is
+addition to the peak position, the corresponding amplitude of the SACF is
 used to reflect the confidence of the underlying pitch estimation. More
-specifically, if the magnitude drops below a pre-defined percentage
+specifically, if the SACF magnitude drops below a pre-defined percentage
 ``p_confThresPerc`` of its global maximum, the corresponding pitch
 estimate is considered unreliable and set to zero. The estimated pitch
 contour is smoothed across time frames by a median filter of order
 ``p_orderMedFilt``, which aims at reducing the amount of octave errors.
-A list of all parameters is presented in Tab. . In the context of pitch
+A list of all parameters is presented in Tab. :ref:`tab-pitch`. In the context of pitch
 estimation, it will be useful to experiment with the settings related to
-the non-linear pre-processing of the , as described in Sec. .
+the non-linear pre-processing of the ACF, as described in Sec. :ref:`sec-chap4.5`.
 
 .. _tab-pitch:
 
 .. table:: List of parameters related to ``'pitch'``.
 
-    +---------------------+--------------+-----------------------------------------------+
-    | Parameter           | Default      | Description                                   |
-    +=====================+==============+===============================================+
-    | ``p_pitchRangeHz``  | ``[80 400]`` | Plausible pitch frequency range in Hz         |
-    +---------------------+--------------+-----------------------------------------------+
-    | ``p_confThresPerc`` | ``0.7``      | Confidence threshold related to the magnitude |
-    +---------------------+--------------+-----------------------------------------------+
-    | ``p_orderMedFilt``  | ``3``        | Order of the median filter                    |
-    +---------------------+--------------+-----------------------------------------------+
+    +---------------------+--------------+----------------------------------------------------+
+    | Parameter           | Default      | Description                                        |
+    +=====================+==============+====================================================+
+    | ``p_pitchRangeHz``  | ``[80 400]`` | Plausible pitch frequency range in Hz              |
+    +---------------------+--------------+----------------------------------------------------+
+    | ``p_confThresPerc`` | ``0.7``      | Confidence threshold related to the SACF magnitude |
+    +---------------------+--------------+----------------------------------------------------+
+    | ``p_orderMedFilt``  | ``3``        | Order of the median filter                         |
+    +---------------------+--------------+----------------------------------------------------+
 
 The task of pitch estimation is demonstrated by the script
-``DEMO_Pitch`` and the corresponding plots are presented in Fig. . The
+``DEMO_Pitch`` and the corresponding SACF plots are presented in Fig. :ref:`ig-pitch`. The
 pitch is estimated for an anechoic speech signal (top left panel). The
 corresponding is presented in the top right panel, where each black
 cross represents the most salient lag period per time frame. The
 plausible pitch range is indicated by the two white dashed lines. The
 confidence measure of each individual pitch estimates is shown in the
 bottom left panel, which is used to set the estimated pitch to zero if
-the magnitude of the is below the threshold. The final pitch contour is
+the magnitude of the SACF is below the threshold. The final pitch contour is
 post-processed with a median filter and shown in the bottom right panel.
 Unvoiced frames, where no pitch frequency was detected, are indicated by
 ``NaN``\ ’s.
 
+.. _fig-pitch:
+
 .. figure:: images/Pitch.png
 
-   Time domain signal (top left panel) and the corresponding (top right
-   panel). The confidence measure based on the magnitude is used to select
+   Time domain signal (top left panel) and the corresponding SACF(top right
+   panel). The confidence measure based on the SACF magnitude is used to select
    reliable pitch estimates (bottom left panel). The final pitch estimate
    is post-processed by a median filter (bottom right panel).
 
@@ -1033,40 +1069,42 @@ The detection of envelope fluctuations is a very fundamental ability of
 the human auditory system which plays a major role in speech perception.
 Consequently, computational models have tried to exploit speech- and
 noise specific characteristics of amplitude modulations by extracting
-so-called features with linearly-scaled modulation filters . The use of
+so-called amplitude modulation spectrogram (AMS)features with linearly-scaled modulation filters [Kollmeier1994]_ [Tchorz2003]_ [Kim2009]_ [May2013]_ [May2014a]_ [May2014b]_. The use of
 linearly-scaled modulation filters is, however, not consistent with
-psychoacoustic data on modulation detection and masking in humans . As
-demonstrated by , the processing of envelope fluctuations can be
+psychoacoustic data on modulation detection and masking in humans [Bacon1989]_ [Houtgast1989]_ [Dau1997a]_ [Dau1997b]_ [Ewert2000]_. As
+demonstrated by [Ewert2000]_, the processing of envelope fluctuations can be
 described effectively by a second-order band-pass filterbank with
 logarithmically-spaced center frequencies. Moreover, it has been shown
-that an feature representation based on an auditory-inspired modulation
+that an AMS feature representation based on an auditory-inspired modulation
 filterbank with logarithmically-scaled modulation filters substantially
 improved the performance of computational speech segregation in the
-presence of stationary and fluctuating interferers . In addition, such a
+presence of stationary and fluctuating interferers [MayPress]_. In addition, such a
 processing based on auditory-inspired modulation filters has recently
-also been successful in speech intelligibility prediction studies . To
-investigate the contribution of both feature representations, the
+also been successful in speech intelligibility prediction studies [Joergensen2011]_ [Joergensen2013]_. To
+investigate the contribution of both AMS feature representations, the
 amplitude modulation processor can be used to extract linearly- and
-logarithmically-scaled features. Therefore, each frequency channel of
-the representation is analyzed by a bank of modulation filters. The type
+logarithmically-scaled AMS features. Therefore, each frequency channel of
+the IHC representation is analyzed by a bank of modulation filters. The type
 of modulation filters can be controlled by setting the parameter
 ``ams_fbType`` to either ``’lin’`` or ``’log’``. To illustrate the
 difference between linear linearly-scaled and logarithmically-scaled
 modulation filters, the corresponding filterbank responses are shown in
-Fig. . The linear modulation filterbank is implemented in the frequency
+Fig. :ref:`fig-modfb`. The linear modulation filterbank is implemented in the frequency
 domain, whereas the logarithmically-scaled filterbank is realized by a
-band of second-order butterworth filters with a constant-Q factor of 1.
+band of second-order IIR butterworth filters with a constant-Q factor of 1.
 The modulation filter with the lowest center frequency is always
 implemented as a low-pass filter, as illustrated in the right panel of
-Fig. .
+Fig. :ref:`fig-modfb`.
+
+.. _fig-modfb:
 
 .. figure:: images/ModFB.png
 
-   Transfer functions of :math:`15` linearly-scaled (left panel) and
-   :math:`9` logarithmically-scaled (right panel) modulation
+   Transfer functions of 15 linearly-scaled (left panel) and
+   9 logarithmically-scaled (right panel) modulation
    filters.
 
-Similarly to the gammatone processor described in Sect , there are
+Similarly to the gammatone processor described in Sect :ref:`sec-4.2.1`, there are
 different ways to control the center frequencies of the individual
 modulation filters, which depend on the type of modulation filters
 
@@ -1076,7 +1114,7 @@ modulation filters, which depend on the type of modulation filters
       The requested number of filters ``ams_nFilter`` will be
       linearly-spaced between ``ams_lowFreqHz`` and ``ams_highFreqHz``.
       If ``ams_nFilter`` is omitted, the number of filters will be set
-      to :math:`15` by default.
+      to 15 by default.
 
 -  ``ams_fbType = 'log'``
 
@@ -1088,7 +1126,7 @@ modulation filters, which depend on the type of modulation filters
    #. Specify ``ams_lowFreqHz`` and ``ams_highFreqHz``. Starting at
       ``ams_lowFreqHz``, the center frequencies will be
       logarithmically-spaced at integer powers of two, e.g.
-      :math:`2^2, 2^3, 2^4 ldots` until the higher frequency limit
+      :math:`2^2, 2^3, 2^4 ldots` until the higher frequency limit 
       ``ams_highFreqHz`` is reached.
 
    #. Specify ``ams_lowFreqHz``, ``ams_highFreqHz`` and ``ams_nFilter``.
@@ -1096,14 +1134,14 @@ modulation filters, which depend on the type of modulation filters
       logarithmically as power of two between ``ams_lowFreqHz`` and
       ``ams_highFreqHz``.
 
-The temporal resolution at which the features are computed is specified
+The temporal resolution at which the AMS features are computed is specified
 by the window size ``ams_wSizeSec`` and the step size ``ams_hSizeSec``.
 The window size is an important parameter, because it determines how
 many periods of the lowest modulation frequencies can be resolved within
 one individual time frame. Moreover, the window shape can be adjusted by
-``ams_wname``. Finally, the representation can be downsampled prior to
+``ams_wname``. Finally, the IHC representation can be downsampled prior to
 modulation analysis by selecting a downsampling ratio ``ams_dsRatio``
-larger than 1. A full list of feature parameters is shown in Tab. .
+larger than 1. A full list of AMS feature parameters is shown in Tab. :ref:`tab-ams-features`.
 
 .. _tab-ams-features:
 
@@ -1131,27 +1169,28 @@ larger than 1. A full list of feature parameters is shown in Tab. .
     | ``ams_wname``      | ``'rectwin'`` | Window name                                          |
     +--------------------+---------------+------------------------------------------------------+
 
-The functionality of the feature processor is demonstrated by the script
-``DEMO_AMS`` and the corresponding four plots are presented in Fig. .
+The functionality of the AMS feature processor is demonstrated by the script
+``DEMO_AMS`` and the corresponding four plots are presented in Fig. :ref:`fig-AMS`.
 The time domain speech signal (top left panel) is transformed into a
-representation (top right panel) using :math:`23` frequency channels
-spaced between :math:`80` and :math:`8000 hertz`. The linear and the
-logarithmic feature representations are shown in the bottom panels. The
+IHC representation (top right panel) using 23 frequency channels
+spaced between 80 and 8000 Hz. The linear and the
+logarithmic AMS feature representations are shown in the bottom panels. The
 response of the modulation filters are stacked on top of each other for
-each frequency channel, such that the feature representations can be
-read like spectrograms. It can be seen that the linear feature
-representation is more noisy in comparison to the logarithmically-scaled
-features. Moreover, the logarithmically-scaled modulation pattern shows
-a much higher correlation with the activity reflected in the
-representation.
+each IHC frequency channel, such that the AMS feature representations can be
+read like spectrograms. It can be seen that the linear AMS feature
+representation is more noisy in comparison to the logarithmically-scaled 
+AMS features. Moreover, the logarithmically-scaled modulation pattern shows
+a much higher correlation with the activity reflected in the IHC representation.
+
+.. _fig-AMS:
 
 .. figure:: images/AMS.png
 
-   Speech signal (top left panel) and the corresponding representation (top right panel) using
-   :math:`23` frequency channels spaced between :math:`80` and
-   :math:`8000 hertz`. Linear features (bottom left panel) and
-   logarithmic features (bottom right panel). The response of the
-   modulation filters are stacked on top of each other for each frequency
+   Speech signal (top left panel) and the corresponding IHC representation (top right panel) using
+   23 frequency channels spaced between 80 and
+   8000 Hz. Linear AMS features (bottom left panel) and
+   logarithmic AMS features (bottom right panel). The response of the
+   modulation filters are stacked on top of each other for each IHC frequency
    channel, and each frequency channel is visually separated by a
    horizontal black line. The individual frequency channels, ranging from 1
    to 23, are labels at the left hand side.
@@ -1161,36 +1200,41 @@ Spectro-temporal modulation spectrogram
 
 Neuro-physiological studies suggest that the response of neurons in the
 primary auditory cortex of mammals are tuned to specific
-spectro-temporal patterns . This response characteristic of neurons can
-be described by the so-called . As suggested by , the can be effectively
-modeled by Gabor functions. Based on these findings, a spectro-temporal
-filterbank consisting of :math:`41` Gabor filters has been designed by .
-This filterbank has been optimized for the task of , and the respective
-real parts of the :math:`41` Gabor filters is shown in Fig. .
+spectro-temporal patterns [Theunissen2001]_ [Qiu2003]_. This response characteristic of neurons can
+be described by the so-called spectro-temporal receptive field (STRF). As suggested by [Qiu2003]_, the STRF can be effectively
+modeled by two-dimensional (2D) Gabor functions. Based on these findings, a spectro-temporal
+filterbank consisting of 41 Gabor filters has been designed by [Schädler2012]_.
+This filterbank has been optimized for the task of ASR, and the respective
+real parts of the 41 Gabor filters is shown in Fig. :ref:`fig-Gabor2D`.
 
 The input is a log-compressed ratemap with a required resolution of
-:math:`100 hertz`, which corresponds to a step size of
-:math:`10 millisecond`. To reduce the correlation between individual
+100 Hz, which corresponds to a step size of
+10 ms. To reduce the correlation between individual
 Gabor features and to limit the dimensionality of the resulting Gabor
 feature space, a selection of representative ratemap frequency channels
-will be automatically performed for each Gabor filter . For instance,
-the reference implementation based on :math:`23` frequency channels
-produces a :math:`311` dimensional Gabor feature space.
+will be automatically performed for each Gabor filter [Schädler2012]_. For instance,
+the reference implementation based on 23 frequency channels
+produces a 311 dimensional Gabor feature space.
+
+.. _fig-Gabor2D:
 
 .. figure:: images/Gabor_2D.png
 
-   Real part of :math:`41` spectro-temporal Gabor filters. 
+   Real part of 41 spectro-temporal Gabor filters. 
 
 The Gabor feature processor is demonstrated by the script
-``DEMO_GaborFeatures.m``, which produces the two plots shown in Fig. . A
-log-compressed ratemap with :math:`25 millisecond` time frames and
-:math:`23` frequency channels spaced between :math:`124` and
-:math:`3657 hertz` is shown in the left panel for a speech signal.
+``DEMO_GaborFeatures.m``, which produces the two plots shown in Fig. :ref:`fig-Gabor`. A
+log-compressed ratemap with 25 ms time frames and
+23 frequency channels spaced between 124 and
+3657 Hz is shown in the left panel for a speech signal.
 These ratemap parameters have been adjusted to meet the specifications
-as recommended in the standard . The corresponding Gabor feature space
-with :math:`311` dimension is presented in the right panel, where vowel
-transition (e.g. at time frames around :math:`0.2 second`) are well
-captured. This aspect might be particularly relevant for the task of .
+as recommended in the European telecommunications standards institute
+(ETSI)standard [ETSIES201108v1.1.32003]_. The corresponding Gabor feature space
+with 311 dimension is presented in the right panel, where vowel
+transition (e.g. at time frames around 0.2 s) are well
+captured. This aspect might be particularly relevant for the task of ASR.
+
+.. _fig-Gabor:
 
 .. figure:: images/Gabor.png
 
