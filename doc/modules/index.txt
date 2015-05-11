@@ -1,12 +1,12 @@
-================
-Two!Ears modules
-================
+=================
+Modular structure
+=================
 
 Overview of the different modules
 ---------------------------------
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     main
     binsim

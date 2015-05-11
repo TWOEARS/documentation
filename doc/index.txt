@@ -26,7 +26,7 @@ Having trouble? We'd like to help!
 .. _post a question: https://groups.google.com/d/forum/twoears
 .. _issue tracker: https://github.com/TWOEARS/TwoEars/issues
 
-First Steps
+First steps
 ===========
 
 New to Two!Ears or auditory modelling? This is the place to start!
@@ -43,13 +43,13 @@ New to Two!Ears or auditory modelling? This is the place to start!
   :doc:`Part 4: Working with the database <intro/tutorial04>` |
   :doc:`Part 5: Use a robotic plattform <intro/tutorial05>`
 
-Modular Structure
+Modular structure
 =================
 
 Two!Ears is build up in a completely modular fashion. Find all you need to know
 about it below:
 
-Binaural Simulator
+Binaural simulator
 ==================
 
 The Two!Ears Binaural Simulator enables you to create dynamic binaural ear
@@ -61,13 +61,13 @@ scene.
 * :doc:`Usage <binsim/usage>`
 * :doc:`Examples <binsim/examples>`
 
-Robotic Platform
+Robotic platform
 ================
 
 If you have a robotic platform ready to record the binaural signals, no
 simulation of them will be needed. Learn to set up your own robot below:
 
-Auditory Front-End
+Auditory front-end
 ==================
 
 The Two!Ears Auditory Front-End extracts all kinds of auditory cues from the ear
@@ -80,7 +80,7 @@ see:
 * :doc:`Available processors <afe/processors>`
 * :doc:`Add your own processor <afe/add-processor>`
 
-Blackboard System
+Blackboard system
 =================
 
 The Two!Ears Blackboard System is the *brain* of the Two!Ears Auditory Model as

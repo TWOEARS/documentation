@@ -1,5 +1,6 @@
-Two!Ears Binaural Simulator
-===========================
+==================
+Binaural simulator
+==================
 
 The `Two!Ears Binaural Simulator`_ enables the creation of binaural audio signals
 for different situations. This is done via the usage of head-related transfer
@@ -17,7 +18,7 @@ mex-file. If you have trouble during the installation, don't hesitate to write a
 mail to the |twoears| mailing list.
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     install
     usage

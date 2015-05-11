@@ -1,11 +1,11 @@
-==========================
-Two!Ears Blackboard System
-==========================
+=================
+Blackboard system
+=================
 
 This is not up to date, but for testing the following is included:
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     overview
     development

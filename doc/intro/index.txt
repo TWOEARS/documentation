@@ -1,8 +1,8 @@
-=======================
-Two!Ears Auditory Model
-=======================
+===========
+First steps
+===========
 
-**A computational framework for modelling active exploratory listening that
+**Two!Ears -- A computational framework for modelling active exploratory listening that
 assigns meaning to auditory scenes**
 
 The Two!Ears Auditory Model consists of several stages for modelling active human
