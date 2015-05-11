@@ -223,35 +223,39 @@ corresponding parameters.
 
 .. table:: List of parameters related to the auditory representation ``'filterbank'``
 
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  Parameter          | Default         | Description                                                                          |
-    +=====================+=================+======================================================================================+
-    |  ``fb_type``        | ``'gammatone'`` | Filterbank type, ``'gammatone'`` or ``'drnl'``                                       |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_lowFreqHz``   | ``80``          | Lowest characteristic frequency in Hz                                                |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_highFreqHz``  | ``8000``        | Highest characteristic frequency in Hz                                               |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_nERBs``       | ``1``           | Distance between adjacent filters in ERB                                             |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_nChannels``   | ``[]``          | Number of frequency channels                                                         |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_cfHz``        | ``[]``          | Vector of characteristic frequencies in Hz                                           |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_nGamma``      | ``4``           | Filter order, ``'gammatone'``-only                                                   |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_bwERBs``      | ``1.01859``     | Filter bandwidth in ERB, ``'gammatone'``-only                                        |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_lowFreqHz``   | ``80``          | Lowest characteristic frequency in Hz, ``'gammatone'``-only                          |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_mocIpsi``     | ``1``           | Ipsilateral MOC factor (0 to 1). Given as a scalar (across all frequency channels)   |
-    |                     |                 |                                                                                      |
-    |                     |                 | or a vector (individual per frequency channel), ``'drnl'``-only                      |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_mocContra``   | ``1``           | Contralateral MOC factor (0 to 1). Same format as ``'fb_mocIpsi'``, ``'drnl'``-only  |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
-    |  ``fb_model``       | ``'CASP'``      | DRNL model (reserved for future extension), ``'drnl'``-only                          |
-    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  Parameter          | Default         | Description                                                    |
+    +=====================+=================+================================================================+
+    |  ``fb_type``        | ``'gammatone'`` | Filterbank type, ``'gammatone'`` or ``'drnl'``                 |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_lowFreqHz``   | ``80``          | Lowest characteristic frequency in Hz                          |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_highFreqHz``  | ``8000``        | Highest characteristic frequency in Hz                         |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_nERBs``       | ``1``           | Distance between adjacent filters in ERB                       |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_nChannels``   | ``[]``          | Number of frequency channels                                   |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_cfHz``        | ``[]``          | Vector of characteristic frequencies in Hz                     |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_nGamma``      | ``4``           | Filter order, ``'gammatone'``-only                             |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_bwERBs``      | ``1.01859``     | Filter bandwidth in ERB, ``'gammatone'``-only                  |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_lowFreqHz``   | ``80``          | Lowest characteristic frequency in Hz, ``'gammatone'``-only    |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_mocIpsi``     | ``1``           | Ipsilateral MOC factor (0 to 1). Given as a scalar (across all |
+    |                     |                 |                                                                |
+    |                     |                 | frequency channels) or a vector (individual per frequency      |
+    |                     |                 |                                                                |
+    |                     |                 | channel), ``'drnl'``-only                                      |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_mocContra``   | ``1``           | Contralateral MOC factor (0 to 1). Same format as              |
+    |                     |                 |                                                                |
+    |                     |                 | ``'fb_mocIpsi'``, ``'drnl'``-only                              |
+    +---------------------+-----------------+----------------------------------------------------------------+
+    |  ``fb_model``       | ``'CASP'``      | DRNL model (reserved for future extension), ``'drnl'``-only    |
+    +---------------------+-----------------+----------------------------------------------------------------+
 
 
 
@@ -473,32 +477,33 @@ whereas stationary input signals go through logarithmic compression.
 
 .. _tab-adaption-parameters:
 
-.. table:: List of parameters related to the auditory representation ’adaptation’.
+.. table:: List of parameters related to ’adaptation’.
 
-    +-----------------+----------------+----------------------------------------+
-    | Parameter       | Default        | Description                            |
-    +=================+================+========================================+
-    | ``adpt_lim``    | ``10``         | Overshoot limiting ratio               |
-    +-----------------+----------------+----------------------------------------+
-    | ``adpt_mindB``  | ``0``          | Lowest audible threshold of the signal |
-    |                 |                | (in dB SPL)                            |
-    +-----------------+----------------+----------------------------------------+
-    | ``adpt_tau``    | ``[0.005       | Time constants of feedback loops       |
-    |                 | 0.050          |                                        |
-    |                 | 0.129          |                                        |
-    |                 | 0.253          |                                        |
-    |                 | 0.500]``       |                                        |
-    +-----------------+----------------+----------------------------------------+
-    | ``adpt_model``  | ``'adt_dau'``  | Implementation model ``'adt_dau'``,    |
-    |                 |                |                                        |
-    |                 |                | ``'adt_puschel'``, or                  |
-    |                 |                | ``'adt_breebart'``                     |
-    |                 |                |                                        |
-    |                 |                | can be used instead of the above three |
-    |                 |                |                                        |
-    |                 |                | parameters (See Tab.                   |
-    |                 |                | :ref:`tab-adaptationmodels`)           |
-    +-----------------+----------------+----------------------------------------+
+    +----------------+---------------+----------------------------------------+
+    | Parameter      | Default       | Description                            |
+    +================+===============+========================================+
+    | ``adpt_lim``   | ``10``        | Overshoot limiting ratio               |
+    +----------------+---------------+----------------------------------------+
+    | ``adpt_mindB`` | ``0``         | Lowest audible threshold of the signal |
+    |                |               |                                        |
+    |                |               | in dB SPL                              |
+    +----------------+---------------+----------------------------------------+
+    | ``adpt_tau``   | ``[0.005      | Time constants of feedback loops       |
+    |                | 0.050         |                                        |
+    |                | 0.129         |                                        |
+    |                | 0.253         |                                        |
+    |                | 0.500]``      |                                        |
+    +----------------+---------------+----------------------------------------+
+    | ``adpt_model`` | ``'adt_dau'`` | Implementation model ``'adt_dau'``,    |
+    |                |               |                                        |
+    |                |               | ``'adt_puschel'``, or                  |
+    |                |               | ``'adt_breebart'``                     |
+    |                |               |                                        |
+    |                |               | can be used instead of the above three |
+    |                |               |                                        |
+    |                |               | parameters (See Tab.                   |
+    |                |               | :ref:`... <tab-adaptationmodels>`)     |
+    +----------------+---------------+----------------------------------------+
 
 
 The adaptation processor uses three parameters to generate the output
@@ -532,43 +537,42 @@ processor is used in the chain and adjusts the input signal accordingly.
 
 .. _tab-supported-models:
 
-.. table:: List of supported models related to the auditory representation ’adaptation’.
+.. table:: List of supported models related to ``'adaptation'``.
 
-    +----------------------+------------------------------------------------------------+
-    | ``adpt_model``       | Description                                                |
-    +======================+============================================================+
-    | ``'adt_dau'``        | Choose the parameters as in the models of                  |
-    |                      |                                                            |
-    |                      | [Dau1996]_, [Dau1997]_.                                    |
-    |                      |                                                            |
-    |                      | This consists of 5 adaptation loops with an                |
-    |                      |                                                            |
-    |                      | overshoot limit of 10 and a minimum level of 0 dB.         |
-    |                      |                                                            |
-    |                      | This is a correction in regard to the model                |
-    |                      |                                                            |
-    |                      | described in [Dau1996],                                    |
-    |                      |                                                            |
-    |                      | which did not use overshoot limiting.                      |
-    |                      |                                                            |
-    |                      | The adaptation loops have an exponentially                 |
-    |                      |                                                            |
-    |                      | spaced time constants                                      |
-    |                      |                                                            |
-    |                      | ``adpt_tau=[0.005 0.050 0.129 0.253 0.500]``               |
-    +----------------------+------------------------------------------------------------+
-    | ``'adt_puschel'``    | Choose the parameters as in the original model             |
-    |                      |                                                            |
-    |                      | [Puschel1988]_. This consists of 5 adaptation loops        |
-    |                      |                                                            |
-    |                      | without overshoot limiting (``adpt_lim=0``).               |
-    |                      |                                                            |
-    |                      | The adapation loops have a linearly spaced time constants  |
-    |                      |                                                            |
-    |                      | (``adpt_tau=[0.0050 0.1288 0.2525 0.3762 0.5000]``).       |
-    +----------------------+------------------------------------------------------------+
-    | ``'adt_breebaart'``  | As ``'adt_puschel'``, but with overshoot limiting          |
-    +----------------------+------------------------------------------------------------+
+    +---------------------+---------------------------------------------------+
+    | ``adpt_model``      | Description                                       |
+    +=====================+===================================================+
+    | ``'adt_dau'``       | Choose the parameters as in the models of         |
+    |                     | [Dau1996]_, [Dau1997]_.                           |
+    |                     |                                                   |
+    |                     | This consists of 5 adaptation loops with an       |
+    |                     | overshoot limit of 10 and                         |
+    |                     |                                                   |
+    |                     | a minimum level of 0 dB. This is a correction     |
+    |                     | in regard to the model                            |
+    |                     |                                                   |
+    |                     | described in [Dau1996],                           |
+    |                     | which did not use overshoot limiting. The         |
+    |                     |                                                   |
+    |                     | adaptation loops have an exponentially            |
+    |                     | spaced time constants                             |
+    |                     |                                                   |
+    |                     | ``adpt_tau=[0.005 0.050 0.129 0.253 0.500]``      |
+    +---------------------+---------------------------------------------------+
+    | ``'adt_puschel'``   | Choose the parameters as in the original model    |
+    |                     | [Puschel1988]_.                                   |
+    |                     |                                                   |
+    |                     | This consists of 5 adaptation loops without       |
+    |                     | overshoot limiting                                |
+    |                     |                                                   |
+    |                     | (``adpt_lim=0``). The adapation loops have a      |
+    |                     | linearly spaced time                              |
+    |                     |                                                   |
+    |                     | constants ``adpt_tau=[0.0050 0.1288 0.2525        |
+    |                     | 0.3762 0.5000]``.                                 |
+    +---------------------+---------------------------------------------------+
+    | ``'adt_breebaart'`` | As ``'adt_puschel'``, but with overshoot limiting |
+    +---------------------+---------------------------------------------------+
 
 
 
@@ -624,7 +628,7 @@ Sec. .
 
 .. _tab-acorr-parameters:
 
-.. table:: List of parameters related to the auditory representation ’autocorrelation’.
+.. table:: List of parameters related to the auditory representation ``'autocorrelation'``.
 
     =================== ========== =========================================================
     Parameter           Default    Description
@@ -990,7 +994,7 @@ the non-linear pre-processing of the , as described in Sec. .
 
 .. _tab-pitch:
 
-.. table:: List of parameters related to ``pitch``.
+.. table:: List of parameters related to ``'pitch'``.
 
     +---------------------+--------------+-----------------------------------------------+
     | Parameter           | Default      | Description                                   |
