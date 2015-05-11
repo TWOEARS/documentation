@@ -1242,19 +1242,20 @@ captured. This aspect might be particularly relevant for the task of ASR.
    corresponding output of the Gabor feature processor (right
    panel).
 
+.. _sec-chap4.14:
+
 Cross-correlation (``crosscorrelationProc.m``)
 ----------------------------------------------
 
-The representations of the left and the right ear signals is used to
-compute the normalized in the domain for short time frames of
-``cc_wSizeSec`` duration with a step size of ``cc_hSizeSec``. The is
-normalized by the auto-correlation sequence at lag zero. This normalized
+The IHCrepresentations of the left and the right ear signals is used to
+compute the normalized cross-correlation function (CCF) in the FFT domain for short time frames of
+``cc_wSizeSec`` duration with a step size of ``cc_hSizeSec``. The CCF is
+normalized by the auto-correlation sequence at lag zero. This normalized CCF
 is then evaluated for time lags within ``cc_maxDelaySec`` (e.g.,
-:math:`[-1 millisecond, 1 millisecond]`) and is thus a
+[-1 ms, 1 ms]) and is thus a
 three-dimensional function of time frame, frequency channel and lag
-time. An overview of all parameters is given in Tab. . Note that the
-choice of these parameters will influence the computation of the and the
-processors, which are described in Sec.  and Sec. , respectively.
+time. An overview of all CCF parameters is given in Tab. :ref:`tab-crosscorrelation`. Note that the
+choice of these parameters will influence the computation of the ITD and the interaural coherence (IC) processors, which are described in Sec. :ref:`sec-chap4.15` and Sec. :ref:`sec-chap4.17`, respectively.
 
 .. _tab-crosscorrelation:
 
@@ -1273,59 +1274,64 @@ processors, which are described in Sec.  and Sec. , respectively.
     +--------------------+------------+--------------------------------------------------+
 
 The script ``DEMO_Crosscorrelation.m`` demonstrates the functionality of
-the function and the resulting plots are shown in Fig. . The left panel
+the CCF function and the resulting plots are shown in Fig. :ref:`fig-CCF`. The left panel
 shows the ear signals for a speech source that is located closer to the
 right ear. As result, the left ear signal is smaller in amplitude and is
-delayed in comparison to the right ear signal. The corresponding is
-shown in the right panel for :math:`32` auditory channels, where peaks
+delayed in comparison to the right ear signal. The corresponding CCF is
+shown in the right panel for 32 auditory channels, where peaks
 are centered around positive time lags, indicating that the source is
-closer to the right ear. This is even more evident by looking at the ,
+closer to the right ear. This is even more evident by looking at the summary cross-correlation function (SCCF),
 as shown in the bottom right panel.
+
+.. _fig-CCF:
 
 .. figure:: images/CCF.png
 
    Left and right ear signals shown for one time frame of
-   :math:`20 millisecond` duration (left panel) and the corresponding
-   (right panel). The summarizes the across all auditory channels (bottom
+   20 ms duration (left panel) and the corresponding CCF
+   (right panel). The SCCF summarizes the CCF across all auditory channels (bottom
    right panel). 
+
+.. _sec-chap4.15:
 
 Interaural time differences (``itdProc.m``)
 -------------------------------------------
 
-The between the left and the right ear signal is estimated for
+The ITD between the left and the right ear signal is estimated for
 individual frequency channels and time frames by locating the time lag
-that corresponds to the most prominent peak in the normalized . This
-estimation is further refined by a parabolic interpolation stage . The
-processor does not have any adjustable parameters, but it relies on the
-described in Sec.  and its corresponding parameters (see Tab. ). The
+that corresponds to the most prominent peak in the normalized CCF. This
+estimation is further refined by a parabolic interpolation stage [May2011]_ [May2013]_. The ITD processor does not have any adjustable parameters, but it relies on the CCF
+described in Sec. :ref:`sec-chap4.14` and its corresponding parameters (see Tab. :ref:`tab-crosscorrelation`). The ITD 
 representation is computed by using the request entry ``’itd’``.
 
-The processor is demonstrated by the script ``DEMO_ITD.m``, which
-produces two plots as shown in Fig. . The ear signals for a speech
+The ITD processor is demonstrated by the script ``DEMO_ITD.m``, which
+produces two plots as shown in Fig. :ref:`fig-itd`. The ear signals for a speech
 source that is located closer to the right ear are shown in the left
-panel. The corresponding estimation is presented for each individual
-unit (right panel). Apart from a few estimation errors, the estimated
-between both ears is in the range of :math:`0.5 millisecond` for the
-majority of units.
+panel. The corresponding ITD estimation is presented for each individual T-F 
+unit (right panel). Apart from a few estimation errors, the estimated ITD
+between both ears is in the range of 0.5 ms for the
+majority of T-F units.
+
+.. _fig-itd:
 
 .. figure:: images/ITD.png
 
-   Binaural speech signal (left panel) and the estimated in
-   :math:`millisecond` shown as a function of time frames and frequency
+   Binaural speech signal (left panel) and the estimated ITD in
+   ms shown as a function of time frames and frequency
    channels.
 
 Interaural level differences (``ildProc.m``)
 --------------------------------------------
 
-The is estimated for individual frequency channels by comparing the
-frame-based energy of the left and the right-ear representations. The
+The ILD is estimated for individual frequency channels by comparing the
+frame-based energy of the left and the right-ear IHC representations. The
 temporal resolution can be controlled by the frame size ``ild_wSizeSec``
 and the step size ``ild_hSizeSec``. Moreover, the window shape can be
-adjusted by the parameter ``ild_wname``. The resulting is expressed in
-:math:`decibel` and negative values indicate a sound source positioned
-at the left-hand side, whereas a positive corresponds to a source
+adjusted by the parameter ``ild_wname``. The resulting ILD is expressed in
+dB and negative values indicate a sound source positioned
+at the left-hand side, whereas a positive ILD corresponds to a source
 located at the right-hand side. A full list of parameters is shown in
-Tab. .
+Tab. :ref:`tab-ild`.
 
 .. _tab-ild:
 
@@ -1341,43 +1347,49 @@ Tab. .
     | ``ild_wname``    | ``'hann'`` | Window name           |
     +------------------+------------+-----------------------+
 
-The processor is demonstrated by the script ``DEMO_ILD.m`` and the
-resulting plots are presented in Fig. . The ear signals are shown for a
+The ILD processor is demonstrated by the script ``DEMO_ILD.m`` and the
+resulting plots are presented in Fig. :ref:`fig-ild`. The ear signals are shown for a
 speech source that is more closely located to the right ear (left
-panel). The corresponding estimates are presented for individual units.
+panel). The corresponding ILD estimates are presented for individual T-F units.
 It is apparent that the change considerably as a function of the center
-frequency. Whereas hardly any are observed for low frequencies, a strong
-influence can be seen at higher frequencies where can be as high as
-:math:`30 decibel`.
+frequency. Whereas hardly any ILDs are observed for low frequencies, a strong
+influence can be seen at higher frequencies where ILDs can be as high as
+30 dB.
+
+.. _fig-ild:
 
 .. figure:: images/ILD.png
 
-   Binaural speech signal (left panel) and the estimated in
-   :math:`decibel` shown as a function of time frames and frequency
+   Binaural speech signal (left panel) and the estimated ILD in
+   dB shown as a function of time frames and frequency
    channels. 
+
+.. _sec-chap4.17:
 
 Interaural coherence (``icProc.m``)
 -----------------------------------
 
-The is estimated by determining the maximum value of the normalized .
-It has been suggested that the can be used to select units where the
-binaural cues ( and ) are dominated by the direct sound of an individual
+The IC is estimated by determining the maximum value of the normalized CCF.
+It has been suggested that the IC can be used to select T-F units where the
+binaural cues (ITDs and ILDs) are dominated by the direct sound of an individual
 sound source, and thus, are likely to reflect the true location of one
-of the active sources . The processor does not have any controllable
-parameters itself, but it depends on the settings of the processor,
-which is described in Sec. . The representation is computed by using the
+of the active sources [Faller2004]_. The  IC processor does not have any controllable
+parameters itself, but it depends on the settings of the CCF processor,
+which is described in Sec. :ref:`sec-chap4.14`. The IC representation is computed by using the
 request entry ``’ic’``.
 
-The application of the processor is demonstrated by the script
-``DEMO_IC``, which produces the following four plots shown in Fig. . The
+The application of the IC processor is demonstrated by the script
+``DEMO_IC``, which produces the following four plots shown in Fig. :ref:`fig-IC`. The
 top left and bottom left panels show the anechoic and reverberant speech
 signal, respectively. It can be seen that the time domain signal is
-smeared due to the influence of the reverberation. The for the anechoic
-signal is close to one for most of the individual units, which indicates
-that the corresponding binaural cues are reliable. In contrast, the for
-the reverberant signal is substantially lower for many units, suggesting
+smeared due to the influence of the reverberation. The IC for the anechoic
+signal is close to one for most of the individual T-F units, which indicates
+that the corresponding binaural cues are reliable. In contrast, the IC for
+the reverberant signal is substantially lower for many T-F units, suggesting
 that the corresponding binaural cues might be unreliable due to the
 impact of the reverberation.
+
+.. _fig-IC:
 
 .. figure:: images/IC.png
 
