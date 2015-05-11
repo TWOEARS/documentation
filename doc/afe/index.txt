@@ -34,12 +34,12 @@ requests auditory cues or even write your own auditory processor
 read on:
 
 .. toctree::
- :maxdepth: 2
+    :maxdepth: 2
 
- overview
- description
- processors
- add-processor
+    overview
+    description
+    processors
+    add-processor
 
 
 Indices and tables
