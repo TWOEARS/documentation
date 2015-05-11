@@ -39,29 +39,29 @@ in Table :ref:`tab-time-parameters`.
 .. table:: List of parameters related to the auditory representation ’time’.
 
     +------------------------------+--------------+-------------------------------------------------------+
-    |  Parameter                   | Default      |   Description                                         |   
+    |  Parameter                   | Default      |   Description                                         |
     +==============================+==============+=======================================================+
-    |  ``pp\_bRemoveDC``           | ``false``    |  Activate DC removal filter                           |   
+    |  ``pp_bRemoveDC``            | ``false``    |  Activate DC removal filter                           |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_cutoffHzDC``          | ``20``       |  Cut-off frequency in Hz of the high-pass filter      |   
+    |  ``pp_cutoffHzDC``           | ``20``       |  Cut-off frequency in Hz of the high-pass filter      |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_bPreEmphasis``        | ``false``    |  Activate pre-emphasis filter                         |   
+    |  ``pp_bPreEmphasis``         | ``false``    |  Activate pre-emphasis filter                         |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_coefPreEmphasis``     | ``0.97``     |  Coefficient of first-order high-pass filter          |   
+    |  ``pp_coefPreEmphasis``      | ``0.97``     |  Coefficient of first-order high-pass filter          |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_bNormalizeRMS``       | ``false``    |  Activate RMS normalization                           |   
+    |  ``pp_bNormalizeRMS``        | ``false``    |  Activate RMS normalization                           |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_intTimeSecRMS``       | ``2``        |  Time constant in s used for RMS estimation           |   
+    |  ``pp_intTimeSecRMS``        | ``2``        |  Time constant in s used for RMS estimation           |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_bBinauralRMS``        | ``true``     |  Link RMS normalization across both ear signals       |   
+    |  ``pp_bBinauralRMS``         | ``true``     |  Link RMS normalization across both ear signals       |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_bLevelScaling``       | ``false``    |  Apply level scaling to the given reference           |   
+    |  ``pp_bLevelScaling``        | ``false``    |  Apply level scaling to the given reference           |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_refSPLdB``            | ``100``      |  Reference dB SPL to correspond to the input RMS of 1 |   
+    |  ``pp_refSPLdB``             | ``100``      |  Reference dB SPL to correspond to the input RMS of 1 |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_bMiddleEarFiltering`` | ``false``    |  Apply middle ear filtering                           |   
+    |  ``pp_bMiddleEarFiltering``  | ``false``    |  Apply middle ear filtering                           |
     +------------------------------+--------------+-------------------------------------------------------+
-    |  ``pp\_middleEarModel``      | ``'jepsen'`` |  Middle ear filter model                              |   
+    |  ``pp_middleEarModel``       | ``'jepsen'`` |  Middle ear filter model                              |
     +------------------------------+--------------+-------------------------------------------------------+
 
 
@@ -194,7 +194,7 @@ specifying the model ``pp_middleEarModel = 'lopezpoveda'`` or
 Auditory filterbank
 -------------------
 
-One central processing element of the is the separation of incoming
+One central processing element of the |AFE| is the separation of incoming
 acoustic signals into different spectral bands, as it happens in the
 human inner ear. In psychoacoustic modeling, two different approaches
 have been followed over the years. One is the simulation of this stage
@@ -203,53 +203,55 @@ gammatone filterbank can be considered a standard element for auditory
 models and has therefore been included in the framework. A
 computationally more challenging, but at the same time physiologically
 more plausible simulation of this process can be realized by a
-*nonlinear* model, and we have implemented the model, as developed by .
+*nonlinear* BM model, and we have implemented the DRNL model, as developed by
+[Meddis2001]_.
 The filterbank representation is requested by using the nametag
-``’filterbank’``. The filterbank type can be controlled by the parameter
+``'filterbank'``. The filterbank type can be controlled by the parameter
 ``fb_type``. To select a gammatone filterbank, ``fb_type`` should be set
-to ``’gammatone’`` (which is the default), whereas the filterbank is
-used when setting ``fb_type = ’drnl’``. Some of the parameters are
+to ``’gammatone’`` (which is the default), whereas the DRNL filterbank is
+used when setting ``fb_type = 'drnl'``. Some of the parameters are
 common to the two filterbank, while some are specific, in which case
 their value is disregarded if the other type of filterbank was
-requested. Table summarizes all parameters corresponding to the
-``’filterbank’`` request. Parameters specific to a filterbank type are
+requested. Table :ref:`tab-filterbank-parameters`
+summarizes all parameters corresponding to the
+``'filterbank'`` request. Parameters specific to a filterbank type are
 separated by a horizontal line. The two filterbank implementations are
 described in detail in the following two subsections, along with their
 corresponding parameters.
 
 .. _tab-filterbank-parameters:
 
-.. table:: List of parameters related to the auditory representation ’filterbank’
+.. table:: List of parameters related to the auditory representation ``'filterbank'``
 
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  Parameter                            | Default     | Description                                                              |   
-    +===========================================+=============+======================================================================================+
-    |  ``fb\_type``                             | 'gammatone' | Filterbank type, *'gammatone'* or *'drnl'*                       |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_lowFreqHz``                        | 80          | Lowest characteristic frequency in *hertz*                                   |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_highFreqHz``                       | 8000        | Highest characteristic frequency in *\hertz*                                         |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_nERBs``                        | 1           | Distance between adjacent filters in *erb*                                           |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_nChannels``                    | []          | Number of frequency channels                                                     |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_cfHz``                             | []          | Vector of characteristic frequencies in *hertz*                                      |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_nGamma``                           | 4           | Filter order, *'gammatone'*-only                                                     |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_bwERBs``                           | 1.01859     | Filter bandwidth in *erb*, *'gammatone'*-only                                        |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_lowFreqHz``                    | 80          | Lowest characteristic frequency in *\hertz*, *'gammatone'*-only                      |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_mocIpsi``                      | 1           | Ipsilateral MOC factor (0 to 1). Given as a scalar (across all frequency channels)   |
-    |                                           |             |                                                                                      |
-    |                                           |             | or a vector (individual per frequency channel), ``'drnl'``-only                  |
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_mocContra``                    | 1           | Contralateral MOC factor (0 to 1). Same format as ``fb\_mocIpsi``, ``'drnl'``-only   |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
-    |  ``fb\_model``                        | CASP        | \ac{drnl} model (reserved for future extension), *'drnl'*-only                   |   
-    +-------------------------------------------+-------------+--------------------------------------------------------------------------------------+
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  Parameter          | Default         | Description                                                                          |
+    +=====================+=================+======================================================================================+
+    |  ``fb_type``        | ``'gammatone'`` | Filterbank type, ``'gammatone'`` or ``'drnl'``                                       |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_lowFreqHz``   | ``80``          | Lowest characteristic frequency in Hz                                                |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_highFreqHz``  | ``8000``        | Highest characteristic frequency in Hz                                               |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_nERBs``       | ``1``           | Distance between adjacent filters in ERB                                             |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_nChannels``   | ``[]``          | Number of frequency channels                                                         |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_cfHz``        | ``[]``          | Vector of characteristic frequencies in Hz                                           |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_nGamma``      | ``4``           | Filter order, ``'gammatone'``-only                                                   |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_bwERBs``      | ``1.01859``     | Filter bandwidth in ERB, ``'gammatone'``-only                                        |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_lowFreqHz``   | ``80``          | Lowest characteristic frequency in Hz, ``'gammatone'``-only                          |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_mocIpsi``     | ``1``           | Ipsilateral MOC factor (0 to 1). Given as a scalar (across all frequency channels)   |
+    |                     |                 |                                                                                      |
+    |                     |                 | or a vector (individual per frequency channel), ``'drnl'``-only                      |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_mocContra``   | ``1``           | Contralateral MOC factor (0 to 1). Same format as ``'fb_mocIpsi'``, ``'drnl'``-only  |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
+    |  ``fb_model``       | ``'CASP'``      | DRNL model (reserved for future extension), ``'drnl'``-only                          |
+    +---------------------+-----------------+--------------------------------------------------------------------------------------+
 
 
 
@@ -258,18 +260,19 @@ Gammatone (``gammatoneProc.m``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The time domain signal can be processed by a bank of gammatone filters
-that simulates the frequency selective properties of the human . The
+that simulates the frequency selective properties of the human BM. The
 corresponding Matlab function is adopted from the
-`AMToolbox <http://amtoolbox.sourceforge.net/>`__ . The gammatone
+|amtoolbox| [Soendergaard2013]_. The gammatone
 filters cover a frequency range between ``fb_lowFreqHz`` and
-``fb_highFreqHz`` and are linearly spaced on the scale . In addition,
-the distance between adjacent filter center frequencies on the scale can
+``fb_highFreqHz`` and are linearly spaced on the ERB scale [Glasberg1990]_.
+In addition,
+the distance between adjacent filter center frequencies on the ERB scale can
 be specified by ``fb_nERBs``, which effectively controls the frequency
 resolution of the gammatone filterbank. There are three different ways
 to control the center frequencies of the individual gammatone filters:
 
 #. Define a vector with center frequencies, e.g.
-   ``fb_cfHz = [100 200 500 …]``. In this case, the parameters
+   ``fb_cfHz = [100 200 500 ...]``. In this case, the parameters
    ``fb_lowFreqHz``, ``fb_highFreqHz``, ``fb_nERBs`` and
    ``fb_nChannels`` are ignored.
 
@@ -284,7 +287,7 @@ to control the center frequencies of the individual gammatone filters:
 
 #. It is also possible to specify ``fb_lowFreqHz``, ``fb_highFreqHz``
    and ``fb_nERBs``. Starting at ``fb_lowFreqHz``, the center
-   frequencies will be spaced at a distance of ``fb_nERBs`` on the scale
+   frequencies will be spaced at a distance of ``fb_nERBs`` on the ERB scale
    until the specified frequency range is covered. The center frequency
    of the last filter will not necessarily match with ``fb_highFreqHz``.
 
@@ -294,27 +297,31 @@ filters depend on the filter order and the center frequency, and the
 default scaling factor for a forth-order filter is approximately
 ``fb_bwERBs = 1.01859``. When adjusting the parameter ``fb_bwERBs``, it
 should be noted that the resulting filter shape will deviate from the
-original gammatone filter as measured by . For instance, increasing
+original gammatone filter as measured by [Glasberg1990]_.
+For instance, increasing
 ``fb_bwERBs`` leads to a broader filter shape. A full list of parameters
-is shown in Tab. .
+is shown in Table :ref:`tab-filterbank-parameters`.
 
-The gammatone filterbank is illustrated in Fig. , which has been
-produced by the script ``DEMO_Gammatone.m``. The speech signal shown in
-the left panel is passed through a bank of :math:`16` gammatone filters
-spaced between :math:`80` and :math:`8000 hertz`. The output of each
+The gammatone filterbank is illustrated in Figure :ref:`Gammatone <fig-gammatone>`,
+which has been
+produced by the script :file:`DEMO_Gammatone.m`. The speech signal shown in
+the left panel is passed through a bank of 16 gammatone filters
+spaced between 80 Hz and 8000 Hz. The output of each
 individual filter is shown in the right panel.
 
+.. _fig-gammatone:
+
 .. figure:: images/Gammatone.png
-   
+
    Time domain signal (left panel) and the corresponding output of the gammatone
-   processor consisting of :math:`16` auditory filters spaced between
-   :math:`80` and :math:`8000 hertz` (right panel).
+   processor consisting of 16 auditory filters spaced between
+   80 Hz and 8000 Hz (right panel).
 
 Dual-resonance non-linear filterbank (``drnlProc.m``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The filterbank models the nonlinear operation of the cochlear, in
-addition to the frequency selective feature of the . The processor was
+The DRNL filterbank models the nonlinear operation of the cochlear, in
+addition to the frequency selective feature of the BM. The DRNL processor was
 motivated by attempts to better represent the nonlinear operation of the
 in the modelling, and allows for testing the performance of peripheral
 models with the nonlinearity and feedback in comparison to that with the
@@ -402,7 +409,7 @@ Inner hair-cell (``ihcProc.m``)
 
 The functionality is simulated by extracting the envelope of the output
 of individual gammatone filters. The corresponding function is adopted
-from the `AMToolbox <http://amtoolbox.sourceforge.net/>`_. Typically,
+from the |amtoolbox| [Soendergaard2013]_. Typically,
 the envelope is extracted by combining half-wave rectification and
 low-pass filtering. The low-pass filter is motivated by the loss of
 phase-locking in the auditory nerve at higher frequencies . Depending on
@@ -417,18 +424,18 @@ A particular model can be selected by using the parameter ``ihc_method``.
 
 .. table:: List of supported IHC models
 
-    ============== ======================================================================================
-    ``ihc_method`` Description
-    ============== ======================================================================================
-    ``hilbert``    Hilbert transform
-    ``halfwave``   Half-wave rectification
-    ``fullwave``   Full-wave rectification
-    ``square``     Squared
-    ``dau``        Half-wave rectification and low-pass filtering at 1000 Hz [Dau1996]_
-    ``joergensen`` Hilbert transform and low-pass filtering at 150 Hz [Joergensen2011]_
-    ``breebart``   Half-wave rectification and low-pass filtering at 770 Hz [Breebart2001]_
-    ``bernstein``  Half-wave rectification, compression and low-pass filtering at 425 Hz [Bernstein1999]_
-    ============== ======================================================================================
+    ================ ======================================================================================
+    ``ihc_method``   Description
+    ================ ======================================================================================
+    ``'hilbert'``    Hilbert transform
+    ``'halfwave'``   Half-wave rectification
+    ``'fullwave'``   Full-wave rectification
+    ``'square'``     Squared
+    ``'dau'``        Half-wave rectification and low-pass filtering at 1000 Hz [Dau1996]_
+    ``'joergensen'`` Hilbert transform and low-pass filtering at 150 Hz [Joergensen2011]_
+    ``'breebart'``   Half-wave rectification and low-pass filtering at 770 Hz [Breebart2001]_
+    ``'bernstein'``  Half-wave rectification, compression and low-pass filtering at 425 Hz [Bernstein1999]_
+    ================ ======================================================================================
 
 The effect of the processor is demonstrated in Figure
 :ref:`Illustration of the envelope extraction processor <fig-ihc>`,
@@ -451,8 +458,8 @@ Adaptation (``adaptationProc.m``)
 This processor corresponds to the adaptive response of the auditory
 nerve fibers, in which abrupt changes in the input result in emphasised
 overshoots followed by gradual decay to compressed steady-state level .
-The function is adopted from the
-`AMToolbox <http://amtoolbox.sourceforge.net/>`_. The adaptation stage
+The function is adopted from the |amtoolbox| [Soendergaard2013]_.
+The adaptation stage
 is modelled as a chain of five feedback loops in series. Each of the
 loops consists of a low-pass filter with its own time constant, and a
 division operator . At each stage, the input is divided by its low-pass
@@ -468,30 +475,30 @@ whereas stationary input signals go through logarithmic compression.
 
 .. table:: List of parameters related to the auditory representation ’adaptation’.
 
-    +-----------------+------------+----------------------------------------+
-    | Parameter       | Default    | Description                            |
-    +=================+============+========================================+
-    | ``adpt\_lim``   | 10         | Overshoot limiting ratio               |
-    +-----------------+------------+----------------------------------------+
-    | ``adpt\_mindB`` | 0          | Lowest audible threshold of the signal |
-    |                 |            | (in dB SPL)                            |
-    +-----------------+------------+----------------------------------------+
-    | ``adpt\_tau``   | [0.005     | Time constants of feedback loops       |
-    |                 | 0.050      |                                        |
-    |                 | 0.129      |                                        |
-    |                 | 0.253      |                                        |
-    |                 | 0.500]     |                                        |
-    +-----------------+------------+----------------------------------------+
-    | ``adpt\_model`` | 'adt\_dau' | Implementation model ``'adt\_dau'``,   |
-    |                 |            |                                        |
-    |                 |            | ``'adt\_puschel'``, or                 |
-    |                 |            | ``'adt\_breebart'``                    |
-    |                 |            |                                        |
-    |                 |            | can be used instead of the above three |
-    |                 |            |                                        |
-    |                 |            | parameters (See Tab.                   |
-    |                 |            | :ref:`tab-adaptationmodels`)           |
-    +-----------------+------------+----------------------------------------+
+    +-----------------+----------------+----------------------------------------+
+    | Parameter       | Default        | Description                            |
+    +=================+================+========================================+
+    | ``adpt_lim``    | ``10``         | Overshoot limiting ratio               |
+    +-----------------+----------------+----------------------------------------+
+    | ``adpt_mindB``  | ``0``          | Lowest audible threshold of the signal |
+    |                 |                | (in dB SPL)                            |
+    +-----------------+----------------+----------------------------------------+
+    | ``adpt_tau``    | ``[0.005       | Time constants of feedback loops       |
+    |                 | 0.050          |                                        |
+    |                 | 0.129          |                                        |
+    |                 | 0.253          |                                        |
+    |                 | 0.500]``       |                                        |
+    +-----------------+----------------+----------------------------------------+
+    | ``adpt_model``  | ``'adt_dau'``  | Implementation model ``'adt_dau'``,    |
+    |                 |                |                                        |
+    |                 |                | ``'adt_puschel'``, or                  |
+    |                 |                | ``'adt_breebart'``                     |
+    |                 |                |                                        |
+    |                 |                | can be used instead of the above three |
+    |                 |                |                                        |
+    |                 |                | parameters (See Tab.                   |
+    |                 |                | :ref:`tab-adaptationmodels`)           |
+    +-----------------+----------------+----------------------------------------+
 
 
 The adaptation processor uses three parameters to generate the output
@@ -528,11 +535,11 @@ processor is used in the chain and adjusts the input signal accordingly.
 .. table:: List of supported models related to the auditory representation ’adaptation’.
 
     +----------------------+------------------------------------------------------------+
-    | ``adpt\_model``      | Description                                                |
+    | ``adpt_model``       | Description                                                |
     +======================+============================================================+
-    | ``'adt\_dau'``       | Choose the parameters as in the models of                  |
+    | ``'adt_dau'``        | Choose the parameters as in the models of                  |
     |                      |                                                            |
-    |                      | \citet{DauPueschelKohlrausch96, DauKollmeierKohlrausch97a}.|
+    |                      | [Dau1996]_, [Dau1997]_.                                    |
     |                      |                                                            |
     |                      | This consists of 5 adaptation loops with an                |
     |                      |                                                            |
@@ -540,7 +547,7 @@ processor is used in the chain and adjusts the input signal accordingly.
     |                      |                                                            |
     |                      | This is a correction in regard to the model                |
     |                      |                                                            |
-    |                      | described in \citet{DauPueschelKohlrausch96},              |
+    |                      | described in [Dau1996],                                    |
     |                      |                                                            |
     |                      | which did not use overshoot limiting.                      |
     |                      |                                                            |
@@ -548,19 +555,19 @@ processor is used in the chain and adjusts the input signal accordingly.
     |                      |                                                            |
     |                      | spaced time constants                                      |
     |                      |                                                            |
-    |                      | ``adpt\_tau=[0.005 0.050 0.129 0.253 0.500]``              |
+    |                      | ``adpt_tau=[0.005 0.050 0.129 0.253 0.500]``               |
     +----------------------+------------------------------------------------------------+
-    | ``'adt\_puschel'``   | Choose the parameters as in the original model             |
+    | ``'adt_puschel'``    | Choose the parameters as in the original model             |
     |                      |                                                            |
-    |                      | \citep{Puschel1988}. This consists of 5 adaptation loops   |
+    |                      | [Puschel1988]_. This consists of 5 adaptation loops        |
     |                      |                                                            |
-    |                      | without overshoot limiting (\texttt{adpt\_lim=0}).         |
+    |                      | without overshoot limiting (``adpt_lim=0``).               |
     |                      |                                                            |
     |                      | The adapation loops have a linearly spaced time constants  |
     |                      |                                                            |
-    |                      | (\texttt{adpt\_tau=[0.0050 0.1288 0.2525 0.3762 0.5000]}). |
+    |                      | (``adpt_tau=[0.0050 0.1288 0.2525 0.3762 0.5000]``).       |
     +----------------------+------------------------------------------------------------+
-    | ``'adt\_breebaart'`` | As \texttt{'adt\_puschel'}, but with overshoot limiting    |
+    | ``'adt_breebaart'``  | As ``'adt_puschel'``, but with overshoot limiting          |
     +----------------------+------------------------------------------------------------+
 
 
@@ -619,17 +626,17 @@ Sec. .
 
 .. table:: List of parameters related to the auditory representation ’autocorrelation’.
 
-    =================== ========== ======================================================================================
+    =================== ========== =========================================================
     Parameter           Default    Description
-    =================== ========== ======================================================================================
-    ``ac\_wname``       ``'hann'`` Window type
-    ``ac\_wSizeSec``    0.02       Window duration ($\second$)
-    ``ac\_hSizeSec``    0.01       Window step size ($\second$)
-    ``ac\_bCenterClip`` false      Activate center clipping
-    ``ac\_clipMethod``  'clp'      Center clipping method (\texttt{'clc'}, \texttt{'clp'}, or \texttt{'sgn'})
-    ``ac\_clipAlpha``   0.6        Center clipping threshold within $\left[ 0,1\right]$
-    ``ac\_K``           2          Exponent in \ac{acf}
-    =================== ========== ======================================================================================
+    =================== ========== =========================================================
+    ``ac_wname``        ``'hann'`` Window type
+    ``ac_wSizeSec``     ``0.02``   Window duration in s
+    ``ac_hSizeSec``     ``0.01``   Window step size in s
+    ``ac_bCenterClip``  ``false``  Activate center clipping
+    ``ac_clipMethod``   ``'clp'``  Center clipping method ``'clc'``, ``'clp'``, or ``'sgn'``
+    ``ac_clipAlpha``    ``0.6``    Center clipping threshold within ``[0,1]``
+    ``ac_K``            ``2``      Exponent in ACF
+    =================== ========== =========================================================
 
 
 A demonstration of the processor is shown in Fig. , which has been
@@ -668,22 +675,23 @@ window function ``rm_wname``, which is used to weight the individual
 samples within a frame prior to averaging. The default ratemap
 parameters are listed in Tab. .
 
-+-------------------+---------------+----------------------------------------------------+
-| Parameter         | Default       | Description                                        |
-+===================+===============+====================================================+
-| \ ``rm_wname``    | ``’hann’``    | Window type                                        |
-+-------------------+---------------+----------------------------------------------------+
-| ``rm_wSizeSec``   | ``0.02``      | Window duration (:math:`second`)                   |
-+-------------------+---------------+----------------------------------------------------+
-| ``rm_hSizeSec``   | ``0.01``      | Window step size (:math:`second`)                  |
-+-------------------+---------------+----------------------------------------------------+
-| ``rm_scaling``    | ``’power’``   | Ratemap scaling (``’magnitude’`` or ``’power’``)   |
-+-------------------+---------------+----------------------------------------------------+
-| ``rm_decaySec``   | ``0.008``     | Leaky integrator time constant (:math:`second`)    |
-+-------------------+---------------+----------------------------------------------------+
+.. _tab-ratemap:
 
-Table: List of parameters related to the auditory representation
-``’ratemap’``.
+.. table:: List of parameters related to ``'ratemap'``.
+
+    +-------------------+---------------+--------------------------------------------------+
+    | Parameter         | Default       | Description                                      |
+    +===================+===============+==================================================+
+    | ``'rm_wname'``    | ``'hann'``    | Window type                                      |
+    +-------------------+---------------+--------------------------------------------------+
+    | ``'rm_wSizeSec'`` | ``0.02``      | Window duration in s                             |
+    +-------------------+---------------+--------------------------------------------------+
+    | ``'rm_hSizeSec'`` | ``0.01``      | Window step size in s                            |
+    +-------------------+---------------+--------------------------------------------------+
+    | ``'rm_scaling'``  | ``'power'``   | Ratemap scaling (``'magnitude'`` or ``'power'``) |
+    +-------------------+---------------+--------------------------------------------------+
+    | ``'rm_decaySec'`` | ``0.008``     | Leaky integrator time constant in s              |
+    +-------------------+---------------+--------------------------------------------------+
 
 The ratemap is demonstrated by the script ``DEMO_Ratemap`` and the
 corresponding plots are presented in Fig. . The representation of a
@@ -708,12 +716,12 @@ features summarize the spectral content of the ratemap representation
 across auditory filters and are computed for individual time frames. The
 following :math:`14` spectral features are available:
 
-#. ``’centroid’`` : The spectral centroid represents the center of
+#. ``'centroid'`` : The spectral centroid represents the center of
    gravity of the ratemap and is one of the most frequently-used timbre
    parameters . The centroid is normalized by the highest ratemap center
    frequency to reduce the influence of the gammatone parameters.
 
-#. ``’spread’`` : The spectral spread describes the average deviation of
+#. ``'spread'`` : The spectral spread describes the average deviation of
    the ratemap around its centroid, which is commonly associated with
    the bandwidth of the signal. Noise-like signals have usually a large
    spectral spread, while individual tonal sounds with isolated peaks
@@ -721,13 +729,13 @@ following :math:`14` spectral features are available:
    spectral spread is normalized by the highest ratemap center
    frequency, such that the feature value ranges between zero and one.
 
-#. ``’brightness’`` : The brightness reflects the amount of high
+#. ``'brightness'`` : The brightness reflects the amount of high
    frequency information and is measured by relating the energy above a
    pre-defined cutoff frequency to the total energy. This cutoff
-   frequency is set to ``sf_br_cf = 1500\,\hertz`` by default . This
+   frequency is set to ``sf_br_cf = 1500`` Hz by default . This
    feature might be used to quantify the sensation of sharpness.
 
-#. ``’high-frequency content’`` : The high-frequency content is another
+#. ``'high-frequency content'`` : The high-frequency content is another
    metric that measures the energy associated with high frequencies. It
    is derived by weighting each channel in the ratemap by its squared
    center frequency and integrating this representation across all
@@ -735,72 +743,73 @@ following :math:`14` spectral features are available:
    overall signal level, the high-frequency content feature is
    normalized by the ratemap integrated across-frequency.
 
-#. ``’crest’`` : The is defined as the ratio between the maximum value
+#. ``'crest'`` : The is defined as the ratio between the maximum value
    and the arithmetic mean and can be used to characterize the peakiness
    of the ratemap. The feature value is low for signals with a flat
    spectrum and high for a ratemap with a distinct spectral peak .
 
-#. ``’decrease’`` : The spectral decrease describes the average spectral
+#. ``'decrease'`` : The spectral decrease describes the average spectral
    slope of the ratemap representation, putting a stronger emphasis on
    the low frequencies. 
 
 
-#. ``’entropy’`` : The entropy can be used to capture the peakiness of
+#. ``'entropy'`` : The entropy can be used to capture the peakiness of
    the spectral representation . The resulting feature is low for a
    ratemap with many distinct spectral peaks and high for a flat ratemap
    spectrum.
 
-#. ``’flatness’`` : The is defined as the ratio of the geometric mean to
+#. ``'flatness'`` : The is defined as the ratio of the geometric mean to
    the arithmetic mean and can be used to distinguish between harmonic (
    is close to zero) and a noisy signals ( is close to one) .
 
-#. ``’irregularity’`` : The spectral irregularity quantifies the
+#. ``'irregularity'`` : The spectral irregularity quantifies the
    variations of the logarithmically-scaled ratemap across frequencies .
 
-#. ``’kurtosis’`` : The excess kurtosis measures whether the spectrum
+#. ``'kurtosis'`` : The excess kurtosis measures whether the spectrum
    can be characterized by a Gaussian distribution . This feature will
    be zero for a Gaussian distribution.
 
-#. ``’skewness’`` : The spectral skewness measures the symmetry of the
+#. ``'skewness'`` : The spectral skewness measures the symmetry of the
    spectrum around its arithmetic mean . The feature will be zero for
    silent segments and high for voiced speech where substantial energy
    is present around the fundamental frequency.
 
-#. ``’roll-off’`` : Determines the frequency in :math:`hertz` below
+#. ``'roll-off'`` : Determines the frequency in :math:`hertz` below
    which a pre-defined percentage ``sf_ro_perc`` of the total spectral
    energy is concentrated. Common values for this threshold are between
-   ``sf\_ro\_perc = 0.85`` and ``sf\_ro\_perc = 0.95``. The roll-off fearture is 
+   ``sf_ro_perc = 0.85`` and ``sf_ro_perc = 0.95``. The roll-off feature is
    normalized by the highest ratemap center frequency and ranges between
    zero and one. This feature can be useful to distinguish voiced from
    unvoiced signals.
 
-#. ``’flux’`` : The spectral flux evaluates the temporal variation of
+#. ``'flux'`` : The spectral flux evaluates the temporal variation of
    the logarithmically-scaled ratemap across adjacent frames . It has
    been suggested to be useful for the distinction of music and speech
    signals, since music has a higher rate of change .
 
-#. ``’variation’`` : The spectral variation is defined as one minus the
+#. ``'variation'`` : The spectral variation is defined as one minus the
    normalized correlation between two adjacent time frames of the
    ratemap .
 
 A list of all parameters is presented in Tab. .
 
+.. _tab_spectral-features:
 
+.. table:: List of parameters related to ``'spectral_features'``.
 
-
-
-.. raw:: latex
-
-   \begin{tabularx}{\textwidth}{ |l|l|X| }
-   \hline
-   Parameter & Default & Description \\
-   \hline
-   \hline
-   \texttt{sf\_requests} & \texttt{'all'} & List of requested spectral features (e.g.~\texttt{'flux'}). Type \texttt{help~spectralFeaturesProc} in the \textsc{Matlab} command window to display the full list of supported spectral features.)\\
-   \texttt{sf\_br\_cf} & \texttt{1500}    & Cut-off frequency in $\hertz$ for brightness feature \\
-   \texttt{sf\_ro\_perc} & \texttt{0.85}  & Threshold (re. 1) for spectral roll-off feature \\
-   \hline
-   \end{tabularx}
+    +-----------------+-----------+-------------------------------------------------------------+
+    | Parameter       | Default   | Description                                                 |
+    +=================+===========+=============================================================+
+    | ``sf_requests`` | ``'all'`` | List of requested spectral features (e.g. ``'flux'``). Type |
+    |                 |           |                                                             |
+    |                 |           | ``help spectralFeaturesProc`` in the Matlab command window  |
+    |                 |           |                                                             |
+    |                 |           | to display the full list of supported spectral features.    |
+    +-----------------+-----------+-------------------------------------------------------------+
+    | ``sf_br_cf``    | ``1500``  | Cut-off frequency in Hz for brightness feature              |
+    +-----------------+-----------+-------------------------------------------------------------+
+    | ``sf_ro_perc``  | ``0.85``  | Threshold (re. 1) for spectral roll-off feature             |
+    +-----------------+-----------+-------------------------------------------------------------+
 
 The extraction of spectral features is demonstrated by the script
 ``Demo_SpectralFeatures.m``, which produces the plots shown in Fig. .
@@ -833,11 +842,15 @@ suggested by . It is possible to limit the strength of individual onsets
 to an upper limit, which is by default set to ``ons_maxOnsetdB = 30``. A
 list of all parameters is presented in Tab. .
 
-+------------------------+-----------+-------------------------------------------------------+
-| Parameter              | Default   | Description                                           |
-+========================+===========+=======================================================+
-| \ ``ons_maxOnsetdB``   | ``30``    | Upper limit for onset strength in `decibel`           |
-+------------------------+-----------+-------------------------------------------------------+
+.. _tab-onset-strength:
+
+.. table:: List of parameters related to ``'onset_strength'``
+
+    +--------------------+---------+--------------------------------------+
+    | Parameter          | Default | Description                          |
+    +====================+=========+======================================+
+    | ``ons_maxOnsetdB`` | ``30``  | Upper limit for onset strength in dB |
+    +--------------------+---------+--------------------------------------+
 
 Table: List of parameters related to the auditory representation
 ``’onset_strength’``.
@@ -865,14 +878,15 @@ onset strength, the offset strength can be constrained to a maximum
 value of ``ons_maxOffsetdB = 30``. A list of all parameters is presented
 in Tab. .
 
-+-------------------------+-----------+--------------------------------------------------------+
-| Parameter               | Default   | Description                                            |
-+=========================+===========+========================================================+
-| \ ``ofs_maxOffsetdB``   | ``30``    | Upper limit for offset strength in `decibel`           |
-+-------------------------+-----------+--------------------------------------------------------+
+.. _tab_offset-strength:
 
-Table: List of parameters related to the auditory representation
-``’offset_strength’``.
+.. table:: List of parameters related to ``'offset_strength'``.
+
+    +---------------------+---------+---------------------------------------+
+    | Parameter           | Default | Description                           |
+    +=====================+=========+=======================================+
+    | ``ofs_maxOffsetdB`` | ``30``  | Upper limit for offset strength in dB |
+    +---------------------+---------+---------------------------------------+
 
 The offset strength is demonstrated by the script
 ``DEMO_OffsetStrength.m`` and the corresponding figures are depicted in
@@ -918,20 +932,21 @@ excludes transient activity if the corresponding ratemap level is below
 a pre-defined threshold, as determined by ``trm_minValuedB``. A summary
 of all parameters is given in Tab. .
 
-+---------------------------+-------------+--------------------------------------------------+
-| Parameter                 | Default     | Description                                      |
-+===========================+=============+==================================================+
-| \ ``trm_fuseWithinSec``   | ``30E-3``   | Time constant below which transients are fused   |
-+---------------------------+-------------+--------------------------------------------------+
-| ``trm_minSpread``         | ``5``       | Minimum number of connected units                |
-+---------------------------+-------------+--------------------------------------------------+
-| ``trm_minStrengthdB``     | ``3``       | Minimum onset strength in `decibel`              |
-+---------------------------+-------------+--------------------------------------------------+
-| ``trm_minValuedB``        | ``-80``     | Minimum ratemap level in `decibel`               |
-+---------------------------+-------------+--------------------------------------------------+
+.. _tab-onset-map:
 
-Table: List of parameters related to the auditory representation
-``’onset_map’`` and ``’offset_map’``.
+.. table:: List of parameters related to ``'onset_map'`` and ``'offset_map'``.
+
+    +-----------------------+-----------+------------------------------------------------+
+    | Parameter             | Default   | Description                                    |
+    +=======================+===========+================================================+
+    | ``trm_fuseWithinSec`` | ``30E-3`` | Time constant below which transients are fused |
+    +-----------------------+-----------+------------------------------------------------+
+    | ``trm_minSpread``     | ``5``     | Minimum number of connected units              |
+    +-----------------------+-----------+------------------------------------------------+
+    | ``trm_minStrengthdB`` | ``3``     | Minimum onset strength in dB                   |
+    +-----------------------+-----------+------------------------------------------------+
+    | ``trm_minValuedB``    | ``-80``   | Minimum ratemap level in dB                    |
+    +-----------------------+-----------+------------------------------------------------+
 
 To illustrate the benefit of selecting onset and offset information, a
 ratemap representation is shown in Fig.  (left panel), where the
@@ -973,18 +988,19 @@ A list of all parameters is presented in Tab. . In the context of pitch
 estimation, it will be useful to experiment with the settings related to
 the non-linear pre-processing of the , as described in Sec. .
 
-+------------------------+----------------+-----------------------------------------------------+
-| Parameter              | Default        | Description                                         |
-+========================+================+=====================================================+
-| \ ``p_pitchRangeHz``   | ``[80 400]``   | Plausible pitch frequency range in :math:`hertz`    |
-+------------------------+----------------+-----------------------------------------------------+
-| ``p_confThresPerc``    | ``0.7``        | Confidence threshold related to the magnitude       |
-+------------------------+----------------+-----------------------------------------------------+
-| ``p_orderMedFilt``     | ``3``          | Order of the median filter                          |
-+------------------------+----------------+-----------------------------------------------------+
+.. _tab-pitch:
 
-Table: List of parameters related to the auditory representation
-``’pitch’``.
+.. table:: List of parameters related to ``pitch``.
+
+    +---------------------+--------------+-----------------------------------------------+
+    | Parameter           | Default      | Description                                   |
+    +=====================+==============+===============================================+
+    | ``p_pitchRangeHz``  | ``[80 400]`` | Plausible pitch frequency range in Hz         |
+    +---------------------+--------------+-----------------------------------------------+
+    | ``p_confThresPerc`` | ``0.7``      | Confidence threshold related to the magnitude |
+    +---------------------+--------------+-----------------------------------------------+
+    | ``p_orderMedFilt``  | ``3``        | Order of the median filter                    |
+    +---------------------+--------------+-----------------------------------------------+
 
 The task of pitch estimation is demonstrated by the script
 ``DEMO_Pitch`` and the corresponding plots are presented in Fig. . The
@@ -1050,7 +1066,7 @@ Similarly to the gammatone processor described in Sect , there are
 different ways to control the center frequencies of the individual
 modulation filters, which depend on the type of modulation filters
 
--  ``ams_fbType = ’lin’``
+-  ``ams_fbType = 'lin'``
 
    #. Specify ``ams_lowFreqHz``, ``ams_highFreqHz`` and ``ams_nFilter``.
       The requested number of filters ``ams_nFilter`` will be
@@ -1058,10 +1074,10 @@ modulation filters, which depend on the type of modulation filters
       If ``ams_nFilter`` is omitted, the number of filters will be set
       to :math:`15` by default.
 
--  ``ams_fbType = ’log’``
+-  ``ams_fbType = 'log'``
 
    #. Directly define a vector of center frequencies, e.g.
-      ``ams_cfHz = [4 8 16 …]``. In this case, the parameters
+      ``ams_cfHz = [4 8 16 ...]``. In this case, the parameters
       ``ams_lowFreqHz``, ``ams_highFreqHz``, and ``ams_nFilter`` are
       ignored.
 
@@ -1085,30 +1101,31 @@ one individual time frame. Moreover, the window shape can be adjusted by
 modulation analysis by selecting a downsampling ratio ``ams_dsRatio``
 larger than 1. A full list of feature parameters is shown in Tab. .
 
-+----------------------+-----------------+--------------------------------------------------------------------+
-| Parameter            | Default         | Description                                                        |
-+======================+=================+====================================================================+
-| \ ``ams_fbType``     | ``’log’``       | Filterbank type (``’lin’`` or ``’log’``)                           |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_nFilter``      | ``[]``          | Number of modulation filters (integer)                             |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_lowFreqHz``    | ``4``           | Lowest modulation filter center frequency in :math:`hertz`         |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_highFreqHz``   | ``1024``        | Highest modulation filter center frequency in :math:`hertz`        |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_cfHz``         | ``[]``          | Vector of modulation filter center frequencies in :math:`hertz`    |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_dsRatio``      | ``4``           | Downsampling ratio of the representation                           |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_wSizeSec``     | ``32E-3``       | Window duration in :math:`second`                                  |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_hSizeSec``     | ``16E-3``       | Window step size in :math:`second`                                 |
-+----------------------+-----------------+--------------------------------------------------------------------+
-| ``ams_wname``        | ``’rectwin’``   | Window name                                                        |
-+----------------------+-----------------+--------------------------------------------------------------------+
+.. _tab-ams-features:
 
-Table: List of parameters related to the auditory representation
-``’ams_features’``.
+.. table:: List of parameters related to ``'ams_features'``.
+
+    +--------------------+---------------+------------------------------------------------------+
+    | Parameter          | Default       | Description                                          |
+    +====================+===============+======================================================+
+    | ``ams_fbType``     | ``'log'``     | Filterbank type (``'lin'`` or ``'log'``)             |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_nFilter``    | ``[]``        | Number of modulation filters (integer)               |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_lowFreqHz``  | ``4``         | Lowest modulation filter center frequency in Hz      |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_highFreqHz`` | ``1024``      | Highest modulation filter center frequency in Hz     |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_cfHz``       | ``[]``        | Vector of modulation filter center frequencies in Hz |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_dsRatio``    | ``4``         | Downsampling ratio of the IHC representation         |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_wSizeSec``   | ``32E-3``     | Window duration in s                                 |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_hSizeSec``   | ``16E-3``     | Window step size in s                                |
+    +--------------------+---------------+------------------------------------------------------+
+    | ``ams_wname``      | ``'rectwin'`` | Window name                                          |
+    +--------------------+---------------+------------------------------------------------------+
 
 The functionality of the feature processor is demonstrated by the script
 ``DEMO_AMS`` and the corresponding four plots are presented in Fig. .
@@ -1191,20 +1208,21 @@ time. An overview of all parameters is given in Tab. . Note that the
 choice of these parameters will influence the computation of the and the
 processors, which are described in Sec.  and Sec. , respectively.
 
-+----------------------+--------------+-------------------------------------------------------------+
-| Parameter            | Default      | Description                                                 |
-+======================+==============+=============================================================+
-| \ ``cc_wname``       | ``’hann’``   | Window type                                                 |
-+----------------------+--------------+-------------------------------------------------------------+
-| ``cc_wSizeSec``      | ``0.02``     | Window duration (:math:`second`)                            |
-+----------------------+--------------+-------------------------------------------------------------+
-| ``cc_hSizeSec``      | ``0.01``     | Window step size (:math:`second`)                           |
-+----------------------+--------------+-------------------------------------------------------------+
-| ``cc_maxDelaySec``   | ``0.0011``   | Maximum delay (:math:`second`) considered in computation    |
-+----------------------+--------------+-------------------------------------------------------------+
+.. _tab-crosscorrelation:
 
-Table: List of parameters related to the auditory representation
-``’crosscorrelation’``.
+.. table:: List of parameters related to ``'crosscorrelation'``.
+
+    +--------------------+------------+--------------------------------------------------+
+    | Parameter          | Default    | Description                                      |
+    +====================+============+==================================================+
+    | ``cc_wname``       | ``'hann'`` | Window type                                      |
+    +--------------------+------------+--------------------------------------------------+
+    | ``cc_wSizeSec``    | ``0.02``   | Window duration in s                             |
+    +--------------------+------------+--------------------------------------------------+
+    | ``cc_hSizeSec``    | ``0.01``   | Window step size in s                            |
+    +--------------------+------------+--------------------------------------------------+
+    | ``cc_maxDelaySec`` | ``0.0011`` | Maximum delay in s considered in CCF computation |
+    +--------------------+------------+--------------------------------------------------+
 
 The script ``DEMO_Crosscorrelation.m`` demonstrates the functionality of
 the function and the resulting plots are shown in Fig. . The left panel
@@ -1261,18 +1279,19 @@ at the left-hand side, whereas a positive corresponds to a source
 located at the right-hand side. A full list of parameters is shown in
 Tab. .
 
-+----------------------+---------------+---------------------------------------+
-| Parameter            | Default       | Description                           |
-+======================+===============+=======================================+
-| \ ``ild_wSizeSec``   | ``’20E-3’``   | Window duration in :math:`second`     |
-+----------------------+---------------+---------------------------------------+
-| ``ild_hSizeSec``     | ``10E-3``     | Window step size in :math:`second`    |
-+----------------------+---------------+---------------------------------------+
-| ``ild_wname``        | ``’hann’``    | Window name                           |
-+----------------------+---------------+---------------------------------------+
+.. _tab-ild:
 
-Table: List of parameters related to the auditory representation
-``’ild’``.
+.. table:: List of parameters related to ``'ild'``.
+
+    +------------------+------------+-----------------------+
+    | Parameter        | Default    | Description           |
+    +==================+============+=======================+
+    | ``ild_wSizeSec`` | ``20E-3``  | Window duration in s  |
+    +------------------+------------+-----------------------+
+    | ``ild_hSizeSec`` | ``10E-3``  | Window step size in s |
+    +------------------+------------+-----------------------+
+    | ``ild_wname``    | ``'hann'`` | Window name           |
+    +------------------+------------+-----------------------+
 
 The processor is demonstrated by the script ``DEMO_ILD.m`` and the
 resulting plots are presented in Fig. . The ear signals are shown for a
