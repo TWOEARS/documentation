@@ -7,11 +7,11 @@ Model overview
 Below you see an overview over the architecture of the complete Two!Ears Auditory
 Model.
 The `Two!Ears Binaural Simulator`_ and the `Two!Ears Auditory Front-End`_ are
-just two blocks in he complete model. At its center a blackboard architecture is
-realized that is able to solve different tasks like auditory scene analysis or
+just two blocks in he complete model. At its centre a blackboard architecture is
+realised that is able to solve different tasks like auditory scene analysis or
 judgement of the quality of a spatial audio reproduction.
 The knowledge for solving those tasks is provided by different *Knowledge
-Sources* that are experts for certain things like localization, head rotation,
+Sources* that are experts for certain things like localisation, head rotation,
 speaker identification.
 The knowledge sources and the whole blackboard architecture is part of the
 `Two!Ears Blackboard System`_ which will be released soon together with examples

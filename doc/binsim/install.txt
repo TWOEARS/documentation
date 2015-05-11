@@ -24,7 +24,7 @@ Prerequisites
 First you have to ensure some prerequisites:
 
 * Debian or Debian-based Linux operating system (e.g. Ubuntu) recommended
-* MATLAB + mex-compiler
+* Matlab + mex-compiler
 * packages (install with apt-get, aptitude, synaptic, macports, ...)
 
   * **make**

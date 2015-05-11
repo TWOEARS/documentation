@@ -177,7 +177,7 @@ every starting word.
     inputSignal
     auditoryFrontEndCues
 
-Use the prefix ``b`` for boolean variables and avoid negative names.
+Use the prefix ``b`` for Boolean variables and avoid negative names.
 
 ::
 
@@ -263,7 +263,7 @@ considered:
 * name a function with a single output based on that output,
   ``confidenceInterval``
 * name a function with no output after what they do, ``plotSignal``
-* use the prefix ``is`` for boolean functions, ``isFinished``
+* use the prefix ``is`` for Boolean functions, ``isFinished``
 * avoid unintentional shadowing, e.g. use ``convolution`` not ``conv``
 
 Try to avoid the creation of functions consisting out of hundreds of lines. In
@@ -298,7 +298,7 @@ Use exactly 4 white spaces (not a tab) for indention.
         end
     end
 
-In vim this behavior can be achieved with the following setting.
+In vim this behaviour can be achieved with the following setting.
 
 .. code:: vim
 

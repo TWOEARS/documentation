@@ -49,7 +49,7 @@ Windows) from the ``docs`` directory.
 
 To get started contributing, you'll want to read the `reStructuredText
 Primer`_. After that, you'll want to read about the `Sphinx-specific markup`_
-that's used to manage metadata, indexing, and cross-references.
+that's used to manage meta data, indexing, and cross-references.
 
 .. _Sphinx: http://sphinx-doc.org/
 .. _docutils: http://docutils.sourceforge.net/
@@ -62,7 +62,7 @@ Commonly used terms
 Here are some style guidelines on commonly used terms throughout the
 documentation:
 
-* **Two!Ears** -- use it in exactly this capitalization. When referring not to
+* **Two!Ears** -- use it in exactly this capitalisation. When referring not to
   the whole project, but to its code or model use **Two!Ears Auditory Model**.
 
 * **Two!Ears Binaural Simulator** -- when referring to the binaural simulator
@@ -74,7 +74,7 @@ documentation:
 * **Two!Ears Blackboard System** -- when referring to the blackboard
   architecture module of the Two!Ears Auditory Model.
 
-* **Matlab** -- when referring to the language, capitalize Matlab.
+* **Matlab** -- when referring to the language, capitalise Matlab.
 
 * **localise**, **initialise**, etc. -- use the British "ise" suffix, not "ize."
 
@@ -84,7 +84,7 @@ Guidelines for reStructuredText files
 These guidelines regulate the format of our reST (reStructuredText)
 documentation and provide tips for writing them:
 
-* In section titles, capitalize only initial words and proper nouns.
+* In section titles, capitalise only initial words and proper nouns.
 * Wrap the documentation at 80 characters wide, unless a code example
   is significantly less readable when split over two lines, or for another
   good reason.
@@ -296,7 +296,7 @@ If you encounter false-positives (error output that actually is correct), do
 one of the following:
 
 * Surround inline code or brand/technology names with grave accents (`).
-* Find synonyms that the spell checker recognizes.
+* Find synonyms that the spell checker recognises.
 * If, and only if, you are sure the word you are using is correct - add it
   to :file:`doc/spelling_wordlist` (please keep the list in alphabetical order).
 

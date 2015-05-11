@@ -19,7 +19,7 @@ implemented using a modular object-oriented approach.
 This chapter exposes the architecture and interactions of all the
 objects involved in the and how the main constraints were tackled
 conceptually. In an effort to respect encapsulation and the hierarchical
-organization of the objects, the sections are arranged in a “bottom-up”
+organisation of the objects, the sections are arranged in a “bottom-up”
 way: from the most fundamental objects to the more global processing.
 
 All classes involved in the implementation are inheriting the Matlab
@@ -42,12 +42,12 @@ Circular buffer
 ~~~~~~~~~~~~~~~
 
 Memory pre-allocation of large arrays in Matlab is well known to be a
-critical operation for optimizing computation time. The , particularly
+critical operation for optimising computation time. The , particularly
 in an online scenario, will be confronted with this problem. For each
 new chunk of the input signal, chunks of output are computed for each
 internal representation and are appended to the already existing output.
 Computation time will be strongly affected if the arrays containing the
-data are not initialized appropriately (i.e., the memory it occupies is
+data are not initialised appropriately (i.e., the memory it occupies is
 pre-allocated) to fit the input signal duration.
 
 The issue in a real-time scenario is that the signal duration is
@@ -118,7 +118,7 @@ It will allow the following operations:
 -  ``isempty(buffer)`` returns ``true`` when no data is stored,
    ``false`` otherwise.
 
-This provides an array behavior to the buffers, simplifying greatly
+This provides an array behaviour to the buffers, simplifying greatly
 their use. Note that the only limitation is the need of the column
 operator ``:`` to access all data, as in ``buffer(:)``. Without it,
 ``buffer`` will return a handle to the ``circVBufArrayInterface``
@@ -129,7 +129,7 @@ Signal objects
 
 Signals are implemented as objects in the . To avoid code repetition and
 make better use of object-oriented concepts, signals are grouped
-according to their dimensionality, as they then share the same
+according to their dimensions, as they then share the same
 properties. The following classes are implemented:
 
 -  ``TimeDomainSignal`` for one-dimensional (time) signals.
@@ -137,7 +137,7 @@ properties. The following classes are implemented:
 -  ``TimeFrequencySignal`` which stores two-dimensional signals where
    the first dimension relates to time (but can be, e.g., a frame index)
    and the second to the frequency channel. These signals include as an
-   additional property a vector of channel center frequencies ``cfHz``.
+   additional property a vector of channel centre frequencies ``cfHz``.
    Signals of such form are obtained from requesting, for example,
    ``’filterbank’``, ``’innerhaircell’``,\ ``’ild’``,...
 
@@ -147,7 +147,7 @@ properties. The following classes are implemented:
 
 -  ``ModulationSignal`` for three-dimensional signals where the third
    dimension is a modulation frequency. These include ``cfHz`` and
-   ``modCfHz`` (vector of center modulation frequencies) as properties.
+   ``modCfHz`` (vector of centre modulation frequencies) as properties.
 
 -  ``FeatureSignal`` used to store a collection of time-domain signals,
    each associated to a specific name. Each feature is a single vector,
@@ -191,10 +191,10 @@ among children objects:
 
 -  An ``appendChunk`` method used to fill the internal buffer.
 
--  A ``setData`` method used for initializing the internal buffer given
+-  A ``setData`` method used for initialising the internal buffer given
    some data.
 
--  A ``clearData`` method for re-initialization.
+-  A ``clearData`` method for re-initialisation.
 
 -  The ``getSignalBlock`` method returning a segment of data of chosen
    duration, starting from the newest elements.
@@ -211,7 +211,7 @@ among children objects:
 In addition, the ``Signal`` class defines an abstract ``plot`` method,
 which each children should implement. This cannot be defined in the
 parent class as the plotting routines will be drastically different
-depending on children signal dimensionality. Children classes therefore
+depending on children signal dimensions. Children classes therefore
 only implement their own constructor (which still calls the
 super-constructor) and their respective plotting routines.
 
@@ -222,7 +222,7 @@ Description
 ^^^^^^^^^^^
 
 Many signal objects are instantiated by the (one per representation
-involved and per channel). To organize and keep track of them, they are
+involved and per channel). To organise and keep track of them, they are
 collected in a ``dataObject`` class. This class inherits the
 ``dynamicprops`` Matlab class (itself inheriting the ``handle``) class.
 This allows to dynamically define properties of the class.
@@ -258,7 +258,7 @@ methods:
 
 -  ``play``, provided for user convenience.
 
-Signal organization
+Signal organisation
 ^^^^^^^^^^^^^^^^^^^
 
 As mentioned before, data objects store signal objects. Each class of
@@ -386,7 +386,7 @@ implemented in the parent ``Processor`` class:
 The motivation behind the implementation of these methods is probably
 not clear at this stage, but should appear in the following sections.
 Many of these methods are used in the manager object described later for
-organizing and routing the processing such as to always perform as few
+organising and routing the processing such as to always perform as few
 operations as needed.
 
 ``processChunk`` method and chunk-based compatibility
@@ -448,12 +448,12 @@ following steps are performed:
    the end of the current chunk which did not generate output, or which
    will influence the output of next chunk.
 
-An example: ratemap
-^^^^^^^^^^^^^^^^^^^
+An example: rate-map
+^^^^^^^^^^^^^^^^^^^^
 
 A practical example to better illustrate the concepts described above is
 given in the following. The rate-map is conceptually a “framed” version
-of an multichannel envelope. The envelope is a two-dimensional
+of an multi-channel envelope. The envelope is a two-dimensional
 representation (time versus frequency), and the rate-map extraction is
 the same procedure repeated for every frequency channel. Hence the
 following is described for a single channel. To extract the rate-map, the
@@ -491,7 +491,7 @@ Particular case for filters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The processing performed by the often involves filtering (e.g., in
-auditory filterbank processing, inner hair cell envelope detection, or
+auditory filter bank processing, inner hair cell envelope detection, or
 amplitude modulation detection). While filtering by filters could in
 principle be made compatible with chunk-based processing using the
 principle described above, it will be impractical for filters with long

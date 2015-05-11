@@ -26,14 +26,14 @@ Building a flexible system
 
 The system we develop is a *platform*, i.e. it provides functionality to
 execute other functionality. While the target functionality is clear –
-auditory and multimodal experience formation, scene understanding and
+auditory and multi-modal experience formation, scene understanding and
 exploration – it involves many different problems, each with many
 possible solutions. We therefore design the system with extension in
 mind, trying not to constrain possible functionality of modules.
 
 In particular, the blackboard system allows the plugging-in of
 different *knowledge sources*. Knowledge sources are modules that define
-their own functionality, to be executed in the organized frame of our
+their own functionality, to be executed in the organised frame of our
 system. They define by themselves which data they need for execution and
 which data they produce – the blackboard system provides the tools for
 requesting and storing this data, but does not care about the actual
@@ -168,7 +168,7 @@ and triggering an identity decision knowledge source.
             <Param Type="int">0</Param>
             <Param Type="int">1</Param>
         </KS>
-        
+
         <Connection Mode="replaceOld" Event="AgendaEmpty">
             <source>scheduler</source>
             <sink>dataConnect</sink>
@@ -265,7 +265,7 @@ The following listing shows an excerpt of the Blackboard interface:
 ::
 
     class Blackboard 
-            KSs;                           
+            KSs;
             signals;
             currentSoundTime;
         methods
@@ -283,7 +283,7 @@ Prominently featured are methods to add and access data:
   hands over the actual data to store. ``append`` is an optional flag
   indicating whether to overwrite or append data at the same time step
   (there might, for example, be several source identity hypotheses per
-  timestep, but only one source number hypothesis might be allowed).
+  time step, but only one source number hypothesis might be allowed).
   ``time`` specifies the time point under which this data shall be
   stored. It is optional and, if not set, defaults to the current time.
 
@@ -405,7 +405,7 @@ Dynamic blackboard scheduler
 
 The scheduler is the component of the blackboard system that actually
 executes the knowledge sources – but first, it *schedules* them, that
-is, it decides the order in which knowledges sources waiting in the
+is, it decides the order in which knowledge sources waiting in the
 agenda get executed. This order is rescheduled after every execution of
 a knowledge source, since the conditions determining the order may have
 changed, or new knowledge sources may be present in the agenda that are
@@ -469,9 +469,9 @@ Integration of work across work packages
 ----------------------------------------
 
 The blackboard system currently integrates modules from different work
-packages, in particular the acoustical scene auralization environment,
+packages, in particular the acoustical scene auralisation environment,
 the auditory front-end, and functional modules for auditory object
-formation. Since the acoustical scene auralization environment is
+formation. Since the acoustical scene auralisation environment is
 implemented and connected to the blackboard system through the robot
 interface, instead it would be possible to connect the robot to the
 system, which then can – controlled by knowledge sources – actively

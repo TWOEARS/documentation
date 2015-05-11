@@ -15,7 +15,7 @@ this more than just a collection of models documented in the literature.
 Bottom-up signal processing is implemented as a collection of processor
 modules, which are instantiated and routed by a manager object. A
 variety of processor modules is provided to compute auditory cues such
-as ratemaps, interaural time and level differences, interaural
+as rate-maps, interaural time and level differences, interaural
 coherence, onsets and offsets. An object-oriented approach is used
 throughout, giving benefits of reusability, encapsulation and
 extensibility. This affords great flexibility, and allows modification

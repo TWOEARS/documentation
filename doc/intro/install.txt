@@ -19,7 +19,7 @@ If you have downloaded the desired model part you have to setup the path
 configuration file ``TwoEarsPaths.xml`` of the main repository to include your
 local paths to all of the installed model parts. Please don't change the names
 in the brackets like ``<auditory-front-end>``, they are used internally but put the
-corresponding paths between the xml tags. On a linux PC the file could be
+corresponding paths between the xml tags. On a Linux PC the file could be
 looking like this:
 
 .. code:: xml

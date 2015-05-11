@@ -29,7 +29,7 @@ Configuration using a Matlab script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The `Two!Ears Binaural Simulator`_ uses the object-oriented programming
-architecture of Matlab. In order to initialize the simulation tool, an Object
+architecture of Matlab. In order to initialise the simulation tool, an Object
 of the ``SimulatorConvexRoom()``-class has to be instantiated by::
 
     sim = simulator.SimulatorConvexRoom();
@@ -158,7 +158,7 @@ Configuration using XML Scene Description
 
 In following the configuration as defined above using a Matlab script is done
 calling the constructor of the simulator object with an extra argument defining
-the filename of a XML scene description file.
+the file name of a XML scene description file.
 
 ::
 
@@ -210,8 +210,8 @@ into the simulation kernel execute
     sim.set('Init',true);
 
 Note, that all the processing parameters and objects' initial positions have to
-be defined BEFORE initialization in order to initialize the simulation properly.
-After the simulator has been initialized it is not possible to re-assign any
+be defined BEFORE initialisation in order to initialise the simulation properly.
+After the simulator has been initialised it is not possible to re-assign any
 property of the simulator object. Hence the number of acoustic sources cannot be
 changed within one simulation run. However, modifying e.g. the position of a
 scene object is possible. The following loop calculates the ear signals until
@@ -245,7 +245,7 @@ finish the simulation shut down and clean up the simulator by calling::
 
     sim.set('ShutDown',true);
 
-The simulator reverts to an uninitialized state, where the manipulation of every
+The simulator reverts to an uninitialised state, where the manipulation of every
 parameter is possible, again. This is necessary, if you want to start a new
 simulation with complete different parameters like e.g. different number of
 sound sources. If you want to start a new simulation with same parameters as
@@ -253,9 +253,9 @@ before a kind of a weak shut down should do the job::
 
     sim.set('ReInit',true);
 
-Again, objects' initial positions have to be defined BEFORE re-initialization
-in order to initialize the simulation properly. The simulator however remains in
-an initialized state.
+Again, objects' initial positions have to be defined BEFORE re-initialisation
+in order to initialise the simulation properly. The simulator however remains in
+an initialised state.
 
 To get more hands on the `Two!Ears Binaural Simulator`_ have a look at the
 :doc:`Examples use cases <examples>`.

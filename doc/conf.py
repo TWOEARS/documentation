@@ -36,6 +36,17 @@ extensions = ['sphinx.ext.autodoc','sphinx.ext.mathjax']
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
+# Spelling check needs an additional module that is not installed by default.
+# Add it only if spelling check is requested so docs can be generated without it.
+if 'spelling' in sys.argv:
+    extensions.append("sphinxcontrib.spelling")
+
+# Spelling language.
+spelling_lang = 'en_GB'
+
+# Location of word list.
+spelling_word_list_filename = 'spelling_wordlist'
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 # source_suffix = ['.rst', '.md']

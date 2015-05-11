@@ -97,8 +97,8 @@ as :file:`out_moving_source.wav`.
 Simulate rooms using the Image Source Model
 -------------------------------------------
 
-The :file:`doc/examples/room.m` example simulates a dry cello in a shoebox room and
-stores the resulting binaural signal in :file:`out_room.wav`. The shoebox room is
+The :file:`doc/examples/room.m` example simulates a dry cello in a shoe box room and
+stores the resulting binaural signal in :file:`out_room.wav`. The shoe box room is
 simulated with an image source model.
 
 ::

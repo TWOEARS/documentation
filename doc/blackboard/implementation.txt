@@ -313,7 +313,7 @@ core-component of the software framework, namely the blackboard system,
 was extended in a way that allows the dynamic creation of task-related
 configurations. Furthermore, we have presented the embedding of the
 blackboard system into the software architecture across work packages,
-combining acoustic scene auralization, auditory processing, feature
+combining acoustic scene auralisation, auditory processing, feature
 extraction and possibilities for high level feedback through
 interactions with the robot interface. Additionally, we have introduced
 further extensions that are currently under development, namely the

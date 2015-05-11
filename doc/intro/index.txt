@@ -5,10 +5,9 @@ Two!Ears Auditory Model
 **A computational framework for modelling active exploratory listening that
 assigns meaning to auditory scenes**
 
-The Two!Ears Auditory Model consists of several stages for modeling active human
+The Two!Ears Auditory Model consists of several stages for modelling active human
 listening. These stages include not only classical signal driven processing
-steps like you can find in the `Auditory Modeling
-Toolbox`_. It comes also with a complete acoustical simulation framework for
+steps like you can find in the |amtoolbox|. It comes also with a complete acoustical simulation framework for
 creating binaural ear signals for specified acoustical scenes. The classical
 auditory signal processing is further accompanied by a black board architecture
 that allows top-down processing and the inclusion of world knowledge to the
@@ -16,7 +15,6 @@ model.
 
 The model is being developed by the partners of the `EU project Two!Ears`_.
 
-.. _Auditory Modeling Toolbox: http://amtoolbox.sourceforge.net/
 .. _EU project Two!Ears: http://www.twoears.eu/
 
 Current state of the model

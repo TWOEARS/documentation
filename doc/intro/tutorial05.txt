@@ -1,4 +1,4 @@
-Use a robotic plattform
-=======================
+Use a robotic platform
+======================
 
 .. vim: filetype=rst spell:

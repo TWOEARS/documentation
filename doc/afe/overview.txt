@@ -7,7 +7,7 @@ Framework functionality
 The purpose of the `Two!Ears Auditory Front-End`_ is to extract a
 *subset* of common auditory representations from a binaural recording
 or from a *stream* of binaural audio data. These representations are
-to be used later by higher modeling or decision stages. This short
+to be used later by higher modelling or decision stages. This short
 description of the role of the highlights its three fundamental properties:
 
 -  The framework operates on a request-based mechanism and extracts the
@@ -15,7 +15,7 @@ description of the role of the highlights its three fundamental properties:
    the user. Most of the available representations are computed from
    other representations, i.e., they *depend* on other representations.
    Because different representations can have a common dependency, the
-   available representations are organized following a “dependency
+   available representations are organised following a “dependency
    tree”. The framework is built such as to respect this structure and
    limit redundancy. For example, if a user requests A and B, both
    depending on a representation C, the software will not compute C
@@ -205,7 +205,7 @@ produce the following warning and the request would not be computed::
     Warning: The request was invalid, returning an empty handle 
     > In manager>manager.addProcessor at 963 |
 
-The dimensionality of the output signal from the ``addProcessor`` method
+The dimensions of the output signal from the ``addProcessor`` method
 will depend on the representation requested. In the previous example,
 the ``’ild’`` request returns a single output for a stereo input.
 However, when the request is based on a single channel and the input is

@@ -103,8 +103,8 @@ will find scripts that can redo plots of our publications.
 Misc
 ====
 
-Developement
-============
+Development
+===========
 
 If you are part of the Two!Ears development team or would like to become part of
 it, read on:
