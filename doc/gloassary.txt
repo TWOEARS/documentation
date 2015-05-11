@@ -1,0 +1,42 @@
+.. _glossary:
+
+========
+Glossary
+========
+
+.. glossary::
+
+    2D
+        Two-dimensional.
+
+    ACF
+        Auto-correlation function.
+
+    AGC
+        Automatic gain control.
+
+    AMS
+        Amplitude modulation spectrogram.
+
+    ASR
+        Automatic speech recognition.
+
+    BM
+        Basilar membran.
+
+    CASA
+        Computational auditory scene analysis.
+
+    CASP
+        Computational auditory signal-processing and perception.
+
+    CCF
+        Cross-correlation function.
+
+    DC
+        Direct current.
+
+    DRNL
+        Dual-resonance non-linear.
+
+.. vim: filetype=rst spell:
