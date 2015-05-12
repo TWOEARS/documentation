@@ -69,7 +69,7 @@ beginning and end which do not match to the oldest and newest data
 samples. This is eliminated in circular buffers which do not have a
 beginning or end, and a contiguous segment is always obtained upon
 reading. Circular buffers were implemented for the framework based on
-the third-party class provided by [Göbbert2014]_, which has been slightly
+the third-party class provided by [Goebbert2014]_, which has been slightly
 modified to account for multi-dimensional data (instead of vector-only).
 
 
@@ -704,6 +704,6 @@ position of the processors in the cell array ``mObj.Processors``.
 .. |Three steps for simple online windowing, given a chunk of input and an internal buffer.| image:: img/chunkBasedRatemap.png
 
 
-.. [Göbbert2014] Göbbert, J. H. (2014), "Circular double buffered vector buffer (``circVBuf.m``)," *Matlab file exchange:* http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf, accessed: 2014-10-30.
+.. [Goebbert2014] Göbbert, J. H. (2014), "Circular double buffered vector buffer (``circVBuf.m``)," *Matlab file exchange:* http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf, accessed: 2014-10-30.
 
 .. vim: filetype=rst spell:

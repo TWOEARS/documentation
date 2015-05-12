@@ -22,7 +22,7 @@ Glossary
         Automatic speech recognition.
 
     BM
-        Basilar membran.
+        Basilar membrane.
 
     CASA
         Computational auditory scene analysis.
@@ -38,5 +38,62 @@ Glossary
 
     DRNL
         Dual-resonance non-linear.
+
+    ETSI
+        European telecommunications standards institute.
+
+    FFT
+        Fast Fourier transform.
+
+    FIFO
+        First in, first out.
+
+    FIR
+        Finite impulse response.
+
+    IC
+        Interaural coherence.
+
+    IHC
+        Inner hair-cell.
+
+    IIR
+        Infinite impulse response.
+
+    ILD
+        Interaural level difference.
+
+    ITD
+        Interaural time difference.
+
+    MOC
+        Medial olivocochlear.
+
+    MU
+        Model units.
+
+    RMS
+        Root mean square.
+
+    SACF
+        Summary auto-correlation function.
+
+    SCCF
+        Summary cross-correlation function.
+
+    SCM
+        Spectral crest measure.
+
+    SFM
+        Spectral flatness measure.
+
+    SPL
+        Sound pressure level.
+
+    STRF
+        Spectro-temporal receptive field.
+
+    T-F
+        Time-frequency.
 
 .. vim: filetype=rst spell:
