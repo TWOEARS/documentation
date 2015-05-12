@@ -42,4 +42,13 @@ read on:
     processors
     add-processor
 
+Credits
+=======
+
+The |AFE| is developed by Remi Decorsière and Tobias May from DTU,
+and the rest of the `Two!Ears team`_.
+
+.. _Two!Ears team: http://twoears.aipa.tu-berlin.de/consortium
+
+
 .. vim: filetype=rst spell:
