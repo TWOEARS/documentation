@@ -13,7 +13,7 @@ Quick start
 If you want to use the `Two!Ears Binaural Simulator`_ without any other part of
 the `Two!Ears Auditory Model`_ you can start it as a single module with the
 ``startTwoEars`` function which is part of the
-:doc:`Two!Ears Main module <../modules/main>`.
+:doc:`Two!Ears Main module <../intro/modules>`.
 
 .. code-block:: Matlab
 
@@ -159,7 +159,7 @@ located in ``./test``.
 .. _API documentation on the Two!Ears Binaural Simulator: http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_simulator_interface.html
 .. _API documentation on buffers: http://twoears.github.io/binaural-simulator-doc/namespacesimulator_1_1buffer.html
 
-.. _XML scene description:
+.. _sec-xml-scene-description:
 
 Configuration using XML Scene Description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
