@@ -127,7 +127,9 @@ Using default parameters
 As an example, extracting the interaural level difference ``’ild’`` for a stereo
 signal ``sIn`` (e.g., obtained from a ’\ ``.wav``\ ’ file through Matlab's
 ``wavread``) sampled at a frequency ``fsHz`` (in Hz)
-can be done in the following steps::
+can be done in the following steps:
+
+.. code-block:: Matlab
 
     % Instantiation of data and manager objects
     dataObj = dataObject(sIn,fsHz);
@@ -191,7 +193,7 @@ The input signal ``sIn``, for which a given auditory representation
 needs be computed, is a simple array. Its first dimension (lines) should
 span time. Its first column should correspond to the left channel (or
 mono channel, if it is not a stereo signal) and the second column to the
-right channel. This is typically the format returned by Matlab’s
+right channel. This is typically the format returned by Matlab´s
 embedded functions ``audioread`` and ``wavread``.
 
 The input signal can be either mono or stereo/binaural. The framework
@@ -201,11 +203,11 @@ left and the right ear signals. If a mono signal was provided instead of
 a binaural signal, the request of computing the representation would
 produce the following warning and the request would not be computed::
 
-    |Warning: Manager cannot instantiate a binaural cue extractor
+    Warning: Manager cannot instantiate a binaural cue extractor
        for a single-channel signal 
     > In manager>manager.addProcessor at 823
     Warning: The request was invalid, returning an empty handle 
-    > In manager>manager.addProcessor at 963 |
+    > In manager>manager.addProcessor at 963
 
 The dimensions of the output signal from the ``addProcessor`` method
 will depend on the representation requested. In the previous example,
@@ -248,28 +250,28 @@ command \ ``parameterHelper``::
     given a unique name and a default value. When placing a request for TWO!EARS
     Auditory Front-End processing that uses one or more non-default parameters,
     a specific structure of non-default parameters needs to be provided as input.
-    Such structure can be generated from |genParStruct|, using pairs of parameter
+    Such structure can be generated from genParStruct, using pairs of parameter
     name and chosen value as inputs.
 
     Parameters names for each processor are listed below:
-    {   }|Adaptation loop|
-    {   }|Amplitude modulation spectrogram features|
-    {   }|Auditory filterbank|
-    {   }|Auto-correlation|
-    {   }|Cross-correlation|
-    {   }|Gabor features|
-    {   }|Inner hair-cell extraction|
-    {   }|Interaural coherence|
-    {   }|Interaural level difference|
-    {   }|Interaural time difference|
-    {   }|Offset strength extraction|
-    {   }|Onset strength extraction|
-    {   }|Pitch estimation|
-    {   }|Plot properties|
-    {   }|Pre-processing|
-    {   }|Ratemap extraction|
-    {   }|Spectral features|
-    {   }|Transient mapping|
+        Adaptation loop
+        Amplitude modulation spectrogram features
+        Auditory filterbank
+        Auto-correlation
+        Cross-correlation
+        Gabor features
+        Inner hair-cell extraction
+        Interaural coherence
+        Interaural level difference
+        Interaural time difference
+        Offset strength extraction
+        Onset strength extraction
+        Pitch estimation
+        Plot properties
+        Pre-processing
+        Ratemap extraction
+        Spectral features
+        Transient mapping
 
 Each element in the list is a hyperlink, which will reveal the list of
 parameters for a given element, e.g.
@@ -298,10 +300,12 @@ parameter structure. For instance::
         ild_hSizeSec: 0.0200
 
 will generate a suitable parameter structure ``parameters`` to request
-the computation of with a window duration of `40 milliseconds` and a step size of `20 milliseconds`. This parameter structure
+the computation of with a window duration of 40 ms and a step size of 20 ms. This parameter structure
 is then passed as a second input argument in the ``addProcessor`` method
 of a manager object. The previous example can be rewritten considering
-the change in parameter values as follows::
+the change in parameter values as follows:
+
+.. code-block:: Matlab
 
     % Instantiation of data and manager objects
     dataObj = dataObject(sIn,fsHz);
@@ -356,7 +360,9 @@ the filter bank, controlled by the parameter ``’fb_nChannels’``. (which
 name can be found using ``parameterHelper.m``). This parameter can also
 be requested to have a non-default value, although it is not a parameter
 of the processor in charge of computing the . This is done in the same
-way as previously shown::
+way as previously shown:
+
+.. code-block:: Matlab
 
     % Non-default parameter values
     parameters = genParStruct('fb_nChannels',16);
@@ -368,7 +374,7 @@ way as previously shown::
     managerObj.processSignal;
 
 The resulting representation stored in ``sOut`` will be based on
-:math:`16` channels, instead of :math:`31`.
+16 channels, instead of 31.
 
 Compute multiple auditory representations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -380,7 +386,9 @@ Multiple requests are supported in the framework, and can be carried
 out by consecutive calls to the ``addProcessor`` method of an instance
 of the manager with a single request argument. It is also possible to
 have a single call to the ``addProcessor`` method with a cell array of
-requests, e.g.::
+requests, e.g.:
+
+.. code-block:: Matlab
 
     % Place a request for the computation of ILDs AND autocorrelation
     [sOut1 sOut2] = managerObj.addProcessor({'ild','autocorrelation'})
@@ -392,26 +400,29 @@ in ``sOut1`` and ``sOut2``.
 To use non-default parameter values, three syntax are possible:
 
 -  If there are several requests, but all use the same set of parameter
-   values ``p``::
+   values ``p``:
+
+   .. code-block:: Matlab
 
        managerObj.addProcessor({'name1', .. ,'nameN'},p)
 
-
 -  If there is only one request (``name``), but with different sets of
    parameter values (``p1``,...,\ ``pN``), e.g., for investigating the
-   influence of a given parameter::
+   influence of a given parameter
+
+   .. code-block:: Matlab
 
        managerObj.addProcessor('name',{p1, .. ,pN})
-           
 
 -  If there are several requests and some, or all, of them use a
    different set of parameter values, then it is necessary to have a set
    of parameter (``p1``,...,\ ``pN``) for each request (possibly by
    duplicating the common ones) and place them in a cell array as
-   follows::
+   follows:
+
+   .. code-block:: Matlab
 
        managerObj.addProcessor({'name1', .. ,'nameN'},{p1, .. ,pN})
-
 
 Note that in the two examples above, no output is specified for the
 ``addProcessor`` method, but the representations will be computed
@@ -420,7 +431,9 @@ the following subsection will explain how to get a hang on the computed
 signals without an explicit handle from ``addProcessor``.
 
 Requests can also be placed directly as optional arguments in the
-manager constructor, e.g., to reproduce the previous script example::
+manager constructor, e.g., to reproduce the previous script example:
+
+.. code-block:: Matlab
 
     % Instantiation of data and manager objects
     dataObj = dataObject(sIn,fsHz);
@@ -433,7 +446,9 @@ Computing the signals
 ^^^^^^^^^^^^^^^^^^^^^
 
 This is done in the exact same way as for a single request, by calling
-the ``processSignal`` method of the manager::
+the ``processSignal`` method of the manager:
+
+.. code-block:: Matlab
 
     % Perform processing
     managerObj.processSignal;
@@ -504,7 +519,9 @@ structure of non-default plot parameters. The ``parameterHelper`` script
 also lists plotting options, and they can be modified in the same way as
 processor parameters, via the script ``genParStruct``. These concepts
 can be summed up in the following example lines, that follows right
-after the demo code from the previous subsection::
+after the demo code from the previous subsection:
+
+.. code-block:: Matlab
 
     % Request the processing
     managerObj.processSignal;
@@ -568,8 +585,9 @@ chunk-based acquisition of the input signal with variable chunk size and
 computing the corresponding .
 
 In this script, one can note the two differences in using the in a
-chunk-based scenario, in comparison to a batch scenario::
+chunk-based scenario, in comparison to a batch scenario:
 
+.. code-block:: Matlab
 
     % Instantiation of data and manager objects
     dataObj = dataObject([],fsHz,10,2);
@@ -590,7 +608,7 @@ expect from the input (a mono input would have been indicated by
 input signal, to instantiate the necessary objects in the data object
 and the manager.
 
-::
+.. code-block:: Matlab
 
     % Request the processing of the chunk
     managerObj.processChunk(sIn(chunkStart:chunkStop,:),1);
@@ -625,7 +643,7 @@ This section sums up the commands that could be relevant to a standard
 user of the framework. It does not describe each action extensively, nor
 does it give a full list of corresponding parameters. A more detailed
 description can be obtained through calling the help script of a given
-method from Matlab’s command window. Note that one can get help on a
+method from Matlab´s command window. Note that one can get help on a
 specific method of a given class. For example
 
 ::

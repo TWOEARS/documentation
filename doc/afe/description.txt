@@ -535,7 +535,7 @@ an “empty” manager:
 
     mObj = 
 
-    |manager| with properties:
+    manager with properties:
 
         Processors: []
          InputList: []
@@ -680,12 +680,12 @@ instantiated processors, the ``processChunk`` method of the manager
 ``mObj`` will call the ``processChunk`` methods of each processor
 following this loop:
 
-::
+.. code-block:: Matlab
 
     for ii = 1 : N
         % Get index of current processor
         jj = mObj.Map(ii);
-        
+
         % Getting input signal handle (for code readability)
         in = mObj.InputList{jj,1};
 
@@ -700,9 +700,6 @@ Note the difference between indexes ``ii`` which relate to the
 processing order (processing first ``ii=1`` and last ``ii=N``) and
 ``jj = mObj.Map(ii)`` which relate the processing order with the actual
 position of the processors in the cell array ``mObj.Processors``.
-
-.. |Three steps for simple online windowing, given a chunk of input and an internal buffer.| image:: img/chunkBasedRatemap.png
-
 
 .. [Goebbert2014] Göbbert, J. H. (2014), "Circular double buffered vector buffer (``circVBuf.m``)," *Matlab file exchange:* http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf, accessed: 2014-10-30.
 
