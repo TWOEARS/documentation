@@ -104,6 +104,8 @@ In the following sections, examples of increasing complexity are given
 to demonstrate how to create these two objects, and which
 functionalities they offer.
 
+.. _sec-computation-of-an-auditory-representation:
+
 Computation of an auditory representation
 -----------------------------------------
 

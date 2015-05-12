@@ -9,7 +9,8 @@ functionality of each processor. The corresponding Matlab files are
 contained in the |AFE| folder ``/test`` and can be used to reproduce the
 individual plots. A full list of available processors can be displayed by using the
 command ``requestList``. An overview of the commands for instantiating
-processors is given in Section :ref:`missing-ref`.
+processors is given in Section
+:ref:`sec-computation-of-an-auditory-representation`.
 
 .. _sec-chap4.1:
 
@@ -136,7 +137,8 @@ first-order low-pass filter with a time constant of
 ``pp_intTimeSecRMS = 2``. Such a normalisation stage has also been
 suggested in the context of amplitude modulation spectrogram (:term:`AMS`)
 feature extraction [Tchorz2003]_, which are described in
-Section :ref:`missing-ref`. The choice of the time constant is a balance between maintaining
+Section :ref:`sec-amplitude-modulation-spectrogram`.
+The choice of the time constant is a balance between maintaining
 the level fluctuations across individual words and allowing the
 normalisation stage to follow sudden level changes.
 
@@ -159,7 +161,7 @@ the |AFE| models requires the input to be represented in physical units (such
 as pascals, see the middle ear filtering stage below). Within the
 current |AFE| framework, the dual-resonance non-linear (:term:`DRNL`)
 filter bank model requires this signal
-representation (see Section :ref:`missing-ref`). The request for this is given by setting
+representation (see Section :ref:`sec-DRNL`). The request for this is given by setting
 ``pp_bApplyLevelScaling = true``, with a reference value ``pp_refSPLdB``
 in dB :term:`SPL` which should correspond to the input :term:`RMS` of 1. Then the
 input signal is scaled accordingly, if it had been calibrated to a
@@ -182,7 +184,7 @@ This input-output representation in physical units is required
 particularly when the :term:`DRNL` filter bank model is used for the basilar membrane
 (:term:`BM`) operation,
 because of its level-dependent nonlinearity, designed based on that
-representation (see Section :ref:`missing-ref`). When including the middle-ear filtering in
+representation (see Section :ref:`sec-DRNL`). When including the middle-ear filtering in
 combination with the linear gammatone filter, only the simple band-pass
 characteristic of this model is needed without the need for input
 calibration or consideration of the input/output units. The middle ear
@@ -327,6 +329,8 @@ individual filter is shown in the right panel.
    processor consisting of 16 auditory filters spaced between
    80 Hz and 8000 Hz (right panel).
 
+.. _sec-DRNL:
+
 Dual-resonance non-linear filter bank (``drnlProc.m``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -385,7 +389,7 @@ from 0 to 1 that the nonlinear path input signal is multiplied by in
 conjunction. Conceptually, ``fb_mocIpsi = 1`` and ``fb_mocContra = 1``
 would mean that no attenuation is applied to the nonlinear path input,
 and ``fb_mocIpsi = 0`` and ``fb_mocContra = 0`` would mean that the
-nonlinear path is totally eliminated. Tab. :ref:`4.2` summarises the parameters
+nonlinear path is totally eliminated. Tab. :ref:`tab-filterbank-parameters` summarises the parameters
 for :term:`DRNL` the processor that can be controlled by the user. Note that
 ``fb_cfHz`` corresponds to the *characteristic* frequencies and not the
 *centre* frequencies as used in the gammatone filter bank, although they
@@ -492,7 +496,7 @@ are rapid compared to the time constants are linearly transformed,
 whereas stationary input signals go through logarithmic compression.
 
 
-.. _tab-adaption-parameters:
+.. _tab-adaptation-parameters:
 
 .. table:: List of parameters related to ``'adaptation'``.
 
@@ -519,7 +523,8 @@ whereas stationary input signals go through logarithmic compression.
     |                |               | can be used instead of the above three |
     |                |               |                                        |
     |                |               | parameters (See Tab.                   |
-    |                |               | :ref:`... <tab-adaptationmodels>`)     |
+    |                |               | :ref:`Adaptation models                |
+    |                |               | <tab-adaptation-models>`)              |
     +----------------+---------------+----------------------------------------+
 
 
@@ -534,8 +539,8 @@ and thus five time constants, variable number of elements of
 specific sets of these parameters, as used in related studies, are also
 supported optionally with the ``adpt_model`` parameter. This can be
 given instead of the other three parameters, which will set them as used
-by the respective researchers. Tab. :ref:`tab-adaption-parameters` lists the parameters and their
-default values, and Tab. :ref:`tab-supported-models` lists the supported models. The output signal
+by the respective researchers. Tab. :ref:`tab-adaptation-parameters` lists the parameters and their
+default values, and Tab. :ref:`tab-adaptation-models` lists the supported models. The output signal
 is expressed in model units (:term:`MU`) which deviates the input-output relation from a perfect
 logarithmic transform, such that the input level increment at low level
 range results in a smaller output level increment than the input
@@ -552,7 +557,7 @@ processor is used in the chain and adjusts the input signal accordingly.
 
 
 
-.. _tab-supported-models:
+.. _tab-adaptation-models:
 
 .. table:: List of supported models related to ``'adaptation'``.
 
@@ -1048,7 +1053,7 @@ the non-linear pre-processing of the :term:`ACF`, as described in Sec. :ref:`se
     +---------------------+--------------+----------------------------------------------------+
 
 The task of pitch estimation is demonstrated by the script
-``DEMO_Pitch`` and the corresponding :term:`SACF` plots are presented in Fig. :ref:`ig-pitch`. The
+``DEMO_Pitch`` and the corresponding :term:`SACF` plots are presented in Fig. :ref:`fig-pitch`. The
 pitch is estimated for an anechoic speech signal (top left panel). The
 corresponding is presented in the top right panel, where each black
 cross represents the most salient lag period per time frame. The
@@ -1064,10 +1069,13 @@ Unvoiced frames, where no pitch frequency was detected, are indicated by
 
 .. figure:: img/Pitch.png
 
-   Time domain signal (top left panel) and the corresponding :term:`SACF`(top right
+   Time domain signal (top left panel) and the corresponding :term:`SACF` (top right
    panel). The confidence measure based on the :term:`SACF` magnitude is used to select
    reliable pitch estimates (bottom left panel). The final pitch estimate
    is post-processed by a median filter (bottom right panel).
+
+
+.. _sec-amplitude-modulation-spectrogram:
 
 Amplitude modulation spectrogram (``modulationProc.m``)
 -------------------------------------------------------
@@ -1414,6 +1422,7 @@ impact of the reverberation.
 .. [Bernstein1999] Bernstein, L. R., van de Par, S., ...
 .. [Breebart2001] Breebart, J., van de Par, S., ...
 .. [Bregman1990]
+.. [Brown1994]
 .. [Brown2010]
 .. [Cooke2001]
 .. [Dau1996] Dau, T., Püschel, D. ...
@@ -1443,12 +1452,15 @@ impact of the reverberation.
 .. [May2014b]
 .. [MayPress]
 .. [Meddis1991]
+.. [Meddis1997]
 .. [Meddis2001]
 .. [Misra2004]
+.. [Peeters2001]
 .. [Peeters2011]
 .. [Pueschel1988]
 .. [Qiu2003]
 .. [Rabiner1977]
+.. [Schaedler2012]
 .. [Scheirer1997]
 .. [Slaney1990]
 .. [Smith1977]
