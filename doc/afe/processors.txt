@@ -449,7 +449,7 @@ envelope of the output of individual gammatone filters. The corresponding
 [Soendergaard2013]_. Typically, the envelope is extracted by combining half-wave
 rectification and low-pass filtering. The low-pass filter is motivated by the
 loss of phase-locking in the auditory nerve at higher
-frequencies [Bernstein1996]_ [Bernstein1999]_. Depending on the cut-off
+frequencies [Bernstein1996]_, [Bernstein1999]_. Depending on the cut-off
 frequency of the :abbr:`IHC (inner hair-cell)` models, it is possible to control
 the amount of fine-structure information that is present in higher frequency
 channels. The cut-off frequency and the order of the corresponding low-pass
@@ -500,11 +500,11 @@ Adaptation (``adaptationProc.m``)
 
 This processor corresponds to the adaptive response of the auditory nerve
 fibers, in which abrupt changes in the input result in emphasised overshoots
-followed by gradual decay to compressed steady-state level [Smith1977]_
+followed by gradual decay to compressed steady-state level [Smith1977]_,
 [Smith1983]_.  The function is adopted from the |amtoolbox| [Soendergaard2013]_.
 The adaptation stage is modelled as a chain of five feedback loops in series.
 Each of the loops consists of a low-pass filter with its own time constant, and
-a division operator [Pueschel1988]_ [Dau1996]_ [Dau1997a]_. At each stage, the
+a division operator [Pueschel1988]_, [Dau1996]_, [Dau1997a]_. At each stage, the
 input is divided by its low-pass filtered version. The time constant affects the
 charging / releasing state of the filter output at a given moment, and thus
 affects the amount of attenuation caused by the division. This implementation
@@ -563,7 +563,7 @@ signal is expressed in :abbr:`MU (model units)` which deviates the input-output
 relation from a perfect logarithmic transform, such that the input level
 increment at low level range results in a smaller output level increment than
 the input increment at higher level range. This corresponds to a smaller
-just-noticeable level change at high levels than at low levels [Dau1996]_
+just-noticeable level change at high levels than at low levels [Dau1996]_,_
 [Jepsen2008]_, with the use of :abbr:`DRNL (dual-resonance non-linear)` model
 for the :abbr:`BM (basilar membrane)` stage, introduces an additional squaring
 expansion process between the :abbr:`IHC (inner hair-cell)` output and the
@@ -637,7 +637,7 @@ Auto-correlation (``autocorrelationProc.m``)
 --------------------------------------------
 
 Auto-correlation is an important computational concept that has been extensively
-studied in the context of predicting human pitch perception [Licklider1951]_
+studied in the context of predicting human pitch perception [Licklider1951]_,
 [Meddis1991]_. To measure the amount of periodicity that is present in
 individual frequency channels, the :abbr:`ACF (auto-correlation function)` is
 computed in the :abbr:`FFT (fast Fourier transform)` domain for short time
@@ -775,11 +775,11 @@ spectral features is available that can serve as a physical correlate to
 perceptual attributes, such as timbre and coloration [Peeters2011]_. All
 spectral features summarise the spectral content of the rate-map representation
 across auditory filters and are computed for individual time frames. The
-following :math:`14` spectral features are available:
+following 14 spectral features are available:
 
 #. ``'centroid'`` : The spectral centroid represents the centre of gravity of
    the rate-map and is one of the most frequently-used timbre
-   parameters [Tzanetakis2002]_ [Jensen2004]_ [Peeters2001]_. The centroid is
+   parameters [Tzanetakis2002]_, [Jensen2004]_, [Peeters2001]_. The centroid is
    normalised by the highest rate-map centre frequency to reduce the influence
    of the gammatone parameters.
 
@@ -794,8 +794,8 @@ following :math:`14` spectral features are available:
 #. ``'brightness'`` : The brightness reflects the amount of high frequency
    information and is measured by relating the energy above a pre-defined cutoff
    frequency to the total energy. This cutoff frequency is set to ``sf_br_cf =
-   1500`` Hz by default [Jensen2004]_ [Peeters2011]_. This feature might be used
-   to quantify the sensation of sharpness.
+   1500`` Hz by default [Jensen2004]_, [Peeters2011]_. This feature might be
+   used to quantify the sensation of sharpness.
 
 #. ``'high-frequency content'`` : The high-frequency content is another metric
    that measures the energy associated with high frequencies. It is derived by
@@ -809,11 +809,11 @@ following :math:`14` spectral features are available:
    ratio between the maximum value and the arithmetic mean and can be used to
    characterise the peakiness of the rate-map. The feature value is low for
    signals with a flat spectrum and high for a rate-map with a distinct spectral
-   peak [Peeters2011]_ [Lerch2012]_.
+   peak [Peeters2011]_, [Lerch2012]_.
 
 #. ``'decrease'`` : The spectral decrease describes the average spectral slope
    of the rate-map representation, putting a stronger emphasis on the low
-   frequencies. [Peeters2011]_
+   frequencies [Peeters2011]_.
 
 #. ``'entropy'`` : The entropy can be used to capture the peakiness of the
    spectral representation [Misra2004]_. The resulting feature is low for a
@@ -838,10 +838,10 @@ following :math:`14` spectral features are available:
    segments and high for voiced speech where substantial energy is present
    around the fundamental frequency.
 
-#. ``'roll-off'`` : Determines the frequency in :math:`hertz` below which a
+#. ``'roll-off'`` : Determines the frequency in Hz below which a
    pre-defined percentage ``sf_ro_perc`` of the total spectral energy is
    concentrated. Common values for this threshold are between ``sf_ro_perc =
-   0.85`` [Tzanetakis2002]_ and ``sf_ro_perc = 0.95`` [Scheirer1997]_
+   0.85`` [Tzanetakis2002]_ and ``sf_ro_perc = 0.95`` [Scheirer1997]_,
    [Peeters2011]_. The roll-off feature is normalised by the highest rate-map
    centre frequency and ranges between zero and one. This feature can be useful
    to distinguish voiced from unvoiced signals.
@@ -997,7 +997,7 @@ within this time context, only the stronger one will be considered. This time
 context can be adjusted by ``trm_fuseWithinSec``. Moreover, the minimum
 across-frequency context can be controlled by the parameters ``trm_minSpread``.
 To allow for this selection, individual transients which are connected across
-multiple :abbr:`TF (time-frequency)` units are extracted using Matlab’s image
+multiple :abbr:`TF (time-frequency)` units are extracted using Matlab's image
 labelling tool ``bwlabel`` . The binary transient map will only retain those
 transients which consists of at least ``trm_minSpread`` connected :abbr:`TF
 (time-frequency)` units. The salience of the cue can be specified by the
@@ -1121,11 +1121,11 @@ human auditory system which plays a major role in speech perception.
 Consequently, computational models have tried to exploit speech- and noise
 specific characteristics of amplitude modulations by extracting so-called
 amplitude modulation spectrogram (:abbr:`AMS (amplitude modulation
-spectrogram)`)features with linearly-scaled modulation filters [Kollmeier1994]_
-[Tchorz2003]_ [Kim2009]_ [May2013]_ [May2014a]_ [May2014b]_. The use of
+spectrogram)`)features with linearly-scaled modulation filters [Kollmeier1994]_,
+[Tchorz2003]_, [Kim2009]_, [May2013]_, [May2014a]_, [May2014b]_. The use of
 linearly-scaled modulation filters is, however, not consistent with
-psychoacoustic data on modulation detection and masking in humans [Bacon1989]_
-[Houtgast1989]_ [Dau1997a]_ [Dau1997b]_ [Ewert2000]_. As demonstrated
+psychoacoustic data on modulation detection and masking in humans [Bacon1989]_,
+[Houtgast1989]_, [Dau1997a]_, [Dau1997b]_, [Ewert2000]_. As demonstrated
 by [Ewert2000]_, the processing of envelope fluctuations can be described
 effectively by a second-order band-pass filter bank with logarithmically-spaced
 centre frequencies. Moreover, it has been shown that an :abbr:`AMS (amplitude
@@ -1135,7 +1135,7 @@ substantially improved the performance of computational speech segregation in
 the presence of stationary and fluctuating interferers [MayPress]_. In addition,
 such a processing based on auditory-inspired modulation filters has recently
 also been successful in speech intelligibility prediction
-studies [Joergensen2011]_ [Joergensen2013]_. To investigate the contribution of
+studies [Joergensen2011]_, [Joergensen2013]_. To investigate the contribution of
 both :abbr:`AMS (amplitude modulation spectrogram)` feature representations, the
 amplitude modulation processor can be used to extract linearly- and
 logarithmically-scaled :abbr:`AMS (amplitude modulation spectrogram)` features.
@@ -1178,7 +1178,7 @@ modulation filters, which depend on the type of modulation filters
 
    #. Specify ``ams_lowFreqHz`` and ``ams_highFreqHz``. Starting at
       ``ams_lowFreqHz``, the centre frequencies will be logarithmically-spaced
-      at integer powers of two, e.g.  :math:`2^2, 2^3, 2^4 ldots` until the
+      at integer powers of two, e.g.  2^2, 2^3, 2^4 ... until the
       higher frequency limit ``ams_highFreqHz`` is reached.
 
    #. Specify ``ams_lowFreqHz``, ``ams_highFreqHz`` and ``ams_nFilter``.  The
@@ -1258,7 +1258,7 @@ Spectro-temporal modulation spectrogram
 
 Neuro-physiological studies suggest that the response of neurons in the primary
 auditory cortex of mammals are tuned to specific spectro-temporal
-patterns [Theunissen2001]_ [Qiu2003]_. This response characteristic of neurons
+patterns [Theunissen2001]_, [Qiu2003]_. This response characteristic of neurons
 can be described by the so-called :abbr:`STRF (spectro-temporal receptive
 field)`. As suggested by [Qiu2003]_, the :abbr:`STRF (spectro-temporal receptive
 field)` can be effectively modelled by two-dimensional (2D) Gabor functions.
@@ -1369,7 +1369,7 @@ The :abbr:`ITD (interaural time difference)` between the left and the right ear
 signal is estimated for individual frequency channels and time frames by
 locating the time lag that corresponds to the most prominent peak in the
 normalised :abbr:`CCF (cross-correlation function)`. This estimation is further
-refined by a parabolic interpolation stage [May2011]_ [May2013]_. The :abbr:`ITD
+refined by a parabolic interpolation stage [May2011]_, [May2013]_. The :abbr:`ITD
 (interaural time difference)` processor does not have any adjustable parameters,
 but it relies on the :abbr:`CCF (cross-correlation function)` described in
 Sec. :ref:`sec-chap4.14` and its corresponding parameters (see
