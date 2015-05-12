@@ -1,5 +1,8 @@
-The Two!Ears Auditory Front-End framework
-=========================================
+Overview
+========
+
+.. contents::
+    :local:
 
 Framework functionality
 -----------------------

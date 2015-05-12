@@ -9,6 +9,9 @@ corresponding files can be found in the ``doc/examples/`` directory. For larger
 setups it will be easier to use the :ref:`XML scene description`.
 Examples using the :ref:`XML scene description` can be found in the ``test/`` directory.
 
+.. contents::
+    :local:
+
 Simulate two dry sources
 ------------------------
 
@@ -17,7 +20,7 @@ and the binaural output is written to the file :file:`out_two_sources.wav`.
 One source is a cello placed to the left of the listener and the other source
 is castanets placed in the front of the listener.
 
-::
+.. code-block:: Matlab
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...
@@ -63,7 +66,7 @@ The :file:`doc/examples/moving_source.m` example simulates a dry cello that move
 the left to the right of the listener and stores the resulting binaural signal
 as :file:`out_moving_source.wav`.
 
-::
+.. code-block:: Matlab
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...
@@ -101,7 +104,7 @@ The :file:`doc/examples/room.m` example simulates a dry cello in a shoe box room
 stores the resulting binaural signal in :file:`out_room.wav`. The shoe box room is
 simulated with an image source model.
 
-::
+.. code-block:: Matlab
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...
@@ -152,7 +155,7 @@ The :file:`doc/examples/brirs.m` example simulates a cello in a reverberant
 environment using BRIR recordings. The resulting binaural signal as stored in
 :file:`out_brirs.wav`.
 
-::
+.. code-block:: Matlab
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...

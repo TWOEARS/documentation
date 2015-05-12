@@ -1,4 +1,0 @@
-Two!Ears Robotic Platform module
-================================
-
-.. vim: filetype=rst spell:

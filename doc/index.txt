@@ -43,12 +43,6 @@ New to Two!Ears or auditory modelling? This is the place to start!
   :doc:`Part 4: Working with the database <intro/tutorial04>` |
   :doc:`Part 5: Use a robotic plattform <intro/tutorial05>`
 
-Modular structure
-=================
-
-Two!Ears is build up in a completely modular fashion. Find all you need to know
-about it below:
-
 Binaural simulator
 ==================
 

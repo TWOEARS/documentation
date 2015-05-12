@@ -4,12 +4,18 @@ Usage
 This instructions guides you how to use the `Two!Ears Binaural Simulator`_, for
 instructions on how to use the whole `Two!Ears Auditory Model`_ refer to ...
 
+.. contents::
+    :local:
+
+Quick start
+-----------
+
 If you want to use the `Two!Ears Binaural Simulator`_ without any other part of
 the `Two!Ears Auditory Model`_ you can start it as a single module with the
 ``startTwoEars`` function which is part of the
 :doc:`Two!Ears Main module <../modules/main>`.
 
-::
+.. code-block:: Matlab
 
     startTwoEars('BinauralSimulator.xml');
 
@@ -30,7 +36,9 @@ Configuration using a Matlab script
 
 The `Two!Ears Binaural Simulator`_ uses the object-oriented programming
 architecture of Matlab. In order to initialise the simulation tool, an Object
-of the ``SimulatorConvexRoom()``-class has to be instantiated by::
+of the ``SimulatorConvexRoom()``-class has to be instantiated by:
+
+.. code-block:: Matlab
 
     sim = simulator.SimulatorConvexRoom();
 
@@ -68,7 +76,7 @@ For a more detailed description of each parameter refer to the
 various processing parameters of the simulator the build-in set/get
 functionality of Matlab should be used, e.g.
 
-::
+.. code-block:: Matlab
 
     % some processing parameters
     set(sim, ...
@@ -86,7 +94,7 @@ Line 3 and 4 set the sample rate of the simulator to 44.1 kHz and defines a bloc
 size aka. frame size of 4096 Samples. To define the acoustic scene, e.g.
 the sound sources and the listener.
 
-::
+.. code-block:: Matlab
 
     % acoustic scene
     set(sim, ...
@@ -103,7 +111,7 @@ the sink, which is 2 for binaural signals. Since sources and sinks are also
 handles, they can be accessed using the same set/get procedure as for the
 simulator object, e.g.
 
-::
+.. code-block:: Matlab
 
     % set parameters of audio sources
     set(sim.Sources{1}, ...
@@ -136,7 +144,7 @@ FIFO-Buffer (First-In-First-Out) can be defined by ``simulator.buffer.FIFO(1)``.
 For more details about possible buffer types please refer to the
 `API documentation on buffers`_. To load a sound files into the buffers execute
 
-::
+.. code-block:: Matlab
 
     % set audio input of buffers
     set(sim.Sources{1}.AudioBuffer, ...
@@ -160,13 +168,13 @@ In following the configuration as defined above using a Matlab script is done
 calling the constructor of the simulator object with an extra argument defining
 the file name of a XML scene description file.
 
-::
+.. code-block:: Matlab
 
     sim = simulator.SimulatorConvexRoom('test_binaural.xml');
 
 The content of file:`test_binaural.xml` is shown below.
 
-.. code:: xml
+.. code-block:: xml
 
     <scene
       BlockSize="4096"
@@ -205,7 +213,7 @@ After setting up all parameters the simulator object is ready to simulate ear
 signals according to the defined acoustic scene. In order to load all parameters
 into the simulation kernel execute
 
-::
+.. code-block:: Matlab
 
     sim.set('Init',true);
 
@@ -217,7 +225,7 @@ changed within one simulation run. However, modifying e.g. the position of a
 scene object is possible. The following loop calculates the ear signals until
 the acoustic scene is finished.
 
-::
+.. code-block:: Matlab
 
     while ~sim.isFinished()
       sim.set('Refresh',true);  % refresh all objects
@@ -233,7 +241,7 @@ a scene object is changed. If necessary, call line 2 once before processing a ne
 block in order to send any modification to the simulation kernel. The ear
 signals are stored in the FIFO buffer of the ``sim.Sinks`` object.
 
-::
+.. code-block:: Matlab
 
     % read whole data from buffer
     data = sim.Sinks.getData();
@@ -241,7 +249,9 @@ signals are stored in the FIFO buffer of the ``sim.Sinks`` object.
     sim.Sinks.saveFile('out_binaural.wav',sim.SampleRate);
 
 In order to access or store the data line 2 or 4 may be used respectively. To
-finish the simulation shut down and clean up the simulator by calling::
+finish the simulation shut down and clean up the simulator by calling:
+
+.. code-block:: Matlab
 
     sim.set('ShutDown',true);
 
@@ -249,7 +259,9 @@ The simulator reverts to an uninitialised state, where the manipulation of every
 parameter is possible, again. This is necessary, if you want to start a new
 simulation with complete different parameters like e.g. different number of
 sound sources. If you want to start a new simulation with same parameters as
-before a kind of a weak shut down should do the job::
+before a kind of a weak shut down should do the job:
+
+.. code-block:: Matlab
 
     sim.set('ReInit',true);
 

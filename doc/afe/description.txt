@@ -1,8 +1,11 @@
 Technical description
 =====================
 
-Overview
---------
+.. contents::
+    :local:
+
+Introduction
+------------
 
 Many different auditory models are available that can transform an input
 signal into an auditory representation. The actual design challenges

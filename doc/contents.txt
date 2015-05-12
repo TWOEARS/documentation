@@ -13,7 +13,6 @@ Two!Ears documentation contents
     :maxdepth: 3
 
     intro/index
-    modules/index
     binsim/index
     robo/index
     afe/index

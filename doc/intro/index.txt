@@ -13,21 +13,6 @@ auditory signal processing is further accompanied by a black board architecture
 that allows top-down processing and the inclusion of world knowledge to the
 model.
 
-The model is being developed by the partners of the `EU project Two!Ears`_.
-
-.. _EU project Two!Ears: http://www.twoears.eu/
-
-Current state of the model
---------------------------
-
-The development of the model did just start and its current version includes
-only some of its stages. In end of June 2015 a first version, including several
-of its modules will be released.
-
-
-Information to get started yourself
------------------------------------
-
 Read the following material to quickly get up and running.
 
 .. toctree::
@@ -40,5 +25,18 @@ Read the following material to quickly get up and running.
     tutorial03
     tutorial04
     tutorial05
+
+
+Current state of the model
+==========================
+
+The development of the model did just start and its current version includes
+only some of its stages. In end of June 2015 a first version, including several
+of its modules will be released.
+
+The model is being developed by the partners of the `EU project Two!Ears`_.
+
+.. _EU project Two!Ears: http://www.twoears.eu/
+
 
 .. vim: filetype=rst spell:

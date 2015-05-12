@@ -1,7 +1,7 @@
 Available processors
 ====================
 
-This chapter presents a detailed description of all processors that are
+This section presents a detailed description of all processors that are
 currently supported by the |AFE| framework. Each processor can be controlled by
 a set of parameters, which will be explained and all default settings will be
 listed. Finally, a demonstration will be given, showing the functionality of
@@ -10,6 +10,9 @@ each processor. The corresponding Matlab files are contained in the |AFE| folder
 available processors can be displayed by using the command ``requestList``. An
 overview of the commands for instantiating processors is given in Section
 :ref:`sec-computation-of-an-auditory-representation`.
+
+.. contents::
+    :local:
 
 .. _sec-chap4.1:
 

@@ -26,7 +26,7 @@ mail to the |twoears| mailing list.
 
 
 Credits
--------
+~~~~~~~
 
 The `Two!Ears Binaural Simulator`_ is developed by Fiete Winter from Universität
 Rostock, and the rest of the `Two!Ears team`_.
@@ -35,7 +35,7 @@ Rostock, and the rest of the `Two!Ears team`_.
 
 
 License
--------
+~~~~~~~
 
 The `Two!Ears Binaural Simulator`_ is released under `GNU General Public License,
 version 2`.

@@ -1,4 +1,0 @@
-Two!Ears Auditory Front-End module
-==================================
-
-.. vim: filetype=rst spell:

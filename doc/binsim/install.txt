@@ -5,6 +5,9 @@ This instructions guides you how to install the Two!Ears Binaural Simulator, for
 installing the whole Two!Ears Auditory Model refer to the :doc:`Installation
 guide <../intro/install>`.
 
+.. contents::
+    :local:
+
 Dependencies
 ------------
 

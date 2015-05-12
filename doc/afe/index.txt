@@ -35,19 +35,11 @@ requests auditory cues or even write your own auditory processor
 read on:
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     overview
     description
     processors
     add-processor
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 .. vim: filetype=rst spell:
