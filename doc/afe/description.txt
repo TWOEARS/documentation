@@ -461,7 +461,7 @@ envelope is windowed by a set of overlapping windows, and its magnitude
 averaged in each window. This process is adapted to online processing as
 illustrated in Fig. 
 
-.. figure:: images/chunkBasedRatemap.png
+.. figure:: img/chunkBasedRatemap.png
 
    Three steps for simple online windowing, given a chunk of input and
    an internal buffer.
@@ -701,7 +701,7 @@ processing order (processing first ``ii=1`` and last ``ii=N``) and
 ``jj = mObj.Map(ii)`` which relate the processing order with the actual
 position of the processors in the cell array ``mObj.Processors``.
 
-.. |Three steps for simple online windowing, given a chunk of input and an internal buffer.| image:: images/chunkBasedRatemap.png
+.. |Three steps for simple online windowing, given a chunk of input and an internal buffer.| image:: img/chunkBasedRatemap.png
 
 
 .. [Göbbert2014] Göbbert, J. H. (2014), "Circular double buffered vector buffer (``circVBuf.m``)," *Matlab file exchange:* http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf, accessed: 2014-10-30.

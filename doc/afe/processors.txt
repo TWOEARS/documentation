@@ -20,13 +20,13 @@ Prior to computing any of the supported auditory representations, the
 input signal stored in the data object can be pre-processed with one of
 the following elements:
 
-#. Direct current (DC) bias removal
+#. Direct current (:term:`DC`) bias removal
 
 #. Pre-emphasis
 
-#. Root mean square (RMS) normalization using an automatic gain control
+#. Root mean square (:term:`RMS`) normalization using an automatic gain control
 
-#. Level scaling to a pre-defined sound pressure level (SPL) reference
+#. Level scaling to a pre-defined sound pressure level (:term:`SPL`) reference
 
 #. Middle ear filtering
 
@@ -87,7 +87,7 @@ pre-processing stage is described in the following subsections.
 
 .. _fig-pre-proc:
 
-.. figure:: images/Pre_Proc.png
+.. figure:: img/Pre_Proc.png
 
    Illustration of the individual pre-processing steps.
    1) Ear signals consisting of two sentences recorded at different levels,
@@ -317,7 +317,7 @@ individual filter is shown in the right panel.
 
 .. _fig-gammatone:
 
-.. figure:: images/Gammatone.png
+.. figure:: img/Gammatone.png
 
    Time domain signal (left panel) and the corresponding output of the gammatone
    processor consisting of 16 auditory filters spaced between
@@ -353,7 +353,7 @@ specified by the default argument ’CASP’ for ``fb_model``.
 
 .. _fig-DRNLfilterbank:
 
-.. figure:: images/DRNL_Diagram.png
+.. figure:: img/DRNL_Diagram.png
 
    filterbank channel structure, following the model specification as
    default, with an additional nonlinear gain stage to receive feedback.
@@ -406,7 +406,7 @@ incorporated, compared to the gammatone filterbank output, which shows
 the compressive nature of the nonlinear model responding to input level
 changes as described earlier.
 
-.. figure:: images/DRNLs.png
+.. figure:: img/DRNLs.png
 
 .. _fig-DRNLOutput:
 
@@ -461,7 +461,7 @@ retained at higher frequencies.
 
 .. _fig-ihc:
 
-.. figure:: images/IHC.png
+.. figure:: img/IHC.png
 
    Illustration of the envelope extraction processor.
    BM output (left panel) and the corresponding IHC model output using
@@ -597,7 +597,7 @@ Fig. :ref:`Illustration of the envelope extraction processor.<fig-ihc>`) is com
 
 .. _fig-IHCadapt:
 
-.. figure:: images/IHCadapt.png
+.. figure:: img/IHCadapt.png
 
    Illustration of the adaptation processor. IHC output (left panel) as the input to the adaptation
    processor and the corresponding output using ``adpt_model=’adt_dau’``
@@ -671,7 +671,7 @@ is exploited by the pitch processor, which is described in Sec. :ref:`sec-chap4
 
 .. _fig-ACF:
 
-.. figure:: images/ACF.png
+.. figure:: img/ACF.png
 
    IHC representation of a speech signal shown for one time
    frame of 20 ms duration (left panel) and the
@@ -725,7 +725,7 @@ presented in the right panel.
 
 .. _fig-ratemap:
 
-.. figure:: images/Ratemap.png
+.. figure:: img/Ratemap.png
 
    IHC representation of s speech signal using 64 auditory
    filters (left panel) and the corresponding ratemap representation (right
@@ -845,7 +845,7 @@ in combination with the corresponding ratemap representation.
 
 .. _fig-Specfeatures:
 
-.. figure:: images/SpecFeatures.png
+.. figure:: img/SpecFeatures.png
 
    Speech signal and 14 spectral features that were extracted based on the ratemap
    representation.
@@ -893,7 +893,7 @@ range and typically mark the beginning of an auditory event.
 
 .. _fig-onsetstrength:
 
-.. figure:: images/OnsetStrength.png
+.. figure:: img/OnsetStrength.png
 
    Ratemap representation (left panel) of speech and the corresponding
    onset strength in decibel (right panel).
@@ -929,7 +929,7 @@ are less synchronized across frequency.
 
 .. _fig-offsetstrength:
 
-.. figure:: images/OffsetStrength.png
+.. figure:: img/OffsetStrength.png
 
    Ratemap representation (left panel) of speech and the corresponding
    offset strength in `decibel` (right panel).
@@ -996,7 +996,7 @@ beginning and the end of individual auditory events.
 
 .. _fig-onoffset:
 
-.. figure:: images/OnOffset.png
+.. figure:: img/OnOffset.png
 
    Detected onsets and offsets indicated by the black and white vertical
    bars. The left panels shows all onset and offset events, whereas the
@@ -1055,7 +1055,7 @@ Unvoiced frames, where no pitch frequency was detected, are indicated by
 
 .. _fig-pitch:
 
-.. figure:: images/Pitch.png
+.. figure:: img/Pitch.png
 
    Time domain signal (top left panel) and the corresponding SACF(top right
    panel). The confidence measure based on the SACF magnitude is used to select
@@ -1098,7 +1098,7 @@ Fig. :ref:`fig-modfb`.
 
 .. _fig-modfb:
 
-.. figure:: images/ModFB.png
+.. figure:: img/ModFB.png
 
    Transfer functions of 15 linearly-scaled (left panel) and
    9 logarithmically-scaled (right panel) modulation
@@ -1184,7 +1184,7 @@ a much higher correlation with the activity reflected in the IHC representation.
 
 .. _fig-AMS:
 
-.. figure:: images/AMS.png
+.. figure:: img/AMS.png
 
    Speech signal (top left panel) and the corresponding IHC representation (top right panel) using
    23 frequency channels spaced between 80 and
@@ -1218,7 +1218,7 @@ produces a 311 dimensional Gabor feature space.
 
 .. _fig-Gabor2D:
 
-.. figure:: images/Gabor_2D.png
+.. figure:: img/Gabor_2D.png
 
    Real part of 41 spectro-temporal Gabor filters. 
 
@@ -1236,7 +1236,7 @@ captured. This aspect might be particularly relevant for the task of ASR.
 
 .. _fig-Gabor:
 
-.. figure:: images/Gabor.png
+.. figure:: img/Gabor.png
 
    Ratemap representation of a speech signal (left panel) and the
    corresponding output of the Gabor feature processor (right
@@ -1285,7 +1285,7 @@ as shown in the bottom right panel.
 
 .. _fig-CCF:
 
-.. figure:: images/CCF.png
+.. figure:: img/CCF.png
 
    Left and right ear signals shown for one time frame of
    20 ms duration (left panel) and the corresponding CCF
@@ -1314,7 +1314,7 @@ majority of T-F units.
 
 .. _fig-itd:
 
-.. figure:: images/ITD.png
+.. figure:: img/ITD.png
 
    Binaural speech signal (left panel) and the estimated ITD in
    ms shown as a function of time frames and frequency
@@ -1358,7 +1358,7 @@ influence can be seen at higher frequencies where ILDs can be as high as
 
 .. _fig-ild:
 
-.. figure:: images/ILD.png
+.. figure:: img/ILD.png
 
    Binaural speech signal (left panel) and the estimated ILD in
    dB shown as a function of time frames and frequency
@@ -1391,7 +1391,7 @@ impact of the reverberation.
 
 .. _fig-IC:
 
-.. figure:: images/IC.png
+.. figure:: img/IC.png
 
    Time domain signals and the corresponding interaural coherence as a function
    of time frames and frequency channels estimated for a speech signal in
