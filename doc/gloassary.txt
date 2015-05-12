@@ -39,6 +39,9 @@ Glossary
     DRNL
         Dual-resonance non-linear.
 
+    ERB
+        Equivalent rectangular bandwidth.
+
     ETSI
         European telecommunications standards institute.
 

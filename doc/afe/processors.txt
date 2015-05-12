@@ -560,7 +560,7 @@ processor is used in the chain and adjusts the input signal accordingly.
     | ``adpt_model``      | Description                                       |
     +=====================+===================================================+
     | ``'adt_dau'``       | Choose the parameters as in the models of         |
-    |                     | [Dau1996]_, [Dau1997]_.                           |
+    |                     | [Dau1996]_, [Dau1997a]_.                          |
     |                     |                                                   |
     |                     | This consists of 5 adaptation loops with an       |
     |                     | overshoot limit of 10 and                         |
@@ -1236,7 +1236,7 @@ log-compressed rate-map with 25 ms time frames and
 3657 Hz is shown in the left panel for a speech signal.
 These rate-map parameters have been adjusted to meet the specifications
 as recommended in the European telecommunications standards institute
-(ETSI)standard [ETSIES201108v1.1.32003]_. The corresponding Gabor feature space
+(:term:`ETSI`) standard [ETSIES]_. The corresponding Gabor feature space
 with 311 dimension is presented in the right panel, where vowel
 transition (e.g. at time frames around 0.2 s) are well
 captured. This aspect might be particularly relevant for the task of :term:`ASR`.
@@ -1408,10 +1408,58 @@ impact of the reverberation.
    panel) and the corresponding (bottom right panel). 
 
 
-.. [Dau1996] Dau, T., Püschel, D. ...
-.. [Joergensen2011] Jørgensen, S., Ewert, S. D., ...
-.. [Breebart2001] Breebart, J., van de Par, S., ...
+.. ...::: References :::...
+.. [Bacon1989]
+.. [Bernstein1996]
 .. [Bernstein1999] Bernstein, L. R., van de Par, S., ...
+.. [Breebart2001] Breebart, J., van de Par, S., ...
+.. [Bregman1990]
+.. [Brown2010]
+.. [Cooke2001]
+.. [Dau1996] Dau, T., Püschel, D. ...
+.. [Dau1997a]
+.. [Dau1997b]
+.. [ETSIES]
+.. [Ewert2000]
+.. [Faller2004]
+.. [Ferry2007]
+.. [Glasberg1990]
+.. [Godde1994]
+.. [Houtgast1989]
+.. [Jensen2004]
+.. [Jepsen2008]
+.. [Joergensen2011] Jørgensen, S., Ewert, S. D., ...
+.. [Joergensen2013]
+.. [Kim2009]
+.. [Klapuri1999]
+.. [Kollmeier1994]
+.. [Lerch2012]
+.. [Licklider1951]
+.. [Lopez-Poveda2001]
+.. [May2011]
+.. [May2012]
+.. [May2013]
+.. [May2014a]
+.. [May2014b]
+.. [MayPress]
+.. [Meddis1991]
+.. [Meddis2001]
+.. [Misra2004]
+.. [Peeters2011]
+.. [Pueschel1988]
+.. [Qiu2003]
+.. [Rabiner1977]
+.. [Scheirer1997]
+.. [Slaney1990]
+.. [Smith1977]
+.. [Smith1983]
 .. [Soendergaard2013] Søndergaard, ...
+.. [Tchorz2003]
+.. [Theunissen2001]
+.. [Tolonen2000]
+.. [Turgeon2002]
+.. [Tzanetakis2002]
+.. [Wang2006]
+.. [Young2006]
 
 .. vim: filetype=rst spell:
