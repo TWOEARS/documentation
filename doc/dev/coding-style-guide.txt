@@ -2,6 +2,9 @@
 Two!Ears Matlab coding style guide
 ==================================
 
+.. contents::
+    :local:
+
 .. highlight:: Matlab
 
 Introduction
