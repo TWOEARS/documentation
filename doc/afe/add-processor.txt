@@ -1,3 +1,5 @@
+.. _sec-afe-add-processor:
+
 Add your own processors
 =======================
 

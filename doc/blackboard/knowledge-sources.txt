@@ -5,8 +5,8 @@
 Knowledge sources
 =================
 
-In this section we describe knowledge sources that are currently available in the
-|blackboard|, those are:
+In this section we describe knowledge sources that are currently available in
+the |blackboard|, those are:
 
 .. contents::
     :local:
@@ -38,43 +38,42 @@ shows the parts most relevant to development of new knowledge sources::
 There are different aspects of functionality in this interface.
 
 Data access
-    Knowledge sources have a handle to the ``blackboard``. Through this
-    handle, data can be placed on and retrieved from the blackboard.
+    Knowledge sources have a handle to the ``blackboard``. Through this handle,
+    data can be placed on and retrieved from the blackboard.
 
 System setup
-    Through the handle ``blackboardSystem``, knowledge sources get
-    access to the methods for adding and removing other knowledge
-    sources, and also access to the ``BlackboardMonitor``.
+    Through the handle ``blackboardSystem``, knowledge sources get access to the
+    methods for adding and removing other knowledge sources, and also access to
+    the ``BlackboardMonitor``.
 
 Execution properties
     The property ``invocationMaxFrequency_Hz`` specifies how often this
-    knowledge source is allowed to be executed. The methods ``focus``
-    and ``unfocus`` give access to the attentional priority of the
-    knowledge source, which influences its relative importance when
-    competing for computing resources with other knowledge sources. See
-    Section :ref:`sec-scheduler` for a description of scheduling.
+    knowledge source is allowed to be executed. The methods ``focus`` and
+    ``unfocus`` give access to the attentional priority of the knowledge source,
+    which influences its relative importance when competing for computing
+    resources with other knowledge sources. See Section :ref:`sec-scheduler` for
+    a description of scheduling.
 
 Execution conditional
-    The abstract method ``canExecute`` must be implemented by the
-    inheriting knowledge source. It is called by the scheduler when the
-    knowledge source is next in the schedule before actually executing.
-    If this method returns false, execution will not be performed. The
-    second output argument of this method indicates whether the
-    knowledge source should remain in the agenda or be removed.
+    The abstract method ``canExecute`` must be implemented by the inheriting
+    knowledge source. It is called by the scheduler when the knowledge source is
+    next in the schedule before actually executing.  If this method returns
+    false, execution will not be performed. The second output argument of this
+    method indicates whether the knowledge source should remain in the agenda or
+    be removed.
 
 Execution
-    The main functionality of any knowledge source is implemented in the
-    method ``execute``. A knowledge source gets executed by the
-    scheduler if its maximum invocation frequency would not be exceeded
-    and its ``canExecute`` method returns true. In this method, a
-    knowledge source gets access to its ``trigger``, a structure that
-    contains information about the triggering event, the triggering
-    source, and an argument the trigger source placed for usage by
-    sinks.
+    The main functionality of any knowledge source is implemented in the method
+    ``execute``. A knowledge source gets executed by the scheduler if its
+    maximum invocation frequency would not be exceeded and its ``canExecute``
+    method returns true. In this method, a knowledge source gets access to its
+    ``trigger``, a structure that contains information about the triggering
+    event, the triggering source, and an argument the trigger source placed for
+    usage by sinks.
 
 Events
-    Knowledge sources can define their own individual events. However,
-    each class already inherits a standard event from ``AbstractKS``,
+    Knowledge sources can define their own individual events. However, each
+    class already inherits a standard event from ``AbstractKS``,
     ``KsFiredEvent``. Events can be triggered by knowledge sources via
     ``obj.notify(``\ *eventname*\ ``, ``\ *attachedData*\ ``)``.
 
@@ -83,54 +82,52 @@ Events
 Auditory front-end knowledge source
 -----------------------------------
 
-This knowledge source integrates the |AFE| into
-the |blackboard|. The |AFE| itself is a self-contained module
-and this section focuses on its
-integration within the framework.
+This knowledge source integrates the |AFE| into the |blackboard|. The |AFE|
+itself is a self-contained module and this section focuses on its integration
+within the framework.
 
 The |AFE| knowledge source is connected to the blackboard and the robot
 interface by registering itself in the system via
-``BlackboardSystem.setDataConnect``. Upon construction, the |AFE|
-``dataObject`` and ``managerObject`` are instantiated and connected to
-the robot interface ear signals stream. The maximum invocation frequency
-of the ``AuditoryFrontEndKS`` is set to infinity. Execution mainly
-consists of getting the latest chunk of ear signals data, processing it
-through the |AFE|, and notifying a ``KsFiredEvent``.
+``BlackboardSystem.setDataConnect``. Upon construction, the |AFE| ``dataObject``
+and ``managerObject`` are instantiated and connected to the robot interface ear
+signals stream. The maximum invocation frequency of the ``AuditoryFrontEndKS``
+is set to infinity. Execution mainly consists of getting the latest chunk of ear
+signals data, processing it through the |AFE|, and notifying a ``KsFiredEvent``.
 
-Other knowledge sources can register requests with the |AFE| indirectly,
-through inheriting from the ``AuditoryFrontEndDepKS`` class (see
-Section :ref:`sec-afeDepKS`, and binding to it's ``KsFiredEvent``.
+Other knowledge sources can register requests with the |AFE| indirectly, through
+inheriting from the ``AuditoryFrontEndDepKS`` class (see
+Section :ref:`sec-afe-dep-knowledge-source`, and binding to it's
+``KsFiredEvent``.
 
 .. _sec-afe-dep-knowledge-source:
 
 Auditory signal dependent knowledge source superclass
 -----------------------------------------------------
 
-Whenever a knowledge source needs signals, cues or features from the
-auditory front-end, it should subclass from the
-``AuditoryFrontEndDepKS`` class. Any knowledge source added to the
-blackboard through the ``BlackboardSystem`` ``addKS`` or ``createKS``
-methods, register these |AFE| signal requests automatically with the |AFE|.
+Whenever a knowledge source needs signals, cues or features from the auditory
+front-end, it should subclass from the ``AuditoryFrontEndDepKS`` class. Any
+knowledge source added to the blackboard through the ``BlackboardSystem``
+``addKS`` or ``createKS`` methods, register these |AFE| signal requests
+automatically with the |AFE|.
 
 Setting up the requests
     Inheriting knowledge sources need to put their requests in their
     ``constructor``, in particular in the call to the super-constructor:
 
-    ``obj@AuditoryFrontEndDepKS(requests).requests`` is a
-    structure with a field ``r`` and ``p``, standing for *request* and
-    *parameters*, respectively. Each of these fields is a cell array;
-    request ``r{reqIdx}`` has to be accompanied by parameters
-    ``p{reqIdx}``.
+    ``obj@AuditoryFrontEndDepKS(requests).requests`` is a structure with a field
+    ``r`` and ``p``, standing for *request* and *parameters*, respectively. Each
+    of these fields is a cell array; request ``r{reqIdx}`` has to be accompanied
+    by parameters ``p{reqIdx}``.
 
 Accessing signals
-    These requested signals can then be accessed by the knowledge source
-    via the inherited ``getReqSignal(reqIdx)`` method. ``reqIdx``
-    refers to the same indexes used as in the request structure.
+    These requested signals can then be accessed by the knowledge source via the
+    inherited ``getReqSignal(reqIdx)`` method. ``reqIdx`` refers to the same
+    indexes used as in the request structure.
 
-A more elaborate description of the request parameter structure and the
-signal objects can be found in the :doc:`help for the Two!Ears Auditory
-Front-End <../afe/index>` See the following code for an example of how to
-request signals from the |AFE|::
+A more elaborate description of the request parameter structure and the signal
+objects can be found in the :doc:`help for the Two!Ears Auditory Front-End
+<../afe/index>` See the following code for an example of how to request signals
+from the |AFE|::
 
     classdef LocationKS < AuditoryFrontEndDepKS
     %...
@@ -159,29 +156,26 @@ request signals from the |AFE|::
 Localisation knowledge sources
 ------------------------------
 
-Four knowledge sources work together to generate hypotheses of sound
-source azimuths: ``Location`` knowledge source, ``Confusion Detection``
-knowledge source, ``Confusion Solving`` knowledge source, and
-``Head Rotation`` knowledge source.
-Section :ref:`sec-sound-localisation` provides more details about
-the localisation models. In this section we focus on implementation of
-the knowledge sources and their usage within the blackboard framework.
+Four knowledge sources work together to generate hypotheses of sound source
+azimuths: ``Location`` knowledge source, ``Confusion Detection`` knowledge
+source, ``Confusion Solving`` knowledge source, and ``Head Rotation`` knowledge
+source.  Section :ref:`sec-sound-localisation` provides more details about the
+localisation models. In this section we focus on implementation of the knowledge
+sources and their usage within the blackboard framework.
 
 Location knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Class ``LocationKS`` implements knowledge about the statistical
-relationship between spatial cues and azimuth locations. This knowledge source
-requires
+Class ``LocationKS`` implements knowledge about the statistical relationship
+between spatial cues and azimuth locations. This knowledge source requires
 signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``
-(Section :ref:`sec-afeDepKS`) and
-needs to be bound to the ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.
-The ``canExecute`` precondition checks the energy level of the current
-signal block and localisation takes place only if there is an actual
-auditory event. After execution, a ``LocationHypothesis`` containing a
-probability distribution of azimuth locations is placed on the
-blackboard (category ``locationHypotheses``) and the event
-``KsFiredEvent`` is notified.
+(Section :ref:`sec-afe-dep-knowledge-source`) and needs to be bound to the
+``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The ``canExecute`` precondition
+checks the energy level of the current signal block and localisation takes place
+only if there is an actual auditory event. After execution, a
+``LocationHypothesis`` containing a probability distribution of azimuth
+locations is placed on the blackboard (category ``locationHypotheses``) and the
+event ``KsFiredEvent`` is notified.
 
 
 +------------------------+---------------------------------------+
@@ -195,14 +189,13 @@ blackboard (category ``locationHypotheses``) and the event
 Confusion detection knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``ConfusionDetectionKS`` checks new location hypotheses and decides
-whether there is a confusion. A confusion emerges when there are more
-valid locations in the hypotheses than assumed auditory sources in the
-scene. In case of a confusion, a ``ConfusedLocations`` event is notified
-and the responsible location hypothesis is placed on the blackboard in
-the ``confusionHypotheses`` category. Otherwise, a ``PerceivedLocation``
-object is added to the blackboard ``perceivedLocations`` data category,
-and the standard event is triggered.
+The ``ConfusionDetectionKS`` checks new location hypotheses and decides whether
+there is a confusion. A confusion emerges when there are more valid locations in
+the hypotheses than assumed auditory sources in the scene. In case of a
+confusion, a ``ConfusedLocations`` event is notified and the responsible
+location hypothesis is placed on the blackboard in the ``confusionHypotheses``
+category. Otherwise, a ``PerceivedLocation`` object is added to the blackboard
+``perceivedLocations`` data category, and the standard event is triggered.
 
 +------------------------+----------------------------------------------------+
 | binds to               | ``LocationKS.KsFiredEvent``                        |
@@ -217,14 +210,13 @@ and the standard event is triggered.
 Confusion solving knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``ConfusionSolvingKS`` solves localisation confusions by predicting
-the location probability distribution after head rotation, and comparing
-it with new location hypotheses received after head rotation is
-completed. The ``canExecute`` method will wait for new location
-hypotheses; when there is one, it will check whether the head has been
-turned, otherwise it will not execute. The confusion is then solved by
-using the old and the new location hypothesis, and a
-``PerceivedLocation`` object is placed on the blackboard.
+The ``ConfusionSolvingKS`` solves localisation confusions by predicting the
+location probability distribution after head rotation, and comparing it with new
+location hypotheses received after head rotation is completed. The
+``canExecute`` method will wait for new location hypotheses; when there is one,
+it will check whether the head has been turned, otherwise it will not execute.
+The confusion is then solved by using the old and the new location hypothesis,
+and a ``PerceivedLocation`` object is placed on the blackboard.
 
 +------------------------+---------------------------------------------------------------------------+
 | binds to               | ``ConfusionDetectionKS.ConfusedLocations``                                |
@@ -239,10 +231,10 @@ using the old and the new location hypothesis, and a
 Head rotation knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``HeadRotationKS`` has knowledge on how to move the robotic head in
-order to solve confusions in source localisation. If there is no other
-head rotation already scheduled, the knowledge source uses the ``robot`` interface to
-turn the head.
+The ``HeadRotationKS`` has knowledge on how to move the robotic head in order to
+solve confusions in source localisation. If there is no other head rotation
+already scheduled, the knowledge source uses the ``robot`` interface to turn the
+head.
 
 +------------------------+------------------------------------------------+
 | binds to               | ``ConfusionDetectionKS.ConfusedLocations``     |
@@ -257,31 +249,29 @@ turn the head.
 Identification knowledge sources
 --------------------------------
 
-This section focuses on implementation of sound identification knowledge
-sources within the blackboard framework. See
-Section :ref:`sec-source-type` for more details of the models used to
-estimate the type of auditory events.
+This section focuses on implementation of sound identification knowledge sources
+within the blackboard framework. See Section :ref:`sec-source-type` for more
+details of the models used to estimate the type of auditory events.
 
 .. _sec-identitiy-knowledge-source:
 
 Identity knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Objects of class ``IdentityKS`` implement source models, by
-incorporating an instance of a model (``IdModelInterface`` class) with
-knowledge about the connection of acoustical cues and certain sound
-source types. Many Identity knowledge sources can be used concurrently. Currently for
-each sound class to be identified there exists an object of class
-``IdentityKS``. The model object of ``IdentityKS`` can in theory employ
-any kind of models, such as a linear support vector machine, or a
-Gaussian mixture model. The ``IdentityKS`` needs access to |AFE| signals, thus
-it is a subclass of ``AuditoryFrontEndDepKS`` (see
-Section :ref:`sec-afeDepKS`). The model object holds the signal request
-structure.
+Objects of class ``IdentityKS`` implement source models, by incorporating an
+instance of a model (``IdModelInterface`` class) with knowledge about the
+connection of acoustical cues and certain sound source types. Many Identity
+knowledge sources can be used concurrently. Currently for each sound class to be
+identified there exists an object of class ``IdentityKS``. The model object of
+``IdentityKS`` can in theory employ any kind of models, such as a linear support
+vector machine, or a Gaussian mixture model. The ``IdentityKS`` needs access to
+|AFE| signals, thus it is a subclass of ``AuditoryFrontEndDepKS`` (see
+Section :ref:`sec-afe-dep-knowledge-source`). The model object holds the signal
+request structure.
 
-The knowledge source predicts, based on the incorporated source model, whether the
-currently received auditory stream includes an auditory object of the
-sound type it represents.
+The knowledge source predicts, based on the incorporated source model, whether
+the currently received auditory stream includes an auditory object of the sound
+type it represents.
 
 +------------------------+---------------------------------------+
 | binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
@@ -296,9 +286,9 @@ sound type it represents.
 Identity decision knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The identity knowledge source checks new identity hypotheses. It then
-decides which of them are valid, by comparison and incorporating
-knowledge about the number of assumed auditory objects in the scene.
+The identity knowledge source checks new identity hypotheses. It then decides
+which of them are valid, by comparison and incorporating knowledge about the
+number of assumed auditory objects in the scene.
 
 +------------------------+-------------------------------+
 | binds to               | ``IdentityKS.KsFiredEvent``   |
