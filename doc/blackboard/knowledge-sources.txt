@@ -253,7 +253,7 @@ This section focuses on implementation of sound identification knowledge sources
 within the blackboard framework. See Section :ref:`sec-source-type` for more
 details of the models used to estimate the type of auditory events.
 
-.. _sec-identitiy-knowledge-source:
+.. _sec-identity-knowledge-source:
 
 Identity knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~

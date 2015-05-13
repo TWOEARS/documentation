@@ -6,8 +6,8 @@ instructions on how to use the whole `Two!Ears Auditory Model`_ refer to ...
 
 The following examples apply the configuration directly in Matlab, the
 corresponding files can be found in the ``doc/examples/`` directory. For larger
-setups it will be easier to use the :ref:`XML scene description`.
-Examples using the :ref:`XML scene description` can be found in the ``test/`` directory.
+setups it will be easier to use the :ref:`sec-xml-scene-description`.
+Examples using the :ref:`sec-xml-scene-description` can be found in the ``test/`` directory.
 
 .. contents::
     :local:
