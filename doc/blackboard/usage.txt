@@ -1,0 +1,123 @@
+Usage
+=====
+
+The blackboard system is the heart of the |TwoEars| as it provides an
+architecture that integrates experience formation and active behaviour from a
+set of different functional modules. These modules can work on different levels
+of abstraction, independently from each other or in collaboration, in a
+bottom-up or top-down manner.
+
+Setting up the blackboard
+-------------------------
+
+In order to get the model running you first have to decide what is the task that
+the model should solve. You can get an idea of what is possible if you have a
+look at the :ref:`currently available knowledge sources <sec-knowledge-sources>`
+of the |blackboard|. A knowledge source is an independent module that runs
+inside the blackboard system and has knowledge about an specific topic, which
+could come from bottom-up or top-down processing.
+
+If you have decided on what you want to do, you configure your blackboard in a
+:abbr:`XML (extended markup language)`-file. Let's assume that you want to
+classify a target speech source in your binaural input signals. A corresponding
+configuration file could then look like:
+
+.. code-block:: xml
+
+    <blackboardsystem>
+        <dataConnection Type="AuditoryFrontEndKS"/>
+
+        <KS Name="baby" Type="IdentityKS">
+            <Param Type="char">baby</Param>
+            <Param Type="char">6687829ce1a73694a1ce41c7c01dec1b</Param>
+        </KS>
+        <KS Name="femaleSpeech" Type="IdentityKS">
+            <Param Type="char">femaleSpeech</Param>
+            <Param Type="char">6687829ce1a73694a1ce41c7c01dec1b</Param>
+        </KS>
+        <KS Name="idDec" Type="IdDecisionKS">
+            <Param Type="int">0</Param>
+            <Param Type="int">1</Param>
+        </KS>
+
+        <Connection Mode="replaceOld" Event="AgendaEmpty">
+            <source>scheduler</source>
+            <sink>dataConnect</sink>
+        </Connection>
+        <Connection Mode="replaceOld">
+            <source>dataConnect</source>
+            <sink>baby</sink>
+            <sink>femaleSpeech</sink>
+        </Connection>
+        <Connection Mode="replaceParallel">
+            <source>baby</source>
+            <source>femaleSpeech</source>
+            <sink>idDec</sink>
+        </Connection>
+    </blackboardsystem>
+
+Looking at the configuration file step by step we find the following settings:
+
+``dataConnection``
+    This specifies where the data that your classifier uses comes from. For most
+    of the available knowledge sources this will be the |AFE| which processes
+    the input ear signals in a bottom-up way and provides the knowledge source
+    with auditory features it can use to perform its action. If the data should
+    come from the auditory front-end you have to specify ``AuditoryFrontEndKS``,
+    which is by :ref:`itself a knowledge source <sec-afe-knowledge-source>`.
+
+``KS``
+    This specifies the knowledge sources that should be part of the blackboard
+    system. In this case we use two :ref:`identity knowledge sources
+    <sec-identity-knowledge-source>` that have knowledge about features
+    corresponding to a particular sound source. This is given as a parameter
+    ``Param`` to the identity knowledge source. Each identity knowledge source
+    will provide a hypothesis to the blackboard stating the probability that the
+    corresponding identity is matched by the input signal.
+
+    .. warning::
+
+        Explain the second parameter and say something about learning or how to
+        train such a knowledge source yourself? For the last thing we should
+        link to the :ref:`actual entry of the identity knowledge source
+        <sec-identity-knowledge-source>` and explain there how to train it
+        yourself.
+
+    The second kind of knowledge source we use is the :ref:`identity decision
+    knowledge source <sec-identity-decision-knowledge-source>`. It will judge
+    the different identity hypothesis it will get from the identiy knowledge
+    sources and performs the final decision which identity is matched by the
+    input signals.
+
+
+``Connection``
+    This setting tells the blackboard system which connections between its
+    different modules it should build.
+
+    .. warning::
+
+        Explain the different connections. The different modes don't have to be
+        explained here, but we should provide a link to the section where they
+        are discussed.
+
+
+Running the blackboard
+----------------------
+
+.. code-block:: Matlab
+    bbs = BlackboardSystem(0);
+    bbs.setRobotConnect(sim);           % connect to the auditory front end
+    bbs.buildFromXml('Blackboard.xml'); % build blackboard from config file
+    bbs.run();
+
+.. warning::
+
+    Add explanation.
+
+Further examples
+----------------
+
+In order to see the whole model in action, including setting up of the |binsim|
+you should have a look at the :ref:`example chapter <sec-examples>`.
+
+.. vim: filetype=rst spell:

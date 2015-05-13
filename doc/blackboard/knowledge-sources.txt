@@ -1,12 +1,15 @@
-.. _knowledge sources:
+.. highlight:: Matlab
 
-Progress on implementation of knowledge sources
-===============================================
+.. _sec-knowledge-sources:
 
-In this section we describe progress on software implementation of
-individual knowledge sources within the Two!Ears framework. The techniques
-employed by the knowledge sources are discussed in more details in the
-following chapters.
+Knowledge sources
+=================
+
+In this section we describe knowledge sources that are currently available in the
+|blackboard|, those are:
+
+.. contents::
+    :local:
 
 .. _sec-abstract-knowledge-source:
 
@@ -75,8 +78,10 @@ Events
     ``KsFiredEvent``. Events can be triggered by knowledge sources via
     ``obj.notify(``\ *eventname*\ ``, ``\ *attachedData*\ ``)``.
 
-Two!Ears Auditory Front-End knowledge source
---------------------------------------------
+.. _sec-afe-knowledge-source:
+
+Auditory front-end knowledge source
+-----------------------------------
 
 This knowledge source integrates the |AFE| into
 the |blackboard|. The |AFE| itself is a self-contained module
@@ -96,7 +101,7 @@ Other knowledge sources can register requests with the |AFE| indirectly,
 through inheriting from the ``AuditoryFrontEndDepKS`` class (see
 Section :ref:`sec-afeDepKS`, and binding to it's ``KsFiredEvent``.
 
-.. _sec-afeDepKS:
+.. _sec-afe-dep-knowledge-source:
 
 Auditory signal dependent knowledge source superclass
 -----------------------------------------------------
@@ -144,7 +149,7 @@ request signals from the |AFE|::
             obj = obj@AuditoryFrontEndDepKS( requests );
             %...
         end
-        
+
         function execute(obj)
             ildsSObj = obj.getReqSignal( 1 );
             itdsSObj = obj.getReqSignal( 2 );
@@ -187,7 +192,7 @@ blackboard (category ``locationHypotheses``) and the event
 | triggers event         | ``KsFiredEvent``                      |
 +------------------------+---------------------------------------+
 
-Confusion Detection knowledge source
+Confusion detection knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``ConfusionDetectionKS`` checks new location hypotheses and decides
@@ -209,7 +214,7 @@ and the standard event is triggered.
 | triggers event         | ``ConfusedLocations`` or ``KsFiredEvent``          |
 +------------------------+----------------------------------------------------+
 
-Confusion Solving knowledge source
+Confusion solving knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``ConfusionSolvingKS`` solves localisation confusions by predicting
@@ -231,7 +236,7 @@ using the old and the new location hypothesis, and a
 | triggers event         | ``KsFiredEvent``                                                          |
 +------------------------+---------------------------------------------------------------------------+
 
-Head Rotation knowledge source
+Head rotation knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``HeadRotationKS`` has knowledge on how to move the robotic head in
@@ -256,6 +261,8 @@ This section focuses on implementation of sound identification knowledge
 sources within the blackboard framework. See
 Section :ref:`sec-source-type` for more details of the models used to
 estimate the type of auditory events.
+
+.. _sec-identitiy-knowledge-source:
 
 Identity knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -284,6 +291,8 @@ sound type it represents.
 | triggers event         | ``KsFiredEvent``                      |
 +------------------------+---------------------------------------+
 
+.. _sec-identity-decision-knowledge-source:
+
 Identity decision knowledge source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -300,24 +309,5 @@ knowledge about the number of assumed auditory objects in the scene.
 +------------------------+-------------------------------+
 | triggers event         | ``KsFiredEvent``              |
 +------------------------+-------------------------------+
-
-Conclusion
-==========
-
-In this chapter, we have presented the Two!Ears software architecture
-that was designed and developed during the first year of the project. We
-have shown that the current framework is capable of serving as a
-flexible computational model that allows testing and evaluation of
-auditory perception and experience in a multi-modal context. The
-core-component of the software framework, namely the blackboard system,
-was extended in a way that allows the dynamic creation of task-related
-configurations. Furthermore, we have presented the embedding of the
-blackboard system into the software architecture across work packages,
-combining acoustic scene auralisation, auditory processing, feature
-extraction and possibilities for high level feedback through
-interactions with the robot interface. Additionally, we have introduced
-further extensions that are currently under development, namely the
-audio-visual interface and logical rule learning via the Prolog
-programming language.
 
 .. vim: filetype=rst spell:

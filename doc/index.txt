@@ -88,8 +88,8 @@ The Two!Ears Binaural Simulator and the Two!Ears Blackboard System uses a lot of
 different data to perform their tasks. This is achieved by a large collection of
 data:
 
-Evaluation
-==========
+Examples
+========
 
 A key concept of the Two!Ears Auditory Model is reproducible research. Here, you
 will find scripts that can redo plots of our publications.

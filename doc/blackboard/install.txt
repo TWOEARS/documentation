@@ -1,0 +1,20 @@
+Installation
+============
+
+Dependencies
+------------
+
+The |blackboard| is positioned more at the end part of the complete |TwoEars|
+chain. That means that you first have to ensure that all the needed modules are
+installed.
+
+You have to provide the blackboard with some input signals which will come from
+the |binsim| or the |robot| and which are very likely processed by the |AFE|
+in between. Depending on your work flow those modules have to be installed and
+running.
+
+.. warning::
+
+    This is not complete. Please add further instructions. I think we need gmtk?
+
+.. vim: filetype=rst spell:

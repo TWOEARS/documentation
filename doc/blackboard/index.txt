@@ -8,7 +8,10 @@ This is not up to date, but for testing the following is included:
     :maxdepth: 2
 
     overview
+    install
+    usage
     development
-    implementation
+    knowledge-sources
+    add-knowledge-sources
 
 .. vim: filetype=rst spell:

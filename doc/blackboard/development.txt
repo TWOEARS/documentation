@@ -1,3 +1,5 @@
+.. highlight:: Matlab
+
 Progress on development of the Two!Ears system
 ==============================================
 
@@ -32,7 +34,8 @@ possible solutions. We therefore design the system with extension in
 mind, trying not to constrain possible functionality of modules.
 
 In particular, the blackboard system allows the plugging-in of
-different *knowledge sources*. Knowledge sources are modules that define
+different :ref:`knowledge sources <sec-knowledge-sources>`.
+Knowledge sources are modules that define
 their own functionality, to be executed in the organised frame of our
 system. They define by themselves which data they need for execution and
 which data they produce – the blackboard system provides the tools for
@@ -50,12 +53,13 @@ implementing their functionality.
 
 The Two!Ears architecture has been designed and
 implemented using an object-oriented approach. Accordingly, the
-implementation scheme :ref:`knowledge sources` must adhere to is provided in
-the form of an abstract class (see Section :ref:`sec-abstractKS`).
+implementation scheme :ref:`knowledge sources <sec-knowledge-sources>`
+must adhere to is provided in the form of an :ref:`abstract class
+<sec-abstract-knowledge-source>`).
 Additionally, to enable creation of new knowledge sources that depend on
 auditory signals without needing to hard-code a signal request into the
-system, an *auditory front-end dependent knowledge source superclass*
-has been developed (see Section :ref:`sec-afeDepKS`).
+system, an :ref:`auditory front-end dependent knowledge source superclass
+<sec-afeDepKS>` has been developed.
 
 Building a dynamic system
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -73,20 +77,6 @@ allowed to change the system setup at runtime. This means that it is
 essential for our system to be equipped with functionality for *dynamic*
 module instantiation, registration and removal. This also implies the
 need for on-the-fly rewiring of the communication links between modules.
-
-Building a usable system
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-The architecture is a platform for integrating the modules produced by
-different partners of the consortium. Also, the platform will be open to
-the public, empowering further research. It is thus very important to
-make the system *usable* and easy to configure for different tasks, and
-we have put great emphasis on writing clean program code: to keep
-classes and methods small and understandable, clearly separate
-responsibilities between classes, make use of inheritance and abstract
-classes, and encapsulation. As much of the system machinery as
-possible is hidden from the user while providing an open and easy-to-use
-functional interface.
 
 Dynamic system construction
 ---------------------------
@@ -143,7 +133,7 @@ shows the system class diagram.
 
 .. figure:: img/blackboard-system-class-diagram.png
 
-   Class diagram of the whole blackboard system. The BlackboardSystem
+   Class diagram of the whole blackboard system. The ``BlackboardSystem``
    class is the integrative system component holding the other modules
    and giving access to system functionality.
 
@@ -151,7 +141,7 @@ An example of an XML-configured blackboard system is shown below. Two identity
 :ref:`knowledge sources` are connected to the |AFE|,
 and triggering an identity decision knowledge source.
 
-::
+.. code-block:: xml
 
     <blackboardsystem>
         <dataConnection Type="AuditoryFrontEndKS"/>
@@ -188,36 +178,39 @@ and triggering an identity decision knowledge source.
 Several core functionalities are provided through the
 ``BlackboardSystem`` class:
 
-* Connecting the |robot| or the `Two!Ears Binaural
-  Simulator`_ to the `Two!Ears Blackboard System`_. The connected object
-  must implement the robot
+* Connecting the |robot| or the |binsim| the |blackboard|.
+  The connected object must implement the robot
   interface for delivering audio *ear* signals and commanding movement
   and head rotation. The blackboard system and all its components
   including the knowledge sources get access to the audio stream and
   robot actions through this connection (``setRobotConnect`` method).
 
-* Setting the type of the module that integrates with the `Two!Ears Auditory
-  Front-End`_, instantiating it and connecting
-  it to the `Two!Ears Blackboard System`_. This module is a knowledge source
-  itself, responsible for processing the ear signals into cues (such as
-  interaural time differences) needed by other :ref:`knowledge sources`. The
-  |AFE| itself is connected to the `Two!Ears
-  Robotic Platform`_ or the |BinSim| in order to
-  obtain the ear signals. See also Section :ref:`sec-afeKS`
+  .. warning::
+
+    This is not clear to me. What is an *object* that must implement the robot
+    interface? An knowledge source? Has the user of the system to care about
+    this, or only if they want to implement a new knowledge source?
+
+* Setting the type of the module that integrates with the |AFE|, instantiating it and connecting
+  it to the |blackboard|. This module is a :ref:`knowledge source
+  itself <sec-afe-knowledge-source>`, responsible for processing the ear signals into cues (such as
+  interaural time differences) needed by other knowledge sources. The
+  |AFE| itself is connected to the |robot| or the |BinSim| in order to
+  obtain the ear signals.
   (``setDataConnect`` method).
 
-* Instantiating and adding knowledge sources. These :ref:`knowledge sources`
-  must inherit from ``AbstractKS`` (see Section :ref:`sec-abstractKS`) or
-  ``AuditoryFrontEndDepKS`` (see Section :ref:`sec-afeDepKS`) to be able
+* Instantiating and adding knowledge sources. These knowledge sources
+  must inherit from ``AbstractKS`` (see :ref:`abstract knowledge source <sec-abstract-knowledge-source>`) or
+  ``AuditoryFrontEndDepKS`` (see Section :ref:`sec-afe-dep-knowledge-source`) to be able
   to be interfaced and run by the system. Knowledge sources that
   inherit from ``AuditoryFrontEndDepKS`` automatically get connected
   with the |AFE| by the system in order to
   place their signal/cue requests.
 
-  Adding and instantiating :ref:`knowledge sources` can take place both before
+  Adding and instantiating knowledge sources can take place both before
   or *while* running the system; it can be done from outside the
   system *or from inside knowledge sources*. This enables the
-  development of top-down controlling :ref:`knowledge sources` from higher
+  development of top-down controlling knowledge sources from higher
   cognitive experts running in the system (``addKS`` or ``createKS``
   method).
 
@@ -225,8 +218,7 @@ Several core functionalities are provided through the
   an XML file; the system is then constructed before running by loading
   this file. Of course this configuration can be changed dynamically
   while executing the system. The XML description needs at least a
-  ``dataConnection`` node specifying the type of the `Two!Ears Auditory
-  Front-End`_ module; then, it
+  ``dataConnection`` node specifying the type of the |AFE| module; then, it
   can also contain ``KS`` nodes with parameters to construct knowledge
   sources, and ``Connection`` nodes that specify event bindings between
   knowledge sources. See the code listing from above for an
@@ -235,7 +227,7 @@ Several core functionalities are provided through the
 * Starting the execution of the system. This triggers the blackboard
   system to request data from the robot/binaural simulator connection,
   and subsequent action by the |AFE|
-  and all :ref:`knowledge sources` that are
+  and all knowledge sources that are
   connected. The system will not stop execution before the
   |robot| or the |BinSim|
   sends an ending signal (``run`` method).
@@ -245,26 +237,25 @@ Dynamic blackboard memory
 
 The ``Blackboard`` class holds the central data repository of the
 platform. It stores the knowledge sources and any shared data, in
-particular the output of the knowledge sources (e.g., estimates of the
+particular the output of the knowledge sources (e.g. estimates of the
 location of a sound source). It is accessible to all knowledge sources;
 and it not only stores current data, but keeps track of the history of
 this data in order to enable knowledge sources to work on time series
 data.
 
 Importantly, the ``Blackboard`` is flexible about data categories, which
-do not have to be hard-coded into the system. :ref:`Knowledge sources <knowledge
-sources>` decide
+do not have to be hard-coded into the system. :ref:`Knowledge sources <sec-knowledge-sources>` decide
 on their own and at runtime what to add and what to request. Thus, the
-system does not need to be changed in order to implement new :ref:`knowledge
-sources` that work with new data categories. Of course, :ref:`knowledge sources`
+system does not need to be changed in order to implement new knowledge
+sources that work with new data categories. Of course, knowledge sources
 can only read data categories that are actually stored in the blackboard
-by other :ref:`knowledge sources` (or themselves).
+by other knowledge sources (or themselves).
 
-The following listing shows an excerpt of the Blackboard interface:
+The following listing shows an excerpt of the ``Blackboard`` interface:
 
 ::
 
-    class Blackboard 
+    class Blackboard
             KSs;
             signals;
             currentSoundTime;
@@ -278,21 +269,23 @@ The following listing shows an excerpt of the Blackboard interface:
 
 Prominently featured are methods to add and access data:
 
-* ``addData`` lets knowledge sources add data to the blackboard
-  storage. The data category has to be named in ``dataLabel``, ``data``
-  hands over the actual data to store. ``append`` is an optional flag
-  indicating whether to overwrite or append data at the same time step
-  (there might, for example, be several source identity hypotheses per
-  time step, but only one source number hypothesis might be allowed).
-  ``time`` specifies the time point under which this data shall be
-  stored. It is optional and, if not set, defaults to the current time.
+``addData``
+    lets knowledge sources add data to the blackboard
+    storage. The data category has to be named in ``dataLabel``, ``data``
+    hands over the actual data to store. ``append`` is an optional flag
+    indicating whether to overwrite or append data at the same time step
+    (there might, for example, be several source identity hypotheses per
+    time step, but only one source number hypothesis might be allowed).
+    ``time`` specifies the time point under which this data shall be
+    stored. It is optional and, if not set, defaults to the current time.
 
-* ``getData`` lets knowledge sources read data from the blackboard
-  storage. ``dataLabel`` indicates the data category requested,
-  ``reqSndTime`` the time point of interest. ``getLastData``,
-  ``getNextData`` and ``getDataBlock`` are special cases of ``getData``
-  for retrieving the last data, the next data after a particular point
-  in time, or a whole data block of length ``blockSize_s``.
+``getData``
+    lets knowledge sources read data from the blackboard
+    storage. ``dataLabel`` indicates the data category requested,
+    ``reqSndTime`` the time point of interest. ``getLastData``,
+    ``getNextData`` and ``getDataBlock`` are special cases of ``getData``
+    for retrieving the last data, the next data after a particular point
+    in time, or a whole data block of length ``blockSize_s``.
 
 The following is an example from the implementation of the
 ``IdDecisionKS`` class:
@@ -309,10 +302,10 @@ The following is an example from the implementation of the
 
 Additionally, the blackboard is used as a storage for pointers to
 signals from the |AFE| requested by
-:ref:`knowledge sources` inheriting from ``AuditoryFrontEndDepKS``.
+knowledge sources inheriting from ``AuditoryFrontEndDepKS``.
 The actual memory in which these signals are stored for recall is
 implemented in the |AFE| through :ref:`circular buffers
-<sec-afe-circular-buffers>`.
+<sec-afe-circular-buffer>`.
 
 Dynamic blackboard interactions
 -------------------------------
@@ -357,7 +350,7 @@ The ``bind`` method connects the ``sinks`` knowledge sources to event
 ``sources`` knowledge sources. ``addMode`` specifies how the
 ``BlackboardMonitor`` shall handle adding the triggered knowledge
 sources into the agenda. It understands the following modes, illustrated
-in Figure :ref:fig-blackboard-event-system:
+in Figure :ref:`fig-blackboard-event-system`:
 
 ``add``
     Add the triggered knowledge source to the end of the agenda,
@@ -391,7 +384,7 @@ source instantiations in the *agenda*, i.e. those that are not executed
 yet. As soon as a knowledge source is executed, it is removed from the
 agenda (first in ``executing``, afterwards in ``pastAgenda``).
 
-.. _fig-lackboard-event-system:
+.. _fig-blackboard-event-system:
 
 .. figure:: img/blackboard-event-system.png
 
@@ -478,47 +471,5 @@ system, which then can – controlled by knowledge sources – actively
 explore the environment. Furthermore, by providing a modular system that
 is easy to configure, the blackboard can now be used for simulating and
 testing many different auditory scenarios, modules and tasks.
-
-Prolog interface
-----------------
-
-The current blackboard system is capable of representing problems and
-tasks via a flexible probabilistic framework. This can be considered as
-a powerful extension of conventional blackboard designs, which are
-restricted to a rule-based processing paradigm, e.g. [Erman1980]_.
-However, even though a probabilistic representation provides a great amount
-of flexibility, specific problems can be more efficiently represented by a
-set of rules, applied to a corresponding knowledge base. This is especially
-important if additional knowledge provided by human experts should be
-integrated into the system.
-
-Therefore, an integration of the Prolog (**Pro**\ gramming in
-**Log**\ ic) programming language into the blackboard system is
-currently under development. Prolog is widely used in several fields of
-artificial intelligence research and provides a flexible way to set-up
-and query large knowledge bases by a set of pre-specified rules.
-
-As opposed to imperative or object-oriented languages like C or Python,
-Prolog is considered a declarative programming language. This means
-that, instead of specifying how a certain goal should be achieved, the
-Prolog interpreter derives a solution from a query, describing the goal
-itself as a hypothesis that should be confirmed. Therefore, it is
-necessary to provide a knowledge base, containing a set of facts and
-rules which describe the possible solution space. The Prolog interpreter
-then performs a depth-first-search [Russel2003]_ (Chap. 3)
-within the solution space to either
-confirm or reject the hypothesis that was described by the query.
-
-The interface that is currently implemented is based on SWI-Prolog
-[Wielemaker2002]_, an
-open-source Prolog programming environment and interpreter. Recent
-developments focus on the integration of this environment into Matlab,
-allowing direct access to the interpreter from within the Two!Ears
-software architecture. For the next reporting period it is planned to
-provide an easy to use wrapper class which encapsulates all necessary
-SWI-Prolog functions and makes them available to the blackboard system.
-
-.. [Russel2003] Russell, S. J. and Norvig, P. (2003), Artificial Intelligence: A Modern Approach, Pearson Education, 2 ed.
-.. [Wielemaker2002] Wielemaker, J., Schrijvers, T., Triska, M., and Lager, T. (2012), "SWI-Prolog," Theory and Practice of Logic Programming 12(1-2), pp. 67–96.
 
 .. vim: filetype=rst spell:
