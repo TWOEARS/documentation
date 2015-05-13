@@ -10,7 +10,7 @@ This is not up to date, but for testing the following is included:
     overview
     install
     usage
-    development
+    architecture
     knowledge-sources
     add-knowledge-sources
 

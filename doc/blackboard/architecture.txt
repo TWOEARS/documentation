@@ -1,24 +1,27 @@
 .. highlight:: Matlab
 
-Progress on development of the Two!Ears system
-==============================================
+Blackboard architecture
+=======================
 
-The computational framework is targeted as the front-end for a great
+The |blackboard| is targeted as the front-end for a great
 variety of applications, providing an architecture that integrates
 experience formation and active behaviour from a set of different
 functional modules. These modules can work on different levels of
 abstraction, independently from each other or in collaboration, in a
 bottom-up or top-down manner. A key feature of this system should be its
-ability to evolve during (and after) the project lifetime, so that easy
+ability to evolve, so that easy
 modification, exchange and/or extension of modules can be achieved
 within a scalable architecture.
 
-To achieve the above mentioned goals, recent software development of the
-architecture has focused on implementing more dynamic behaviour,
-construction and communications.
+This document will provide you an overview about the balckboard architecture
+that is used together with the :ref:`knowledge sources <sec-knowledge-sources>`
+in order to provide such a system.
 
-Two!Ears system architectural considerations
---------------------------------------------
+.. contents::
+    :local:
+
+Blackboard system architectural considerations
+----------------------------------------------
 
 In order to implement this integrative and system-wide view, some core
 attributes of the system have been established as follows.
@@ -448,28 +451,5 @@ influencing the scheduling::
         methods
             focus()
             unfocus()
-
-Relationship to attention
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Since we are trying to implement an active auditory system in ,
-*attention* is a concept of particular interest. Scheduling modules by
-means of priorities seems could be viewed as one part of directing
-attention to specific tasks, since it means assigning more computing
-resources to preferred knowledge sources.
-
-Integration of work across work packages
-----------------------------------------
-
-The blackboard system currently integrates modules from different work
-packages, in particular the acoustical scene auralisation environment,
-the auditory front-end, and functional modules for auditory object
-formation. Since the acoustical scene auralisation environment is
-implemented and connected to the blackboard system through the robot
-interface, instead it would be possible to connect the robot to the
-system, which then can – controlled by knowledge sources – actively
-explore the environment. Furthermore, by providing a modular system that
-is easy to configure, the blackboard can now be used for simulating and
-testing many different auditory scenarios, modules and tasks.
 
 .. vim: filetype=rst spell:
