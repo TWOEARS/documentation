@@ -697,7 +697,7 @@ pitch processor, which is described in Sec. :ref:`sec-chap4.11`.
 
 
 A demonstration of the :abbr:`ACF (auto-correlation function)` processor is
-shown in Fig. :ref:`fig-ACF`, which has been produced by the scrip
+shown in Fig. :ref:`IHC representation of 20 ms speech signal and corresponding ACF <fig-ACF>`, which has been produced by the scrip
 ``DEMO_ACF.m``. It shows the :abbr:`IHC (inner hair-cell)` output in response to
 a 20 ms speech signal for 16 frequency channels (left panel). The corresponding
 :abbr:`ACF (auto-correlation function)` is presented in the upper right panel,
@@ -1030,7 +1030,7 @@ Tab. :ref:`tab-onset-map`.
     +-----------------------+-----------+------------------------------------------------+
 
 To illustrate the benefit of selecting onset and offset information, a rate-map
-representation is shown in Fig. :ref:`fig-onoffset` (left panel), where the
+representation is shown in Fig. :ref:`Detected onsets and offsets <fig-onoffset>` (left panel), where the
 corresponding onsets and offsets detected by the ``transientMapProc``, through
 two individual requests ``’onset_map’`` and ``’offset_map’``, and without
 applying any temporal or across-frequency constraints are overlaid (respectively
@@ -1059,7 +1059,7 @@ analysis obtained by the :abbr:`ACF (auto-correlation function)` can be
 integrated across frequency by giving equal weight to each frequency channel.
 The resulting :abbr:`SACF (summary auto-correlation function)` reflects the
 strength of periodicity as a function of the lag period for a given time frame,
-as illustrated in Fig. :ref:`fig-ACF` Based on the :abbr:`SACF (summary
+as illustrated in Fig. :ref:`IHC representation of 20 ms speech signal and corresponding ACF<fig-ACF>`. Based on the :abbr:`SACF (summary
 auto-correlation function)` representation, the most salient peak within the
 plausible pitch frequency range ``p_pitchRangeHz`` is detected for each frame in
 order to obtain an estimation of the fundamental frequency. In addition to the
@@ -1093,7 +1093,7 @@ Sec. :ref:`sec-chap4.5`.
 
 The task of pitch estimation is demonstrated by the script ``DEMO_Pitch`` and
 the corresponding :abbr:`SACF (summary auto-correlation function)` plots are
-presented in Fig. :ref:`fig-pitch`. The pitch is estimated for an anechoic
+presented in Fig. :ref:`Time domain signal and corresponding SACF, as well as ???????? <fig-pitch>`. The pitch is estimated for an anechoic
 speech signal (top left panel). The corresponding is presented in the top right
 panel, where each black cross represents the most salient lag period per time
 frame. The plausible pitch range is indicated by the two white dashed lines. The
@@ -1149,13 +1149,13 @@ representation is analysed by a bank of modulation filters. The type of
 modulation filters can be controlled by setting the parameter ``ams_fbType`` to
 either ``’lin’`` or ``’log’``. To illustrate the difference between linear
 linearly-scaled and logarithmically-scaled modulation filters, the corresponding
-filter bank responses are shown in Fig. :ref:`fig-modfb`. The linear modulation
+filter bank responses are shown in Fig. :ref:`Transfer functions of 15 linearly-scaled and 9 logarithmically-scaled modulation filters<fig-modfb>`. The linear modulation
 filter bank is implemented in the frequency domain, whereas the
 logarithmically-scaled filter bank is realised by a band of second-order
 :abbr:`IIR (infinite impulse response)` Butterworth filters with a constant-Q
 factor of 1.  The modulation filter with the lowest centre frequency is always
 implemented as a low-pass filter, as illustrated in the right panel of
-Fig. :ref:`fig-modfb`.
+Fig. :ref:`Transfer functions of 15 linearly-scaled and 9 logarithmically-scaled modulation filters<fig-modfb>`.
 
 .. _fig-modfb:
 
@@ -1230,7 +1230,7 @@ parameters is shown in Tab. :ref:`tab-ams-features`.
 
 The functionality of the :abbr:`AMS (amplitude modulation spectrogram)` feature
 processor is demonstrated by the script ``DEMO_AMS`` and the corresponding four
-plots are presented in Fig.  :ref:`fig-AMS`.  The time domain speech signal (top
+plots are presented in Fig.  :ref:`Speech signal and corresponding IHC representation, as well as AMS features ??????<fig-AMS>`.  The time domain speech signal (top
 left panel) is transformed into a :abbr:`IHC (inner hair-cell)` representation
 (top right panel) using 23 frequency channels spaced between 80 and 8000 Hz. The
 linear and the logarithmic :abbr:`AMS (amplitude modulation spectrogram)`
@@ -1289,7 +1289,7 @@ dimensional Gabor feature space.
 
 The Gabor feature processor is demonstrated by the script
 ``DEMO_GaborFeatures.m``, which produces the two plots shown in
-Fig. :ref:`fig-Gabor`. A log-compressed rate-map with 25 ms time frames and 23
+Fig. :ref:`Rate-map representation of a speech signal and the corresponding output of the Gabor feature processor<fig-Gabor>`. A log-compressed rate-map with 25 ms time frames and 23
 frequency channels spaced between 124 and 3657 Hz is shown in the left panel for
 a speech signal.  These rate-map parameters have been adjusted to meet the
 specifications as recommended in the :abbr:`ETSI (european telecommunications
@@ -1346,7 +1346,7 @@ respectively.
 
 The script ``DEMO_Crosscorrelation.m`` demonstrates the functionality of the
 :abbr:`CCF (cross-correlation function)` function and the resulting plots are
-shown in Fig. :ref:`fig-CCF`.  The left panel shows the ear signals for a speech
+shown in Fig. :ref:`Left and right ear signals for one 20 ms time frame with corresponding CCF and SCCF<fig-CCF>`.  The left panel shows the ear signals for a speech
 source that is located closer to the right ear. As result, the left ear signal
 is smaller in amplitude and is delayed in comparison to the right ear signal.
 The corresponding :abbr:`CCF (cross-correlation function)` is shown in the right
@@ -1382,7 +1382,7 @@ Tab. :ref:`tab-crosscorrelation`). The :abbr:`ITD (interaural time difference)`
 representation is computed by using the request entry ``’itd’``.
 
 The :abbr:`ITD (interaural time difference)` processor is demonstrated by the
-script ``DEMO_ITD.m``, which produces two plots as shown in Fig. :ref:`fig-itd`.
+script ``DEMO_ITD.m``, which produces two plots as shown in Fig. :ref:`Binaural speech signal and the estimated ITD shown as a function of time frames and frequency channels<fig-itd>`.
 The ear signals for a speech source that is located closer to the right ear are
 shown in the left panel. The corresponding :abbr:`ITD (interaural time
 difference)` estimation is presented for each individual :abbr:`TF
@@ -1428,7 +1428,7 @@ parameters is shown in Tab. :ref:`tab-ild`.
 
 The :abbr:`ILD (interaural level difference)` processor is demonstrated by the
 script ``DEMO_ILD.m`` and the resulting plots are presented in
-Fig. :ref:`fig-ild`. The ear signals are shown for a speech source that is more
+Fig. :ref:`Binaural speech signal and the estimated ILD shown as a function of time frames and frequency channels<fig-ild>`. The ear signals are shown for a speech source that is more
 closely located to the right ear (left panel).  The corresponding :abbr:`ILD
 (interaural level difference)` estimates are presented for individual :abbr:`TF
 (time-frequency)` units.  It is apparent that the change considerably as a
@@ -1465,7 +1465,7 @@ is computed by using the request entry ``’ic’``.
 
 The application of the :abbr:`IC (interaural coherence)` processor is
 demonstrated by the script ``DEMO_IC``, which produces the following four plots
-shown in Fig. :ref:`fig-IC`. The top left and bottom left panels show the
+shown in Fig. :ref:`Time domain signals and the corresponding interaural coherence as a function of time frames and frequency channels estimated for a speech signal in anechoic and reverberant conditions<fig-IC>`. The top left and bottom left panels show the
 anechoic and reverberant speech signal, respectively. It can be seen that the
 time domain signal is smeared due to the influence of the reverberation. The
 :abbr:`IC (interaural coherence)` for the anechoic signal is close to one for
@@ -1482,8 +1482,8 @@ binaural cues might be unreliable due to the impact of the reverberation.
    Time domain signals and the corresponding interaural coherence as a function
    of time frames and frequency channels estimated for a speech signal in
    anechoic and reverberant conditions. Anechoic speech (top left panel) and the
-   corresponding (top right panel). Reverberant speech (bottom left panel) and
-   the corresponding (bottom right panel). 
+   corresponding :abbr:`IC (interaural coherence)` (top right panel). Reverberant speech (bottom left panel) and
+   the corresponding :abbr:`IC (interaural coherence)` (bottom right panel). 
 
 
 .. ...::: References :::...
