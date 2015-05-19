@@ -14,7 +14,7 @@ Having trouble? We'd like to help!
 
 * Try the :doc:`FAQ <faq/index>` -- it's got answers to many common questions.
 
-* Looking for specific information? Try the :ref:`genindex`, :ref:`modindex` or
+* Looking for specific information? Try the :ref:`genindex` or
   the :doc:`detailed table of contents <contents>`.
 
 * Search for information in the archives of the |twoears| mailing list, or
@@ -80,6 +80,13 @@ Blackboard system
 The Two!Ears Blackboard System is the *brain* of the Two!Ears Auditory Model as
 it provides a way to interpret the auditory cues and extract meaning from them.
 Learn how this happens below:
+
+* :doc:`Introduction <blackboard/introduction>`
+* :doc:`Installation <blackboard/install>`
+* :doc:`Usage <blackboard/usage>`
+* :doc:`Blackboard architecture <blackboard/architecture>`
+* :doc:`Knowledge sources <blackboard/knowledge-sources>`
+* :doc:`Add your own knowledge source <blackboard/add-knowledge-source>`
 
 Database
 ========

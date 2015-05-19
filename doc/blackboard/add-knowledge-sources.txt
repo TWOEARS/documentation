@@ -1,8 +1,12 @@
+.. warning::
+
+    This site is not complete yet.
+
 Add your own knowledge sources
 ==============================
 
 If you want to add some new functionality to the |TwoEars| the best way to do
-this is to add a :sec:`knowledge source <sec-knowledge-source>`. This implies of
+this is to add a :ref:`knowledge source <sec-knowledge-source>`. This implies of
 course that the auditory cues or data that your new knowledge source will need
 is already available. To check this first, have a look at all the
 :ref:`available processors <sec-afe-processors>` of the |AFE|. If the cues you

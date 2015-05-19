@@ -1,3 +1,7 @@
+.. warning::
+
+    This site is not complete yet.
+
 .. _sec-blackboard-usage:
 
 Usage
@@ -107,6 +111,7 @@ Running the blackboard
 ----------------------
 
 .. code-block:: Matlab
+
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);           % connect to the auditory front end
     bbs.buildFromXml('Blackboard.xml'); % build blackboard from config file

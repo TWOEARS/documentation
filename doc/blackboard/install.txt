@@ -1,3 +1,7 @@
+.. warning::
+
+    This site is not complete yet.
+
 .. _sec-blackboard-install:
 
 Installation
@@ -17,6 +21,6 @@ running.
 
 .. warning::
 
-    This is not complete. Please add further instructions. I think we need gmtk?
+    Please add further instructions. I think we need gmtk?
 
 .. vim: filetype=rst spell:

@@ -9,14 +9,12 @@ same manner as human listeners do. Bregman has referred to the latter phenomenon
 as :abbr:`ASA (auditory scene analysis)` [Bregman1990]_, and to reproduce this
 ability in a machine system a number of factors must be considered:
 
--  :abbr:`ASA (auditory scene analysis)` involves diverse sources of knowledge,
+- :abbr:`ASA (auditory scene analysis)` involves diverse sources of knowledge,
   including both primitive (innate) grouping heuristics and schema-driven
-  (learned) grouping principles;
-
--  Solving the :abbr:`ASA (auditory scene analysis)` problem requires the close
-  interaction of top-down and bottom-up processes through feedback loops;
-
--  Auditory processing is flexible, adaptive, opportunistic and
+  (learned) grouping principles.
+- Solving the :abbr:`ASA (auditory scene analysis)` problem requires the close
+  interaction of top-down and bottom-up processes through feedback loops.
+- Auditory processing is flexible, adaptive, opportunistic and
   context-dependent.
 
 The characteristics of :abbr:`ASA (auditory scene analysis)` are well-matched to
@@ -49,11 +47,11 @@ probabilistic graphical models.
 
 The general structure of the |blackboard| is shown in
 Figure :ref:`fig-blackboard-architecture`. It consists of different knowledge
-sources that can put data on and receive data from the blackboard. In addition
-to special knowledge sources can perceive data from outside (ear signals) or
+sources that can put data on and receive data from the blackboard. In addition,
+special knowledge sources can perceive data from outside (ear signals) or
 send data to the outside (turn the head).  The management of the different
-processes going on in the blackboard are monitored and scheduled by two
-corresponding modules.
+processes going on in the blackboard is achieved by monitoring and scheduling
+which is performed by two independent modules.
 
 Read on for :ref:`further details on the blackboard architecture
 <sec-blackboard-architecture>`, :ref:`details on the knowledge sources
