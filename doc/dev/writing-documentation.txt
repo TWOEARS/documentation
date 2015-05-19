@@ -256,6 +256,18 @@ specify the text that will appear as reference yourself::
     later.
 
 
+Using acronyms
+~~~~~~~~~~~~~~
+
+If you have an acronym like HRTF, you should wirte the following::
+
+    acronym like :abbr:`HRTF (head related transfer function)`
+
+This will transform to acronym like :abbr:`HRTF (head related transfer
+function)` in the :abbr:`HTML (hypertext markup language)` version and will be
+written out only the first time in the :abbr:`PDF (portable document format)`
+version of the documentation.
+
 Documenting new features
 ------------------------
 
