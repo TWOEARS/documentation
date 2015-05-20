@@ -1,0 +1,21 @@
+Stimuli
+=======
+
+This is a collection of anechoic stimuli like noise or cello that you can use to
+convolve with the :ref:`impulse responses <sec-impulse-responses>`. Those files
+are placed in the ``anechoic`` folder. In addition, some binaural files are
+provided in the ``binaural`` folder.
+
+The following files are available at the moment::
+
+    stimuli/anechoic/aipa/pink_noise_pulse.wav
+    stimuli/anechoic/aipa/white_noise_pulse.wav
+    stimuli/anechoic/blues_fh-koeln/BluesA_GitL_44100.wav
+    stimuli/anechoic/blues_fh-koeln/BluesA_GitR_44100.wav
+    stimuli/anechoic/blues_fh-koeln/BluesA_Voc_44100.wav
+    stimuli/anechoic/instruments/anechoic_castanets.wav
+    stimuli/anechoic/instruments/anechoic_cello.wav
+    stimuli/binaural/binaural_cello.wav
+
+
+.. vim: filetype=rst spell:

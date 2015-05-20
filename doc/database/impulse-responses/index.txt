@@ -1,0 +1,43 @@
+.. warning::
+
+    This site is not complete yet.
+
+.. _sec-impulse-responses:
+
+Impulse responses
+=================
+
+Here you will find a large collection of binaural impulse responses recorded
+with different dummy heads.
+
+At the moment the following measurements are available:
+
+.. contents::
+    :local:
+
+Anechoic measurements (:abbr:`HRTF (head related transfer function)`\ s)
+------------------------------------------------------------------------
+
+Spherical Far Field HRIR Compilation of the Neumann KU100
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+HRTF Measurements of a KEMAR Dummy-Head Microphone (MIT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Anechoic HRIRs from the KEMAR manikin with different distances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Near-field HRTFs from SCUT database of the KEMAR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Reverberant measurements (:abbr:`BRIR (binaural room impulse response)`\ s)
+---------------------------------------------------------------------------
+
+TU Berlin, Telefunken-building, room Auditorium 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TU Berlin, Telefunken-building, room Spirit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.. vim: filetype=rst spell:

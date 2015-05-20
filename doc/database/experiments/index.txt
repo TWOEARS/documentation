@@ -1,0 +1,35 @@
+.. warning::
+
+    This site is not complete yet.
+
+.. _sec-experiments:
+
+Experiment results
+==================
+
+In this part of the database we collect results from psychoacoustic experiments
+run by the different labs involved in |twoears|. At the moment the following
+results are available:
+
+.. contents::
+    :local:
+
+Coloration
+----------
+
+Coloration of a point source in Wave Field Synthesis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This database entry contains results from the experiments described in
+[Wierstorf2014]_.
+
+.. [Wierstorf2014] Wierstorf, H., Hohnerlein, C., Spors, S., Raake, A. (2014), "Coloration in Wave Field Synthesis," 55th International AES Conference, Paper 5-3
+
+Localization
+------------
+
+Quality ratings
+---------------
+
+
+.. vim: filetype=rst spell:

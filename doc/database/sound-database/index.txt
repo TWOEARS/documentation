@@ -1,0 +1,100 @@
+.. warning::
+
+    This site is not complete yet.
+
+.. _sec-sound-databases:
+
+Sound databases
+===============
+
+This is a collection of different sound databases. A sound database can be
+anything that comes as a collection of related sound files like a speech corpus.
+
+At the moment the following databases are available:
+
+.. contents::
+    :local:
+
+Speech databases
+----------------
+
+.. _sec-grid-corpus:
+
+GRID corpus
+~~~~~~~~~~~
+
+GRID is a large multi-talker audiovisual sentence corpus to support joint
+computational-behavioral studies in speech perception. In brief, the corpus
+consists of high-quality audio and video (facial) recordings of 1000 sentences
+spoken by each of 34 talkers (18 male, 16 female). Sentences are of the form
+::
+
+    put red at G9 now
+
+More details about GRID can be found on the `GRID website`_ or in the
+corresponding `GRID paper`_.
+
+.. _GRID website: http://spandh.dcs.shef.ac.uk/gridcorpus/
+.. _GRID paper: http://dx.doi.org/10.1121/1.2229005
+
+License
+^^^^^^^
+
+The GRID corpus, together with transcriptions, is freely available for research
+use.
+
+Usage
+^^^^^
+
+.. warning::
+
+    Add example use case of the corpus using file lists to learn and test an
+    identification model. Maybe link to an example (toy scenario1) where it is
+    used.
+
+Acoustic scenes and events
+--------------------------
+
+.. _sec-ieee-aasp:
+
+IEEE AASP Challenge on Detection and Classification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This data set includes binaural recordings acoustic environmental scenes. It can
+be used for classification tasks of acoustic scenes and events.
+
+License
+^^^^^^^
+
+`Creative Commons Attribution 2.0 UK: England & Wales
+<http://creativecommons.org/licenses/by/2.0/uk/>`_
+
+Usage
+^^^^^
+
+In the ``scenes/`` folder stereo recordings of the following acoustic scenes are
+provided:
+
+    | bus
+    | busystreet (busy street with heavy traffic)
+    | office
+    | openairmarket (open-air or semi-open market)
+    | park
+    | quietstreet (quiet street with mild traffic)
+    | restaurant
+    | supermarket
+    | tube (train in the Transport for London, Underground and Overground, train
+    |   networks)
+    | tubestation (tube station in the Transport for London, Underground and
+    |   Overground, train networks, either subterranean or supraterranean)
+
+Each class contains ten recordings. Each recording is 30 s long. Files are named
+according to the class name, i.e. ``classXX.wav`` where ``XX`` is a two-digit,
+non-consecutive number.
+
+.. warning::
+
+    Add description for other folders.
+
+
+.. vim: filetype=rst spell:
