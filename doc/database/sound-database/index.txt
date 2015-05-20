@@ -24,7 +24,7 @@ GRID corpus
 ~~~~~~~~~~~
 
 GRID is a large multi-talker audiovisual sentence corpus to support joint
-computational-behavioral studies in speech perception. In brief, the corpus
+computational-behavioural studies in speech perception. In brief, the corpus
 consists of high-quality audio and video (facial) recordings of 1000 sentences
 spoken by each of 34 talkers (18 male, 16 female). Sentences are of the form
 ::

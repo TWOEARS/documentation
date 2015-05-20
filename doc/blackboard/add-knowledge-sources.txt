@@ -14,7 +14,7 @@ need are not provided then read on :ref:`how to add them
 <sec-afe-add-processor>`. Otherwise you can go on and create your own knowledge
 source. For understanding the full potential that is available with knowledge
 sources like dynamic data initialisation of other knowledge sources or data
-requests you should familiarize yourself first with the :ref:`blackboard
+requests you should familiarise yourself first with the :ref:`blackboard
 architecture <sec-blackboard-architecture>`.
 
 Example of adding a new knowledge source

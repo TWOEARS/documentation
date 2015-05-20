@@ -91,7 +91,7 @@ Looking at the configuration file step by step we find the following settings:
 
     The second kind of knowledge source we use is the :ref:`identity decision
     knowledge source <sec-identity-decision-knowledge-source>`. It will judge
-    the different identity hypothesis it will get from the identiy knowledge
+    the different identity hypothesis it will get from the identity knowledge
     sources and performs the final decision which identity is matched by the
     input signals.
 

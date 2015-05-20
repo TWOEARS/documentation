@@ -10,7 +10,9 @@ Butterworth
 centroid
 compressive
 contralateral
+convolve
 Dau
+Decorsière
 downsampled
 downsampling
 Erman
@@ -31,6 +33,7 @@ Göbbert
 Godde
 Godsmark
 Goebbert
+Hohnerlein
 Houtgast
 implementors
 indices
@@ -57,6 +60,7 @@ Misra
 modularity
 multi
 Nawab
+Neumann
 neuro
 nonlinearity
 Norvig
@@ -73,8 +77,10 @@ Pueschel
 Püschel
 Püschel
 Qiu
+Raake
 Rabiner
 Reddy
+Remi
 Renderer
 reST
 reStructuredText
@@ -95,11 +101,14 @@ Søndergaard
 spectro
 spectrogram
 spectrograms
+Spors
 stapes
 superclass
 SWI
 Tchorz
+Telefunken
 Theunissen
+Tobias
 Tolonen
 Triska
 Turgeon
@@ -108,3 +117,4 @@ Universität
 versioning
 whitespace
 Wielemaker
+Wierstorf
