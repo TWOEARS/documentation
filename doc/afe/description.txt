@@ -9,34 +9,32 @@ Technical description
 Introduction
 ------------
 
-Many different auditory models are available that can transform an input
-signal into an auditory representation. The actual design challenges
-behind the framework arise from the multiplicity of supported
-representations, the requirement to process continuous signal in a
-chunk-based manner, and the ability to change what is being computed at
-run-time, which will allow the incorporation of *feedback* from higher
-processing stages. In addition to these three constraints, the framework
-will be subject to frequent updates in the future of the project (e.g.,
-adding new processors), so the expandability and maintainability of its
-implementation should be optimal. For these reasons, the framework is
-implemented using a modular object-oriented approach.
+Many different auditory models are available that can transform an input signal
+into an auditory representation. The actual design challenges behind the |AFE|
+arise from the multiplicity of supported representations, the requirement to
+process continuous signal in a chunk-based manner, and the ability to change
+what is being computed at run-time, which will allow the incorporation of
+*feedback* from higher processing stages. In addition to these three
+constraints, the framework will be subject to frequent updates in the future of
+the Two!Ears project (e.g., adding new processors), so the expandability and
+maintainability of its implementation should be optimal. For these reasons, the
+framework is implemented using a modular object-oriented approach.
 
-This chapter exposes the architecture and interactions of all the
-objects involved in the and how the main constraints were tackled
-conceptually. In an effort to respect encapsulation and the hierarchical
-organisation of the objects, the sections are arranged in a “bottom-up”
-way: from the most fundamental objects to the more global processing.
+This chapter exposes the architecture and interactions of all the |AFE| objects
+involved in the and how the main constraints were tackled conceptually. In an
+effort to respect encapsulation and the hierarchical organisation of the
+objects, the sections are arranged in a “bottom-up” way: from the most
+fundamental objects to the more global processing.
 
-All classes involved in the implementation are inheriting the Matlab
+All classes involved in the |AFE| implementation are inheriting the Matlab
 ``handle`` master class. This allows every created object to be of the
-``handle`` type, and simulates a “call-by-reference” when manipulating
-the objects. Given an object ``obj`` inheriting the handle class, doing
-``obj2 = obj`` will not copy the object, but only obtain a pointer to
-it. If ``obj`` is modified, then so is ``obj2``. This avoids unnecessary
-copies of objects, limiting memory use, as well as providing user
-friendly handles to objects included under many levels of class
-hierarchy. The user can manipulate a simple short-named handle instead
-of tediously accessing the object.
+``handle`` type, and simulates a “call-by-reference” when manipulating the
+objects. Given an object ``obj`` inheriting the handle class, doing ``obj2 =
+obj`` will not copy the object, but only obtain a pointer to it. If ``obj`` is
+modified, then so is ``obj2``. This avoids unnecessary copies of objects,
+limiting memory use, as well as providing user friendly handles to objects
+included under many levels of class hierarchy. The user can manipulate a simple
+short-named handle instead of tediously accessing the object.
 
 Data handling
 -------------
@@ -46,49 +44,49 @@ Data handling
 Circular buffer
 ~~~~~~~~~~~~~~~
 
-Memory pre-allocation of large arrays in Matlab is well known to be a
-critical operation for optimising computation time. The , particularly
-in an online scenario, will be confronted with this problem. For each
-new chunk of the input signal, chunks of output are computed for each
-internal representation and are appended to the already existing output.
-Computation time will be strongly affected if the arrays containing the
-data are not initialised appropriately (i.e., the memory it occupies is
-pre-allocated) to fit the input signal duration.
+Memory pre-allocation of large arrays in Matlab is well known to be a critical
+operation for optimising computation time. The |AFE|, particularly in an online
+scenario, will be confronted with this problem. For each new chunk of the input
+signal, chunks of output are computed for each internal representation and are
+appended to the already existing output.  Computation time will be strongly
+affected if the arrays containing the data are not initialised appropriately
+(i.e., the memory it occupies is pre-allocated) to fit the input signal
+duration.
 
-The issue in a real-time scenario is that the signal duration is
-unknown. To overcome this problem, data for each signal is stored in a
-buffer of fixed duration which is itself pre-allocated. Buffers are
-updated following a rule: once the buffer is full, the oldest samples in
-the buffer are overwritten by the new signal samples.
+The issue in a real-time scenario is that the signal duration is unknown. To
+overcome this problem, data for each signal is stored in a buffer of fixed
+duration which is itself pre-allocated. Buffers are updated following
+:abbr:`FIFO (first in, first out)` a rule: once the buffer is full, the oldest
+samples in the buffer are overwritten by the new signal samples.
 
 The ``circVBuf`` class
 ^^^^^^^^^^^^^^^^^^^^^^
 
-A conceptual way of implementing a rule is to use circular (or ring)
-buffers. The inconvenience of a traditional, linear buffer is that once
-it is full and new input overwrites old samples (i.e., it is in its
-“steady-state”), reading the data from it implies reaching the end of
-the buffer and continuing reading from its beginning. The data read will
-be in two fragments, because of the linear buffer having a physical
-beginning and end which do not match to the oldest and newest data
-samples. This is eliminated in circular buffers which do not have a
-beginning or end, and a contiguous segment is always obtained upon
-reading. Circular buffers were implemented for the framework based on
-the third-party class provided by [Goebbert2014]_, which has been slightly
-modified to account for multi-dimensional data (instead of vector-only).
+A conceptual way of implementing a :abbr:`FIFO (first in, first out)` rule is to
+use circular (or ring) buffers. The inconvenience of a traditional, linear
+buffer is that once it is full and new input overwrites old samples (i.e., it is
+in its “steady-state”), reading the data from it implies reaching the end of the
+buffer and continuing reading from its beginning. The data read will be in two
+fragments, because of the linear buffer having a physical beginning and end
+which do not match to the oldest and newest data samples. This is eliminated in
+circular buffers which do not have a beginning or end, and a contiguous segment
+is always obtained upon reading. Circular buffers were implemented for the |AFE|
+based on the third-party class provided by [Goebbert2014]_, which has been
+slightly modified to account for multi-dimensional data (instead of
+vector-only).
 
 
 Circular buffer interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``circVBuf`` class provides a buffer that is conceptually circular,
-in the sense that it allows continuous reading of the data. However in
-practice it still stores data in a linear array in Matlab (the size of
-which is, however, twice the size of the actual data). Accessing stored
-data requires knowledge about this class and can be tedious to a naive
-user. To eliminate confusion and make the buffer transparent to the
-user, the interface ``circVBuffArrayInterface`` was implemented, with
-the aim of allowing the buffer to use most basic array operations.
+The ``circVBuf`` class provides a buffer that is conceptually circular, in the
+sense that it allows continuous reading of the data. However in practice it
+still stores data in a linear array in Matlab (the size of which is, however,
+twice the size of the actual data). Accessing stored data requires knowledge
+about this class and can be tedious to a naive user. To eliminate confusion and
+make the buffer transparent to the user, the interface
+``circVBuffArrayInterface`` was implemented, with the aim of allowing the buffer
+to use most basic array operations.
 
 Given a circular buffer ``circBuffer``, the interface is obtained by
 
@@ -124,18 +122,22 @@ It will allow the following operations:
    ``false`` otherwise.
 
 This provides an array behaviour to the buffers, simplifying greatly
-their use. Note that the only limitation is the need of the column
-operator ``:`` to access all data, as in ``buffer(:)``. Without it,
-``buffer`` will return a handle to the ``circVBufArrayInterface``
-object.
+their use.
+
+.. note::
+
+    Note that the only limitation is the need of the column
+    operator ``:`` to access all data, as in ``buffer(:)``. Without it,
+    ``buffer`` will return a handle to the ``circVBufArrayInterface``
+    object.
 
 Signal objects
 ~~~~~~~~~~~~~~
 
-Signals are implemented as objects in the . To avoid code repetition and
-make better use of object-oriented concepts, signals are grouped
-according to their dimensions, as they then share the same
-properties. The following classes are implemented:
+Signals are implemented as objects in the |AFE|. To avoid code repetition and
+make better use of object-oriented concepts, signals are grouped according to
+their dimensions, as they then share the same properties. The following classes
+are implemented:
 
 -  ``TimeDomainSignal`` for one-dimensional (time) signals.
 
@@ -174,9 +176,10 @@ share the following common “read-only” properties:
 -  ``Dimensions``, which describes in a short string how dimensions are
    arranged in the signal, e.g., ``’nSamples x nFilters’``
 
--  ``FsHz``, the sampling frequency of this specific signal. If the
-   signal is framed or down-sampled (e.g., like a rate-map or an ) this
-   value will be different from the input signal's sampling frequency.
+-  ``FsHz``, the sampling frequency of this specific signal. If the signal is
+   framed or down-sampled (e.g., like a rate-map or an :abbr:`ILD (interaural
+   level difference)`) this value will be different from the input signal's
+   sampling frequency.
 
 -  ``Channel``, which states ``’left’``, ``’right’`` or ``’mono’``,
    depending on which channel from the input signal this signal was
@@ -207,7 +210,7 @@ among children objects:
 -  The ``findProcessor`` method which, given a handle to a manager
    object, will retrieve which processor has computed this specific
    signal (by comparing it with the ``Output`` property of each
-   processor, described in Sec. ).
+   processor, described in :ref:`sec-processors-general`).
 
 -  A ``getParameters`` method which, given a handle to a manager object,
    will retrieve the list of parameters used in the processing to obtain
@@ -226,16 +229,16 @@ Data objects
 Description
 ^^^^^^^^^^^
 
-Many signal objects are instantiated by the (one per representation
+Many signal objects are instantiated by the |AFE| (one per representation
 involved and per channel). To organise and keep track of them, they are
-collected in a ``dataObject`` class. This class inherits the
-``dynamicprops`` Matlab class (itself inheriting the ``handle``) class.
-This allows to dynamically define properties of the class.
+collected in a ``dataObject`` class. This class inherits the ``dynamicprops``
+Matlab class (itself inheriting the ``handle``) class.  This allows to
+dynamically define properties of the class.
 
-This way, each signal involved in a given session of the framework will
-be grouped according to its class in a distinct property of the
-``dataObject``, with name given by the signal ``signal.Name`` unique
-name tag. Extra properties of the data object include:
+This way, each signal involved in a given session of the |AFE| will be grouped
+according to its class in a distinct property of the ``dataObject``, with name
+given by the signal ``signal.Name`` unique name tag. Extra properties of the
+data object include:
 
 -  ``bufferSize_s`` which is the common duration of all ``circVBuf``
    objects in the signals.
@@ -243,15 +246,13 @@ name tag. Extra properties of the data object include:
 -  A flag ``isStereo``, which if true will indicate to the data object
    that all signals come as pairs of left/right channels.
 
-Data objects are constructed by providing an input signal (which can be
-empty in online scenarios), a mandatory sampling frequency in Hz, a
-global buffer size (10 s by default), and the number of channels of the
-input (1 or 2). This number of channel is not necessary if an input
-signal is used as argument in the constructor but needs to be provided
-otherwise.
+Data objects are constructed by providing an input signal (which can be empty in
+online scenarios), a mandatory sampling frequency in Hz, a global buffer size
+(10 s by default), and the number of channels of the input (1 or 2). This number
+of channel is not necessary if an input signal is used as argument in the
+constructor but needs to be provided otherwise.
 
-The ``dataObject`` definition includes the following, self-explanatory
-methods:
+The ``dataObject`` definition includes the following, self-explanatory methods:
 
 -  ``addSignal(signalToAdd)``
 
@@ -266,18 +267,17 @@ methods:
 Signal organisation
 ^^^^^^^^^^^^^^^^^^^
 
-As mentioned before, data objects store signal objects. Each class of
-signal occupies a property in the data object named after the signal
-``.Name`` property. Multiple signals of the same class will be stored as
-a cell array in that property. In the cell array, the first column is
-always for the left channel (or mono signal), and the second column for
-the right channel. If multiple signals of the same type are present
-(e.g., if the user requested the same representation twice but with a
-change of parameters), then the corresponding signals are stored in
-different lines of the array. For instance, for a session where the user
-requested the inner hair-cell envelope twice, with the second request
-changing only the way of extracting the envelope (i.e., the parameter
-``’ihc_method’``), the following data object is created:
+As mentioned before, data objects store signal objects. Each class of signal
+occupies a property in the data object named after the signal ``.Name``
+property. Multiple signals of the same class will be stored as a cell array in
+that property. In the cell array, the first column is always for the left
+channel (or mono signal), and the second column for the right channel. If
+multiple signals of the same type are present (e.g., if the user requested the
+same representation twice but with a change of parameters), then the
+corresponding signals are stored in different lines of the array. For instance,
+for a session where the user requested the inner hair-cell envelope twice, with
+the second request changing only the way of extracting the envelope (i.e., the
+parameter ``’ihc_method’``), the following data object is created:
 
 ::
 
@@ -294,48 +294,46 @@ changing only the way of extracting the envelope (i.e., the parameter
             gammatone: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
         innerhaircell: {2x2 cell}
 
-Each signal-related field except ``innerhaircell`` is a cell array of a
-single line (one signal), and two columns (for left and right channel).
-Because the second request from the user included only a change in
-parameter for the inner hair-cell computation, the same initial
-``gammatone`` signal is used for both, but there are two output
-``innerhaircell`` signals (hence a cell array of two lines) for each
-channel (hence two columns).
+Each signal-related field except ``innerhaircell`` is a cell array of a single
+line (one signal), and two columns (for left and right channel).  Because the
+second request from the user included only a change in parameter for the inner
+hair-cell computation, the same initial ``gammatone`` signal is used for both,
+but there are two output ``innerhaircell`` signals (hence a cell array of two
+lines) for each channel (hence two columns).
 
-In that case, to distinguish between the two signals and know which one
-was computed with which set of parameter, one can call the signal’s
-``getParameters`` method. Given a handle to the manager object, it will
-return a list of all parameters used to obtain that signal (including
-parameters used in intermediate processing steps).
+In that case, to distinguish between the two signals and know which one was
+computed with which set of parameter, one can call the signal’s
+``getParameters`` method. Given a handle to the manager object, it will return a
+list of all parameters used to obtain that signal (including parameters used in
+intermediate processing steps).
 
 Processors
 ----------
 
-Processors are at the core of the . Each processor is responsible for an
+Processors are at the core of the |AFE|. Each processor is responsible for an
 individual step in the processing, i.e., going from representation A to
-representation B. They are adapted from existing models documented in
-the literature such as to allow for block-based (online) processing.
-This is made possible by keeping track of the information necessary to
-transition adequately between two chunks of input. The nature of this
-“information” varies depending on the processor, and we use in the
-following the term “internal state” of the processor to refer to it.
-Internal states and online processing compatibility are then assessed in
-Sec. .
+representation B. They are adapted from existing models documented in the
+literature such as to allow for block-based (online) processing.  This is made
+possible by keeping track of the information necessary to transition adequately
+between two chunks of input. The nature of this “information” varies depending
+on the processor, and we use in the following the term “internal state” of the
+processor to refer to it.  Internal states and online processing compatibility
+are then assessed in :ref:`sec-process-chunk`.
 
-A detailed overview of all processors, with a list of all parameters
-they accept, is given in chapter . Hence this section will focus on the
-properties and methods shared among every processors, as well as the
-techniques employed to make processing compatible with chunk-based
-inputs.
+A detailed overview of all processors, with a list of all parameters they
+accept, is given in :ref:`sec-afe-processors`. Hence this section will focus on
+the properties and methods shared among every processors, as well as the
+techniques employed to make processing compatible with chunk-based inputs.
+
+.. _sec-processors-general:
 
 General considerations
 ~~~~~~~~~~~~~~~~~~~~~~
 
 As for signal objects, processors make use of inheritance, with a parent
 ``Processor`` class. The parent class defines shared properties of the
-processor, abstract classes that each children must implement, and a
-couple of methods shared among children. Each processor shares the
-properties:
+processor, abstract classes that each children must implement, and a couple of
+methods shared among children. Each processor shares the properties:
 
 -  ``Type`` - describes formally the processing performed
 
@@ -353,12 +351,12 @@ properties:
 -  ``Dependencies`` - Handle to the processor that generated the input
    signal
 
-These properties are populated automatically when using the framework by
-the manager class which is described later in Sec. .
+These properties are populated automatically when using the |AFE| by the manager
+class which is described later in :ref:`sec-afe-manager`.
 
-The parent ``Processor`` class defines the following abstract methods.
-Because these methods are children dependent, each processor sub-class
-``pObj`` should then implement them:
+The parent ``Processor`` class defines the following abstract methods.  Because
+these methods are children dependent, each processor sub-class ``pObj`` should
+then implement them:
 
 -  ``out = pObj.processChunk(in)``, the core processing method. Returns
    an output ``out`` given the input ``in``. It will, if necessary, use
@@ -388,11 +386,10 @@ implemented in the parent ``Processor`` class:
 -  ``parStruct = pObj.getCurrentParameters`` returns a structure of the
    parameter values currently used by the processor.
 
-The motivation behind the implementation of these methods is probably
-not clear at this stage, but should appear in the following sections.
-Many of these methods are used in the manager object described later for
-organising and routing the processing such as to always perform as few
-operations as needed.
+The motivation behind the implementation of these methods is probably not clear
+at this stage, but should appear in the following sections.  Many of these
+methods are used in the manager object described later for organising and
+routing the processing such as to always perform as few operations as needed.
 
 .. _sec-process-chunk:
 
@@ -402,39 +399,38 @@ operations as needed.
 General approach
 ^^^^^^^^^^^^^^^^
 
-As briefly exposed above, exact computation performed by each processors
-are taken from published models, and are described individually in
-chapter . However, most of the available implementations are for batch
-processing, i.e., using one whole input signal at once. To be included
-in the , these implementations need to be adapted to account for
-chunk-based processing, i.e., when the input signal is fed to the system
-in non-overlapping contiguous blocks, or chunks.
+As briefly exposed above, exact computation performed by each processors are
+taken from published models, and are described individually in
+:ref:`sec-afe-processors`. However, most of the available implementations are
+for batch processing, i.e., using one whole input signal at once. To be included
+in the |AFE|, these implementations need to be adapted to account for
+chunk-based processing, i.e., when the input signal is fed to the system in
+non-overlapping contiguous blocks, or chunks.
 
-Some processors rely on the input only at time :math:`t` to generate the
-output at time :math:`t`. These processors are then compatible as such
-with chunk-based processing. This is the case for instance for the
-``itdProc`` which given cross-correlation deduces the . That is because
-the processor, at time :math:`t`, is provided a cross-correlation value
-as input (which is a function of frequency and lag), and only locates
-for each frequency the lag value for which the cross-correlation is
-maximal. There is no influence of past (or future) inputs to provide the
-output at time :math:`t`. This is unfortunately not the case for most
-processors, which output at a given time will be influenced, to
-different extent, by older input. However, so far, all the processing
-involved in the is causal, i.e., might depend on past input, but will
-not depend on future input.
+Some processors rely on the input only at time *t* to generate the output at
+time *t*. These processors are then compatible as such with chunk-based
+processing. This is the case for instance for the ``itdProc`` which given
+cross-correlation deduces the . That is because the processor, at time *t*, is
+provided a cross-correlation value as input (which is a function of frequency
+and lag), and only locates for each frequency the lag value for which the
+cross-correlation is maximal. There is no influence of past (or future) inputs
+to provide the output at time *t*. This is unfortunately not the case for most
+processors, which output at a given time will be influenced, to different
+extent, by older input. However, so far, all the processing involved in the
+|AFE| is causal, i.e., might depend on past input, but will not depend on future
+input.
 
-Adapting offline implementations to online is of course case-dependent,
-and how it was done for each individual processors will not be described
-here. However the same concept is used for each, and can be related to
-the *overlap-save* method traditionally used for filtering long signals
-(or a stream of input signal) with a filter. This concept revolves
-around using an internal buffer to store the input samples of a given
-chunk that will influence the processing of the next chunk. Because of
-the causality, these samples will always be at the end of the present
-chunk. Considering a processor which is in “steady-state” (i.e., has a
-populated internal buffer) and a new incoming chunk of input signal, the
-following steps are performed:
+Adapting offline implementations to online is of course case-dependent, and how
+it was done for each individual processors will not be described here. However
+the same concept is used for each, and can be related to the *overlap-save*
+method traditionally used for filtering long signals (or a stream of input
+signal) with a :abbr:`FIR (finite impulse response)` filter. This concept
+revolves around using an internal buffer to store the input samples of a given
+chunk that will influence the processing of the next chunk. Because of the
+causality, these samples will always be at the end of the present chunk.
+Considering a processor which is in “steady-state” (i.e., has a populated
+internal buffer) and a new incoming chunk of input signal, the following steps
+are performed:
 
 #. The buffer is appended in the beginning of the new input chunk.
    Conceptually, this provides also a chunk of the input signal, but a
@@ -458,15 +454,17 @@ following steps are performed:
 An example: rate-map
 ^^^^^^^^^^^^^^^^^^^^
 
-A practical example to better illustrate the concepts described above is
-given in the following. The rate-map is conceptually a “framed” version
-of an multi-channel envelope. The envelope is a two-dimensional
-representation (time versus frequency), and the rate-map extraction is
-the same procedure repeated for every frequency channel. Hence the
-following is described for a single channel. To extract the rate-map, the
-envelope is windowed by a set of overlapping windows, and its magnitude
-averaged in each window. This process is adapted to online processing as
-illustrated in Fig. 
+A practical example to better illustrate the concepts described above is given
+in the following. The rate-map is conceptually a “framed” version of an
+:abbr:`IHC (inner hair cell)` multi-channel envelope. The :abbr:`IHC (inner hair
+cell)` envelope is a two-dimensional representation (time versus frequency), and
+the rate-map extraction is the same procedure repeated for every frequency
+channel. Hence the following is described for a single channel. To extract the
+rate-map, the envelope is windowed by a set of overlapping windows, and its
+magnitude averaged in each window. This process is adapted to online processing
+as illustrated in Fig. :num:`fig-windowing`.
+
+.. _fig-windowing:
 
 .. figure:: img/chunkBasedRatemap.png
 
@@ -488,43 +486,45 @@ The three above-mentioned steps are followed:
    of the signal corresponding to this incomplete window forms the new
    buffer.
 
-Note that the output chunk could in theory be empty. If the duration of
-the “extended” input in step 1 is shorter than the duration of the
-window, then no valid output is produced for this chunk, and the whole
-extended input will be transferred to the internal buffer. This is
-unlikely to happen in practice however.
+Note that the output chunk could in theory be empty. If the duration of the
+“extended” input in step 1 is shorter than the duration of the window, then no
+valid output is produced for this chunk, and the whole extended input will be
+transferred to the internal buffer. This is unlikely to happen in practice
+however.
 
 Particular case for filters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The processing performed by the often involves filtering (e.g., in
+The processing performed by the |AFE| often involves filtering (e.g., in
 auditory filter bank processing, inner hair cell envelope detection, or
-amplitude modulation detection). While filtering by filters could in
-principle be made compatible with chunk-based processing using the
-principle described above, it will be impractical for filters with long
-impulse response, and in theory impossible for filters.
+amplitude modulation detection). While filtering by :abbr:`FIR (finite impulse
+response)` filters could in principle be made compatible with chunk-based
+processing using the principle described above, it will be impractical for
+filters with long impulse response, and in theory impossible for :abbr:`IIR
+(infinite impulse response)` filters.
 
-For this reason, chunk-based compatibility is managed differently for
-filtering. In Matlab’s ``filter`` function, the user can specify initial
-conditions and can get as optional output the final conditions of the
-filter delays. These take the form of a vector, of dimension equal to
-the filter order.
+For this reason, chunk-based compatibility is managed differently for filtering.
+In Matlab’s ``filter`` function, the user can specify initial conditions and can
+get as optional output the final conditions of the filter delays. These take the
+form of a vector, of dimension equal to the filter order.
 
-In the , filters are implemented as objects, and encapsulate a private
-``states`` property. This property simply contains the final conditions
-of the filter delays, i.e., its internal states after the last
-processing it performed. If applied to a new input chunk, these states
-are used as initial condition and are updated after the processing. This
-will provide a continuous output given a fragmented input.
+In the |AFE|, filters are implemented as objects, and encapsulate a private
+``states`` property. This property simply contains the final conditions of the
+filter delays, i.e., its internal states after the last processing it performed.
+If applied to a new input chunk, these states are used as initial condition and
+are updated after the processing. This will provide a continuous output given a
+fragmented input.
+
+.. _sec-afe-manager:
 
 Manager
 -------
 
-The ``manager`` class is fundamental in the framework. It is responsible
-for, from a user request, instantiating the correct processors and
-signal objects, and linking these signals as inputs/outputs of each
-processor. In a standard session of the , only a single instance of this
-class is created. It is with this object that the user interacts.
+The ``manager`` class is fundamental in the |AFE|. It is responsible for, from a
+user request, instantiating the correct processors and signal objects, and
+linking these signals as inputs/outputs of each processor. In a standard session
+of the |AFE|, only a single instance of this class is created. It is with this
+object that the user interacts.
 
 Processors and signals instantiation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -532,9 +532,9 @@ Processors and signals instantiation
 Single request
 ^^^^^^^^^^^^^^
 
-A standard call to the manager constructor, i.e., with no other argument
-than a handle to an already created data object ``dataObj`` will produce
-an “empty” manager:
+A standard call to the manager constructor, i.e., with no other argument than a
+handle to an already created data object ``dataObj`` will produce an “empty”
+manager:
 
 ::
 
@@ -550,15 +550,14 @@ an “empty” manager:
                Map: []
               Data: [1x1 dataObject]
 
-Empty properties include a list of processors, of input signals, output
-signals, and a mapping vector that provides a processing order. The
-``Data`` property is simply a handle to the ``dataObj`` object provided
-for convenience.
+Empty properties include a list of processors, of input signals, output signals,
+and a mapping vector that provides a processing order. The ``Data`` property is
+simply a handle to the ``dataObj`` object provided for convenience.
 
-Populating these properties is made via the ``addProcessor`` method
-already described in Sec. . From a given request and an empty manager,
-instantiating the adequate processors and signals is done following
-these steps:
+Populating these properties is made via the ``addProcessor`` method already
+described in :ref:`sec-computation-of-an-auditory-representation`. From a given
+request and an empty manager, instantiating the adequate processors and signals
+is done following these steps:
 
 #. Get the list of signals needed to compute the user request, using the
    ``getDependencies`` function.
@@ -595,8 +594,8 @@ these steps:
 
 #. Return a handle to the requested signal to the user.
 
-Once ``addProcessor`` called, the properties of the manager will have
-been populated, e.g.:
+Once ``addProcessor`` called, the properties of the manager will have been
+populated, e.g.:
 
 ::
 
@@ -612,10 +611,10 @@ been populated, e.g.:
                Map: [1 2 3]
               Data: [1x1 dataObject]
 
-Processors are arranged with the same convention as for signals in a
-data objects: they are stored in a cell array, where the first column is
-for left (or mono) channel, and second column for right channel.
-Different lines are for different processors, e.g.:
+Processors are arranged with the same convention as for signals in a data
+objects: they are stored in a cell array, where the first column is for left (or
+mono) channel, and second column for right channel.  Different lines are for
+different processors, e.g.:
 
 ::
 
@@ -627,65 +626,61 @@ Different lines are for different processors, e.g.:
         [1x1 gammatoneProc]    [1x1 gammatoneProc]
         [1x1 ihcProc      ]    [1x1 ihcProc      ]
 
-``InputList`` and ``OutputList`` are cell arrays of handles to signal
-objects. An element in one of them will correspond to the input/output
-of the processor at the same position in the cell array.
+``InputList`` and ``OutputList`` are cell arrays of handles to signal objects.
+An element in one of them will correspond to the input/output of the processor
+at the same position in the cell array.
 
 Handling of multiple requests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The above-described process gets more complicated when a request is
-placed in a non-empty manager (i.e., when multiple requests have been
-placed). The same steps could be used, and would result in a functioning
-result. However, this would likely be sub-optimal in terms of
-computations. If the new request has common elements with
-representations that are already computed, one need not recompute them.
+The above-described process gets more complicated when a request is placed in a
+non-empty manager (i.e., when multiple requests have been placed). The same
+steps could be used, and would result in a functioning result. However, this
+would likely be sub-optimal in terms of computations. If the new request has
+common elements with representations that are already computed, one need not
+recompute them.
 
-If correctly implemented, a manager should be able to “branch” the
-processing, such that only new representations, or representations where
-a parameter has been changed, are recomputed. Achieving this relies on
-the ``findInitProc`` method of the manager, which is described in more
-details in the next subsection. This method is passed the same arguments
-as the ``addProcessor`` method, i.e., a request name and a structure of
-parameters. It will return a handle to an already existing processor in
-the manager that is exactly computing one of the steps needed for that
-request. It will return the “highest” already existing step. In other
-terms, it finds the point in the already existing ordered list of
-processors where the processing should “branch out” to obtain the newly
-requested feature. Knowing the processor to start from and updating
-accordingly the list of signals/processors that need to be instantiated,
-the same procedure as before can then be used in the ``addProcessor``
-method.
+If correctly implemented, a manager should be able to “branch” the processing,
+such that only new representations, or representations where a parameter has
+been changed, are recomputed. Achieving this relies on the ``findInitProc``
+method of the manager, which is described in more details in the next
+subsection. This method is passed the same arguments as the ``addProcessor``
+method, i.e., a request name and a structure of parameters. It will return a
+handle to an already existing processor in the manager that is exactly computing
+one of the steps needed for that request. It will return the “highest” already
+existing step. In other terms, it finds the point in the already existing
+ordered list of processors where the processing should “branch out” to obtain
+the newly requested feature. Knowing the processor to start from and updating
+accordingly the list of signals/processors that need to be instantiated, the
+same procedure as before can then be used in the ``addProcessor`` method.
 
 The ``findInitProc`` method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To find an initial processor suitable in a request, this method calls
-the ``hasProcessor`` method of the manager and the ``hasParameters``
-method of each processor. From a given request, it can obtain a list of
-necessary processing steps from ``getDependencies`` and run the list
-backwards. For each element of the list, ``findInitProc`` “asks” the
-manager if it has such a processor via its ``hasProcessor`` method. If
-yes, it calls this processor ``hasParameters`` method to verify that
-what the processor computes corresponds to the request. If yes, then it
-found a suitable initial step. If no, it moves on to the next element in
-the list and repeats.
+To find an initial processor suitable in a request, this method calls the
+``hasProcessor`` method of the manager and the ``hasParameters`` method of each
+processor. From a given request, it can obtain a list of necessary processing
+steps from ``getDependencies`` and run the list backwards. For each element of
+the list, ``findInitProc`` “asks” the manager if it has such a processor via its
+``hasProcessor`` method. If yes, it calls this processor ``hasParameters``
+method to verify that what the processor computes corresponds to the request. If
+yes, then it found a suitable initial step. If no, it moves on to the next
+element in the list and repeats.
 
 Carrying out the processing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As of the current implementation, the processing is linear and the
-``processChunk`` methods of each individual processor are called one
-after the other when asking the manager to start processing (either via
-its ``processChunk`` or ``processSignal`` method). The order in which
-the processors are called is important, as some will take as input what
-was other's output. This order is stored in the property ``Map`` of the
-manager. ``Map`` is a vector of indexes corresponding to the lines in
-the ``Processors`` cell array property of the manager. It is constructed
-at instantiation of the processors. Conceptually, if there are ``N``
-instantiated processors, the ``processChunk`` method of the manager
-``mObj`` will call the ``processChunk`` methods of each processor
-following this loop:
+As of the current |AFE| implementation, the processing is linear and the
+``processChunk`` methods of each individual processor are called one after the
+other when asking the manager to start processing (either via its
+``processChunk`` or ``processSignal`` method). The order in which the processors
+are called is important, as some will take as input what was other's output.
+This order is stored in the property ``Map`` of the manager. ``Map`` is a vector
+of indexes corresponding to the lines in the ``Processors`` cell array property
+of the manager. It is constructed at instantiation of the processors.
+Conceptually, if there are ``N`` instantiated processors, the ``processChunk``
+method of the manager ``mObj`` will call the ``processChunk`` methods of each
+processor following this loop:
 
 .. code-block:: Matlab
 
@@ -703,10 +698,12 @@ following this loop:
         mObj.OutputList{jj,1}.appendChunk(out);
     end
 
-Note the difference between indexes ``ii`` which relate to the
-processing order (processing first ``ii=1`` and last ``ii=N``) and
-``jj = mObj.Map(ii)`` which relate the processing order with the actual
-position of the processors in the cell array ``mObj.Processors``.
+.. note::
+
+    Note the difference between indexes ``ii`` which relate to the
+    processing order (processing first ``ii=1`` and last ``ii=N``) and
+    ``jj = mObj.Map(ii)`` which relate the processing order with the actual
+    position of the processors in the cell array ``mObj.Processors``.
 
 .. [Goebbert2014] Göbbert, J. H. (2014), "Circular double buffered vector buffer (``circVBuf.m``)," *Matlab file exchange:* http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf, accessed: 2014-10-30.
 

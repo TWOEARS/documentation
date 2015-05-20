@@ -558,7 +558,7 @@ from the previous subsection:
     dataObj.gammatone{2}.plot(h4,p);
 
 This script will produce the two figure windows displayed in
-Fig. :ref:`fig-plot-example`. Line 22 of the script creates the window
+Fig. :num:`fig-plot-example`. Line 22 of the script creates the window
 “Figure 1”, while lines 35 to 38 populate the window “Figure 2” which was
 created earlier (in lines 25 to 29).
 
@@ -622,7 +622,7 @@ know the number of channels in the input signal, to instantiate the necessary
 objects in the data object and the manager.
 
 .. code-block:: Matlab
-    :lineo-start: 40
+    :lineno-start: 40
 
     % Request the processing of the chunk
     managerObj.processChunk(sIn(chunkStart:chunkStop,:),1);
@@ -640,7 +640,7 @@ continuity between chunks) before processing.
 
 The script ``DEMO_ChunkBased.m`` will also compute the offline result and will
 plot the difference in output for the two computations. This plot is shown in
-Fig. :ref:`fig-online-vs-offline`. Note the magnitude on the order of
+Fig. :num:`fig-online-vs-offline`. Note the magnitude on the order of
 :math:`10^{-15}`, which is in the range of Matlab numerical precision,
 suggesting that the representations computed online or offline are the same up
 to some round-off errors.
