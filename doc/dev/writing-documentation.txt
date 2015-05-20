@@ -40,6 +40,12 @@ To actually build the documentation locally, you'll currently need to install
 Sphinx -- ``pip install Sphinx`` or ``sudo apt-get install python-sphinx`` should
 do the trick.
 
+.. caution::
+
+    We need sphinx version 1.3 or later in order to use the setting of line
+    number start value for code blocks. It could be that you have to use pip to
+    get this version.
+
 .. note::
 
     To install Sphinx_ under Windows, do ...
