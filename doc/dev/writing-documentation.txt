@@ -68,21 +68,35 @@ Commonly used terms
 Here are some style guidelines on commonly used terms throughout the
 documentation:
 
-* **Two!Ears** -- use it in exactly this capitalisation. When referring not to
-  the whole project, but to its code or model use **Two!Ears Auditory Model**.
+* ``Two!Ears`` -- use it in exactly this capitalisation. When referring not to
+  the whole project, but to its code or model use ``|TwoEars|`` which will be
+  replaced with the text |TwoEars|.
 
-* **Two!Ears Binaural Simulator** -- when referring to the binaural simulator
-  module of the Two!Ears Auditory Model.
+* ``|BinSim|`` -- when referring to the binaural simulator
+  module of the |TwoEars|, this will be automatically replaced by |BinSim|.
 
-* **Two!Ears Auditory Front-End** -- when referring to the auditory front-end
-  module of the Two!ears Auditory Model.
+* ``|AFE|`` -- when referring to the auditory front-end
+  module of the |TwoEars|, this will be automatically replaced by |AFE|.
 
-* **Two!Ears Blackboard System** -- when referring to the blackboard
-  architecture module of the Two!Ears Auditory Model.
+* ``|blackboard|`` -- when referring to the blackboard
+  architecture module of the |TwoEars|, this will be automatically replaced by
+  |blackboard|.
 
-* **Matlab** -- when referring to the language, capitalise Matlab.
+* ``|robot|`` -- when referring to the robot platform of the |TwoEars|, this
+  will be automatically replaced by |robot|.
 
-* **localise**, **initialise**, etc. -- use the British "ise" suffix, not "ize."
+* ``|data|`` -- when referring to the database of the |TwoEars|, this will be
+  automatically replaced by |data|.
+
+* ``|tools|`` -- when referring to the tools module of the |TwoEars|, this will
+  be automatically replaced by |tools|.
+
+* ``|amtoolbox|`` -- when referring to the Auditory Modeling Toolbox, this will
+  be automatically replaced by |amtoolbox|.
+
+* ``Matlab`` -- when referring to the language, capitalise Matlab.
+
+* ``localise``, ``initialise``, etc. -- use the British "ise" suffix, not "ize."
 
 Guidelines for reStructuredText files
 -------------------------------------
