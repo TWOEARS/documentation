@@ -1,3 +1,5 @@
+.. _sec-technical-description:
+
 Technical description
 =====================
 
@@ -391,6 +393,8 @@ not clear at this stage, but should appear in the following sections.
 Many of these methods are used in the manager object described later for
 organising and routing the processing such as to always perform as few
 operations as needed.
+
+.. _sec-process-chunk:
 
 ``processChunk`` method and chunk-based compatibility
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

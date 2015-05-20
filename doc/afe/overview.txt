@@ -7,11 +7,11 @@ Overview
 Framework functionality
 -----------------------
 
-The purpose of the `Two!Ears Auditory Front-End`_ is to extract a
-*subset* of common auditory representations from a binaural recording
-or from a *stream* of binaural audio data. These representations are
-to be used later by higher modelling or decision stages. This short
-description of the role of the highlights its three fundamental properties:
+The purpose of the `Two!Ears Auditory Front-End`_ is to extract a *subset* of
+common auditory representations from a binaural recording or from a *stream* of
+binaural audio data. These representations are to be used later by higher
+modelling or decision stages. This short description of the role of the |AFE|
+highlights its three fundamental properties:
 
 -  The framework operates on a request-based mechanism and extracts the
    *subset* of all available representations which has been requested by
@@ -37,7 +37,7 @@ description of the role of the highlights its three fundamental properties:
    execution of the framework. New representations can be requested, or
    the parameters of existing representations can be changed in between
    two blocks of input signal. This mechanism is particularly designed
-   to allow higher stages of the whole framework to provide feedback,
+   to allow higher stages of the whole Two!Ears framework to provide feedback,
    requesting adjustments to the computation of auditory
    representations. In connection to the first point above, when the
    user requests such a change, the framework will identify where in the
@@ -47,7 +47,7 @@ description of the role of the highlights its three fundamental properties:
 Getting started
 ---------------
 
-The framework was developed entirely using Matlab version 8.3.0.532
+The |AFE| was developed entirely using Matlab version 8.3.0.532
 (R2014a). It was tested for backward compatibility down to Matlab
 version 8.0.0.783 (R2012b). The source code, test and demo scripts are
 all available from the public repository at
@@ -91,9 +91,9 @@ summary of all supported auditory representations::
         'gabor'
 
 A detailed description of the individual processors used to obtain
-these auditory representations will be given in chapter .
+these auditory representations will be given in :ref:`sec-afe-processors`.
 
-The implementation of the is object-oriented, and two objects are needed
+The implementation of the |AFE| is object-oriented, and two objects are needed
 to extract any representation:
 
 -  A *data* object, in which the input signal, the requested
@@ -112,7 +112,7 @@ functionalities they offer.
 Computation of an auditory representation
 -----------------------------------------
 
-The following sections describe how the framework can be used to compute
+The following sections describe how the |AFE| can be used to compute
 an auditory representation with default parameters of a given input
 signal. We will start with a simple example, and gradually explain how
 the user can gain more control over the respective parameters. It is
@@ -122,17 +122,18 @@ operation is referred to as *batch processing*. As stated before, the
 framework is also compatible with *chunk-based processing* (i.e., when
 the input signal is acquired continuously over time, but the auditory
 representation is computed for smaller signal chunks). The chunk-based
-processing will be explained in Sec. .
+processing will be explained in :ref:`sec-chunk-based-processing`.
 
 Using default parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 As an example, extracting the interaural level difference ``’ild’`` for a stereo
-signal ``sIn`` (e.g., obtained from a ’\ ``.wav``\ ’ file through Matlab's
-``wavread``) sampled at a frequency ``fsHz`` (in Hz)
-can be done in the following steps:
+signal ``sIn`` (e.g., obtained from a ’\ ``.wav``\ ’ file through Matlab´s
+``wavread``) sampled at a frequency ``fsHz`` (in Hz) can be done in the
+following steps:
 
 .. code-block:: Matlab
+    :linenos:
 
     % Instantiation of data and manager objects
     dataObj = dataObject(sIn,fsHz);
@@ -158,7 +159,7 @@ the processing itself is performed at line 9 by calling the
 
 The request of an auditory representation via the ``addProcessor``
 method of the manager class on line 6 returns as an output argument a
-handle to the requested signal, here named ``sOut``. In the framework,
+handle to the requested signal, here named ``sOut``. In the |AFE|,
 signals are also objects. For example, for the output signal just
 generated::
 
@@ -177,17 +178,22 @@ generated::
               Data: [267x31 circVBufArrayInterface]
 
 This shows the various properties of the signal object ``sOut``. These
-properties will be described in detail in chapter . To access the
+properties will be described in detail in :ref:`sec-technical-description`.
+To access the
 computed representation, e.g., for further processing, one can create a
 copy of the data contained in the signal into a variable, say
 ``myILDs``::
 
     >> myILDs = sOut.Data(:);
 
-Note the use of the column operator ``(:)``. That is because the
-property ``.Data`` of signal objects is not a conventional Matlab array
-and one needs this syntax to access all the values it stores. The nature
-of the ``.Data`` property is further described in Sec. .
+.. note::
+
+    Note the use of the column operator ``(:)``. That is because the property
+    ``.Data`` of signal objects is not a conventional Matlab array and one needs
+    this syntax to access all the values it stores.
+
+The nature of the ``.Data`` property is further described in
+:ref:`sec-afe-circular-buffer`.
 
 Input/output signals dimensions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -199,12 +205,13 @@ mono channel, if it is not a stereo signal) and the second column to the
 right channel. This is typically the format returned by Matlab´s
 embedded functions ``audioread`` and ``wavread``.
 
-The input signal can be either mono or stereo/binaural. The framework
-can operate on both. However, some representations, such as the as
-requested in the previous example, are based on a comparison between the
-left and the right ear signals. If a mono signal was provided instead of
-a binaural signal, the request of computing the representation would
-produce the following warning and the request would not be computed::
+The input signal can be either mono or stereo/binaural. The framework can
+operate on both. However, some representations, such as the as the :abbr:`ILD
+(interaural level difference)` as requested in the previous example, are based
+on a comparison between the left and the right ear signals. If a mono signal was
+provided instead of a binaural signal, the request of computing the :abbr:`ILD
+(interaural level difference)` representation would produce the following
+warning and the request would not be computed::
 
     Warning: Manager cannot instantiate a binaural cue extractor
        for a single-channel signal 
@@ -238,7 +245,7 @@ Change parameters used for computation
 For the requested representation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Each individual processors that is supported by the can be controlled
+Each individual processors that is supported by the |AFE| can be controlled
 by a set of parameters. Each parameter can be accessed by a unique
 *nametag* and has a default value. A summary of all parameter names and
 default values for the individual processors can be listed by the
@@ -289,12 +296,12 @@ parameters for a given element, e.g.
       ild_wSizeSec    0.02      Window duration (s)
       ild_hSizeSec    0.01      Window step size (s)
 
-It can be seen that the processor can be controlled by three parameters,
-namely ``ild_wname``, ``ild_wSizeSec`` and ``ild_hSizeSec``. A
-particular parameter can be changed by creating a parameter structure
-which contains the parameter name (*nametags*) and the corresponding
-value. The function ``genParStruct`` can be used to create such a
-parameter structure. For instance::
+It can be seen that the :abbr:`ILD (interaural level difference)` processor can
+be controlled by three parameters, namely ``ild_wname``, ``ild_wSizeSec`` and
+``ild_hSizeSec``. A particular parameter can be changed by creating a parameter
+structure which contains the parameter name (*nametags*) and the corresponding
+value. The function ``genParStruct`` can be used to create such a parameter
+structure. For instance::
 
     >> parameters = genParStruct('ild_wSizeSec',0.04,'ild_hSizeSec',0.02);
 
@@ -302,11 +309,12 @@ parameter structure. For instance::
         ild_wSizeSec: 0.0400
         ild_hSizeSec: 0.0200
 
-will generate a suitable parameter structure ``parameters`` to request
-the computation of with a window duration of 40 ms and a step size of 20 ms. This parameter structure
-is then passed as a second input argument in the ``addProcessor`` method
-of a manager object. The previous example can be rewritten considering
-the change in parameter values as follows:
+will generate a suitable parameter structure ``parameters`` to request the
+computation of :abbr:`ILD (interaural level difference)` with a window duration
+of 40 ms and a step size of 20 ms. This parameter structure is then passed as a
+second input argument in the ``addProcessor`` method of a manager object. The
+previous example can be rewritten considering the change in parameter values as
+follows:
 
 .. code-block:: Matlab
 
@@ -326,14 +334,16 @@ the change in parameter values as follows:
 For a dependency of the request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The previous example showed that the processor extracting was accepting
-three parameters. However, the representation it returns, the , will
-depend on more than these three parameters. For instance, it includes a
-certain number of frequency channels, but there is no parameter to
-control these in the processor. That is because such parameters are from
-other processors that were used in intermediate steps to obtain the .
-Controlling these parameters therefore requires knowledge of the
-individual steps in the processing.
+The previous example showed that the processor extracting :abbr:`ILD (interaural
+level difference)`\ s was accepting three parameters. However, the
+representation it returns, the :abbr:`ILD (interaural level difference)`\ s,
+will depend on more than these three parameters. For instance, it includes a
+certain number of frequency channels, but there is no parameter to control these
+in the :abbr:`ILD (interaural level difference)` processor. That is because such
+parameters are from other processors that were used in intermediate steps to
+obtain the :abbr:`ILD (interaural level difference)`.  Controlling these
+parameters therefore requires knowledge of the individual steps in the
+processing.
 
 Most auditory representations will depend on another representation,
 itself being derived from yet another one. Thus, there is a chain of
@@ -350,20 +360,20 @@ function ``getDependencies(’nametag’)``, e.g.
 
         'innerhaircell'    'filterbank'    'time'
 
-shows that the depends on the inner hair-cell representation
-(``’innerhaircell’``), which itself is obtained from the output of a
-gammatone filter bank (``’filterbank’``). The filter bank is derived from
-the time-domain signal, which itself has no further dependency as it is
-directly derived from the input signal.
+shows that the :abbr:`ILD (interaural level difference)` depends on the inner
+hair-cell representation (``’innerhaircell’``), which itself is obtained from
+the output of a gammatone filter bank (``’filterbank’``). The filter bank is
+derived from the time-domain signal, which itself has no further dependency as
+it is directly derived from the input signal.
 
-When placing a request to the manager, the user can also request a
-change in parameters of any of the request's dependencies. For example,
-the number of frequency channels in the representation is a property of
-the filter bank, controlled by the parameter ``’fb_nChannels’``. (which
-name can be found using ``parameterHelper.m``). This parameter can also
-be requested to have a non-default value, although it is not a parameter
-of the processor in charge of computing the . This is done in the same
-way as previously shown:
+When placing a request to the manager, the user can also request a change in
+parameters of any of the request's dependencies. For example, the number of
+frequency channels in the :abbr:`ILD (interaural level difference)`
+representation is a property of the filter bank, controlled by the parameter
+``’fb_nChannels’``. (which name can be found using ``parameterHelper.m``). This
+parameter can also be requested to have a non-default value, although it is not
+a parameter of the processor in charge of computing the :abbr:`ILD (interaural
+level difference)`. This is done in the same way as previously shown:
 
 .. code-block:: Matlab
 
@@ -376,8 +386,8 @@ way as previously shown:
     % Perform processing
     managerObj.processSignal;
 
-The resulting representation stored in ``sOut`` will be based on
-16 channels, instead of 31.
+The resulting :abbr:`ILD (interaural level difference)` representation stored in
+``sOut`` will be based on 16 channels, instead of 31.
 
 Compute multiple auditory representations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -396,9 +406,9 @@ requests, e.g.:
     % Place a request for the computation of ILDs AND autocorrelation
     [sOut1 sOut2] = managerObj.addProcessor({'ild','autocorrelation'})
 
-This way, the manager set up in the previous example will extract an and
-an auto-correlation representation, and provide a handle to both signals
-in ``sOut1`` and ``sOut2``.
+This way, the manager set up in the previous example will extract an :abbr:`ILD
+(interaural level difference)` and an auto-correlation representation, and
+provide a handle to both signals in ``sOut1`` and ``sOut2``.
 
 To use non-default parameter values, three syntax are possible:
 
@@ -460,7 +470,7 @@ Access internal signals
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The optional output of the ``addProcessor`` method is provided for
-convenience. It is actually a pointer (or handle, in Matlab's terms) to
+convenience. It is actually a pointer (or handle, in Matlab´s terms) to
 the actual signal object which is hosted by the data object on which the
 manager is based. Once the processing is carried out, the properties of
 the data object can be inspected::
@@ -481,14 +491,13 @@ the data object can be inspected::
                time: {[1x1 TimeDomainSignal]  [1x1 TimeDomainSignal]}
       innerhaircell: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
 
-Apart from the properties ``bufferSize_s`` and ``isStereo`` which are
-inherent properties of the data object (and discussed later in chapter
-), the remaining properties each correspond to one of the
-representations computed to achieve the user's request(s). They are each
-arranged in cell arrays, with first column being the left, or mono
-channel, and the second column the right channel. For instance, to get a
-handle ``sGammaR`` to the right channel of the gammatone filter bank
-output, type::
+Apart from the properties ``bufferSize_s`` and ``isStereo`` which are inherent
+properties of the data object (and discussed later in
+:ref:`sec-technical-description`), the remaining properties each correspond to
+one of the representations computed to achieve the user's request(s). They are
+each arranged in cell arrays, with first column being the left, or mono channel,
+and the second column the right channel. For instance, to get a handle
+``sGammaR`` to the right channel of the gammatone filter bank output, type::
 
     >> sGammaR = dataObj.gammatone{2}
 
@@ -508,23 +517,23 @@ output, type::
 How to plot the result
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Plotting auditory representations is made very easy in the framework. As
-explained before, each representation that was computed during a session
-is stored as a signal object, which each are individual properties of
-the data object. Signal objects of each type have a ``plot`` method.
-Called without any input arguments, ``signal.plot`` will adequately plot
-the representation stored in ``signal`` in a new figure, and returns as
-output a handle to said figure. The plotting method for all signals can
-accept at least one optional argument, which is a handle to an already
-existing figure or subplot in a figure. This way the representation can
-be included in an existing plot. A second optional argument is a
-structure of non-default plot parameters. The ``parameterHelper`` script
+Plotting auditory representations is made very easy in the |AFE|. As explained
+before, each representation that was computed during a session is stored as a
+signal object, which each are individual properties of the data object. Signal
+objects of each type have a ``plot`` method.  Called without any input
+arguments, ``signal.plot`` will adequately plot the representation stored in
+``signal`` in a new figure, and returns as output a handle to said figure. The
+plotting method for all signals can accept at least one optional argument, which
+is a handle to an already existing figure or subplot in a figure. This way the
+representation can be included in an existing plot. A second optional argument
+is a structure of non-default plot parameters. The ``parameterHelper`` script
 also lists plotting options, and they can be modified in the same way as
-processor parameters, via the script ``genParStruct``. These concepts
-can be summed up in the following example lines, that follows right
-after the demo code from the previous subsection:
+processor parameters, via the script ``genParStruct``. These concepts can be
+summed up in the following example lines, that follows right after the demo code
+from the previous subsection:
 
 .. code-block:: Matlab
+    :linenos:
 
     % Request the processing
     managerObj.processSignal;
@@ -548,92 +557,95 @@ after the demo code from the previous subsection:
     dataObj.gammatone{1}.plot(h3,p);
     dataObj.gammatone{2}.plot(h4,p);
 
-This script will produce the two figure windows displayed in Fig. . Line
-22 of the script creates the window “Figure 1”, while lines 35 to 38
-populate the window “Figure 2” which was created earlier (in lines 25 to
-29).
+This script will produce the two figure windows displayed in
+Fig. :ref:`fig-plot-example`. Line 22 of the script creates the window
+“Figure 1”, while lines 35 to 38 populate the window “Figure 2” which was
+created earlier (in lines 25 to 29).
+
+.. _fig-plot-example:
 
 .. figure:: img/plottingExample.png
 
    The two example figures generated by the demo script.
 
+.. _sec-chunk-based-processing:
+
 Chunk-based processing
 ----------------------
 
-As mentioned in the previous section, the framework is designed to be
-compatible with chunk-based processing. As opposed to “batch
-processing”, where the entire input signal is known *a priori*, this
-means working with consecutive chunks of input signals of arbitrary
-size. In practice the chunk size will often be the same from one chunk
-to another. However, this is not a requirement here, and the framework
-can accept input chunks of varying size.
+As mentioned in the previous section, the framework is designed to be compatible
+with chunk-based processing. As opposed to “batch processing”, where the entire
+input signal is known *a priori*, this means working with consecutive chunks of
+input signals of arbitrary size. In practice the chunk size will often be the
+same from one chunk to another. However, this is not a requirement here, and the
+framework can accept input chunks of varying size.
 
-The main constraint behind working with an input that is segmented into
-chunks is that the returned output should be exactly the same as if the
-whole input signal (i.e., the concatenated chunks) was used as input. In
-other terms, the transition from one chunk to the next needs to be taken
-into account in the processing. For example, concatenating the outputs
-obtained from a simple filter applied *separately* to two consecutive
-chunks will not provide the same output as if the concatenated chunks
-were used as input. To obtain the same output, one should for example
-use methods such as overlap-add or overlap-save. This is not trivial,
-particularly in the context of the where more complex operations than
-simple filtering are involved. A general description of the method used
-to ensure chunk-based processing is given in Sec. .
+The main constraint behind working with an input that is segmented into chunks
+is that the returned output should be exactly the same as if the whole input
+signal (i.e., the concatenated chunks) was used as input. In other terms, the
+transition from one chunk to the next needs to be taken into account in the
+processing. For example, concatenating the outputs obtained from a simple filter
+applied *separately* to two consecutive chunks will not provide the same output
+as if the concatenated chunks were used as input. To obtain the same output, one
+should for example use methods such as overlap-add or overlap-save. This is not
+trivial, particularly in the context of the |AFE| where more complex operations
+than simple filtering are involved. A general description of the method used to
+ensure chunk-based processing is given in :ref:`sec-process-chunk`.
 
-Handling segmented input in practice is done mostly the same way as for
-a whole input signal. The available demo script ``DEMO_ChunkBased.m``
-provides an example of chunk-based processing by simulating a
-chunk-based acquisition of the input signal with variable chunk size and
-computing the corresponding .
+Handling segmented input in practice is done mostly the same way as for a whole
+input signal. The available demo script ``DEMO_ChunkBased.m`` provides an
+example of chunk-based processing by simulating a chunk-based acquisition of the
+input signal with variable chunk size and computing the corresponding :abbr:`ILD
+(interaural level difference)`\ s.
 
-In this script, one can note the two differences in using the in a
+In this script, one can note the two differences in using the |AFE| in a
 chunk-based scenario, in comparison to a batch scenario:
 
 .. code-block:: Matlab
+    :lineno-start: 18
 
     % Instantiation of data and manager objects
     dataObj = dataObject([],fsHz,10,2);
     managerObj = manager(dataObj);
 
-Because the signal is not known before the processing is carried out,
-the data object cannot be initialised from the input signal. Hence, as
-is seen on line 19, one needs to instantiate an empty data object, by
-leaving the first input argument blank. The sampling frequency is
-still necessary however. The third argument (here set to ``10``) is a
-global signal buffer size in seconds. Because in an online scenario,
-the framework could be operating over a long period of time, internal
-representations cannot be stored over the whole duration and are
-instead kept for the duration mentioned there. The last argument
-(``2``) indicates the number of channel that the framework should
-expect from the input (a mono input would have been indicated by
-``1``). Again, it is necessary to know the number of channels in the
-input signal, to instantiate the necessary objects in the data object
-and the manager.
+Because the signal is not known before the processing is carried out, the data
+object cannot be initialised from the input signal. Hence, as is seen on line
+19, one needs to instantiate an empty data object, by leaving the first input
+argument blank. The sampling frequency is still necessary however. The third
+argument (here set to ``10``) is a global signal buffer size in seconds. Because
+in an online scenario, the framework could be operating over a long period of
+time, internal representations cannot be stored over the whole duration and are
+instead kept for the duration mentioned there. The last argument (``2``)
+indicates the number of channel that the framework should expect from the input
+(a mono input would have been indicated by ``1``). Again, it is necessary to
+know the number of channels in the input signal, to instantiate the necessary
+objects in the data object and the manager.
 
 .. code-block:: Matlab
+    :lineo-start: 40
 
     % Request the processing of the chunk
     managerObj.processChunk(sIn(chunkStart:chunkStop,:),1);
 
-The processing is carried out on line 40 by calling the ``processChunk``
-method of the manager. This method takes as input argument the new chunk
-of input signal. The additional argument, ``1``, indicates that the
-results should be appended to the internal representations already
-computed. This can be set to ``0`` in cases where keeping track of the
-output for the previous chunks is unnecessary, for instance if the
-output of the current chunk is used by a higher-level function. The
-difference with the ``processSignal`` method is important. Although
-``processSignal`` actually calls internally ``processChunk``, it also
-resets internal states of the framework (what ensures continuity between
-chunks) before processing.
+The processing is carried out on line 40 by calling the ``processChunk`` method
+of the manager. This method takes as input argument the new chunk of input
+signal. The additional argument, ``1``, indicates that the results should be
+appended to the internal representations already computed. This can be set to
+``0`` in cases where keeping track of the output for the previous chunks is
+unnecessary, for instance if the output of the current chunk is used by a
+higher-level function. The difference with the ``processSignal`` method is
+important. Although ``processSignal`` actually calls internally
+``processChunk``, it also resets internal states of the framework (what ensures
+continuity between chunks) before processing.
 
-The script ``DEMO_ChunkBased.m`` will also compute the offline result
-and will plot the difference in output for the two computations. This
-plot is shown in Fig. . Note the magnitude on the order of
+The script ``DEMO_ChunkBased.m`` will also compute the offline result and will
+plot the difference in output for the two computations. This plot is shown in
+Fig. :ref:`fig-online-vs-offline`. Note the magnitude on the order of
 :math:`10^{-15}`, which is in the range of Matlab numerical precision,
-suggesting that the representations computed online or offline are the
-same up to some round-off errors.
+suggesting that the representations computed online or offline are the same up
+to some round-off errors.
+
+.. _fig-online-vs-offline:
 
 .. figure:: img/onlineVsOffline.png
 
@@ -642,20 +654,19 @@ same up to some round-off errors.
 List of commands
 ----------------
 
-This section sums up the commands that could be relevant to a standard
-user of the framework. It does not describe each action extensively, nor
-does it give a full list of corresponding parameters. A more detailed
-description can be obtained through calling the help script of a given
-method from Matlab´s command window. Note that one can get help on a
-specific method of a given class. For example
+This section sums up the commands that could be relevant to a standard user of
+the |AFE|. It does not describe each action extensively, nor does it give a full
+list of corresponding parameters. A more detailed description can be obtained
+through calling the help script of a given method from Matlab´s command window.
+Note that one can get help on a specific method of a given class. For example
 
 ::
 
     >> help manager.processChunk
 
-will return help related to the ``processChunk`` method of the manager
-class. The following aims at being concise, hence optional inputs are
-marked as “``...``” and can be reviewed from the specific method help.
+will return help related to the ``processChunk`` method of the manager class.
+The following aims at being concise, hence optional inputs are marked as
+“``...``” and can be reviewed from the specific method help.
 
 Signal objects ``sObj``
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -733,7 +744,7 @@ Manager ``mObj``
 Acknowledgement
 ---------------
 
-The framework includes the following contributions from publicly
+The |AFE| includes the following contributions from publicly
 available Matlab toolboxes or classes:
 
 -  |amtoolbox|
