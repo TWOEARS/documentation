@@ -12,9 +12,9 @@ can be used to validate the model.
     :maxdepth: 2
 
     usage
-    experiments/index
-    impulse-responses/index
-    sound-database/index
-    stimuli/index
+    experiments
+    impulse-responses
+    sound-databases
+    stimuli
 
 .. vim: filetype=rst spell:

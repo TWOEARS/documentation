@@ -86,7 +86,7 @@ Learn how this happens below:
 * :doc:`Usage <blackboard/usage>`
 * :doc:`Blackboard architecture <blackboard/architecture>`
 * :doc:`Knowledge sources <blackboard/knowledge-sources>`
-* :doc:`Add your own knowledge source <blackboard/add-knowledge-source>`
+* :doc:`Add your own knowledge source <blackboard/add-knowledge-sources>`
 
 Database
 ========
@@ -94,6 +94,13 @@ Database
 The Two!Ears Binaural Simulator and the Two!Ears Blackboard System uses a lot of
 different data to perform their tasks. This is achieved by a large collection of
 data:
+
+* :doc:`Overview <database/index>`
+* :doc:`Usage <database/usage>`
+* :doc:`Experiment results <database/experiments>`
+* :doc:`Impulse responses <database/impulse-responses>`
+* :doc:`Sound databases <database/sound-databases>`
+* :doc:`Stimuli <database/stimuli>`
 
 Examples
 ========
