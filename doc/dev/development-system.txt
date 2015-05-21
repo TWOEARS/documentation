@@ -1,0 +1,77 @@
+Installation of the development version
+=======================================
+
+Getting the code
+----------------
+
+The development of the |TwoEarsModel| happens independently for its different
+modules (see :doc:`../intro/modules`). All of them are hosted as git repositories
+on github. For an overview go to https://github.com/TWOEARS.
+
+.. note::
+
+    |TwoEars| internally the development happens also under
+    https://dev.qu.tu-berlin.de which holds code or data that cannot be made
+    public, but otherwise the repositories at github should represent the actual
+    status of the code.
+
+In order to get started you should `familarize yourself with git`_ and then
+start to clone the repository you would like to change the code.
+Then you have to start with getting the `main repository`_ as all other modules
+need some basic functionality from that one:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/TWOEARS/TwoEars.git
+
+In addition, single modules could depend on other modules.
+For example, to work on the |AFE| you have to clone the |tools| repository as
+well:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/TWOEARS/auditory-front-end.git
+    $ git clone https://github.com/TWOEARS/tools.git
+
+You can find the dependencies of a single module in its :abbr:`XML
+(extended markup language)` configurations. In the case of the |AFE| it is
+stored in the file :file:`AuditroyFrontEnd.xml` in its main directory of the
+repository:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configure dependency of the Two!Ears Auditory Front-End module -->
+
+    <!-- Start the Two!Ears Auditory Front-End with
+         startTwoEars('AuditoryFrontEnd.xml'); -->
+
+    <requirements>
+        <TwoEarsPart sub="src" startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
+        <TwoEarsPart branch="master" sub="src" startup="startTools" >tools</TwoEarsPart>
+    </requirements>
+
+In the `main repository`_ you will find the file :file:`TwoEars.xml` which
+defines all modules that are part of the |TwoEarsModel|. If you want to start
+the whole model you can simply run:
+
+.. code-block:: Matlab
+
+    >> startTwoEars;
+
+Which would require all the modules cloned that are defined in
+:file:`TwoEars.xml`. If you would only work on the |AFE| from the example above,
+you have to start the model with the specific :abbr:`XML (extended markup
+language)` configuration file:
+
+.. code-block:: Matlab
+
+    >> startTwoEars('AuditroyFrontEnd.xml');
+
+.. _familarize yourself with git: 
+.. _main repository: https://github.com/TWOEARS/TwoEars
+
+Setting up dependencies on particular branches
+----------------------------------------------
+
+.. vim: filetype=rst spell:

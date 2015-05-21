@@ -21,6 +21,8 @@ browse the following sections to find out how:
 .. toctree::
    :maxdepth: 2
 
+   development-system 
+   git
    coding-style-guide
    writing-documentation
 
