@@ -10,7 +10,7 @@ Installation
 Dependencies
 ------------
 
-The |blackboard| is positioned more at the end part of the complete |TwoEars|
+The |blackboard| is positioned more at the end part of the complete |TwoEarsModel|
 chain. That means that you first have to ensure that all the needed modules are
 installed.
 

@@ -7,7 +7,7 @@
 Usage
 =====
 
-The blackboard system is the heart of the |TwoEars| as it provides an
+The blackboard system is the heart of the |TwoEarsModel| as it provides an
 architecture that integrates experience formation and active behaviour from a
 set of different functional modules. These modules can work on different levels
 of abstraction, independently from each other or in collaboration, in a
