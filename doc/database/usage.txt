@@ -5,7 +5,7 @@ The database is located at the following address:
 https://dev.qu.tu-berlin.de/projects/twoears-database, where you can browse the
 data, download the whole database or single files.
 
-If you want to use the data with the |TwoEars| you don't have to download any
+If you want to use the data with the |TwoEarsModel| you don't have to download any
 data yourself, all you have to do is to know which data you want to use and
 specify its relative location in the database. For example, in order to use the
 anechoic :abbr:`HRTF (head related transfer function)` data set measured at 3 m

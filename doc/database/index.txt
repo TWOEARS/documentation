@@ -3,7 +3,7 @@ Database
 ========
 
 Two!Ears comes with a central storage of data that can be used together with the
-|TwoEars|. The data could be acoustical measures performed by Two!Ears
+|TwoEarsModel|. The data could be acoustical measures performed by Two!Ears
 themselves or collected from other resources.
 In addition results from human listening experiments are provided as well, which
 can be used to validate the model.
