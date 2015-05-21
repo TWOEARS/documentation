@@ -46,7 +46,7 @@ probabilistic graphical models.
     Overview of the blackboard architecture of Two!Ears.
 
 The general structure of the |blackboard| is shown in
-Figure :ref:`fig-blackboard-architecture`. It consists of different knowledge
+:numref:`fig-blackboard-architecture`. It consists of different knowledge
 sources that can put data on and receive data from the blackboard. In addition,
 special knowledge sources can perceive data from outside (ear signals) or
 send data to the outside (turn the head).  The management of the different

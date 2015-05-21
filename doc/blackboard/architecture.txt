@@ -126,9 +126,8 @@ bindings and maintains the agenda of knowledge sources.  The ``Scheduler`` is
 the executive component of the system. While the ``BlackboardMonitor`` keeps
 control of the knowledge sources in the agenda, the ``Scheduler`` decides about
 the order of those knowledge sources to be executed. It does that based on the
-attentional priorities of the knowledge sources. Figure :ref:`Class diagram of
-the whole blackboard system <fig-blackboard-system-class-diagram>` shows the
-system class diagram.
+attentional priorities of the knowledge sources.
+:numref:`fig-blackboard-system-class-diagram` shows the system class diagram.
 
 .. _fig-blackboard-system-class-diagram:
 
@@ -339,7 +338,7 @@ The ``bind`` method connects the ``sinks`` knowledge sources to event
 ``eventName`` (optional, defaults to ``KsFiredEvent``) caused by the ``sources``
 knowledge sources. ``addMode`` specifies how the ``BlackboardMonitor`` shall
 handle adding the triggered knowledge sources into the agenda. It understands
-the following modes, illustrated in Figure :ref:`fig-blackboard-event-system`:
+the following modes, illustrated in :numref:`fig-blackboard-event-system`:
 
 ``add``
     Add the triggered knowledge source to the end of the agenda, regardless of

@@ -249,7 +249,7 @@ Dealing with referencing throughout the document
 If you want to add a reference to another section, figure, or table you can do
 it the following way::
 
-    See results in Figure :ref:`fig-super-result` in Section :ref:`sec-results`.
+    See results in :numref:`fig-super-result` in Section :ref:`sec-results`.
 
 This requires of course that the labels for the figure and the section is set
 accordingly::
@@ -266,19 +266,8 @@ accordingly::
     Super results from the experiment.
 
 If you do the referencing as shown in the first code listing the
-``:ref:`label``` will be replaced by the title of the section or the caption of
-the figure. If the figure caption is very long it will be more appropriate to
-specify the text that will appear as reference yourself::
-
-    See results in Figure :ref:`Text to appear <fig-super-result>`.
-
-.. caution::
-    It is not yet decided what the final way of using references will be. Maybe
-    we find a way to use classical numbering like Fig. 4 instead of using names.
-    That means you don't have to enter manual reference text at every position
-    now, but just add the ``:ref:`fig-super-result``` and we will change it
-    later.
-
+``:ref:`label``` will be replaced by the title of the section or ``Fig.`` and
+the number of the figure.
 
 Using acronyms
 ~~~~~~~~~~~~~~

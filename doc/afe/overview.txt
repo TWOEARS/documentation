@@ -558,7 +558,7 @@ from the previous subsection:
     dataObj.gammatone{2}.plot(h4,p);
 
 This script will produce the two figure windows displayed in
-Fig. :num:`fig-plot-example`. Line 22 of the script creates the window
+:numref:`fig-plot-example`. Line 22 of the script creates the window
 “Figure 1”, while lines 35 to 38 populate the window “Figure 2” which was
 created earlier (in lines 25 to 29).
 
@@ -640,7 +640,7 @@ continuity between chunks) before processing.
 
 The script ``DEMO_ChunkBased.m`` will also compute the offline result and will
 plot the difference in output for the two computations. This plot is shown in
-Fig. :num:`fig-online-vs-offline`. Note the magnitude on the order of
+:numref:`fig-online-vs-offline`. Note the magnitude on the order of
 :math:`10^{-15}`, which is in the range of Matlab numerical precision,
 suggesting that the representations computed online or offline are the same up
 to some round-off errors.

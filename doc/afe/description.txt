@@ -462,7 +462,7 @@ the rate-map extraction is the same procedure repeated for every frequency
 channel. Hence the following is described for a single channel. To extract the
 rate-map, the envelope is windowed by a set of overlapping windows, and its
 magnitude averaged in each window. This process is adapted to online processing
-as illustrated in Fig. :num:`fig-windowing`.
+as illustrated in :numref:`fig-windowing`.
 
 .. _fig-windowing:
 
