@@ -1,6 +1,6 @@
-==================================
-Two!Ears Matlab coding style guide
-==================================
+=========================
+Matlab coding style guide
+=========================
 
 .. contents::
     :local:
