@@ -21,6 +21,6 @@ running.
 
 .. warning::
 
-    Please add further instructions. I think we need gmtk?
+    Please add further instructions. I think we need GMTK? 
 
 .. vim: filetype=rst spell:

@@ -173,7 +173,7 @@ Git advanced commands
 Storing credentials
 ~~~~~~~~~~~~~~~~~~~
 
-For our https://dev.qu.tu-berlin.de address you have to provide your username
+For our https://dev.qu.tu-berlin.de address you have to provide your user name
 and password every time you push or pull or clone something from the server.
 In order to avoid retyping your password every time you can let git store it
 locally for some time with the following commands (works for git since version
@@ -242,7 +242,7 @@ We have a few svn repositories in the Two!Ears project. You can also use git to
 work with those repositories. The only thing you have to use is the `git-svn
 extension`_.
 
-Now you can clone the svn repo
+Now you can clone the svn repository
 
 .. code-block:: bash
 
@@ -276,12 +276,12 @@ Git under Windows
   user interface.
 
   * it has to be configured to use the below mentioned `git for windows`_ as
-    backend (usually should be configured like that by default): you can check in
+    back-end (usually should be configured like that by default): you can check in
     ``(right-click in Explorer)->TortoiseGit/Settings/General/Git for Windows``.
     (Click the ``version -> Check now`` button to ensure it says at least ``git
     version 1.9.2.msysgit.0``.
 
-* If you want to use the Git bash with subtree functionality, you need to
+* If you want to use the Git bash, you need to
   install the newest `git for windows`_.
 
   * with a right-click on a folder, you can then start the git bash from that

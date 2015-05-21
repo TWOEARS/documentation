@@ -272,7 +272,7 @@ the number of the figure.
 Using acronyms
 ~~~~~~~~~~~~~~
 
-If you have an acronym like HRTF, you should wirte the following::
+If you have an acronym like HRTF, you should write the following::
 
     acronym like :abbr:`HRTF (head related transfer function)`
 
