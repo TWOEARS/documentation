@@ -5,10 +5,9 @@
 Writing documentation
 =====================
 
-The impact of Two!Ears on the research community will be the greater
-the easier the code can be used and extended by other researchers.
-To achieve this the documentation of the whole
-`Two!Ears Auditory Model`_ is as important as the code itself.
+The impact of Two!Ears on the research community will be the greater the easier
+the code can be used and extended by other researchers.  To achieve this the
+documentation of the whole |TwoEarsModel| is as important as the code itself.
 This means we are not only working constantly on our code base, but on the
 documentation as well.
 
@@ -19,15 +18,14 @@ Getting the raw documentation
 -----------------------------
 
 Though Two!Ears' documentation is intended to be read as HTML or PDF at
-http://twoears.eu/doc/, we edit it as a collection of text files for
-maximum flexibility. These files live in the top-level ``doc/`` directory of the
+http://twoears.eu/doc/, we edit it as a collection of text files for maximum
+flexibility. These files live in the top-level ``doc/`` directory of the
 `Two!Ears Main repository <https://github.com/TWOEARS/twoears>`_.
 
-If you'd like to start contributing to our docs, get the
-`main repository <https://github.com/TWOEARS/twoears>`_ of the
-`Two!Ears Auditory Model`_ from our development version
-(see :ref:`installing-development-version`). The development version has the
-latest-and-greatest documentation, just as it has latest-and-greatest code.
+If you'd like to start contributing to our docs, get the `main repository
+<https://github.com/TWOEARS/twoears>`_ of the |TwoEarsModel| from our
+development version (see :doc:`development-system`). The development version has
+the latest-and-greatest documentation, just as it has latest-and-greatest code.
 
 Getting started with Sphinx
 ---------------------------

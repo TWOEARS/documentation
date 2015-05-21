@@ -21,6 +21,7 @@ Two!Ears documentation contents
     examples/index
     misc/index
     dev/index
+    faq/index
 
 Indices, glossary and tables
 ============================

@@ -1,3 +1,7 @@
+.. warning::
+
+    This site is not complete yet.
+
 Usage
 =====
 
@@ -19,7 +23,8 @@ your scene configuration (see :ref:`sec-xml-scene-description`):
 The data will then be automatically downloaded by the |binsim| during processing
 and stored in a local cache.
 
-.. todo::
+.. warning::
+
     Write something about the cache. Where is it, how to clear it ...
 
 .. vim: filetype=rst spell:
