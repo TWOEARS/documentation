@@ -68,9 +68,11 @@ Commonly used terms
 Here are some style guidelines on commonly used terms throughout the
 documentation:
 
-* ``Two!Ears`` -- use it in exactly this capitalisation. When referring not to
-  the whole project, but to its code or model use ``|TwoEars|`` which will be
-  replaced with the text |TwoEars|.
+* ``|TwoEars|`` -- when referring to the project in general, this will be
+  automatically replaced by |TwoEars|
+
+* ``|TwoEarsModel|`` -- when referring to the complete auditory model, this
+  will be   replaced with the text |TwoEarsModel|.
 
 * ``|BinSim|`` -- when referring to the binaural simulator
   module of the |TwoEars|, this will be automatically replaced by |BinSim|.
