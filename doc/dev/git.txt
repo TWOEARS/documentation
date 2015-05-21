@@ -1,0 +1,304 @@
+.. _sec-git:
+
+Development using git
+=====================
+
+.. contents::
+    :local:
+
+Git for beginners
+-----------------
+
+For a summary of the basic git commands you can use this
+:download:`git-cheat-sheet.pdf <pdf/github-git-cheat-sheet.pdf>`.
+
+Another starting point for working with git is the `documentation at Atlassian`_
+which is the company behind `bitbucket`_.
+If you prefer to learn it interactively you might want to try out this
+`interactive git site`_.
+
+.. _documentation at Atlassian: https://www.atlassian.com/git/
+.. _bitbucket: http://bitbucket.org
+.. _interactive git site: http://pcottle.github.io/learnGitBranching/
+
+Getting a remote repository to your computer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following will create the directory ``twoears`` on your local computer including all
+the code from the |TwoEars| `main repository`_:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/TWOEARS/TwoEars.git twoears
+
+.. note::
+
+    If you are a member of |TwoEars| you should always clone from the internal
+    repositories and mirror it on github. This would mean to clone the `main
+    repository`_ with the following command:
+
+    .. code-block:: bash
+
+        $ git clone https://dev.qu.tu-berlin.de/git/twoears-main twoears
+
+.. _main repository: https://github.com/TWOEARS/TwoEars
+
+Adding/changing files
+~~~~~~~~~~~~~~~~~~~~~
+
+Let us assume you added a file :file:`additional_work.txt` and changed the file
+:file:`great_work.txt`.
+You can always see what you changed locally by one of the following commands:
+
+.. code-block:: bash
+
+    $ git status
+    $ git diff
+
+Before doing the actual commit you first have to add the files you want to
+commit, for example
+
+.. code-block:: bash
+
+    $ git add additional_work.txt great_work.txt
+
+Now you can create a commit together with a meaningful commit message
+
+.. code-block:: bash
+
+    $git commit -m "Added description of additional work not described in great_work.txt"
+
+Staying up to date with the remote repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you changed and committed something the changes are still only on your local
+machine you have to push it to the remote until everyone can see it.
+Before pushing and also before starting to work on something the next day it is
+always a good idea to pull the latest changes from the remote.
+This is then summarized by these two commands
+
+.. code-block:: bash
+
+    $ git pull
+    $ git push
+
+In order to get an overview of the latest changes you can run
+
+.. code-block:: bash
+
+    $ git log
+
+Getting further help
+~~~~~~~~~~~~~~~~~~~~
+
+Most of the commands of git can be really powerful and allow a lot of different
+stuff. In order to see what a command is capable of you can use the internal
+help for specific commands for example
+
+.. code-block:: bash
+
+    $ git reset --help
+
+And another good way is to use google in order to find the right command, for
+example google after
+
+::
+
+    git undo last commit
+
+Developing and branching
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Let us assume you want to develop a new feature which uses a circular room
+instead of a shoe boxed one and you know that a lot of files will be involved
+and it will take some time. This is the perfect example to create a new feature
+branch for the development. So let's start with doing this, create a new branch
+and switch to that branch in order to start working on the new feature.
+
+.. code-block:: bash
+
+    $ git branch circular_room
+    $ git checkout circular_room
+
+If you want to include others in the development it is a good idea to also push
+this branch to the remote repository in order to allow others to pull it. This
+is one of the commands I always forget, but you can just ask google with ``git
+push branch`` and you will find the following command
+
+.. code-block:: bash
+
+    $ git push -u origin circular_room
+
+And if you are another person and want to contribute to that branch, you can get
+it from the remote with
+
+.. code-block:: bash
+
+    $ git checkout -b circular_room origin/circular_room
+
+After finishing your development and testing of the new feature it's time to
+integrate the branch back into master. Before doing this it is a good idea to
+first include the latest changes of master into your branch, which you also
+should do from time to time via
+
+.. code-block:: bash
+
+    $ git merge master
+
+.. note::
+
+    Note, that this command assumes that you are currently in your branch.
+
+Now go back to your master branch and insert the new feature there
+
+.. code-block:: bash
+
+    $ git checkout master
+    $ git merge circular_room
+
+After adding the feature to the master branch you can delete your feature
+branch, both locally and the remote one
+
+.. code-block:: bash
+
+    $ git push origin --delete circular_room      # delete remote branch
+    $ git branch -D circular_room                 # delete local branch
+
+The basic concept of the feature branch is described with more examples here:
+https://www.atlassian.com/git/workflows#!workflow-feature-branch
+
+Git advanced commands
+---------------------
+
+Storing credentials
+~~~~~~~~~~~~~~~~~~~
+
+For our https://dev.qu.tu-berlin.de address you have to provide your username
+and password every time you push or pull or clone something from the server.
+In order to avoid retyping your password every time you can let git store it
+locally for some time with the following commands (works for git since version
+1.7.10) [`source <https://help.github.com/articles/set-up-git#platform-linux>`_]:
+
+.. code-block:: bash
+
+    $ git config --global credential.helper cache
+    $ git config --global credential.helper "cache --timeout=3600"
+
+The last command sets the storage time to 1 hour. You can change this if you
+like.
+
+Publishing our code at github
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We have a |TwoEars| page at github: https://github.com/TWOEARS
+There we publish our final software and data. Of course you maybe want not
+publish all the code you have at the moment, but only parts of it. This can be
+done by creating a branch that includes all things you would like to publish and
+then setting this branch up to track the github remote master branch. This can
+be done with the following commands, for the data repository:
+
+.. code-block:: bash
+
+    $ git remote add github git@github.com:TWOEARS/data.git
+    $ git fetch github
+    $ git checkout -b public --track github/master
+
+.. note::
+
+    Note, that you need to register at github and added to the
+    TWOEARS group if you like to publish the code yourself. Otherwise you can
+    create `pull requests`_.
+
+If you decide at one point that you want add the directory ``folder1`` from master
+branch to the public branch you can do it by checking out the public branch and
+running the following command
+
+.. code-block:: bash
+
+    $ git checkout master -- folder1
+
+If you want to just mirror all your changes you do on the master branch at
+https://dev.qu.tu-berlin.de you can add the following entry to the
+:file:`.git/config` file in the repository.
+
+::
+
+    [alias]
+        push-all = !git push origin master && git push github master
+
+Now you can use the following command to push your changes of the master branch
+directly to https://dev.qu.tu-berlin.de and https://github.com:
+
+.. code-block:: bash
+
+    $ git push-all
+
+.. _pull requests: https://help.github.com/articles/using-pull-requests/
+
+Working together with a svn repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We have a few svn repositories in the Two!Ears project. You can also use git to
+work with those repositories. The only thing you have to use is the `git-svn
+extension`_.
+
+Now you can clone the svn repo
+
+.. code-block:: bash
+
+    $ git svn clone https://dev.qu.tu-berlin.de/svn/twoears-repo-path
+
+Do your changes and add them with standard git commits on your local PC. At the
+end you push all your changes to the remote svn repository via
+
+.. code-block:: bash
+
+    $ git svn dcommit
+
+In order to update your repository with changes from others you have to run
+
+.. code-block:: bash
+
+    $ git svn rebase
+
+.. _git-svn extension: http://git-scm.com/book/en/v1/Git-and-Other-Systems-Git-and-Subversion
+
+Removing commits with large files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you committed and pushed a huge file and want to redo that, have a look at
+`this explanation how to do it <http://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository>`_.
+
+Git under Windows
+-----------------
+
+* Apart from the git installation on Windows, I recommend `TortoiseGit`_ for a nice
+  user interface.
+
+  * it has to be configured to use the below mentioned `git for windows`_ as
+    backend (usually should be configured like that by default): you can check in
+    ``(right-click in Explorer)->TortoiseGit/Settings/General/Git for Windows``.
+    (Click the ``version -> Check now`` button to ensure it says at least ``git
+    version 1.9.2.msysgit.0``.
+
+* If you want to use the Git bash with subtree functionality, you need to
+  install the newest `git for windows`_.
+
+  * with a right-click on a folder, you can then start the git bash from that
+    point
+
+.. _TortoiseGit: https://code.google.com/p/tortoisegit/
+.. _git for Windows: http://msysgit.github.io/
+
+Git with large binary files
+---------------------------
+
+This topic is important for our databases, the public and the internal. At the
+moment we are simply using git, which is no longer correctly working due to the
+large repository size (for example a new cloning of the internal data repository
+is not possible at the moment).
+
+We are trying to find a solution for this at the moment, most likely we will use
+`Git Large File Storage <https://github.com/github/git-lfs>`_.
+
+.. vim: filetype=rst spell:
