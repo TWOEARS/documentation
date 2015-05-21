@@ -7,7 +7,7 @@ Overview
 Framework functionality
 -----------------------
 
-The purpose of the `Two!Ears Auditory Front-End`_ is to extract a *subset* of
+The purpose of the |AFE| is to extract a *subset* of
 common auditory representations from a binaural recording or from a *stream* of
 binaural audio data. These representations are to be used later by higher
 modelling or decision stages. This short description of the role of the |AFE|

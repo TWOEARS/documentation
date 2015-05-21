@@ -4,7 +4,7 @@ Auditory front-end
 
 The goal of the Two!Ears project is to develop an intelligent, active
 computational model of auditory perception and experience in a
-multi-modal context. The `Two!Ears Auditory Front-End`_
+multi-modal context. The |AFE| 
 represents the first stage of the system
 architecture and concerns bottom-up auditory signal processing, which
 transforms binaural signals into multi-dimensional auditory
@@ -30,7 +30,7 @@ components unchanged, allowing for a systematic comparison of
 alternative processors. Finally, the framework supports online
 processing of the two-channel ear signals.
 
-To get in touch with the `Two!Ears Auditory Front-End`_,
+To get in touch with the |AFE|,
 requests auditory cues or even write your own auditory processor
 read on:
 
