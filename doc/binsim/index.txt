@@ -2,20 +2,19 @@
 Binaural simulator
 ==================
 
-The `Two!Ears Binaural Simulator`_ enables the creation of binaural audio signals
+The |BinSim| enables the creation of binaural audio signals
 for different situations. This is done via the usage of head-related transfer
 functions (HRTFs) or binaural room impulse responses (BRIRs), which are provided
 in the Two!Ears data repository. All the needed data will be downloaded on
 demand from the data repository via a http connection. The simulation framework
-can be used as one module in the `Two!Ears Auditory Model`_. The `Two!Ears Binaural
-Simulator`_ uses the signal processing core of the SoundScape Renderer.
+can be used as one module in the |AFE|. The |BinSim| uses the signal processing
+core of the SoundScape Renderer.
 
-The next sections will help you to set up the `Two!Ears Binaural Simulator`_ and
-define and simulate your own acoustic scenes with it.
-The installation process is a little bit more complicated than with normal Matlab
-scripts as we are using a C++ core for the audio rendering which is included as a
-mex-file. If you have trouble during the installation, don't hesitate to write a
-mail to the |twoears| mailing list.
+The next sections will help you to set up the |BinSim| and define and simulate
+your own acoustic scenes with it. The installation process is a little bit more
+complicated than with normal Matlab scripts as we are using a C++ core for the
+audio rendering which is included as a mex-file. If you have trouble during the
+installation, don't hesitate to write a mail to the |twoears| mailing list.
 
 .. toctree::
     :maxdepth: 2
@@ -28,7 +27,7 @@ mail to the |twoears| mailing list.
 Credits
 =======
 
-The `Two!Ears Binaural Simulator`_ is developed by Fiete Winter from Universität
+The |BinSim| is developed by Fiete Winter from Universität
 Rostock, and the rest of the `Two!Ears team`_.
 
 .. _Two!Ears team: http://twoears.aipa.tu-berlin.de/consortium
