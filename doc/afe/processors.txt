@@ -777,7 +777,7 @@ following 14 spectral features are available:
 
 #. ``'centroid'`` : The spectral centroid represents the centre of gravity of
    the rate-map and is one of the most frequently-used timbre
-   parameters [Tzanetakis2002]_, [Jensen2004]_, [Peeters2001]_. The centroid is
+   parameters [Tzanetakis2002]_, [Jensen2004]_, [Peeters2011]_. The centroid is
    normalised by the highest rate-map centre frequency to reduce the influence
    of the gammatone parameters.
 
@@ -1115,7 +1115,7 @@ Consequently, computational models have tried to exploit speech- and noise
 specific characteristics of amplitude modulations by extracting so-called
 amplitude modulation spectrogram (:abbr:`AMS (amplitude modulation
 spectrogram)`)features with linearly-scaled modulation filters [Kollmeier1994]_,
-[Tchorz2003]_, [Kim2009]_, [May2013]_, [May2014a]_, [May2014b]_. The use of
+[Tchorz2003]_, [Kim2009]_, [May2013a]_, [May2014a]_, [May2014b]_. The use of
 linearly-scaled modulation filters is, however, not consistent with
 psychoacoustic data on modulation detection and masking in humans [Bacon1989]_,
 [Houtgast1989]_, [Dau1997a]_, [Dau1997b]_, [Ewert2000]_. As demonstrated
@@ -1362,7 +1362,7 @@ The :abbr:`ITD (interaural time difference)` between the left and the right ear
 signal is estimated for individual frequency channels and time frames by
 locating the time lag that corresponds to the most prominent peak in the
 normalised :abbr:`CCF (cross-correlation function)`. This estimation is further
-refined by a parabolic interpolation stage [May2011]_, [May2013]_. The :abbr:`ITD
+refined by a parabolic interpolation stage [May2011]_, [May2013b]_. The :abbr:`ITD
 (interaural time difference)` processor does not have any adjustable parameters,
 but it relies on the :abbr:`CCF (cross-correlation function)` described in
 :ref:`sec-chap4.14` and its corresponding parameters (see
@@ -1475,61 +1475,61 @@ binaural cues might be unreliable due to the impact of the reverberation.
 
 
 .. ...::: References :::...
-.. [Bacon1989]
-.. [Bernstein1996]
-.. [Bernstein1999] Bernstein, L. R., van de Par, S., ...
-.. [Breebart2001] Breebart, J., van de Par, S., ...
-.. [Bregman1990]
-.. [Brown1994]
-.. [Brown2010]
-.. [Cooke2001]
-.. [Dau1996] Dau, T., Püschel, D. ...
-.. [Dau1997a]
-.. [Dau1997b]
-.. [ETSIES]
-.. [Ewert2000]
-.. [Faller2004]
-.. [Ferry2007]
-.. [Glasberg1990]
-.. [Godde1994]
-.. [Houtgast1989]
-.. [Jensen2004]
-.. [Jepsen2008]
-.. [Joergensen2011] Jørgensen, S., Ewert, S. D., ...
-.. [Joergensen2013]
-.. [Kim2009]
-.. [Klapuri1999]
-.. [Kollmeier1994]
-.. [Lerch2012]
-.. [Licklider1951]
-.. [Lopez-Poveda2001]
-.. [May2011]
-.. [May2012]
-.. [May2013]
-.. [May2014a]
-.. [May2014b]
-.. [MayPress]
-.. [Meddis1991]
-.. [Meddis1997]
-.. [Meddis2001]
-.. [Misra2004]
-.. [Peeters2001]
-.. [Peeters2011]
-.. [Pueschel1988]
-.. [Qiu2003]
-.. [Rabiner1977]
-.. [Schaedler2012]
-.. [Scheirer1997]
-.. [Slaney1990]
-.. [Smith1977]
-.. [Smith1983]
-.. [Soendergaard2013] Søndergaard, ...
-.. [Tchorz2003]
-.. [Theunissen2001]
-.. [Tolonen2000]
-.. [Turgeon2002]
-.. [Tzanetakis2002]
-.. [Wang2006]
-.. [Young2006]
+.. [Bacon1989] Bacon, S. P. and Grantham, D. W. (1989), “Modulation masking: Effects of modulation frequency, depths, and phase,” Journal of the Acoustical Society of America 85(6), pp. 2575–2580.
+.. [Bernstein1996] Bernstein, L. R. and Trahiotis, C. (1996), “The normalized correlation: Accounting for binaural detection across center frequency,” Journal of the Acoustical Society of America 100(6), pp. 3774–3784.
+.. [Bernstein1999] Bernstein, L. R., van de Par, S., and Trahiotis, C. (1999), “The normalized interaural correlation: Accounting for NoS thresholds obtained with Gaussian and “low-noise” masking noise,” Journal of the Acoustical Society of America 106(2), pp. 870–876.
+.. [Breebart2001] Breebaart, J., van de Par, S., and Kohlrausch, A. (2001), “Binaural processing model based on contralateral inhibition. I. Model structure,” Journal of the Acoustical Society of America 110(2), pp. 1074–1088.
+.. [Bregman1990] Bregman, A. S. (1990), Auditory scene analysis: The perceptual organization of sound, The MIT Press, Cambridge, MA, USA.
+.. [Brown1994] Brown, G. J. and Cooke, M. P. (1994), “Computational auditory scene analysis,” Computer Speech and Language 8(4), pp. 297–336.
+.. [Brown2010] Brown, G. J., Ferry, R. T., and Meddis, R. (2010), “A computer model of auditory efferent suppression: implications for the recognition of speech in noise.” The Journal of the Acoustical Society of America 127(2), pp. 943–54.
+.. [Cooke2001] Cooke, M., Green, P., Josifovski, L., and Vizinho, A. (2001), “Robust automatic speech recognition with missing and unreliable acoustic data,” Speech Communication 34(3), pp. 267–285.
+.. [Dau1996] Dau, T., Püschel, D., and Kohlrausch, A. (1996), “A quantitative model of the “effective” signal processing in the auditory system. I. Model structure,” Journal of the Acoustical Society of America 99(6), pp. 3615–3622.
+.. [Dau1997a] Dau, T., Püschel, D., and Kohlrausch, A. (1997a), “Modeling auditory processing of amplitude modulation. I. Detection and masking with narrow-band carriers,” Journal of the Acoustical Society of America 102(5), pp. 2892–2905.
+.. [Dau1997b] Dau, T., Püschel, D., and Kohlrausch, A. (1997b), “Modeling auditory processing of amplitude modulation. II. Spectral and temporal integration,” Journal of the Acoustical Society of America 102(5), pp. 2906–2919.
+.. [ETSIES] ETSI ES 201 108 v1.1.3 (2003), “Speech processing, transmission and quality aspects (STQ); distributed speech recognition; front-end feature extraction algorithm; compression algorithms,” URL www.etsi.org.
+.. [Ewert2000] Ewert, S. D. and Dau, T. (2000), “Characterizing frequency selectivity for envelope fluctuations,” Journal of the Acoustical Society of America 108(3), pp. 1181–1196.
+.. [Faller2004] Faller, C. and Merimaa, J. (2004), “Source localization in complex listening situations: Selection of binaural cues based on interaural coherence,” Journal of the Acoustical Society of America 116(5), pp. 3075–3089.
+.. [Ferry2007] Ferry, R. T. and Meddis, R. (2007), “A computer model of medial efferent suppression in the mammalian auditory system,” The Journal of the Acoustical Society of America 122(6), pp. 3519.
+.. [Glasberg1990] Glasberg, B. R. and Moore, B. C. J. (1990), “Derivation of auditory filter shapes from notched-noise data,” Hearing Research 47(1-2), pp. 103–138.
+.. [Godde1994] Goode, R. L., Killion, M., Nakamura, K., and Nishihara, S. (1994), “New knowledge about the function of the human middle ear: development of an improved analog model.” The American journal of otology 15(2), pp. 145–154.
+.. [Houtgast1989] Houtgast, T. (1989), “Frequency selectivity in amplitude-modulation detection,” Journal of the Acoustical Society of America 85(4), pp. 1676–1680.
+.. [Jensen2004] Jensen, K. and Andersen, T. H. (2004), “Real-time beat estimation using feature extraction,” in Computer Music Modeling and Retrieval, edited by U. K. Wiil, Springer, Berlin– Heidelberg, Lecture Notes in Computer Science, pp. 13–22.
+.. [Jepsen2008] Jepsen, M. L., Ewert, S. D., and Dau, T. (2008), “A computational model of human auditory signal processing and perception.” Journal of the Acoustical Society of America 124(1), pp. 422–438.
+.. [Joergensen2011] Jørgensen, S. and Dau, T. (2011), “Predicting speech intelligibility based on the signal-tonoise envelope power ratio after modulation-frequency selective processing,” Journal of the Acoustical Society of America 130(3), pp. 1475–1487.
+.. [Joergensen2013] Jørgensen, S., Ewert, S. D., and Dau, T. (2013), “A multi-resolution envelope-power based model for speech intelligibility,” Journal of the Acoustical Society of America 134(1), pp. 1–11.
+.. [Kim2009] Kim, G., Lu, Y., Hu, Y., and Loizou, P. C. (2009), “An algorithm that improves speech intelligibility in noise for normal-hearing listeners,” Journal of the Acoustical Society of America 126(3), pp. 1486–1494.
+.. [Klapuri1999] Klapuri, A. (1999), “Sound onset detection by applying psychoacoustic knowledge,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 3089–3092.
+.. [Kollmeier1994] Kollmeier, B. and Koch, R. (1994), “Speech enhancement based on physiological and psychoacoustical models of modulation perception and binaural interaction,” Journal of the Acoustical Society of America 95(3), pp. 1593–1602.
+.. [Lerch2012] Lerch, A. (2012), An Introduction to Audio Content Analysis: Applications in Signal Processing and Music Informatics, John Wiley & Sons, Hoboken, NJ, USA.
+.. [Licklider1951] Licklider, J. C. R. (1951), “A duplex theory of pitch perception,” Experientia (4), pp. 128–134.
+.. [Lopez-Poveda2001] Lopez-Poveda, E. A. and Meddis, R. (2001), “A human nonlinear cochlear filterbank,” Journal of the Acoustical Society of America 110(6), pp. 3107–3118.
+.. [May2011] May, T., van de Par, S., and Kohlrausch, A. (2011), “A probabilistic model for robust localization based on a binaural auditory front-end,” IEEE Transactions on Audio, Speech, and Language Processing 19(1), pp. 1–13.
+.. [May2012] May, T., van de Par, S., and Kohlrausch, A. (2012), “Noise-robust speaker recognition combining missing data techniques and universal background modeling,” IEEE Transactions on Audio, Speech, and Language Processing 20(1), pp. 108–121.
+.. [May2013a] May, T. and Dau, T. (2013), “Environment-aware ideal binary mask estimation using monaural cues,” in IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA), pp. 1–4.
+.. [May2013b] May, T., van de Par, S., and Kohlrausch, A. (2013), “Binaural Localization and Detection of Speakers in Complex Acoustic Scenes,” in The technology of binaural listening, edited by J. Blauert, Springer, Berlin–Heidelberg–New York NY, chap. 15, pp. 397–425.
+.. [May2014a] May, T. and Dau, T. (2014), “Requirements for the evaluation of computational speech segregation systems,” Journal of the Acoustical Society of America 136(6), pp. EL398– EL404.
+.. [May2014b] May, T. and Gerkmann, T. (2014), “Generalization of supervised learning for binary mask estimation,” in International Workshop on Acoustic Signal Enhancement, Antibes, France.
+.. [MayPress] May, T. and Dau, T. (in press), “Computational speech segregation based on an auditory-inspired modulation analysis,” Journal of the Acoustical Society of America.
+.. [Meddis1991] Meddis, R. and Hewitt, M. J. (1991), “Virtual pitch and phase sensitivity of a computer model of the auditory periphery. I: Pitch identification,” Journal of the Acoustical Society of America 89(6), pp. 2866–2882.
+.. [Meddis1997] Meddis, R. and O’Mard, L. (1997), “A unitary model of pitch perception,” Journal of the Acoustical Society of America 102(3), pp. 1811–1820.
+.. [Meddis2001] Meddis, R., O’Mard, L. P., and Lopez-Poveda, E. A. (2001), “A computational algorithm for computing nonlinear auditory frequency selectivity,” Journal of the Acoustical Society of America 109(6), pp. 2852–2861.
+.. [Misra2004] Misra, H., Ikbal, S., Bourlard, H., and Hermansky, H. (2004), “Spectral entropy based feature for robust ASR,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 193–196.
+.. [Peeters2011] Peeters, G., Giordano, B. L., Susini, P., Misdariis, N., and McAdams, S. (2011), “The timbre toolbox: Extracting audio descriptors from musical signals.” Journal of the Acoustical Society of America 130(5), pp. 2902–2916.
+.. [Pueschel1988] Püschel, D. (1988), “Prinzipien der zeitlichen Analyse beim Hören,” Ph.D. thesis, University of Göttingen.
+.. [Qiu2003] Qiu, A., Schreiner, C. E., and Escabì, M. A. (2003), “Gabor analysis of auditory midbrain receptive fields: Spectro-temporal and binaural composition.” Journal of Neurophysiology 90(1), pp. 456–476.
+.. [Rabiner1977] Rabiner, L. R. (1977), “On the use of autocorrelation analysis for pitch detection,” IEEE Transactions on Audio, Speech, and Language Processing 25(1), pp. 24–33.
+.. [Schaedler2012] Schädler, M. R., Meyer, B. T., and Kollmeier, B. (2012), “Spectro-temporal modulation subspace-spanning filter bank features for robust automatic speech recognition,” Journal of the Acoustical Society of America 131(5), pp. 4134–4151.
+.. [Scheirer1997] Scheirer, E. and Slaney, M. (1997), “Construction and evaluation of a robust multifeature speech/music discriminator,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 1331–1334.
+.. [Slaney1990] Slaney, M. and Lyon, R. F. (1990), “A perceptual pitch detector,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 357–360.
+.. [Smith1977] Smith, R. L. (1977), “Short-term adaptation in single auditory nerve fibers: some poststimulatory effects,” J Neurophysiol 40(5), pp. 1098–1111.
+.. [Smith1983] Smith, R. L., Brachman, M. L., and Goodman, D. a. (1983), “Adaptation in the Auditory Periphery,” Annals of the New York Academy of Sciences 405(1 Cochlear Pros), pp. 79–93.
+.. [Soendergaard2013] Søndergaard, P. L. and Majdak, P. (2013), “The auditory modeling toolbox,” in The Technology of Binaural Listening, edited by J. Blauert, Springer, Heidelberg–New York NY–Dordrecht–London, chap. 2, pp. 33–56.
+.. [Tchorz2003] Tchorz, J. and Kollmeier, B. (2003), “SNR estimation based on amplitude modulation analysis with applications to noise suppression,” IEEE Transactions on Audio, Speech, and Language Processing 11(3), pp. 184–192.
+.. [Theunissen2001] Theunissen, F. E., David, S. V., Singh, N. C., Hsu, A., Vinje, W. E., and Gallant, J. L. (2001), “Estimating spatio-temporal receptive fields of auditory and visual neurons from their responses to natural stimuli,” Network: Computation in Neural Systems 12, pp. 289–316.
+.. [Tolonen2000] Tolonen, T. and Karjalainen, M. (2000), “A computationally efficient multipitch analysis model,” IEEE Transactions on Audio, Speech, and Language Processing 8(6), pp. 708–716.
+.. [Turgeon2002] Turgeon, M., Bregman, A. S., and Ahad, P. A. (2002), “Rhythmic masking release: Contribution of cues for perceptual organization to the cross-spectral fusion of concurrent narrow-band noises,” Journal of the Acoustical Society of America 111(4), pp. 1819–1831.
+.. [Tzanetakis2002] Tzanetakis, G. and Cook, P. (2002), “Musical genre classification of audio signals,” IEEE Transactions on Audio, Speech, and Language Processing 10(5), pp. 293–302.
+.. [Wang2006] Wang, D. L. and Brown, G. J. (Eds.) (2006), Computational Auditory Scene Analysis: Principles, Algorithms and Applications, Wiley / IEEE Press.
+.. [Young2006] Young, S., Evermann, G., Gales, M., Hain, T., Kershaw, D., Liu, X., Moore, G., Odell, J., Ollason, D., Povey, D., Valtchev, V., and Woodland, P. (2006), The HTK Book (for HTK Version 3.4), Cambridge University Engineering Department, URL http://htk.eng.cam.ac.uk.
 
 .. vim: filetype=rst spell:
