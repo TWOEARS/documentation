@@ -2,9 +2,18 @@
 Robotic platform
 ================
 
-Different stuff
+The goal of |TwoEars| is to provide an auditory model that is able to
+interactively explore an acoustic scene. This can be achieved via the |BinSim|
+which provides the model at its current state with the possibility to rotate its
+head by applying different :abbr:`HRTF (head related transfer function)`\ s.
+
 
 .. toctree::
     :maxdepth: 2
+
+    introduction
+    building-robot
+    robot-control
+    matlab-bridge
 
 .. vim: filetype=rst spell:
