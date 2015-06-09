@@ -1,6 +1,3 @@
-.. warning::
-    This site is not complete yet.
-
 =====================
 Writing documentation
 =====================
@@ -12,7 +9,10 @@ This means we are not only working constantly on our code base, but on the
 documentation as well.
 
 This section explains how we should write the Two!Ears documentation from both a
-technical and a writing standpoint.
+technical and a writing standpoint and includes:
+
+.. contents::
+    :local:
 
 Getting the raw documentation
 -----------------------------
@@ -37,16 +37,13 @@ documentation is transformed into HTML, PDF, and any other output format.
 To actually build the documentation locally, you'll currently need to install
 Sphinx -- ``pip install Sphinx`` or ``sudo apt-get install python-sphinx`` should
 do the trick.
+For Windows you could have a view on the `official installation guide`_.
 
 .. caution::
 
     We need sphinx version 1.3 or later in order to use the setting of line
     number start value for code blocks. It could be that you have to use pip to
     get this version.
-
-.. note::
-
-    To install Sphinx_ under Windows, do ...
 
 Then, building the HTML is easy; just ``make html`` (or ``make.bat html`` on
 Windows) from the ``docs`` directory.
@@ -55,6 +52,7 @@ To get started contributing, you'll want to read the `reStructuredText
 Primer`_. After that, you'll want to read about the `Sphinx-specific markup`_
 that's used to manage meta data, indexing, and cross-references.
 
+.. _official installation guide: http://sphinx-doc.org/latest/install.html#windows-install-python-and-sphinx
 .. _Sphinx: http://sphinx-doc.org/
 .. _docutils: http://docutils.sourceforge.net/
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
@@ -289,14 +287,6 @@ Our policy for new features is:
     The actual documentation present in the master branch of the development
     repository should be always corresponding to the actual code/data that is
     present in the master branches of the single module repositories.
-
-
-.. _improving-the-documentation:
-
-Improving the documentation
----------------------------
-
-Things to be done:
 
 
 .. _documentation-spelling-check:
