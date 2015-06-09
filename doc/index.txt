@@ -109,7 +109,13 @@ Examples
 ========
 
 A key concept of the Two!Ears Auditory Model is reproducible research. Here, you
-will find scripts that can redo plots of our publications.
+will find scripts for basic usage examples of the model:
+
+* :doc:`Localisation with and without head rotation <examples/localisation>`
+
+or that can redo plots of our publications:
+
+* :doc:`Publication1 <examples/paper1>`
 
 Development
 ===========
