@@ -19,9 +19,7 @@ Two!Ears documentation contents
     blackboard/index
     database/index
     examples/index
-    misc/index
     dev/index
-    faq/index
 
 Indices, glossary and tables
 ============================
