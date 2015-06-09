@@ -1,5 +1,0 @@
-===
-FAQ
-===
-
-.. vim: filetype=rst spell:

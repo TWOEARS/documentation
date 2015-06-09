@@ -12,9 +12,7 @@ Getting help
 
 Having trouble? We'd like to help!
 
-* Try the :doc:`FAQ <faq/index>` -- it's got answers to many common questions.
-
-* Looking for specific information? Try the :ref:`genindex` or
+* Looking for specific information? Try
   the :doc:`detailed table of contents <contents>`.
 
 * Search for information in the archives of the |twoears| mailing list, or
