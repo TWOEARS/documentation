@@ -51,12 +51,14 @@ Windows) from the ``docs`` directory.
 To get started contributing, you'll want to read the `reStructuredText
 Primer`_. After that, you'll want to read about the `Sphinx-specific markup`_
 that's used to manage meta data, indexing, and cross-references.
+A very detailed documentation is provided at the `Sphinx/Rest Memo site`_.
 
 .. _official installation guide: http://sphinx-doc.org/latest/install.html#windows-install-python-and-sphinx
 .. _Sphinx: http://sphinx-doc.org/
 .. _docutils: http://docutils.sourceforge.net/
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 .. _Sphinx-specific markup: http://sphinx-doc.org/markup/index.html
+.. _Sphinx/Rest Memo site: http://rest-sphinx-memo.readthedocs.org/en/latest/index.html
 
 Commonly used terms
 -------------------
