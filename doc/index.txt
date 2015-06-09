@@ -111,9 +111,6 @@ Examples
 A key concept of the Two!Ears Auditory Model is reproducible research. Here, you
 will find scripts that can redo plots of our publications.
 
-Misc
-====
-
 Development
 ===========
 
