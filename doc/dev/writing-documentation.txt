@@ -60,6 +60,16 @@ A very detailed documentation is provided at the `Sphinx/Rest Memo site`_.
 .. _Sphinx-specific markup: http://sphinx-doc.org/markup/index.html
 .. _Sphinx/Rest Memo site: http://rest-sphinx-memo.readthedocs.org/en/latest/index.html
 
+Converting existing documentation
+---------------------------------
+
+If you have existing documentation in LaTeX you can convert it to restructured
+text with pandoc:
+
+.. code-block:: bash
+
+    pandoc -f latex -t rst -o outfile.txt infile.tex
+
 Commonly used terms
 -------------------
 
