@@ -15,8 +15,32 @@ At the moment the following measurements are available:
 .. contents::
     :local:
 
+
 Anechoic measurements (:abbr:`HRTF (head related transfer function)`\ s)
 ------------------------------------------------------------------------
+
+Have a look at the single sections for a documentation of the single
+measurements. If you you know what you are doing, here is a list of all
+available :abbr:`HRIR (head related impulse response)`\ s with the path that can
+be directly used with the |BinSim|::
+
+    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
+    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_0_5m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.2m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.3m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.4m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.5m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.6m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.7m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.8m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.9m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa
+
 
 Spherical Far Field HRIR Compilation of the Neumann KU100
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -32,6 +56,22 @@ Near-field HRTFs from SCUT database of the KEMAR
 
 Reverberant measurements (:abbr:`BRIR (binaural room impulse response)`\ s)
 ---------------------------------------------------------------------------
+
+Have a look at the single sections for a documentation of the single
+measurements. If you you know what you are doing, here is a list of all
+available :abbr:`BRIR (binaural room impulse response)`\ s with the path that can
+be directly used with the |BinSim|::
+
+    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
+
 
 TU Berlin, Telefunken-building, room Auditorium 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
