@@ -1,0 +1,4 @@
+Introduction
+============
+
+.. vim: filetype=rst spell:

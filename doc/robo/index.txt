@@ -13,7 +13,5 @@ head by applying different :abbr:`HRTF (head related transfer function)`\ s.
 
     introduction
     building-robot
-    robot-control
-    matlab-bridge
 
 .. vim: filetype=rst spell:

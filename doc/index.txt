@@ -61,8 +61,6 @@ simulation of them will be needed. Learn to set up your own robot below:
 
 * :doc:`Introduction <robo/introduction>`
 * :doc:`Build your own KEMAR-robot <robo/building-robot>`
-* :doc:`Control the robot from Matlab <robo/robot-control>`
-* :doc:`Stream the audio data to Matlab <robo/matlab-bridge>`
 
 Auditory front-end
 ==================
