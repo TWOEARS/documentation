@@ -16,9 +16,12 @@ the |blackboard|, those are:
 Abstract knowledge source
 -------------------------
 
-The abstract knowledge source (``AbstractKS`` class) is the base class
-for all knowledge sources in the blackboard system. The listing below
-shows the parts most relevant to development of new knowledge sources::
+The abstract knowledge source (``AbstractKS`` class) is the base class for all
+knowledge sources in the blackboard system. The corresponding file
+:file:`AbstractKS.m` is located in the ``src/blackboard_core`` directory as
+opposed to all implementations of actual knowledge sources that are located in
+the directory ``src/knowledge_sources``. The listing below shows the parts most
+relevant to development of new knowledge sources::
 
     class AbstractKS
         properties
