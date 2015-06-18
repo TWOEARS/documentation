@@ -78,12 +78,12 @@ Events
     Knowledge sources can define their own individual events. However, each
     class already inherits a standard event from ``AbstractKS``,
     ``KsFiredEvent``. Events can be triggered by knowledge sources via
-    ``obj.notify(``\ *eventname*\ ``, ``\ *attachedData*\ ``)``.
+    ``obj.notify(eventname, attachedData)``.
 
 .. _sec-afe-knowledge-source:
 
-Auditory front-end knowledge source
------------------------------------
+Auditory front-end knowledge source: ``AuditoryFrontEndKS``
+-----------------------------------------------------------
 
 This knowledge source integrates the |AFE| into the |blackboard|. The |AFE|
 itself is a self-contained module and this section focuses on its integration
@@ -104,8 +104,8 @@ Section :ref:`sec-afe-dep-knowledge-source`, and binding to it's
 
 .. _sec-afe-dep-knowledge-source:
 
-Auditory signal dependent knowledge source superclass
------------------------------------------------------
+Auditory signal dependent knowledge source superclass: ``AuditoryFrontEndDepKS``
+--------------------------------------------------------------------------------
 
 Whenever a knowledge source needs signals, cues or features from the auditory
 front-end, it should subclass from the ``AuditoryFrontEndDepKS`` class. Any
@@ -162,12 +162,10 @@ Localisation knowledge sources
 Four knowledge sources work together to generate hypotheses of sound source
 azimuths: ``Location`` knowledge source, ``Confusion Detection`` knowledge
 source, ``Confusion Solving`` knowledge source, and ``Head Rotation`` knowledge
-source.  Section :ref:`sec-sound-localisation` provides more details about the
-localisation models. In this section we focus on implementation of the knowledge
-sources and their usage within the blackboard framework.
+source.
 
-Location knowledge source
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Location knowledge source: ``LocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Class ``LocationKS`` implements knowledge about the statistical relationship
 between spatial cues and azimuth locations. This knowledge source requires
@@ -189,10 +187,10 @@ event ``KsFiredEvent`` is notified.
 | triggers event         | ``KsFiredEvent``                      |
 +------------------------+---------------------------------------+
 
-Confusion detection knowledge source
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Confusion detection knowledge source: ``ConfusionKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``ConfusionDetectionKS`` checks new location hypotheses and decides whether
+The ``ConfusionKS`` checks new location hypotheses and decides whether
 there is a confusion. A confusion emerges when there are more valid locations in
 the hypotheses than assumed auditory sources in the scene. In case of a
 confusion, a ``ConfusedLocations`` event is notified and the responsible
@@ -210,8 +208,8 @@ category. Otherwise, a ``PerceivedLocation`` object is added to the blackboard
 | triggers event         | ``ConfusedLocations`` or ``KsFiredEvent``          |
 +------------------------+----------------------------------------------------+
 
-Confusion solving knowledge source
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Confusion solving knowledge source: ``ConfusionSolvingKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``ConfusionSolvingKS`` solves localisation confusions by predicting the
 location probability distribution after head rotation, and comparing it with new
@@ -231,16 +229,16 @@ and a ``PerceivedLocation`` object is placed on the blackboard.
 | triggers event         | ``KsFiredEvent``                                                          |
 +------------------------+---------------------------------------------------------------------------+
 
-Head rotation knowledge source
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Head rotation knowledge source: ``RotationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``HeadRotationKS`` has knowledge on how to move the robotic head in order to
+The ``RotationKS`` has knowledge on how to move the robotic head in order to
 solve confusions in source localisation. If there is no other head rotation
 already scheduled, the knowledge source uses the ``robot`` interface to turn the
 head.
 
 +------------------------+------------------------------------------------+
-| binds to               | ``ConfusionDetectionKS.ConfusedLocations``     |
+| binds to               | ``ConfusionKS.ConfusedLocations``              |
 +------------------------+------------------------------------------------+
 | reads data category    | ``confusionHypotheses``, ``headOrientation``   |
 +------------------------+------------------------------------------------+
@@ -253,13 +251,12 @@ Identification knowledge sources
 --------------------------------
 
 This section focuses on implementation of sound identification knowledge sources
-within the blackboard framework. See Section :ref:`sec-source-type` for more
-details of the models used to estimate the type of auditory events.
+within the blackboard framework.
 
 .. _sec-identity-knowledge-source:
 
-Identity knowledge source
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Identity knowledge source: ``IdentityKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Objects of class ``IdentityKS`` implement source models, by incorporating an
 instance of a model (``IdModelInterface`` class) with knowledge about the
@@ -286,8 +283,8 @@ type it represents.
 
 .. _sec-identity-decision-knowledge-source:
 
-Identity decision knowledge source
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Identity decision knowledge source: ``IdDecisionKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The identity knowledge source checks new identity hypotheses. It then decides
 which of them are valid, by comparison and incorporating knowledge about the
@@ -302,5 +299,30 @@ number of assumed auditory objects in the scene.
 +------------------------+-------------------------------+
 | triggers event         | ``KsFiredEvent``              |
 +------------------------+-------------------------------+
+
+Other knowledge sources
+-----------------------
+
+Acoustic cues knowledge source: ``AcousticCuesKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Upcoming knowledge sources
+--------------------------
+
+For the following knowledge sources skeleton files are already existing, but its
+functionality is not implemented yet.
+
+Number of sources knowledge source: ``SourceNumberKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This knowledge source will generate a hypothesis about the number of sound
+sources present in the auditory scene.
+
+Coloration knowledge source: ``ColorationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This knowledge source will compare to signal representations and state how much
+they differ in sound color.
 
 .. vim: filetype=rst spell:
