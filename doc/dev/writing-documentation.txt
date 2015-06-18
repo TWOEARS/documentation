@@ -37,7 +37,9 @@ documentation is transformed into HTML, PDF, and any other output format.
 To actually build the documentation locally, you'll currently need to install
 Sphinx -- ``pip install Sphinx`` or ``sudo apt-get install python-sphinx`` should
 do the trick.
-For Windows you could have a view on the `official installation guide`_.
+Under Windows you first have to install python, which should also install pip
+and you can install Sphinx then also via pip. Otherwise have a look at the
+`official installation guide`_.
 
 .. caution::
 
@@ -45,8 +47,8 @@ For Windows you could have a view on the `official installation guide`_.
     number start value for code blocks. It could be that you have to use pip to
     get this version.
 
-Then, building the HTML is easy; just ``make html`` (or ``make.bat html`` on
-Windows) from the ``docs`` directory.
+Then, building the HTML is easy; just ``make html`` (or ``sphinx-build -b html
+../_build`` on Windows) from the ``docs`` directory.
 
 To get started contributing, you'll want to read the `reStructuredText
 Primer`_. After that, you'll want to read about the `Sphinx-specific markup`_
