@@ -4,3 +4,152 @@ Add your own processors
 =======================
 
 .. vim: filetype=rst spell:
+
+The |AFE| framework has been designed such as to be easily upgraded. To add a 
+new processor, write its class definition in a new ``.m`` file and add it to 
+the ``/src/Processors`` folder. If correctly written, the processor should be 
+detected by the framework and be ready to use. This section documents in 
+details how to correctly write the class definition of a new processor. It is 
+highly recommended to look into the definition of existing processors to get 
+a grasp of how classes are defined and written in Matlab. In the following, we 
+will sometimes refer to a particular existing processor to illustrate some 
+aspects of the implementation.
+
+.. note::
+    
+    The following descriptions are exhaustive, and adding a processor to the
+    framework is actually easier than the length of this page suggests! Having a
+    thorough look through the code of existing processors and some understanding
+    of object-oriented coding in Matlab should make the process relatively
+    painless.
+
+.. _sec-afe-addition-checklist:
+
+Check-list for adding a new processor
+-------------------------------------
+
+To write the class definition for a new processor such that it will be 
+recognised and properly integrated, one has to follow these steps:
+
+1. :ref:`Set up the specific properties of the processor class <sec-afe-class-properties>`
+#. :ref:`Implement the processor's static methods <sec-afe-static-methods>`
+#. :ref:`Implement the processor's abstract methods (processing and resetting) <sec-afe-processing-method>`
+#. :ref:`Implementing parameters "getter" methods <sec-afe-getter-methods>`
+#. Override parent methods (optional)
+#. Add a new type of signal (optional)
+#. Allowing alternative processing options (optional)
+
+.. _sec-afe-class-properties:
+
+Getting started and setting up processor properties
+---------------------------------------------------
+
+The properties of an object are a way to store data used by the object. There
+are two types of properties for processors, those which:
+
+- store all the parameters needed to integrate the processor in the framework 
+  (e.g., the sampling frequency on which it operates, the number of 
+  inputs/outputs, ...)
+- store parameter values which are used in the actual processing
+
+When writing the class definition for a new processor, it is only necessary to
+implement the latter: parameters which are needed in the computation. All
+parameters needed for the integration of the processor in the framework are
+already defined in the parent ``Processor`` class. Your new processor should
+inherit this parent class in order to automatically have access to the
+properties and methods of the parent class. Inheritance in Matlab is indicated
+by the command ``< nameOfParentClass`` following the name of your new class on
+the first line of its definition.
+
+.. Maybe we could set up a template file, as a blank processor with basic guidelines on how to populate the blanks
+
+The new processor class definition should be saved in a ``.m`` file that bears
+the same name as the defined class. In the example below, that would be
+``myNewProcessor.m``.
+
+There are usually two categories of properties to implement for a new processor:
+external (user-controlled) parameters and internal parameters necessary for the
+processor but which do not need to be known to the "outside world".
+
+.. note::
+
+    Only the two types of properties below have been used so far in every
+    processor implementation. However, it is fine to add more if needed for your
+    new processor.
+
+External parameters controllable by the user
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+External parameters are directly related to the parameters the user has control
+upon. The actual values for these are stored in a specific object accessible via
+the ``.parameters`` property of the processor. Defining them as individual
+properties seems redundant, and is therefore optional. However it can be very
+convenient in order to simplify the access to the parameter value and to make
+your code more readable.
+
+Instead of storing an actual value, the corresponding processor property should
+only point to a value in the ``.parameters`` object. This will avoid having two
+different values for a same parameter. To do this, external parameters should be
+defined as a set of dependent properties. This is indicated by the ``Dependent =
+true`` property attribute. If a property is set to ``Dependent``, then a
+corresponding "getter" method has to be implemented for it. This will be
+developed :ref:`in a following section<sec-afe-getter-methods>`. For example,
+if your new processor has two parameters, ``parA`` and ``parB``, you can define
+these as properties as follow::
+
+
+    classdef myNewProcessor < Processor
+
+      properties (Dependent = true)
+        parA;
+        parB;
+      end
+
+      %...
+
+    end
+
+This will allow easier access to these values in your code. For example,
+``myNewProcessor.parA`` will always give the same output as
+``myNewProcessor.parameters.map('nameTagOfParameterA')``, even if the parameter
+value changes due to feedback. This simplifies greatly the code, particularly
+when many parameters are involved.
+
+
+Internal parameters
+~~~~~~~~~~~~~~~~~~~
+
+Internal parameters are sometimes (not always) needed for the good functioning
+of the processor. They are typically used to store internal states of the
+processor (to allow continuity in block-based processing), filter instances (if
+your processor involves filtering), or just intermediate parameter values used
+to make code more readable.
+
+Because they are "internal" to the processor, these parameters are stored as a
+set of private properties by using either the ``SetAccess = private`` or the
+``GetAccess = private`` property attributes. A private ``SetAccess`` will
+prevent any object (other than the processor itself) to modify the property
+value. The value will still be displayed as a property in Matlab's command
+editor. If displaying the value is not necessary, then having ``GetAccess``
+private will avoid it, and will virtually make the property invisible to all
+other objects.
+
+
+
+
+
+.. _sec-afe-static-methods:
+
+Implementing static methods
+---------------------------
+
+
+.. _sec-afe-getter-methods:
+
+Implementing parameters "getter" methods
+----------------------------------------
+
+.. _sec-afe-processing-method:
+
+Implement the processor's abstract methods
+------------------------------------------
