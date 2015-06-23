@@ -15,14 +15,8 @@ At the moment the following measurements are available:
 .. contents::
     :local:
 
-
-Anechoic measurements (:abbr:`HRTF (head related transfer function)`\ s)
-------------------------------------------------------------------------
-
-Have a look at the single sections for a documentation of the single
-measurements. If you you know what you are doing, here is a list of all
-available :abbr:`HRIR (head related impulse response)`\ s with the path that can
-be directly used with the |BinSim|::
+To enable fast copy and paste of the names you can use together with the
+automatic download capabilities, here is a list of all available data sets::
 
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
@@ -30,6 +24,7 @@ be directly used with the |BinSim|::
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.2m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.3m.sofa
@@ -40,16 +35,88 @@ be directly used with the |BinSim|::
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.8m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.9m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
 
+
+
+
+Anechoic measurements (:abbr:`HRTF (head related transfer function)`\ s)
+------------------------------------------------------------------------
+
+Have a look at the single sections for a documentation of the single
+measurements. If you you know what you are doing, here is a list of all
+available :abbr:`HRIR (head related impulse response)`\ s with the path that can
+be directly used with the |BinSim|::
+
+
+Anechoic HRIRs from the KEMAR manikin with different distances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_0_5m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
+
+
+:abbr:`HRTF (head related transfer function)`\ s measured with a KEMAR dummy
+head in the anechoic chamber of the TU Berlin [Wierstorf2011]_.  The :abbr:`HRTF
+(head related transfer function)`\ s were measured in the horizontal plane with
+a resolution of 1° for the three different distances of 0.5m, 1m, 2m, 3m.
+
+Setup
+^^^^^
+
+.. figure:: img/qu_kemar_anechoic.jpg
+
+    Setup of the KEMAR in the anechoic chamber of TU Berlin.
+
+The impulse response measurements were carried out in the anechoic chamber of
+the Institut für Technische Akustik at Technische Universität Berlin.
+The lower frequency limit of the anechoic chamber is 63 Hz. An active two-way
+loudspeaker (Genelec 8030A) was used as a sound source. The excitation signal
+was a linear sine sweep with a length of 5.3s. It had a 6dB per octave
+low-shelf emphasis below 1000Hz causing an amplification of 20dB for low
+frequencies.
+
+The responses were measured using a Knowles Electronics Manikin for Acoustic
+Research (KEMAR, type 45BA) with the corresponding large ears (type KB0065 and
+KB0066). The manikin was mounted on the turntable of the VariSphear measurement
+system [Bernschuetz2010]_ to be able to rotate it automatically with high mechanical
+precision. All measurements were performed for a full rotation (360◦) in 1◦
+increments. The distance between the center of the manikin and the center of the
+loudspeaker was set to 3m, 2m, 1m and 0.5m, respectively. The loudspeaker was
+positioned at ear height of the manikin.
+
+Ear signals were recorded with G.R.A.S. 40AO pressure microphones using a RME
+QuadMic pre-amplifier and a RME Multiface II audio interface. Playback,
+recording and control of the measurements was done with the VariSphear
+software [Bernschuetz2010]_. All data was recorded with a sampling rate of 44.1kHz and stored
+as single precision floating point values.
+
+Note, that for the distance of 0.5m the used Genelec loudspeaker presents not
+really a point source. In addition, the :abbr:`HRTF (head related transfer
+function)`\ s for 0.5m include reflections of
+the sound going from the KEMAR head back to the loudspeaker and back to the
+dummy head.
+
+.. [Wierstorf2011] H. Wierstorf, M. Geier, A. Raake, S. Spors (2011), "A Free Database of Head-Related Impulse Response Measurements in the Horizontal Plane with Multiple Distances," in 130th AES Convention, eBrief 6.
+.. [Bernschuetz2010] B. Bernschütz, C. Pörschmann, S. Spors, S. Weinzierl (2019), "Entwurf und Aufbau eines variablen sphärischen Mikrofonarrays für Forschungsanwendungen in Raumakustik und virtual Audio," In German Annual Conference on Acoustics (DAGA).
 
 Spherical Far Field HRIR Compilation of the Neumann KU100
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 HRTF Measurements of a KEMAR Dummy-Head Microphone (MIT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Anechoic HRIRs from the KEMAR manikin with different distances
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Near-field HRTFs from SCUT database of the KEMAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,16 +128,6 @@ Have a look at the single sections for a documentation of the single
 measurements. If you you know what you are doing, here is a list of all
 available :abbr:`BRIR (binaural room impulse response)`\ s with the path that can
 be directly used with the |BinSim|::
-
-    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3//QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
 
 
 TU Berlin, Telefunken-building, room Auditorium 3
