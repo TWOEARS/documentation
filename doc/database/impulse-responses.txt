@@ -136,6 +136,31 @@ For Documentation see [Gardner1994]_
 Near-field HRTFs from SCUT database of the KEMAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+::
+
+    SCUT_KEMAR_anechoic.sofa
+    SCUT_KEMAR_anechoic_0.2m.sofa
+    SCUT_KEMAR_anechoic_0.3m.sofa
+    SCUT_KEMAR_anechoic_0.4m.sofa
+    SCUT_KEMAR_anechoic_0.5m.sofa
+    SCUT_KEMAR_anechoic_0.6m.sofa
+    SCUT_KEMAR_anechoic_0.7m.sofa
+    SCUT_KEMAR_anechoic_0.8m.sofa
+    SCUT_KEMAR_anechoic_0.9m.sofa
+    SCUT_KEMAR_anechoic_0.25m.sofa
+    SCUT_KEMAR_anechoic_1m.sofa
+
+
+Files were downloaded from the SOFA database. See http://www.sofaconventions.org/mediawiki/index.php/Files
+
+## References
+
+[1] [Xie, Bo-sun - Head-related transfer function and virtual auditory display.
+J Ross, 2013]
+
+
+
+
 Reverberant measurements (:abbr:`BRIR (binaural room impulse response)`\ s)
 ---------------------------------------------------------------------------
 
