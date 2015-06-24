@@ -118,6 +118,21 @@ Spherical Far Field HRIR Compilation of the Neumann KU100
 HRTF Measurements of a KEMAR Dummy-Head Microphone (MIT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+::
+
+    MIT_KEMAR_anechoic_1.7m_large.sofa
+    MIT_KEMAR_anechoic_1.7m_normal.sofa
+
+Files were downloaded from the SOFA database (See http://www.sofaconventions.org/mediawiki/index.php/Files). 
+
+For Documentation see [Gardner1994]_
+
+.. [Gardner1994] [Gardner, Bill, and Keith Martin - HRTF measurements of a KEMAR dummy-head microphone. Massachusetts Institute of Technology 280,  1994]
+
+(http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf)
+
+
+
 Near-field HRTFs from SCUT database of the KEMAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
