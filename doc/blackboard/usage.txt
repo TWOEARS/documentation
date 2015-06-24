@@ -13,6 +13,8 @@ set of different functional modules. These modules can work on different levels
 of abstraction, independently from each other or in collaboration, in a
 bottom-up or top-down manner.
 
+.. _sec-blackboard-configure:
+
 Setting up the blackboard
 -------------------------
 
