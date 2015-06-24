@@ -176,7 +176,7 @@ As they are used to hard-code and return information, none of these methods
 accept input arguments.
 
 ``getDependency``
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 This method returns the type of input signal your processor should accept::
 
@@ -237,6 +237,7 @@ The method should look something like this::
     end
 
 This dummy example illustrates the following important points:
+
 - Use a unique prefix in the name of the parameters (``xx_`` above) that 
   abbreviates the name or task of the processor.
 - Find a short, but self-explanatory parameter name (*not* like above). If it
