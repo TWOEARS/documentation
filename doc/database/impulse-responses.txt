@@ -176,5 +176,27 @@ TU Berlin, Telefunken-building, room Auditorium 3
 TU Berlin, Telefunken-building, room Spirit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+::
+
+    QU_KEMAR_spirit.sofa
+    QU_KEMAR_spirit_src1_30deg.sofa
+    QU_KEMAR_spirit_src2_0deg.sofa
+    QU_KEMAR_spirit_src3_-30deg.sofa
+
+The BRIRs are measured for three different sources and with a resolution of 1°
+and head movement from -90° to 90°.
+
+.. figure:: img/foto_room.jpg
+
+    Foto of the room "Spirit".
+
+Note, that the photo of the room was not taken for the actual measurement setup.
+
+.. figure:: img/setup.png
+
+    Room sketch of the setup.
+
+
+
 
 .. vim: filetype=rst spell:
