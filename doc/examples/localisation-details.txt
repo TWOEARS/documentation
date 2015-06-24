@@ -1,3 +1,5 @@
+.. highlight:: Matlab
+
 .. _sec-examples-localisation-details:
 
 Localisation - looking at the results in detail
