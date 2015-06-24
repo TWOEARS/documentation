@@ -172,7 +172,7 @@ the file name of a XML scene description file.
 
     sim = simulator.SimulatorConvexRoom('test_binaural.xml');
 
-The content of file:`test_binaural.xml` is shown below.
+The content of :file:`test_binaural.xml` is shown below.
 
 .. code-block:: xml
 
