@@ -226,6 +226,8 @@ class:
   will not stop execution before the |robot| or the |BinSim| sends an ending
   signal (``run`` method).
 
+.. _sec-blackboard-memory:
+
 Dynamic blackboard memory
 -------------------------
 

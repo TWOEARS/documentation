@@ -1,0 +1,151 @@
+.. _sec-examples-localisation-details:
+
+Localisation - looking at the results in detail
+===============================================
+
+As seen in the :ref:`previous example <sec-examples-localisation>` localisation
+is performed inside the blackboard by :ref:`different localisation knowledge
+sources <sec-blackboard-localisation>`. In this example we will perform a single
+localisation of a anechoic white noise signal coming from 0°. The example
+can be found in the ``examples/localisation_look_at_details`` folder which
+consists of the following files::
+
+    Blackboard.xml
+    localise.m
+    SceneDescription.xml
+
+For details on ``Blackboard.xml`` and ``SceneDescription.xml`` have a look at
+our :ref:`previous example <sec-examples-localisation>`. Here, we will focus on
+the details after we performed the localisation. So, first run::
+
+    >> bbs = localise;
+
+in Matlab. This runs the blackboard and does the localisation, but does not
+print any results, it only returns the blackboard as ``bbs``.
+The blackboard itself stores lots of data in itself, see
+:ref:`sec-blackboard-memory` for details. First we ask the blackboard to return
+the localisation data::
+
+    >> perceivedLocations = bbs.blackboard.getData('perceivedLocations')
+
+    perceivedLocations =
+
+    1x7 struct array with fields:
+
+        sndTmIdx
+        data
+
+It returns a relatively complicated struct that comes with time stamps
+``sndTmIdx`` and the corresponding ``data`` which again is a struct containing
+different things, here is the output for one time stamp::
+
+    ans =
+
+      PerceivedLocation with properties:
+
+      location: 238
+      headOrientation: 122
+      relativeLocation: 0
+      score: 0.5530
+
+But don't worry there is an easy way to get an overview of the results. First,
+we are only interested in the summary of the localisation result::
+
+    >> sourceAzimuth = 0; % the actual source position
+    >> [loc, locError] = evaluateLocalisationResults(perceivedLocations, sourceAzimuth);
+
+    loc =
+
+         0
+
+
+    locError =
+
+         0
+
+As you can see the source was localised at 0° meaning that the localisation
+error is also 0°. After that we would like to have a more detailed view on what
+happend during the localisation::
+
+    >> displayLocalisationResults(perceivedLocations, sourceAzimuth)
+
+    ------------------------------------------------------------------------------------
+    Reference target angle:   0 degrees
+    ------------------------------------------------------------------------------------
+    Localised source angle:
+    BlockTime  PerceivedLocation    (head orient., relative loc.)   Probability
+    ------------------------------------------------------------------------------------
+    0.09        0 degrees           (  0 degrees,      0 degrees)   0.57
+    0.65        0 degrees           (181 degrees,    179 degrees)   0.98
+    1.21        0 degrees           (181 degrees,    179 degrees)   0.56
+    2.32        0 degrees           (  0 degrees,      0 degrees)   0.96
+    2.88        0 degrees           (  0 degrees,      0 degrees)   0.48
+    3.44        0 degrees           (122 degrees,    238 degrees)   0.81
+    3.99        0 degrees           (122 degrees,    238 degrees)   0.55
+    ------------------------------------------------------------------------------------
+    Mean localisation error: 0
+    ------------------------------------------------------------------------------------
+
+Here, we see that the head was turned twice during the localisation and that the perceived
+location was always at 0°, but the model has not have always the same confidence
+that the source was really located there, which you can see by the
+``Probability`` values. In the cases when they were to low they triggered a head
+movement in order to see if the values would be higher for another head
+position.
+
+So far, we looked at all the details going on in the blackboard. In order to
+localise the blackboard uses different cues - like :abbr:`ITD (interaural time
+difference)`\ s and :abbr:`ILD (interaural level difference)`\ s - that are
+provided by the :ref:`sec-afe`. It might be of interest to have a detailed look
+on them. In order to see which are available, run::
+
+    >> bbs.listAfeData
+
+    Available AFE data:
+
+        'itd'
+        'input'
+        'ic'
+        'ild'
+        'innerhaircell'
+        'gammatone'
+        'time'
+        'crosscorrelation'
+        'head_rotation'
+
+All those cues can be plotted with ``bbs.plotAfeData(cueName)``, for example::
+
+    >> bbs.plotAfeData('time');
+
+.. _fig-examples-afe-time:
+
+.. figure:: img/afe-time.png
+    :align: center
+
+    Left and right ear signals.
+
+::
+
+    >> bbs.plotAfeData('ild');
+
+.. _fig-examples-afe-ild:
+
+.. figure:: img/afe-ild.png
+    :align: center
+
+    :abbr:`ILD (interaural level difference)`\ s between the two ear signals
+    over time.
+
+The next one is not really a cue provided by the :ref:`sec-afe`, but is it good
+to know in which position the head was pointing at what time::
+
+    >> bbs.plotAfeData('head_rotation');
+
+.. _fig-examples-afe-head-rotation:
+
+.. figure:: img/afe-head-rotation.png
+    :align: center
+
+    Head rotations of the model during localisation.
+
+.. vim: filetype=rst spell:

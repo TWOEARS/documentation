@@ -1,0 +1,6 @@
+.. _sec-examples-localisation:
+
+Localisation with and without head rotations
+============================================
+
+.. vim: filetype=rst spell:

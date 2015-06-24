@@ -1,0 +1,17 @@
+.. _sec-examples-train-localisation:
+
+(Re)train the localisation stage
+================================
+
+The localisation of the |TwoEarsModel| is performed by the `LocationKS` which
+has a learned lookup table for :abbr:`ITD (interural time difference)`\ s and
+:abbr:`ILD (interaural level difference)`\ s. For the ``default`` setting of
+`LocationKS` this was trained with the
+:file:`impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa` from the
+database convolved with white noise.
+The training was done for a resolution of 1°. This examples shows you how you
+can retrain the model for other :abbr:`HRTF (head related transfer function)`\
+s, other angular resolutions, and other source materials.
+
+
+.. vim: filetype=rst spell:
