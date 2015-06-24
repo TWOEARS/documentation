@@ -167,6 +167,7 @@ should be provided as a ``png``-file and stored in a ``img/`` folder::
     .. _fig-super-result:
 
     .. figure:: img/super-results.png
+        :align: center
 
         Figure caption explaining the results.
 
