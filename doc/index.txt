@@ -112,7 +112,9 @@ figures from our publications:
 
 * :doc:`Overview <examples/index>`
 * :doc:`Localisation with and without head rotation <examples/localisation>`
-* :doc:`Publication1 <examples/paper1>`
+* :doc:`Localisation - looking at the results in detail
+  <examples/localisation-details>`
+* :doc:`(Re)train the localisation stage <examples/train-localisation>`
 
 Development
 ===========

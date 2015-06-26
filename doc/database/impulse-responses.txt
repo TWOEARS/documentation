@@ -117,6 +117,8 @@ dummy head.
 Spherical Far Field HRIR Compilation of the Neumann KU100
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. _sec-hrir-mit-kemar:
+
 HRTF Measurements of a KEMAR Dummy-Head Microphone (MIT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -166,12 +168,6 @@ J Ross, 2013]
 
 Reverberant measurements (:abbr:`BRIR (binaural room impulse response)`\ s)
 ---------------------------------------------------------------------------
-
-Have a look at the single sections for a documentation of the single
-measurements. If you you know what you are doing, here is a list of all
-available :abbr:`BRIR (binaural room impulse response)`\ s with the path that can
-be directly used with the |BinSim|::
-
 
 TU Berlin, Telefunken-building, room Auditorium 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
