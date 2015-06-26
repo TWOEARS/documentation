@@ -54,8 +54,10 @@ Anechoic measurements (:abbr:`HRTF (head related transfer function)`\ s)
 Have a look at the single sections for a documentation of the single
 measurements. If you you know what you are doing, here is a list of all
 available :abbr:`HRIR (head related impulse response)`\ s with the path that can
-be directly used with the |BinSim|::
+be directly used with the |BinSim|
 
+
+.. _sec-hrir-qu-kemar:
 
 Anechoic HRIRs from the KEMAR manikin with different distances
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,6 +134,7 @@ For Documentation see [Gardner1994]_
 (http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf)
 
 
+.. _sec-hrir-scut-kemar:
 
 Near-field HRTFs from SCUT database of the KEMAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

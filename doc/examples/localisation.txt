@@ -5,24 +5,24 @@
 Localisation with and without head rotations
 ============================================
 
-The |TwoEarsModel| comes with several knowledge sources that work together on
-getting an estimation of the perceived azimuth of a sound source, see
+The |TwoEarsModel| comes with several knowledge sources that work together to
+estimate the perceived azimuth of a sound source, see
 :ref:`sec-blackboard-localisation` for a summary. The main work is done by the
-``LocationKS`` knowledge source how uses :abbr:`ITD (interaural time difference`
-and :abbr:`ILD (interaural level difference)` cues provided by the |AFE| and
-compares them with learned cues to azimuth maps. At its end it provides a
-probability for every azimuth for the source to be located there. This will be
-passed on to the ``ConfusionKS`` which looks at the probabilities and decides if
-a clear direction can be extracted from this. If not, ``ConfusionSolvingKS`` is
-called with then triggers ``RotationKS`` to rotate the head of the listener
-(could be in the simulation or of a robot) and start the localisation process
-again.
+``LocationKS`` knowledge source that uses :abbr:`ITD (interaural time
+difference)` and :abbr:`ILD (interaural level difference)` cues provided by the
+:ref:`sec-afe` and compares them with learned cues to azimuth maps. As an output
+it provides a probability distribution of possible directions for the source.
+This will be passed on to the ``ConfusionKS`` knowledge source which looks at
+the probabilities and decides if a clear direction can be extracted from this.
+If not, ``ConfusionSolvingKS`` is called which then triggers ``RotationKS`` to
+rotate the head of the listener (could be in the simulation or of a robot) and
+start the localisation process again.
 
 In this example we will see how to set up the model to perform a localisation
 task and how to switch on or off the possibility of the model to rotate its
-head. This example
-can be found in the ``examples/localisation_w_and_wo_head_movements`` folder which
-consists of the following files::
+head. This example can be found in the
+``examples/localisation_w_and_wo_head_movements`` folder which consists of the
+following files::
 
     BlackboardNoHeadRotation.xml
     Blackboard.xml
@@ -56,10 +56,10 @@ order to simulate binaural signals. It looks like this:
             UnitZ="0 0 1"/>
     </scene>
 
-Here, we define basic things like the sampling rate the length of the stimulus,
+Here, we define basic things like the sampling rate, the length of the stimulus,
 the used :abbr:`HRTF (head related transfer function)`, the source material, the
 listener position, and the distance between listener and source. For more
-documentation on specifying the acoustic scene, see
+documentation on specifying an acoustic scene, see
 :ref:`sec-xml-scene-description`.
 
 .. note::
@@ -69,9 +69,9 @@ documentation on specifying the acoustic scene, see
 
 The next thing we have to do is to specify of what components or model should
 consists and what it should actually do. This is done by selecting appropriate
-modules for the blackboard stage of the model. This can be configured again in
-an :abbr:`XML (extended markdown language)` file. First we look at the
-configuration for localisation including head movements:
+modules for the :ref:`sec-blackboard` stage of the model. This can be configured
+again in a xml file. First we look at the configuration for localisation
+including head movements (:file:`Blackboard.xml`):
 
 .. code-block:: xml
 
@@ -115,13 +115,14 @@ configuration for localisation including head movements:
 Here, we use different knowledge sources that work together in order to solve
 the localisation task. We have ``AuditoryFrontEndKS`` for extract auditory cues
 from the ear signals, ``LocationKS``, ``ConfusionKS``, ``ConfusionSolvingKS``,
-and ``RotationKS`` for the actual localisation task. The ``Param`` section are
+and ``RotationKS`` for the actual localisation task. The ``Param`` tags are
 parameters we can pass to the knowledge sources. After setting up which
-knowledge sources we will use, we have to connect them. For more information on
-configuring the blackboard see :ref:`sec-blackboard-configure`.
+knowledge sources we will use, we connect them with the ``Connection`` tags.
+For more information on configuring the blackboard see
+:ref:`sec-blackboard-configure`.
 
 In a second configuration file we setting up the same blackboard, but now
-disabling its ability to turn the head:
+disabling its ability to turn the head (:file:`BlackboardNoHeadRotation.xml`):
 
 .. code-block:: xml
 
@@ -167,5 +168,52 @@ action, afterwards we will have a look at what happened::
     -121                     -119                    -111
     ------------------------------------------------------------------
 
+As you can see the model with head rotation returned better results as the model
+without head rotation enabled. The reason why we have problems without head
+rotations is that we have trained the model with another :abbr:`HRTF (head
+related transfer function)` data set (:ref:`QU KEMAR <sec-hrir-qu-kemar>`) as
+we used for the creation of the acoustic scene (:ref:`SCUT KEMAR
+<sec-hrir-scut-kemar>`).
+
+Now, we have a look into the details of the ``localise()`` function. We will
+only talk about the parts that are responsible for the task, not for printing
+out the results onto the screen. First we define the source angles we are going
+to synthesize and start the :ref:`sec-binsim`::
+
+    % Different angles the sound source is placed at
+    sourceAngles = [0 33 76 239];
+
+    % === Initialise binaural simulator
+    sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
+    sim.Verbose = false;
+    sim.Init = true;
+
+After that we have a loop over the different source angles in which we are
+setting the source position in the :ref:`sec-binsim` and run two different
+blackboards after each other, one with, the other one without head rotations::
+
+    for direction = sourceAngles
+
+        sim.Sources{1}.set('Azimuth', direction);
+        sim.rotateHead(0, 'absolute');
+        sim.ReInit = true;
+
+        % LocationKS with head rotation for confusion solving
+        bbs = BlackboardSystem(0);
+        bbs.setRobotConnect(sim);
+        bbs.buildFromXml('Blackboard.xml');
+        bbs.run();
+
+        % Reset binaural simulation
+        sim.rotateHead(0, 'absolute');
+        sim.ReInit = true;
+
+        % LocationKS without head rotation and confusion solving
+        bbs = BlackboardSystem(0);
+        bbs.setRobotConnect(sim);
+        bbs.buildFromXml('BlackboardNoHeadRotation.xml');
+        bbs.run();
+
+    end
 
 .. vim: filetype=rst spell:
