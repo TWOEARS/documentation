@@ -1,41 +1,26 @@
+.. _sec-install:
+
 Installation guide
 ==================
 
-At the moment no official download package of the Two!Ears Auditory Model
-exists, but in order to install it you can download its single modules starting with
-its main repository:
+To install the |TwoEarsModel| download it from its `official download site`_ and
+store it somewhere on your PC. The download includes only the files needed to
+run it in Matlab, possible data files like :abbr:`HRTF (head related transfer
+function)` will be later downloaded by the model on the fly if needed.
 
-* `Two!Ears`_
-* `Two!Ears Binaural Simulator`_
-* `Two!Ears Auditory Front-End`_
-* `Two!Ears Blackboard System`_
-* `Two!Ears Tools`_
-* `Two!Ears Database`_
-* `SOFA`_
+If stored on your PC you can add the main folder **without** its sub-folders to
+your Matlab paths and then run::
 
-.. _SOFA: https://github.com/TWOEARS/SOFA
+    >> startTwoEars
 
-If you have downloaded the desired model part you have to setup the path
-configuration file ``TwoEarsPaths.xml`` of the main repository to include your
-local paths to all of the installed model parts. Please don't change the names
-in the brackets like ``<auditory-front-end>``, they are used internally but put the
-corresponding paths between the xml tags. On a Linux PC the file could be
-looking like this:
+Now everything is setup and you can use the model.
 
-.. code:: xml
+.. _official download site: http://twoears.eu/download
 
-    <?xml version="1.0" encoding="utf-8"?>
-    <repoPaths>
-        <binaural-simulator>~/git/twoears/binaural-simulator</binaural-simulator>
-        <auditory-front-end>~/git/twoears/auditory-cues</auditory-front-end>
-        <blackboard-system>~/git/twoears/cognition</blackboard-system>
-        <tools>~/git/twoears/tools</tools>
-        <sofa>~/git/twoears/sofa</sofa>
-        <data>~/git/twoears/data</data>
-    </repoPaths>
 
-If you have set up all the paths you can start the model with::
+.. warning::
 
-    >> startTwoEars;
+    Add a description that GMTK has to be installed in order to use
+    ``LocationKS()``
 
 .. vim: filetype=rst spell:

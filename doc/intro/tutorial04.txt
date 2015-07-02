@@ -1,3 +1,5 @@
+.. _sec-tutorial-database:
+
 Working with the database
 =========================
 

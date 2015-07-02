@@ -223,16 +223,16 @@ htmlhelp_basename = 'Theauditoryfront-endframeworkdoc'
 
 # Appended to every page
 rst_epilog = """
-.. |twoears| replace:: `twoears <twoears@mailing-list.com>`
+.. |TwoearsMailingList| replace:: `Two!Ears mailing list`_
 .. |TwoEars| replace:: Two!Ears
-.. |TwoEarsModel| replace:: `Two!Ears Auditory Model`_
-.. |AFE| replace:: `Two!Ears Auditory Front-End`_
-.. |BinSim| replace:: `Two!Ears Binaural Simulator`_
-.. |robot| replace:: `Two!Ears Robotic Platform`_
-.. |data| replace:: `Two!Ears Database`_
-.. |blackboard| replace:: `Two!Ears Blackboard System`_
-.. |tools| replace:: `Two!Ears Tools`_
+.. |TwoEarsModel| replace:: :ref:`Two!Ears Auditory Model <index>`
+.. |AFE| replace:: :ref:`sec-afe`
+.. |BinSim| replace:: :ref:`sec-binsim`
+.. |robot| replace:: :ref:`sec-robot`
+.. |database| replace:: :ref:`sec-database`
+.. |blackboard| replace:: :ref:`sec-blackboard`
 .. |amtoolbox| replace:: `Auditory Modeling Toolbox`_
+.. _Two!Ears mailing list: https://groups.google.com/d/forum/twoears
 .. _Two!Ears: https://github.com/TWOEARS/twoears
 .. _Two!Ears Auditory Model: https://github.com/TWOEARS/twoears
 .. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator

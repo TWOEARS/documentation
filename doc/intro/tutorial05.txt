@@ -1,3 +1,5 @@
+.. _sec-tutorial-robot:
+
 Use a robotic platform
 ======================
 

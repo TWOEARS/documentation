@@ -1,3 +1,5 @@
+.. _sec-tutorial-acoustic-scene:
+
 Setting up an acoustic scene
 ============================
 
