@@ -31,11 +31,11 @@ New to Two!Ears or auditory modelling? This is the place to start!
   :doc:`Installation <intro/install>` |
   :doc:`Two!Ears modular structure <intro/modules>`
 
-* **Tutorial:**
-  :doc:`Part 1: Setting up an acoustic scene <intro/tutorial-acoustic-scene>` |
-  :doc:`Part 2: Setting up an auditory model <intro/tutorial-auditory-model>` |
-  :doc:`Part 3: Working with the database <intro/tutorial-database>` |
-  :doc:`Part 4: Use a robotic plattform <intro/tutorial-robot>`
+* **Tutorials:**
+  :ref:`Part 1: Setting up an acoustic scene <sec-tutorial-acoustic-scene>` |
+  :ref:`Part 2: Setting up an auditory model <sec-tutorial-auditory-model>` |
+  :ref:`Part 3: Working with the database <sec-tutorial-database>` |
+  :ref:`Part 4: Use a robotic plattform <sec-tutorial-robot>`
 
 .. rubric:: Binaural simulator
 
