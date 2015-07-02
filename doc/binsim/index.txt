@@ -21,9 +21,9 @@ installation, don't hesitate to write a mail to the |twoears| mailing list.
 .. toctree::
     :maxdepth: 2
 
-    install
     usage
     examples
+    install
 
 
 Credits
