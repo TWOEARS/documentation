@@ -29,11 +29,10 @@ binaural ear signals, but really record them on the fly have a look at the
 
     install
     modules
-    tutorial01
-    tutorial02
-    tutorial03
-    tutorial04
-    tutorial05
+    tutorial-acoustic-scene
+    tutorial-auditory-model
+    tutorial-database
+    tutorial-robot
 
 The model is being developed by the partners of the `EU project Two!Ears`_.
 
