@@ -15,13 +15,13 @@ Having trouble? We'd like to help!
 * Looking for specific information? Try
   the :doc:`detailed table of contents <contents>`.
 
-* Search for information in the archives of the |twoears| mailing list, or
-  `post a question`_.
+* Search for information or post a question in the
+  `Two!Ears mailing list`_.
 
 * Report bugs or ask for new features in our `issue tracker`_.
 
 .. _archives: http://groups.google.com/group/twoears/
-.. _post a question: https://groups.google.com/d/forum/twoears
+.. _Two!Ears mailing list: https://groups.google.com/d/forum/twoears
 .. _issue tracker: https://github.com/TWOEARS/TwoEars/issues
 
 First steps
