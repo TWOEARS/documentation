@@ -5,7 +5,7 @@
 Two!Ears documentation
 ======================
 
-**Everything you need to know about Two!Ears.**
+**Everything you need to know about the Two!Ears Auditory Model.**
 
 .. rubric:: Getting help
 
