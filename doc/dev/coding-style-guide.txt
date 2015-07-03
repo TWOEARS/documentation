@@ -1,3 +1,5 @@
+.. _sec-coding-style-guide:
+
 =========================
 Matlab coding style guide
 =========================

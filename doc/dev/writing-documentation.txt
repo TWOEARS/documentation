@@ -1,3 +1,5 @@
+.. _sec-writing-documentation:
+
 =====================
 Writing documentation
 =====================
