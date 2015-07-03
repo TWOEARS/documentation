@@ -1,14 +1,12 @@
-.. _sec-robot:
-
-================
-Robotic platform
-================
+Audio streaming
+===============
 
 .. toctree::
     :maxdepth: 2
 
-    getting-started/index
-    audio-streaming/index
+    bass
+    basc
+    dedicated-socket
 
 .. vim: filetype=rst spell:
 .. emacs:

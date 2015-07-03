@@ -97,11 +97,8 @@ documentation:
 * ``|robot|`` -- when referring to the robot platform of the |TwoEarsModel|, this
   will be automatically replaced by |robot|.
 
-* ``|data|`` -- when referring to the database of the |TwoEarsModel|, this will be
-  automatically replaced by |data|.
-
-* ``|tools|`` -- when referring to the tools module of the |TwoEarsModel|, this will
-  be automatically replaced by |tools|.
+* ``|database|`` -- when referring to the database of the |TwoEarsModel|, this will be
+  automatically replaced by |database|.
 
 * ``|amtoolbox|`` -- when referring to the Auditory Modeling Toolbox, this will
   be automatically replaced by |amtoolbox|.
@@ -167,6 +164,7 @@ should be provided as a ``png``-file and stored in a ``img/`` folder::
     .. _fig-super-result:
 
     .. figure:: img/super-results.png
+        :align: center
 
         Figure caption explaining the results.
 

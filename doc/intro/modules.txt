@@ -1,48 +1,53 @@
+.. _sec-modules:
+
 Modules of the Two!Ears Auditory Model
 ======================================
 
-Model overview
---------------
-
 Below you see an overview over the architecture of the complete |TwoEarsModel|.
-The |BinSim| and the |AFE| are just two blocks in he complete model. At its
-centre a blackboard architecture is realised that is able to solve different
-tasks like auditory scene analysis or judgement of the quality of a spatial
-audio reproduction.  The knowledge for solving those tasks is provided by
-different *Knowledge Sources* that are experts for certain things like
-localisation, head rotation, speaker identification.  The knowledge sources and
-the whole blackboard architecture is part of the |blackboard| which will be
-released soon together with examples how to apply the model.
+It starts with getting binaural ear signals out of a |robot| or simulating them
+with the |BinSim|. In both cases we allow for active listening like rotating
+the head of the listener.
+Afterwards we extract classic auditory cues as you might know from the
+|amtoolbox|, but now in a completely block based manner. This is part of the
+|AFE| which can also be used as a standalone module.
+The judgements of the |TwoEarsModel| should not only be bottom-up driven by the
+acoustic cues, but also incorporate top-down feedback. To incorporate such a
+behavior a |blackboard| module follows the |AFE|, that incorporates several
+experts, so called *knowledge sources* that interpret the auditory cues based
+on there world knowledge and active explorations.
 
+.. code::
+    :class: ascii-sketch
 
-
-..        ┌───────────────────┐     ┌───────────────────┐     ┌──────────────────┐
-          │                   │     │ ┌───────────────┐ │     │                  │
-          │                   │     │ │ Event register│ │     │                  │
-          │     Graphical     │     │ └───────────────┘ │     │                  │
-          │    Model Based    │────>│ ┌───────────────┐ │────>│    Scheduler     │
-          │Dynamic Blackboard │     │ │    Agenda     │ │     │                  │
-          │                   │     │ └───────────────┘ │     │                  │
-          └───────────────────┘     └───────────────────┘     └──────────────────┘
-                    │                                                   │
-                    │                                                   │
+          ┌───────────────────┐     ┌───────────────────┐     ┌──────────────────┐      B
+          │                   │     │ ┌───────────────┐ │     │                  │      l
+          │                   │     │ │ Event register│ │     │                  │      a
+          │     Graphical     │     │ └───────────────┘ │     │                  │      c
+          │    Model Based    │────>│ ┌───────────────┐ │────>│    Scheduler     │      k
+          │Dynamic Blackboard │     │ │    Agenda     │ │     │                  │      b
+          │                   │     │ └───────────────┘ │     │                  │      o
+          └───────────────────┘     └───────────────────┘     └──────────────────┘      a
+                    │                                                   │               r
+                    │                                                   │               d
         ┌───────────────────────────────────────────────────────────────────────────┐
-        │ ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐ │
-        │ │  Auditory │  │ Confusion │  │ Confusion │  │   Head    │  │ Identity  │ │
-        │ │  Cues KS  │  │    KS     │  │Solving KS │  │Rotation KS│  │    KS     │ │
-        │ └───────────┘  └───────────┘  └───────────┘  └───────────┘  └───────────┘ │
-        │       │                     Knowledge Sources      │                      │
-        └───────│────────────────────────────────────────────│──────────────────────┘
+        │ ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐ │   S
+        │ │  Auditory │  │ Confusion │  │ Confusion │  │ Rotation  │  │ Identity  │ │   y
+        │ │  Cues KS  │  │    KS     │  │Solving KS │  │     KS    │  │    KS     │ │   s
+        │ └───────────┘  └───────────┘  └───────────┘  └───────────┘  └───────────┘ │   t
+        │       │                     Knowledge Sources      │                      │   e
+        └───────│────────────────────────────────────────────│──────────────────────┘   m
+                │                                            │
                 │                                            │
                 │                                    ┌───────────────┐
           ┌───────────┐                              │ ┌───────────┐ │
-          │  Auditory │                              │ │           │ │
-          │ Front-End │<─────────────────────────────│ │   Robot   │ │
+          │  Auditory │                              │ │ Robotic   │ │
+          │ Front-End │<─────────────────────────────│ │ Platform  │ │
           └───────────┘         Ear Signals          │ └───────────┘ │
                                                      │ ┌───────────┐ │
                                                      │ │ Binaural  │ │
                                                      │ │ Simulator │ │
                                                      │ └───────────┘ │
                                                      └───────────────┘
+
 
 .. vim: filetype=rst spell:

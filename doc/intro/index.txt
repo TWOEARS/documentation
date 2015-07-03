@@ -1,38 +1,38 @@
+.. _sec-first-steps:
+
 ===========
 First steps
 ===========
 
-**Two!Ears -- A computational framework for modelling active exploratory listening that
-assigns meaning to auditory scenes**
+The |TwoEarsModel| consists of several modules for modelling active human
+listening. It could handle real recorded binaural data as well as simulated one
+and can be freely configured to solve different tasks like localisation and
+identification of speakers.
 
-The Two!Ears Auditory Model consists of several stages for modelling active human
-listening. These stages include not only classical signal driven processing
-steps like you can find in the |amtoolbox|. It comes also with a complete acoustical simulation framework for
-creating binaural ear signals for specified acoustical scenes. The classical
-auditory signal processing is further accompanied by a black board architecture
-that allows top-down processing and the inclusion of world knowledge to the
-model.
+To get an overview of the single modules of the model, including a nice
+sketch of the overall model have a look at the :ref:`sec-modules`.
 
-Read the following material to quickly get up and running.
+In order to quickly get the model up and running, have a look at the
+:ref:`sec-install`. And then see how to :ref:`sec-tutorial-acoustic-scene` and
+:ref:`sec-tutorial-auditory-model`.
+
+If you are curious on how to best get data from our huge |database| have a look
+at :ref:`sec-tutorial-database`. And if you are ready to not only simulate
+binaural ear signals, but really record them on the fly have a look at the
+:ref:`sec-tutorial-robot`.
+
+
 
 .. toctree::
     :maxdepth: 1
+    :hidden:
 
     install
     modules
-    tutorial01
-    tutorial02
-    tutorial03
-    tutorial04
-    tutorial05
-
-
-Current state of the model
-==========================
-
-The development of the model did just start and its current version includes
-only some of its stages. In end of June 2015 a first version, including several
-of its modules will be released.
+    tutorial-acoustic-scene
+    tutorial-auditory-model
+    tutorial-database
+    tutorial-robot
 
 The model is being developed by the partners of the `EU project Two!Ears`_.
 

@@ -1,3 +1,9 @@
+.. warning::
+
+    This site is not up-to-date
+
+.. _sec-install-development-system:
+
 Installation of the development version
 =======================================
 
@@ -25,7 +31,7 @@ need some basic functionality from that one:
     $ git clone https://github.com/TWOEARS/TwoEars.git
 
 In addition, single modules could depend on other modules.
-For example, to work on the |AFE| you have to clone the |tools| repository as
+For example, to work on the |AFE| you have to clone the tools repository as
 well:
 
 .. code-block:: bash

@@ -1,3 +1,5 @@
+.. _sec-tutorial-auditory-model:
+
 Setting up an auditory model
 ============================
 

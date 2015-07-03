@@ -177,7 +177,9 @@ For our https://dev.qu.tu-berlin.de address you have to provide your user name
 and password every time you push or pull or clone something from the server.
 In order to avoid retyping your password every time you can let git store it
 locally for some time with the following commands (works for git since version
-1.7.10) [`source <https://help.github.com/articles/set-up-git#platform-linux>`_]:
+1.7.10) 
+
+`LINUX <https://help.github.com/articles/set-up-git#platform-linux>`_:
 
 .. code-block:: bash
 
@@ -186,6 +188,15 @@ locally for some time with the following commands (works for git since version
 
 The last command sets the storage time to 1 hour. You can change this if you
 like.
+
+`WINDOWS (GitBash) <http://stackoverflow.com/questions/11693074/git-credential-cache-is-not-a-git-command>`_:
+
+.. code-block:: bash
+
+    $ git config --global credential.helper wincred
+
+Your credentials are going to be saved during the next access.
+
 
 Publishing our code at github
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

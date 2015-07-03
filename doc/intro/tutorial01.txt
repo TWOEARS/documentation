@@ -1,4 +1,0 @@
-Auditory Models
-===============
-
-.. vim: filetype=rst spell:

@@ -156,6 +156,8 @@ from the |AFE|::
             % ...
         end
 
+.. _sec-blackboard-localisation:
+
 Localisation knowledge sources
 ------------------------------
 
@@ -163,6 +165,8 @@ Four knowledge sources work together to generate hypotheses of sound source
 azimuths: ``Location`` knowledge source, ``Confusion Detection`` knowledge
 source, ``Confusion Solving`` knowledge source, and ``Head Rotation`` knowledge
 source.
+
+.. _sec-location-knowledge-source:
 
 Location knowledge source: ``LocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -187,6 +191,8 @@ event ``KsFiredEvent`` is notified.
 | triggers event         | ``KsFiredEvent``                      |
 +------------------------+---------------------------------------+
 
+.. _sec-confusion-knowledge-source:
+
 Confusion detection knowledge source: ``ConfusionKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -208,6 +214,8 @@ category. Otherwise, a ``PerceivedLocation`` object is added to the blackboard
 | triggers event         | ``ConfusedLocations`` or ``KsFiredEvent``          |
 +------------------------+----------------------------------------------------+
 
+.. _sec-confusion-solving-knowledge-source:
+
 Confusion solving knowledge source: ``ConfusionSolvingKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -228,6 +236,8 @@ and a ``PerceivedLocation`` object is placed on the blackboard.
 +------------------------+---------------------------------------------------------------------------+
 | triggers event         | ``KsFiredEvent``                                                          |
 +------------------------+---------------------------------------------------------------------------+
+
+.. _sec-rotation-knowledge-source:
 
 Head rotation knowledge source: ``RotationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

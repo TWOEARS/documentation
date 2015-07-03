@@ -1,4 +1,0 @@
-Setting up an acoustic scene
-============================
-
-.. vim: filetype=rst spell:

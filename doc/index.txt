@@ -5,44 +5,39 @@
 Two!Ears documentation
 ======================
 
-.. rubric:: Everything you need to know about Two!Ears.
+**Everything you need to know about Two!Ears.**
 
-Getting help
-============
+.. rubric:: Getting help
 
 Having trouble? We'd like to help!
 
 * Looking for specific information? Try
   the :doc:`detailed table of contents <contents>`.
 
-* Search for information in the archives of the |twoears| mailing list, or
-  `post a question`_.
+* Search for information or post a question in the
+  |TwoearsMailingList|.
 
 * Report bugs or ask for new features in our `issue tracker`_.
 
 .. _archives: http://groups.google.com/group/twoears/
-.. _post a question: https://groups.google.com/d/forum/twoears
 .. _issue tracker: https://github.com/TWOEARS/TwoEars/issues
 
-First steps
-===========
+.. rubric:: First steps
 
 New to Two!Ears or auditory modelling? This is the place to start!
 
 * **Introduction:**
-  :doc:`Overview <intro/index>` |
+  :doc:`First steps <intro/index>` |
   :doc:`Installation <intro/install>` |
   :doc:`Two!Ears modular structure <intro/modules>`
 
-* **Tutorial:**
-  :doc:`Part 1: Auditory Models <intro/tutorial01>` |
-  :doc:`Part 2: Setting up an acoustic scene <intro/tutorial02>` |
-  :doc:`Part 3: Setting up an auditory model <intro/tutorial03>` |
-  :doc:`Part 4: Working with the database <intro/tutorial04>` |
-  :doc:`Part 5: Use a robotic plattform <intro/tutorial05>`
+* **Tutorials:**
+  :ref:`Part 1: Setting up an acoustic scene <sec-tutorial-acoustic-scene>` |
+  :ref:`Part 2: Setting up an auditory model <sec-tutorial-auditory-model>` |
+  :ref:`Part 3: Working with the database <sec-tutorial-database>` |
+  :ref:`Part 4: Use a robotic plattform <sec-tutorial-robot>`
 
-Binaural simulator
-==================
+.. rubric:: Binaural simulator
 
 The Two!Ears Binaural Simulator enables you to create dynamic binaural ear
 signals, that can be used by later parts of the model to actively explore a
@@ -53,17 +48,15 @@ scene.
 * :doc:`Usage <binsim/usage>`
 * :doc:`Examples <binsim/examples>`
 
-Robotic platform
-================
+.. rubric:: Robotic platform
 
 If you have a robotic platform ready to record the binaural signals, no
 simulation of them will be needed. Learn to set up your own robot below:
 
-* :doc:`Introduction <robo/introduction>`
-* :doc:`Build your own KEMAR-robot <robo/building-robot>`
+* :doc:`Getting started <robo/getting-started/index>`
+* :doc:`Audio streaming <robo/audio-streaming/index>`
 
-Auditory front-end
-==================
+.. rubric:: Auditory front-end
 
 The Two!Ears Auditory Front-End extracts all kinds of auditory cues from the ear
 signals like the loudness or interaural differences. For detailed description
@@ -75,8 +68,7 @@ see:
 * :doc:`Available processors <afe/processors>`
 * :doc:`Add your own processor <afe/add-processor>`
 
-Blackboard system
-=================
+.. rubric:: Blackboard system
 
 The Two!Ears Blackboard System is the *brain* of the Two!Ears Auditory Model as
 it provides a way to interpret the auditory cues and extract meaning from them.
@@ -89,8 +81,7 @@ Learn how this happens below:
 * :doc:`Knowledge sources <blackboard/knowledge-sources>`
 * :doc:`Add your own knowledge source <blackboard/add-knowledge-sources>`
 
-Database
-========
+.. rubric:: Database
 
 The Two!Ears Binaural Simulator and the Two!Ears Blackboard System uses a lot of
 different data to perform their tasks. This is achieved by a large collection of
@@ -103,8 +94,7 @@ data:
 * :doc:`Sound databases <database/sound-databases>`
 * :doc:`Stimuli <database/stimuli>`
 
-Examples
-========
+.. rubric:: Examples
 
 A key concept of the Two!Ears Auditory Model is reproducible research. Here, you
 will find scripts show casing basic usage examples of the model or redoing
@@ -112,10 +102,11 @@ figures from our publications:
 
 * :doc:`Overview <examples/index>`
 * :doc:`Localisation with and without head rotation <examples/localisation>`
-* :doc:`Publication1 <examples/paper1>`
+* :doc:`Localisation - looking at the results in detail
+  <examples/localisation-details>`
+* :doc:`(Re)train the localisation stage <examples/train-localisation>`
 
-Development
-===========
+.. rubric:: Development
 
 If you are part of the Two!Ears development team or would like to become part of
 it, read on:

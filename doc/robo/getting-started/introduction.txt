@@ -1,0 +1,9 @@
+Introduction
+============
+
+.. vim: filetype=rst spell:
+.. emacs:
+   Local Variables:
+   mode: rst
+   fill-column: 80
+   End:

@@ -1,4 +1,0 @@
-Building your own KEMAR-robot
-=============================
-
-.. vim: filetype=rst spell:

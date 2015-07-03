@@ -1,27 +1,31 @@
+.. _sec-binsim:
+
 ==================
 Binaural simulator
 ==================
 
-The |BinSim| enables the creation of binaural audio signals
-for different situations. This is done via the usage of head-related transfer
-functions (HRTFs) or binaural room impulse responses (BRIRs), which are provided
-in the Two!Ears data repository. All the needed data will be downloaded on
-demand from the data repository via a http connection. The simulation framework
-can be used as one module in the |AFE|. The |BinSim| uses the signal processing
-core of the SoundScape Renderer.
+The |BinSim| enables the creation of binaural audio signals for different
+situations. This is done via the usage of :abbr:`HRTF (head-related transfer
+function)`\ s or :abbr:`BRIR (binaural room impulse response)`\ s, which are
+provided in the |database|. All the needed data will be downloaded on demand
+from the data repository via a http connection.  The next sections will help you
+to set up the |BinSim| and define and simulate your own acoustic scenes with it.
 
-The next sections will help you to set up the |BinSim| and define and simulate
-your own acoustic scenes with it. The installation process is a little bit more
-complicated than with normal Matlab scripts as we are using a C++ core for the
-audio rendering which is included as a mex-file. If you have trouble during the
-installation, don't hesitate to write a mail to the |twoears| mailing list.
+For all its calculations the |BinSim| uses the signal processing core of the
+`SoundScape Renderer`_ which is written in C++ and provided via a mex-file to
+Matlab. If you have problems with the provided mex-files, see the
+:ref:`sec-binsim-install` for how to compile them yourself.  If you have trouble
+during the installation, don't hesitate to write a mail to the
+|TwoearsMailingList|.
+
+.. _SoundScape Renderer: http://spatialaudio.net/ssr/
 
 .. toctree::
     :maxdepth: 2
 
-    install
     usage
     examples
+    install
 
 
 Credits

@@ -1,0 +1,156 @@
+.. highlight:: Matlab
+
+.. _sec-examples-train-localisation:
+
+(Re)train the localisation stage
+================================
+
+In the localisation stage of the |TwoEarsModel| the
+:ref:`sec-location-knowledge-source` is involved which
+has a learned lookup table for :abbr:`ITD (interural time difference)`\ s and
+:abbr:`ILD (interaural level difference)`\ s. For the ``default`` setting of
+``LocationKS`` this was trained with the
+:file:`impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa` from the
+database convolved with white noise.
+The training was done for a resolution of 1°. This examples shows you how you
+can retrain the model for other :abbr:`HRTF (head related transfer function)`\
+s, other angular resolutions, and other source materials.
+This example can be found in the ``examples/train_localisation_model`` folder
+which consists of the following files::
+
+    BlackboardMIT.xml
+    BlackboardQU.xml
+    localise.m
+    SceneDescriptionMIT.xml
+    SceneDescriptionQU.xml
+    train.m
+
+Before starting with the training of ``LocationKS`` we have to define the
+binaural signals that should be used during training. As we would like to train
+on the :ref:`MIT KEMAR HRTFs <sec-hrir-mit-kemar>` we do the definition in the
+``SceneDescriptionMIT.xml`` file, which looks like this:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <scene
+      BlockSize="4096"
+      SampleRate="44100"
+      MaximumDelay="0.0"
+      NumberOfThreads="1"
+      LengthOfSimulation = "30"
+      HRIRs="impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa">
+      <source Radius="3.0"
+              Mute="false"
+              Type="point"
+              Name="SoundSource">
+        <buffer ChannelMapping="1"
+            Type="noise"/>
+      </source>
+      <sink Name="Head"
+            Position="0 0 0"
+            UnitX="1 0 0"
+            UnitZ="0 0 1"/>
+    </scene>
+
+The most important parts are the setting of ``HRIRs`` to the corresponding file
+from the :ref:`sec-database`
+``impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa``, and
+the specifying of the used audio material during training, which is set to white
+noise with the ``Type="noise"`` option and a length of 30 s with by
+``LengthOfSimulation = "30"``. For more details on how to configure the binaural
+simulator or how to include wav-files as audio material see
+:ref:`sec-xml-scene-description`.  After setting up the audio scene we can train
+the ``LocationKS`` knowledge source with the following command::
+
+    >> train('mit', 'SceneDescriptionMIT.xml', 5);
+
+This will create the folder ``learned_models/LocationKS/mit`` where the result
+is stored. In this case we trained for an angular resolution of 5°.  For looking
+into the details how the training is working, we look at the single steps that
+are performed by the ``train()`` function::
+
+    % Create a LocationKS in training mode
+    loc = LocationKS('mit', 5, true);
+    % Generate binaural signals and extract ITD, ILD for learning.
+    loc.generateTrainingData('SceneDescriptionMIT.xml');
+    % Train model and remove tmp data afterwards
+    loc.train();
+    loc.removeTrainingData();
+
+Now we would like to compare the localisation results of the ``default`` and the
+``mit`` ``LocationKS``. For both cases we have to configure a blackboard which
+is done inside :file:`BlackboardQU.xml` and :file:`BlackboardMIT.xml`. On
+details how to configure the blackboard see :ref:`sec-blackboard-configure`. The
+important parts in our case are:
+
+.. code-block:: xml
+
+    <KS Name="loc" Type="LocationKS">
+        <Param Type="char">default</Param>
+    </KS>
+
+inside :file:`BlackboardQU.xml` and:
+
+.. code-block:: xml
+
+    <KS Name="loc" Type="LocationKS">
+        <Param Type="char">mit</Param>
+    </KS>
+
+inside :file:`BlackboardMIT.xml`.
+The first parameter specifies which learned model to use. Now, we are generating
+an audio scene with the :ref:`HRTFs used for the default setting
+<sec-hrir-qu-kemar>` and localise with both models::
+
+    >> localise
+
+    ------------------------------------------------------------------
+    Source direction        Model w QU HRTF       Model w MIT HRTF
+    ------------------------------------------------------------------
+      30                       30                      30
+      88                       88                      85
+     160                      160                     160
+    -103                     -103                    -110
+    ------------------------------------------------------------------
+
+This is done by the following loop inside :file:`localise.m` which loops over
+the specified source directions::
+
+    for direction = sourceAngles
+
+        % Localisation using QU KEMAR HRTFs
+        sim = simulator.SimulatorConvexRoom('SceneDescriptionQU.xml');
+        sim.Verbose = false;
+        sim.Sources{1}.set('Azimuth', direction);
+        sim.rotateHead(0, 'absolute');
+        sim.Init = true;
+        bbs = BlackboardSystem(0);
+        bbs.setRobotConnect(sim);
+        bbs.buildFromXml('BlackboardQU.xml');
+        bbs.run();
+        predictedLocations = bbs.blackboard.getData('perceivedLocations');
+        predictedAzimuthQu = evaluateLocalisationResults(predictedLocations, direction);
+        sim.ShutDown = true;
+
+        % Localisation using MIT KEMAR HRTFs
+        sim = simulator.SimulatorConvexRoom('SceneDescriptionQU.xml');
+        sim.Verbose = false;
+        sim.Sources{1}.set('Azimuth', direction);
+        sim.rotateHead(0, 'absolute');
+        sim.Init = true;
+        bbs = BlackboardSystem(0);
+        bbs.setRobotConnect(sim);
+        bbs.buildFromXml('BlackboardMIT.xml');
+        bbs.run();
+        predictedLocations = bbs.blackboard.getData('perceivedLocations');
+        predictedAzimuthMit = evaluateLocalisationResults(predictedLocations, direction);
+        sim.ShutDown = true;
+
+        printLocalisationTableColumn(direction, predictedAzimuthQu, predictedAzimuthMit);
+
+    end
+
+
+
+.. vim: filetype=rst spell:

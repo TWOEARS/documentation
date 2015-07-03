@@ -8,6 +8,7 @@ Examples
     :maxdepth: 1
 
     localisation
-    paper1
+    localisation-details
+    train-localisation
 
 .. vim: filetype=rst spell:

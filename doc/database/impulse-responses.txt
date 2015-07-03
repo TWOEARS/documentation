@@ -54,8 +54,10 @@ Anechoic measurements (:abbr:`HRTF (head related transfer function)`\ s)
 Have a look at the single sections for a documentation of the single
 measurements. If you you know what you are doing, here is a list of all
 available :abbr:`HRIR (head related impulse response)`\ s with the path that can
-be directly used with the |BinSim|::
+be directly used with the |BinSim|
 
+
+.. _sec-hrir-qu-kemar:
 
 Anechoic HRIRs from the KEMAR manikin with different distances
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -115,26 +117,85 @@ dummy head.
 Spherical Far Field HRIR Compilation of the Neumann KU100
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. _sec-hrir-mit-kemar:
+
 HRTF Measurements of a KEMAR Dummy-Head Microphone (MIT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    MIT_KEMAR_anechoic_1.7m_large.sofa
+    MIT_KEMAR_anechoic_1.7m_normal.sofa
+
+Files were downloaded from the SOFA database (See http://www.sofaconventions.org/mediawiki/index.php/Files). 
+
+For Documentation see [Gardner1994]_
+
+.. [Gardner1994] [Gardner, Bill, and Keith Martin - HRTF measurements of a KEMAR dummy-head microphone. Massachusetts Institute of Technology 280,  1994]
+
+(http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf)
+
+
+.. _sec-hrir-scut-kemar:
 
 Near-field HRTFs from SCUT database of the KEMAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+::
+
+    SCUT_KEMAR_anechoic.sofa
+    SCUT_KEMAR_anechoic_0.2m.sofa
+    SCUT_KEMAR_anechoic_0.3m.sofa
+    SCUT_KEMAR_anechoic_0.4m.sofa
+    SCUT_KEMAR_anechoic_0.5m.sofa
+    SCUT_KEMAR_anechoic_0.6m.sofa
+    SCUT_KEMAR_anechoic_0.7m.sofa
+    SCUT_KEMAR_anechoic_0.8m.sofa
+    SCUT_KEMAR_anechoic_0.9m.sofa
+    SCUT_KEMAR_anechoic_0.25m.sofa
+    SCUT_KEMAR_anechoic_1m.sofa
+
+
+Files were downloaded from the SOFA database. See http://www.sofaconventions.org/mediawiki/index.php/Files
+
+## References
+
+[1] [Xie, Bo-sun - Head-related transfer function and virtual auditory display.
+J Ross, 2013]
+
+
+
+
 Reverberant measurements (:abbr:`BRIR (binaural room impulse response)`\ s)
 ---------------------------------------------------------------------------
-
-Have a look at the single sections for a documentation of the single
-measurements. If you you know what you are doing, here is a list of all
-available :abbr:`BRIR (binaural room impulse response)`\ s with the path that can
-be directly used with the |BinSim|::
-
 
 TU Berlin, Telefunken-building, room Auditorium 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TU Berlin, Telefunken-building, room Spirit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    QU_KEMAR_spirit.sofa
+    QU_KEMAR_spirit_src1_30deg.sofa
+    QU_KEMAR_spirit_src2_0deg.sofa
+    QU_KEMAR_spirit_src3_-30deg.sofa
+
+The BRIRs are measured for three different sources and with a resolution of 1°
+and head movement from -90° to 90°.
+
+.. figure:: img/foto_room.jpg
+
+    Foto of the room "Spirit".
+
+Note, that the photo of the room was not taken for the actual measurement setup.
+
+.. figure:: img/setup.png
+
+    Room sketch of the setup.
+
+
 
 
 .. vim: filetype=rst spell:
