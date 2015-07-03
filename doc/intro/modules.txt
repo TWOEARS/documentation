@@ -16,8 +16,8 @@ behavior a |blackboard| module follows the |AFE|, that incorporates several
 experts, so called *knowledge sources* that interpret the auditory cues based
 on there world knowledge and active explorations.
 
-::
-
+.. code::
+    :class: ascii-sketch
 
           ┌───────────────────┐     ┌───────────────────┐     ┌──────────────────┐      B
           │                   │     │ ┌───────────────┐ │     │                  │      l
@@ -48,10 +48,6 @@ on there world knowledge and active explorations.
                                                      │ │ Simulator │ │
                                                      │ └───────────┘ │
                                                      └───────────────┘
-
-.. warning::
-
-    Replace the sketch with a real figure
 
 
 .. vim: filetype=rst spell:
