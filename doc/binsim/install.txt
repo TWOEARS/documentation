@@ -7,9 +7,6 @@ This instructions guides you how to install the |BinSim| if the mex-files
 provided by the official download package are not working on your PC. This means
 you have to compile them yourself.
 
-.. contents::
-    :local:
-
 Linux/Mac
 ---------
 

@@ -5,7 +5,7 @@
 Two!Ears documentation
 ======================
 
-**Everything you need to know about Two!Ears.**
+**Everything you need to know about the Two!Ears Auditory Model.**
 
 .. rubric:: Getting help
 
@@ -27,9 +27,9 @@ Having trouble? We'd like to help!
 New to Two!Ears or auditory modelling? This is the place to start!
 
 * **Introduction:**
-  :doc:`First steps <intro/index>` |
-  :doc:`Installation <intro/install>` |
-  :doc:`Two!Ears modular structure <intro/modules>`
+  :ref:`sec-first-steps` |
+  :ref:`sec-install` |
+  :ref:`sec-modules`
 
 * **Tutorials:**
   :ref:`Part 1: Setting up an acoustic scene <sec-tutorial-acoustic-scene>` |
@@ -43,18 +43,19 @@ The Two!Ears Binaural Simulator enables you to create dynamic binaural ear
 signals, that can be used by later parts of the model to actively explore a
 scene.
 
-* :doc:`Overview <binsim/index>`
-* :doc:`Installation <binsim/install>`
-* :doc:`Usage <binsim/usage>`
-* :doc:`Examples <binsim/examples>`
+* :ref:`Overview <sec-binsim>`
+* :ref:`sec-binsim-usage`
+* :ref:`sec-binsim-examples`
+* :ref:`sec-binsim-install`
 
 .. rubric:: Robotic platform
 
 If you have a robotic platform ready to record the binaural signals, no
-simulation of them will be needed. Learn to set up your own robot below:
+simulation of them will be needed. Here you find the software you need to
+connect Matlab with the robotic world:
 
-* :doc:`Getting started <robo/getting-started/index>`
-* :doc:`Audio streaming <robo/audio-streaming/index>`
+* :ref:`sec-robot-getting-started`
+* :ref:`sec-robot-audio-streaming`
 
 .. rubric:: Auditory front-end
 
@@ -62,11 +63,11 @@ The Two!Ears Auditory Front-End extracts all kinds of auditory cues from the ear
 signals like the loudness or interaural differences. For detailed description
 see:
 
-* :doc:`Introduction <afe/index>`
-* :doc:`Overview <afe/overview>`
-* :doc:`Technical description <afe/description>`
-* :doc:`Available processors <afe/processors>`
-* :doc:`Add your own processor <afe/add-processor>`
+* :ref:`Introduction <sec-afe>`
+* :ref:`sec-afe-overview`
+* :ref:`sec-technical-description`
+* :ref:`sec-afe-processors`
+* :ref:`sec-afe-add-processor`
 
 .. rubric:: Blackboard system
 
@@ -74,12 +75,12 @@ The Two!Ears Blackboard System is the *brain* of the Two!Ears Auditory Model as
 it provides a way to interpret the auditory cues and extract meaning from them.
 Learn how this happens below:
 
-* :doc:`Introduction <blackboard/introduction>`
-* :doc:`Installation <blackboard/install>`
-* :doc:`Usage <blackboard/usage>`
-* :doc:`Blackboard architecture <blackboard/architecture>`
-* :doc:`Knowledge sources <blackboard/knowledge-sources>`
-* :doc:`Add your own knowledge source <blackboard/add-knowledge-sources>`
+* :ref:`sec-blackboard-introduction`
+* :ref:`sec-blackboard-install`
+* :ref:`sec-blackboard-usage`
+* :ref:`sec-blackboard-architecture`
+* :ref:`sec-knowledge-sources`
+* :ref:`sec-blackboard-add-knowledge-source`
 
 .. rubric:: Database
 
@@ -87,12 +88,12 @@ The Two!Ears Binaural Simulator and the Two!Ears Blackboard System uses a lot of
 different data to perform their tasks. This is achieved by a large collection of
 data:
 
-* :doc:`Overview <database/index>`
-* :doc:`Usage <database/usage>`
-* :doc:`Experiment results <database/experiments>`
-* :doc:`Impulse responses <database/impulse-responses>`
-* :doc:`Sound databases <database/sound-databases>`
-* :doc:`Stimuli <database/stimuli>`
+* :ref:`Overview <sec-database>`
+* :ref:`sec-database-usage`
+* :ref:`sec-experiments`
+* :ref:`sec-impulse-responses`
+* :ref:`sec-sound-databases`
+* :ref:`sec-database-stimuli`
 
 .. rubric:: Examples
 
@@ -100,19 +101,19 @@ A key concept of the Two!Ears Auditory Model is reproducible research. Here, you
 will find scripts show casing basic usage examples of the model or redoing
 figures from our publications:
 
-* :doc:`Overview <examples/index>`
-* :doc:`Localisation with and without head rotation <examples/localisation>`
-* :doc:`Localisation - looking at the results in detail
-  <examples/localisation-details>`
-* :doc:`(Re)train the localisation stage <examples/train-localisation>`
+* :ref:`Overview <sec-examples>`
+* :ref:`sec-examples-localisation`
+* :ref:`sec-examples-localisation-details`
+* :ref:`sec-examples-train-localisation`
 
 .. rubric:: Development
 
 If you are part of the Two!Ears development team or would like to become part of
 it, read on:
 
-* :doc:`How to get involved <dev/index>`
-* :doc:`Coding style guide <dev/coding-style-guide>`
-* :doc:`Writing this documentation <dev/writing-documentation>`
+* :ref:`How to get involved <sec-dev>`
+* :ref:`sec-coding-style-guide`
+* :ref:`Writing this documentation <sec-writing-documentation>`
+* :ref:`sec-git`
 
 .. vim: filetype=rst spell:

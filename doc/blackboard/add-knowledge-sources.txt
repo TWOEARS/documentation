@@ -2,6 +2,8 @@
 
     This site is not complete yet.
 
+.. _sec-blackboard-add-knowledge-source:
+
 Add your own knowledge sources
 ==============================
 

@@ -1,26 +1,23 @@
+.. _sec-binsim-examples:
+
 Examples
 ========
 
-These examples are use cases of the `Two!Ears Binaural Simulator`_, for
-instructions on how to use the whole `Two!Ears Auditory Model`_ refer to ...
-
-The following examples apply the configuration directly in Matlab, the
-corresponding files can be found in the ``doc/examples/`` directory. For larger
-setups it will be easier to use the :ref:`sec-xml-scene-description`.
-Examples using the :ref:`sec-xml-scene-description` can be found in the ``test/`` directory.
-
-.. contents::
-    :local:
+These examples are use cases of the |BinSim| They apply the configuration
+directly in Matlab For larger setups it might be easier to use the
+:ref:`sec-xml-scene-description`, which will also be used in the overall
+:ref:`sec-examples` where the complete model is demonstrated.
 
 Simulate two dry sources
 ------------------------
 
-In the :file:`doc/examples/two_sources.m` example, two dry sources will be simulated
+In this example, two dry sources will be simulated
 and the binaural output is written to the file :file:`out_two_sources.wav`.
 One source is a cello placed to the left of the listener and the other source
 is castanets placed in the front of the listener.
 
 .. code-block:: Matlab
+    :linenos:
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...
@@ -62,11 +59,12 @@ is castanets placed in the front of the listener.
 Simulate a moving source
 -------------------------
 
-The :file:`doc/examples/moving_source.m` example simulates a dry cello that moves from
-the left to the right of the listener and stores the resulting binaural signal
-as :file:`out_moving_source.wav`.
+This example simulates a dry cello that moves from the left to the right of the
+listener and stores the resulting binaural signal as
+:file:`out_moving_source.wav`.
 
 .. code-block:: Matlab
+    :linenos:
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...
@@ -100,11 +98,12 @@ as :file:`out_moving_source.wav`.
 Simulate rooms using the Image Source Model
 -------------------------------------------
 
-The :file:`doc/examples/room.m` example simulates a dry cello in a shoe box room and
-stores the resulting binaural signal in :file:`out_room.wav`. The shoe box room is
-simulated with an image source model.
+This example simulates a dry cello in a shoe box room and stores the resulting
+binaural signal in :file:`out_room.wav`. The shoe box room is simulated with an
+image source model.
 
 .. code-block:: Matlab
+    :linenos:
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...
@@ -151,11 +150,11 @@ simulated with an image source model.
 Simulate rooms using Binaural Room Impulse Responses
 ----------------------------------------------------
 
-The :file:`doc/examples/brirs.m` example simulates a cello in a reverberant
-environment using BRIR recordings. The resulting binaural signal as stored in
-:file:`out_brirs.wav`.
+This example simulates a cello in a reverberant environment using BRIR
+recordings. The resulting binaural signal as stored in :file:`out_brirs.wav`.
 
 .. code-block:: Matlab
+    :linenos:
 
     sim = simulator.SimulatorConvexRoom();
     set(sim, ...

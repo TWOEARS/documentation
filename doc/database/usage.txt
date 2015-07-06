@@ -2,6 +2,8 @@
 
     This site is not complete yet.
 
+.. _sec-database-usage:
+
 Usage
 =====
 

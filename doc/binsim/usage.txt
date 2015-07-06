@@ -1,46 +1,37 @@
+.. _sec-binsim-usage:
+
 Usage
 =====
 
-This instructions guides you how to use the `Two!Ears Binaural Simulator`_, for
-instructions on how to use the whole `Two!Ears Auditory Model`_ refer to ...
+This instruction guides you in detail on how to use the |BinSim|, for a brief
+guide have a look at the tutorial :ref:`sec-tutorial-acoustic-scene`. For
+instructions on how to use the whole |TwoEarsModel| have a look at the provided
+usage :ref:`sec-examples`.
 
-.. contents::
-    :local:
-
-Quick start
------------
-
-If you want to use the `Two!Ears Binaural Simulator`_ without any other part of
-the `Two!Ears Auditory Model`_ you can start it as a single module with the
-``startTwoEars`` function which is part of the
-:doc:`Two!Ears Main module <../intro/modules>`.
-
-.. code-block:: Matlab
-
-    startTwoEars('BinauralSimulator.xml');
+In the following it is assumed that you have started the |TwoEarsModel| already
+via the :code:`startTwoEars()` command.
 
 Configuration
 -------------
 
-There are basically two ways for controlling and configuring the `Two!Ears
-Binaural Simulator`_.
-In both cases you will need audio files to create you acoustic scenes with it.
+There are basically two ways for controlling and configuring the |BinSim|.
+In both cases you will need audio files to create your acoustic scenes with it.
 You could of course use your own audio files, but you can also use files from
-the large `Two!Ears Database`_. In that case you only have to specify the
-path of the desired files in the database and the `Two!Ears Binaural Simulator`_
+the large |database|. In that case you only have to specify the
+path of the desired files in the database and the |BinSim|
 will download them during processing. For further information on that have a
-look at the :doc:`Introduction into the database <../database/index>`.
+look at the :ref:`sec-tutorial-database`.
 
 Configuration using a Matlab script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `Two!Ears Binaural Simulator`_ uses the object-oriented programming
+The |BinSim| uses the object-oriented programming
 architecture of Matlab. In order to initialise the simulation tool, an Object
 of the ``SimulatorConvexRoom()``-class has to be instantiated by:
 
 .. code-block:: Matlab
 
-    sim = simulator.SimulatorConvexRoom();
+    >> sim = simulator.SimulatorConvexRoom();
 
 Note that the constructor returns a handle, which is the pendant to a reference
 of an object in other programming language. Assigning ``sim`` to a another
@@ -77,6 +68,7 @@ various processing parameters of the simulator the build-in set/get
 functionality of Matlab should be used, e.g.
 
 .. code-block:: Matlab
+    :linenos:
 
     % some processing parameters
     set(sim, ...
@@ -95,6 +87,7 @@ size aka. frame size of 4096 Samples. To define the acoustic scene, e.g.
 the sound sources and the listener.
 
 .. code-block:: Matlab
+    :linenos:
 
     % acoustic scene
     set(sim, ...
@@ -112,6 +105,7 @@ handles, they can be accessed using the same set/get procedure as for the
 simulator object, e.g.
 
 .. code-block:: Matlab
+    :linenos:
 
     % set parameters of audio sources
     set(sim.Sources{1}, ...
@@ -145,6 +139,7 @@ For more details about possible buffer types please refer to the
 `API documentation on buffers`_. To load a sound files into the buffers execute
 
 .. code-block:: Matlab
+    :linenos:
 
     % set audio input of buffers
     set(sim.Sources{1}.AudioBuffer, ...
@@ -152,9 +147,6 @@ For more details about possible buffer types please refer to the
 
     set(sim.Sources{2}.AudioBuffer, ...
       'File', 'stimuli/anechoic/instruments/anechoic_castanets.wav');
-
-All code snippets have been taken from example script :file:`test_binaural_wo.m`
-located in ``./test``.
 
 .. _API documentation on the Two!Ears Binaural Simulator: http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_simulator_interface.html
 .. _API documentation on buffers: http://twoears.github.io/binaural-simulator-doc/namespacesimulator_1_1buffer.html
@@ -170,11 +162,12 @@ the file name of a XML scene description file.
 
 .. code-block:: Matlab
 
-    sim = simulator.SimulatorConvexRoom('test_binaural.xml');
+    >> sim = simulator.SimulatorConvexRoom('test_binaural.xml');
 
 The content of :file:`test_binaural.xml` is shown below.
 
 .. code-block:: xml
+    :linenos:
 
     <scene
       BlockSize="4096"
@@ -215,10 +208,10 @@ into the simulation kernel execute
 
 .. code-block:: Matlab
 
-    sim.set('Init',true);
+    >> sim.set('Init',true);
 
 Note, that all the processing parameters and objects' initial positions have to
-be defined BEFORE initialisation in order to initialise the simulation properly.
+be defined **before** initialisation in order to initialise the simulation properly.
 After the simulator has been initialised it is not possible to re-assign any
 property of the simulator object. Hence the number of acoustic sources cannot be
 changed within one simulation run. However, modifying e.g. the position of a
@@ -226,22 +219,25 @@ scene object is possible. The following loop calculates the ear signals until
 the acoustic scene is finished.
 
 .. code-block:: Matlab
+    :linenos:
 
     while ~sim.isFinished()
       sim.set('Refresh',true);  % refresh all objects
       sim.set('Process',true);
     end
 
-The function ``sim.isFinished()`` yields true if the buffers of all sound sources
-are empty or if ``sim.LengthOfSimulation`` has been reached. Note, that the
-simulator is a block-wise processor: Each call of line 3 generates a block of
-ear signals whose length is defined by ``sim.BlockSize``. Between two processing
-steps, the properties of scene objects may be manipulated, e.g. the position of
-a scene object is changed. If necessary, call line 2 once before processing a new
-block in order to send any modification to the simulation kernel. The ear
-signals are stored in the FIFO buffer of the ``sim.Sinks`` object.
+The function ``sim.isFinished()`` yields true if the buffers of all sound
+sources are empty or if ``sim.LengthOfSimulation`` has been reached. Note, that
+the simulator is a block-wise processor: Each call of line 3 generates a block
+of ear signals whose length is defined by ``sim.BlockSize``. Between two
+processing steps, the properties of scene objects may be manipulated, e.g. the
+position of a scene object is changed. If necessary, call line 2 once before
+processing a new block in order to send any modification to the simulation
+kernel. The ear signals are stored in the :abbr:`FIFO (first in, first out)`
+buffer of the ``sim.Sinks`` object.
 
 .. code-block:: Matlab
+    :linenos:
 
     % read whole data from buffer
     data = sim.Sinks.getData();
@@ -253,7 +249,7 @@ finish the simulation shut down and clean up the simulator by calling:
 
 .. code-block:: Matlab
 
-    sim.set('ShutDown',true);
+    >> sim.set('ShutDown',true);
 
 The simulator reverts to an uninitialised state, where the manipulation of every
 parameter is possible, again. This is necessary, if you want to start a new
@@ -263,13 +259,13 @@ before a kind of a weak shut down should do the job:
 
 .. code-block:: Matlab
 
-    sim.set('ReInit',true);
+    >> sim.set('ReInit',true);
 
-Again, objects' initial positions have to be defined BEFORE re-initialisation
+Again, objects' initial positions have to be defined **before** re-initialisation
 in order to initialise the simulation properly. The simulator however remains in
 an initialised state.
 
-To get more hands on the `Two!Ears Binaural Simulator`_ have a look at the
-:doc:`Examples use cases <examples>`.
+To get more hands on the |BinSim| have a look at the
+:ref:`sec-binsim-examples`.
 
 .. vim: filetype=rst spell:
