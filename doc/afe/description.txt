@@ -451,6 +451,8 @@ are performed:
    the end of the current chunk which did not generate output, or which
    will influence the output of next chunk.
 
+.. _sec-ratemap-example:
+
 An example: rate-map
 ^^^^^^^^^^^^^^^^^^^^
 

@@ -491,6 +491,11 @@ you type::
 
 then this should reflect in the property associated with that parameter.
 
+.. note::
+  
+  The input and output frequencies properties of your processor, ``FsHzIn`` and
+  ``FsHzOut`` are probably incorrect, but that is normal as you did not specify
+  the sampling frequency when calling the constructor with no arguments.
 
 Is it a valid processor?
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -525,6 +530,115 @@ suitable or better looking descriptions.
 Implement the core processing method
 ------------------------------------
 
+At this stage, and if the previous tests were successfully passed, your
+processor should be correctly detected by the |AFE| framework. However, there is
+still some implementation work to do. In particular, the core of your processor,
+the method which performs the processing of the input signal and returns a
+corresponding output.
+
+This section will provide guidelines as to how to implement that method.
+However, this task is very dependent on the functionality you want your
+processor to have. You can get insights as to how to perform the signal
+processing task by looking at the code of the ``.processChunk`` methods of
+existing processors. 
+
+.. note::
+
+  The problems faced here and some aspects to build solutions were already
+  presented in a :ref:`section<sec-process-chunk>` of the technical description.
+  It is recommended at that stage to go back and read that section again.
+
+Input and output arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The processing method should be called ``processChunk`` and be placed in a block
+of methods with no attributes (e.g., following the class constructor). The
+function takes a single effective input argument, a chunk of input signal and
+returns a single output argument, the corresponding chunk of output signal.
+Because it is a non-static method of the processor however, an instance of the
+processor is passed as first input argument. Hence the method definition looks
+something like this::
+
+  function out = processChunk(pObj,in)
+
+    % The signal processing to obtain "out" from "in" is written here
+    %
+    % ...
+
+  end
+
+Given an instance of your processor, say ``p``, this allows you to call this
+method (and in general all methods taking an object instance as first argument)
+in two different ways:
+
+- ``processChunk(p,in)``
+- ``p.processChunk(in)``
+
+The two calls will of course return the same output.
+
+Having an instance of the processor as an argument means that you can access all
+of its properties to carry out the processing. In particular, the external and
+internal parameter properties you have defined earlier.
+
+The arguments ``in`` and ``out`` are arrays containing "pure" data. Although
+signal-related data is stored as specific signal objects in the |AFE|, only the
+data is passed around when it comes to processing. It is done internally and
+with emphasis on avoiding unnecessary copies. So it is not something to address
+in the implementation of your processing method. Your input is an array whose
+dimensionality depends on the type of signal. Dimensions are ordered in the same
+way as in the data-storing buffer of the signal object. For example, the input
+``in`` in the ``gammatoneProc.processChunk`` is a one-dimensional array spanning
+time. Similarly, the output should be arranged in the same way it is stored in
+its corresponding output signal object. For example, the output ``out`` of
+``modulationProc.processChunk`` is a three-dimensional array where the first
+dimension spans time, the second spans audio frequency and the third spans
+modulation frequency. Just like the way data is stored in the
+``modulationSignal.Data`` buffer.
+
+.. note::
+  The first dimension for all signals used in the |AFE| is always spanning time.
+
+
+Chunk-based and signal-based processing 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As the name of the method ``processChunk`` suggests, you should implement the
+processing method such that it can process consecutive chunks of input signal,
+as opposed to the entire signal at once. This is to enable "online" processing,
+and later down the way "real-time" processing once the software has been
+sufficiently optimised. This has two fundamental consequences on your
+implementation:
+
+1. The input data to the processing method can be of arbitrary duration.
+2. The processing method need to respect continuity between input chunks. In 
+   other words, when concatenating the outputs obtained by processing 
+   individual consecutive chunks of input, one need to obtain the same output 
+   as if all the consecutive input were concatenated and processed at once.
+
+Point 1. above implies that depending on the type of processing you are carrying
+out, it might be necessary to buffer the input signal. For example, processors
+involving framing of the signal, such as ``ratemapProc`` or ``ildProc``, need to
+put the segment of the input signal that went out of bound of the framing
+operation in a buffer. This buffer is then appended to the beginning of the next
+input chunk. This is illustrated in a :ref:`section<sec-ratemap-example>` of the
+technical description of the framework. This also means that for some processor
+(those which lower the sampling rate in general), an input that is too short in
+time might produce an empty output. But this input will still be considered in
+the next chunk.
+
+Point 2. is the most challenging one. How to fulfil it depends entirely on what
+your processor performs. Hence there are no specific guidelines. However, the
+|AFE| comes with some building blocks to help with this task. It features for
+instance filter objects that can be used for processing. All filters manage
+their internal states themselves, such that output continuity is ensured. For an
+example on how to use filters, see e.g. ``gammatoneProc.processChunk``.
+Sometimes however, one need more than simple filtering operations. One can often
+find a workaround by using some sort of "overlap-save" method using smart
+buffering of the input or output as described in the :ref:`technical description
+<sec-process-chunk>`. A good example of using buffering  for output continuity
+can be found in e.g., ``ildProc.processChunk``.
+
+
 
 
 .. _sec-afe-override-methods:
@@ -547,3 +661,4 @@ Implement a new signal type
 Recommendations for final testing
 ---------------------------------
 
+- Test batch vs. chunk processing
