@@ -7,20 +7,13 @@
 Installation
 ============
 
-Dependencies
-------------
-
-The |blackboard| is positioned more at the end part of the complete |TwoEarsModel|
-chain. That means that you first have to ensure that all the needed modules are
-installed.
-
-You have to provide the blackboard with some input signals which will come from
-the |binsim| or the |robot| and which are very likely processed by the |AFE|
-in between. Depending on your work flow those modules have to be installed and
-running.
-
 .. warning::
 
-    Please add further instructions. I think we need GMTK? 
+    We have now a common installation section: :ref:`sec-install` where you
+    should add information about installing gmtk and other stuff if more is
+    needed.
+    This special installation section should only be used, if you have some
+    special non-standard things like the |BinSim| which you can find here:
+    :ref:`sec-binsim-install`.
 
 .. vim: filetype=rst spell:
