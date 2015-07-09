@@ -291,7 +291,8 @@ file in the following way::
 
 In the text you then simply write ``|HRTF|``.  This will transform to acronym
 like |HRTF| in the HTML version and will be written out only the first time in
-the PDF version of the documentation.
+the PDF version of the documentation. If you need the plural form you have to
+write ``|HRTF|\ s`` which will translate into |HRTF|\ s.
 
 Documenting new features
 ------------------------
