@@ -72,7 +72,8 @@ rest of the model. We can do it with by running the binaural simulation with in
 a standalone version with::
 
     >> sim = simulator.SimulatorConvexRoom('binaural_renderer.xml');
-    >> signal = runBinauralSimulator(sim);
+    >> sim.set('Init',true);
+    >> signal = sim.getSignal();
 
 Now we have the simulated binaural audio data stored in ``signal`` to which we
 can listen in Matlab via::
@@ -125,15 +126,15 @@ Another small change involves the ``UnitX`` axis. As the head was looking
 towards the y-axis during the measurement and ``UnitX`` defines the 0° direction
 of the head we are setting ``UnitX`` to be in the direction of the y-axis ``0 1
 0``. As audio material we are using further not a file from the database, but
-the build in white noise generator of the |BinSim|. This is a infinitly long
+the build in white noise generator of the |BinSim|. This is a infinitely long
 signal per default so we have also to specify the ``LengthOfSimulation``
 property.
 We can again listen to the final simulation by the following commands which
 should result in a noise source placed in a larger room in the front-right
 direction from a listener point of view::
 
-    >> sim = simulator.SimulatorConvexRoom('brs_renderer.xml');
-    >> signal = runBinauralSimulator(sim);
+    >> sim = simulator.SimulatorConvexRoom('brs_renderer.xml',1);
+    >> signal = sim.getSignal();
     >> sound(signal, sim.SampleRate);
 
 .. ...::: References :::...
