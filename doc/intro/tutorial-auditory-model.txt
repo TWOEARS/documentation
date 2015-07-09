@@ -27,12 +27,20 @@ it is planned that the |blackboard| resolves by itself which knowledge sources
 are needed in order to solve the given task, at the moment the user has to
 define which knowledge sources should be active.
 
+.. note::
+
+    If you don't need the *brain* unit of the model, but are only interested in
+    extracting whatever auditory cue from your input signals or simulated
+    acoustic scene, you can use the |AFE| as a standalone part that extracts
+    auditory cues for you. This is further explained in its
+    :ref:`sec-afe-overview` section.
+
 In the following we explain this by a simple example. Lets assume we have the
 acoustic scene definition from the :ref:`sec-binaural-renderer` tutorial and it
 is stored in the file :file:`binaural_renderer.xml`. Now we want to configure
 the |TwoEarsModel| to localise the sound source in that scene. As described
 above we have to configure the |blackboard| to do so. The configuration is also
-done via a xml-file, which would look like this for the localisation task:
+done via a XML-file, which would look like this for the localisation task:
 
 .. code-block:: xml
     :linenos:
