@@ -1,5 +1,247 @@
-Writing a client of BASS
 ========================
+Write a client of |BASS|
+========================
+
+This page provides information about designing clients of the |BASS| module. It
+first defines a formal algorithm that clients could use, and shows a sample
+implementation in a |GenoM3| module called |BASC|.
+
+.. contents::
+   :local:
+
+.. _sec-algo-for-bass-clients:
+
+An algorithm for clients of |BASS|
+----------------------------------
+
+A client of |BASS| can possibly face many different situations:
+
+* It could need just a single block of data (*e.g.* 2 seconds of audio data to
+  perform noise learning), and the block may be longer than the total length of
+  the port.
+* It could indefinitely request new blocks of data, with the requirement that
+  the blocks follow each other (no dropped frames between two consecutive
+  blocks).
+* It could request data faster than the port is actually updated. Or it might
+  not read it fast enough, leading to data loss. And in case of data loss, it
+  might need to know how many frames were lost.
+
+Let's define :math:`FOP` as the total amount of *frames on the port*. The data
+structure published on the ``Audio`` port, of type ``portStruct``, is recalled
+here in a formal definition:
+
+  +------------------+--------------------+---------------------------------+
+  |Data type         |Name                |Comment                          |
+  +==================+====================+=================================+
+  |unsigned integer  |``sampleRate``      |sample rate in Hz                |
+  +------------------+--------------------+---------------------------------+
+  |unsigned integer  |``nChunksOnPort``   |amount of chunks on the port     |
+  |                  |                    |(:math:`COP`)                    |
+  +------------------+--------------------+---------------------------------+
+  |unsigned integer  |``nFramesPerChunk`` |amount of frames per chunk       |
+  |                  |                    |(:math:`FPC`)                    |
+  +------------------+--------------------+---------------------------------+
+  |unsigned integer  |``lastFrameIndex``  |index for tracking data          |
+  +------------------+--------------------+---------------------------------+
+  |array of integers |``left[FOP]``       |arrays of :math:`FOP` samples,   |
+  +------------------+--------------------+with :math:`FOP = FPC * COP`     |
+  |array of integers |``right[FOP]``      |                                 |
+  +------------------+--------------------+---------------------------------+
+
+The left and right members are arrays of :math:`FOP` samples each, updated as
+|FIFO|\ s (*c.f.* :ref:`sec-bass-output-port`). The server also stores the index
+of the last published frame in the ``lastFrameIndex`` member. What the client
+need is to copy blocks of given size :math:`N` from the ``left`` and ``right``
+arrays. Let's define a function ``getAudioData``, taking :math:`N` as input and
+returning one copied block.
+
+In order not to drop any frames between two consecutive blocks retrieved with
+two calls, the ``getAudioData`` function takes both as input and output an index
+of the *next frame to be read*, noted :math:`nfr`. For instance, the client will
+get a first block of :math:`N` frames starting from a given index
+:math:`nfr`. The function will return, along with the block of data, the new
+value of the index, corresponding to the next frame right after the first
+retrieved block. Then, the client can call the function again with this new
+value for :math:`nfr`, so as to get the second block starting from this point.
+
+For the very first block, the client can choose :math:`nfr` according to the
+current value of the ``lastFrameIndex``.
+
+* If it wants to pick data from the existing frames on the port, :math:`nfr` is
+  chosen to be less than ``lastFrameIndex``.
+* If it wants to get fresher data (frames that are not yet on the port but will
+  be soon), :math:`nfr` is chosen to be greater than ``lastFrameIndex``.
+
+With a call to ``getAudioData``, the client requests a block of given size
+:math:`N`, but the function might not be able to return a full block of
+:math:`N` frames. Indeed, the ending point for the desired block may be a frame
+that is not yet published by the server. Thus, the function returns the amount
+of frames :math:`n` it was able to get (:math:`n ≤ N`). The client can then call
+the function again and ask for the remaining frames in a loop until the desired
+block is complete. This will occur in the following situations:
+
+* The client requests data faster than they are captured by the microphones
+  (which should be the regular case, because a slower client will end up losing
+  data).
+* The client requests a block which is longer than the total amount of frames on
+  the port (:math:`N > FOP`).
+* At first call, if the client sets :math:`nfr` to a greater value than
+  ``lastFrameIndex``, ``getAudioData`` will not return any available frames
+  (:math:`n = 0`). But the client can keep calling the function in a loop until
+  it gets the requested frames.
+
+Finally, in case of data loss, ``getAudioData`` also returns the amount of
+frames that were lost. The retrieved block then starts at the first frame that
+is still available on the port (the oldest one).
+
+Below is the ``getAudioData`` function written with formal syntax::
+
+  function: getAudioData
+  |
+  | inputs:  integer     N     (amount of frames the client wants to get)
+  |          portStruct  Audio (data from the the output port of bass)
+  |
+  | outputs: integer     n     (amount of frames the function was able to get) 
+  |          integer     loss  (amount of lost frames, 0 if no loss)
+  |          integer     l[n]  (the retrieved data block from left channel)
+  |          integer     r[n]  (the retrieved data block from right channel)
+  |
+  | in&out:  integer     nfr   (index of the Next Frame to Read)
+  |
+  | local:   integer     FOP   (total amount of Frames On the Port)
+  |          integer     lfi   (Index of the Last Frame on the port)
+  |          integer     ofi   (Index of the Oldest Frame on the port)
+  |          integer     pos   (current position in the left and right arrays)
+  |
+  | algorithm
+  |  |
+  |  | FOP <- Audio.nFramesPerChunk * Audio.nChunksOnPort
+  |  | lfi <- Audio.lastFrameIndex
+  |  | ofi <- max(0, lfi - FOP + 1) //if the acquisition just started and the
+  |  |                              //port is not full yet, ofi equals 0
+  |  | /* Detect a data loss */
+  |  | loss <- 0
+  |  | if (nfr < ofi)
+  |  |  | loss <- ofi - nfr
+  |  |  | nfr <- ofi
+  |  | end if
+  |  |
+  |  | /* Compute the starting position in the left and right input arrays */
+  |  | pos <- FOP - (lfi - nfr + 1)
+  |  |
+  |  | /* Fill the output arrays l and r */
+  |  | n <- 0
+  |  | while (n < N AND pos < FOP)
+  |  |  | l[n] <- Audio.left[pos]
+  |  |  | r[n] <- Audio.right[pos]
+  |  |  | n <- n + 1
+  |  |  | pos <- pos + 1
+  |  |  | nfr <- nfr + 1
+  |  | end while
+  |  |
+  |  | return (l[], r[], n, nfr, loss)
+  |  |
+  | end algorithm
+  |
+  end function
+
+Sample implementation in a |GenoM3| module
+------------------------------------------
+
+|BASC| is a |GenoM3| module that acts as a client of |BASS|. It can be connected
+to the output port of |BASS|, and proposes a generic algorithm to retrieve
+binaural audio data from the port. |BASC| does not perform any processing on the
+retrieved data. It is only intended to give an example on how a client can get
+data from bass, trying to deal with any possible situation a client can face.
+
+Services
+~~~~~~~~
+
+|BASC| implements the algorithm described :ref:`above
+<sec-algo-for-bass-clients>` in a service called ``GetBlocks``, defined in
+description file :file:`basc-genom3/basc.gen`. It expects the following input
+parameters:
+
+  +------------------+--------------------+--------------+---------------------+
+  |Data type         |Name                |Default value |Documentation        |
+  +==================+====================+==============+=====================+
+  |``unsigned long`` |``nBlocks``         |``1``         |Amount of blocks, 0  |
+  |                  |                    |              |for unlimited        |
+  +------------------+--------------------+--------------+---------------------+
+  |``unsigned long`` |``nFramesPerBlock`` |``12000``     |Block size in frames |
+  +------------------+--------------------+--------------+---------------------+
+  |``long``          |``startOffs``       |``-12000``    |Starting offset      |
+  |                  |                    |              |(*past* < 0, *future*|
+  |                  |                    |              |> 0)                 |
+  +------------------+--------------------+--------------+---------------------+
+
+The first parameter ``nBlocks`` sets the amount of blocks that the service will
+get, or can be set to 0 to run indefinitely. The second parameter
+``nFramesPerBlock`` sets the block size (:math:`N` in the previous
+section). Last, the ``startOffs`` parameter sets the index of the first frame to
+read, relatively to the current value of the Last Frame Index on the port. For
+instance, if ``startOffs`` is -1000 and ``lastFrameIndex`` is 43000 when the
+service is called, the first frame to read (:math:`nfr` in previous section)
+will have index 42000. With the given default values, ``GetBlocks`` will get 1
+block of 12000 frames, taking the last 12000 frames on the port.
+
+At any moment, the GetBlocks service can be interrupted by calling a service
+named ``Stop``.
+
+Execution example
+~~~~~~~~~~~~~~~~~
+
+The ``GetBlocks`` service executes at a period of 250ms, chosen arbitrarily for
+the example. So every 250ms, it calls the ``getAudioData`` function, either to
+request a new block or to complete the current block if the previous call could
+not return a full one. Depending on the sample rate, if the requested block size
+(parameter ``nFramesPerBlock``) is too small so that one block is less than
+250ms, the client will eventually loose some frames. On the other hand, if a
+block is more than 250ms, the client will request data faster than they are
+streamed, which should be fine.
+
+This can be tested with |BASC|: let's assume that the sample rate is
+44100Hz. 250ms @44100Hz is 11025 frames. So calling ``GetBlocks`` with
+``nFramesPerBlock < 11025`` will lead to data loss. Here is an example from the
+Tcl client::
+
+  # The middleware, genomix, bass and basc should be running
+  eltclsh > package require genomix
+  eltclsh > set g [::genomix::connect]
+  eltclsh > $g load bass; $g load basc ;#load the server and the client
+  eltclsh > ::basc::connect_port Audio bass/Audio ;#connect the port
+
+  # Start the acquisition (using default values)
+  eltclsh > ::bass::Acquire {device hw:1,0 sampleRate 44100 \
+                             nFramesPerChunk 2205 nChunksOnPort 20} &
+
+  # Get unlimited amount of blocks, with nFramesPerBlock < 11025
+  eltclsh > ::basc::GetBlocks {nBlocks 0 nFramesPerBlock 10000 \
+                               startOffs -10000} &
+  # After a few seconds, the client prints a message at each attempt
+  # to get the following block, indicating that some frames are lost
+  eltclsh > ::basc::Stop
+
+  # Get unlimited amount of blocks, with nFramesPerBlock > 11025
+  eltclsh > ::basc::GetBlocks {nBlocks 0 nFramesPerBlock 12000 \
+                               startOffs -12000} &
+  # In that case, as the client reads slighlty faster than data are
+  # streamed, it can be seen from time to time that the retrieved
+  # block is not complete and the client makes a second request to
+  # get the remaining part.
+  eltclsh > ::basc::Stop
+
+  # Get one block of 2 seconds (88200 frames at 44100Hz)
+  eltclsh > ::basc::GetBlocks {nBlocks 1 nFramesPerBlock 88200 \
+                               startOffs 0}
+
+  eltclsh > ::bass::kill; ::basc::kill;
+  eltclsh > exit
+
+The ``getAudioData`` function in charge of getting the requested block is
+written in C in file :file:`basc-genom3/codels/basc_read_codels.c`. The codels
+of the ``GetBlocks`` service are also written in this file, with comments to
+explain the overall process followed by |BASC|.
 
 .. vim: filetype=rst spell:
 .. emacs:
