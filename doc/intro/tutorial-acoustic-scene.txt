@@ -32,9 +32,9 @@ directly into the model in order to predict the results.
 Binaural renderer
 -----------------
 
-In the first example we use a :abbr:`HRTF (head-related transfer function)` dataset
-together with a cello as audio material to generate a static source to the left
-of the listener. We could define such a scene via the following xml-file:
+In the first example we use a |HRTF| dataset together with a cello as audio
+material to generate a static source to the left of the listener. We could
+define such a scene via the following XML-file:
 
 .. code-block:: xml
 
@@ -58,10 +58,9 @@ of the listener. We could define such a scene via the following xml-file:
     </scene>
 
 In the file we have to specify the renderer type we want to use, the block size
-of the simulator (the Two!Ears model works completely in a block based
-manner), which :abbr:`HRTF (head-related transfer function)` dataset we want to
-use from our |database|, the audio material and where the source and our head
-should be placed.
+of the simulator (the Two!Ears model works completely in a block based manner),
+which |HRTF| dataset we want to use from our |database|, the audio material and
+where the source and our head should be placed.
 
 After we have defined the scene and saved the file under the name
 :file:`binaural_renderer.xml` we maybe would like to test it independent of the
@@ -90,10 +89,9 @@ When we are finished we shutdown the simulation to clean up temporary files with
 Binaural room scanning renderer
 -------------------------------
 
-In the second example we use the :abbr:`BRS (binaural room scanning)` renderer
-in order to simulate a source placed within a room from a :abbr:`BRIR (binaural
-room impulse response)` recording. Again we define the scene within a xml-file,
-this time we call it ``brs_renderer.xml``:
+In the second example we use the |BRS| renderer in order to simulate a source
+placed within a room from a |BRIR| recording. Again we define the scene within a
+XML-file, this time we call it ``brs_renderer.xml``:
 
 .. code-block:: xml
 
@@ -115,20 +113,18 @@ this time we call it ``brs_renderer.xml``:
             UnitZ="0 0 1"/>
     </scene>
 
-This time the renderer type is set to ``ssr_brs`` and the :abbr:`BRIR (binaural
-room impulse response)` is now specified within the ``<source>`` tag as the
-source position within the room is directly given by the :abbr:`BRIR (binaural
-room impulse response)` measurement.
-Another small change involves the ``UnitX`` axis. As the head was looking
-towards the y-axis during the measurement and ``UnitX`` defines the 0° direction
-of the head we are setting ``UnitX`` to be in the direction of the y-axis ``0 1
-0``. As audio material we are using further not a file from the database, but
-the build in white noise generator of the |BinSim|. This is a infinitely long
-signal per default so we have also to specify the ``LengthOfSimulation``
-property.
-We can again listen to the final simulation by the following commands which
-should result in a noise source placed in a larger room in the front-right
-direction from a listener point of view::
+This time the renderer type is set to ``ssr_brs`` and the |BRIR| is now
+specified within the ``<source>`` tag as the source position within the room is
+directly given by the |BRIR| measurement.  Another small change involves the
+``UnitX`` axis. As the head was looking towards the y-axis during the
+measurement and ``UnitX`` defines the 0° direction of the head we are setting
+``UnitX`` to be in the direction of the y-axis ``0 1 0``. As audio material we
+are using further not a file from the database, but the build in white noise
+generator of the |BinSim|. This is a infinitely long signal per default so we
+have also to specify the ``LengthOfSimulation`` property.  We can again listen
+to the final simulation by the following commands which should result in a noise
+source placed in a larger room in the front-right direction from a listener
+point of view::
 
     >> sim = simulator.SimulatorConvexRoom('brs_renderer.xml',1);
     >> signal = sim.getSignal();
