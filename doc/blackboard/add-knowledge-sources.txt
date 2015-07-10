@@ -119,7 +119,7 @@ The :ref:`knowledge source <sec-knowledge-sources>` is now able to compute ITD's
             locHyp, false, obj.trigger.tmIdx);
 
         % Trigger the event that is KS has been executed
-        notify(obj, 'KsFiredEvent', BlackboardEventData( obj.trigger.tmIdx ));
+        notify(obj, 'KsFiredEvent', BlackboardEventData(obj.trigger.tmIdx));
     end
 
 The class destructor and the ``canExecute`` method will be left unchanged in this example. An explaination on how these methods work in detail can be found in the :ref:`blackboard
