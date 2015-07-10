@@ -566,7 +566,7 @@ function takes a single effective input argument, a chunk of input signal and
 returns a single output argument, the corresponding chunk of output signal.
 Because it is a non-static method of the processor however, an instance of the
 processor is passed as first input argument. Hence the method definition looks
-something like this::
+something like this for a monaural single-output processor::
 
   function out = processChunk(pObj,in)
 
@@ -575,6 +575,21 @@ something like this::
     % ...
 
   end
+
+Or, for a binaural single-output processor (such as ``ildProc``)::
+
+  function out = processChunk(pObj,in_left,in_right)
+
+    % The signal processing to obtain "out" from "in" is written here
+    %
+    % ...
+
+  end
+
+If your processor is not of one of the two kinds described above, then you are
+free to use a different signature for your ``processChunk`` method (i.e.,
+different number of input or output arguments). However, you will then have to
+:ref:`override<sec-afe-initiate-processing>` the ``initiateProcessing`` method.
 
 Given an instance of your processor, say ``p``, this allows you to call this
 method (and in general all methods taking an object instance as first argument)
@@ -689,7 +704,10 @@ so. Subsections for each methods will start with a description of what the
 method does and a note explaining in which cases the method needs to be
 overridden, such that you can quickly identify if this is necessary for your
 processor or not. Some examples of existing processors that override a given
-method will also be given so they can be used as examples.
+method will also be given so they can be used as examples. Note that all non-
+static methods from the parent ``Processor`` class can be overridden if
+necessary. The following list only concerns methods that were written with
+overriding in mind to deal with particular cases.
 
 .. note::
 
@@ -750,14 +768,21 @@ the help line of your processor constructor.
 
 This method performs the remaining initialization steps that we purposely did
 not include in the constructor as they initialized properties that are
-susceptible to change when receiving feedback. This method will be called at
-instantiation, but also whenever feedback affecting that processor is received.
+susceptible to change when receiving feedback. It also includes initialization
+steps that can be performed only once processors have been linked together in a
+"processing tree". For example, ``ildProc`` needs to know the original sampling
+frequency of the signal before its cross-correlation was computed to provide lag
+values in seconds. But to access the cross-correlation processor and request
+that value, the two processors need to be linked together already, which does
+not happen at instantiation but later. Hence this method will be called for each
+processors once they all have been inter-linked, but also whenever feedback
+affecting that processor is received.
 
 .. note::
 
   Override this method if your processor has properties or internal parameters
-  that can be changed via user feedback. For example, framing windows or
-  filters.
+  that can be changed via user feedback or that come directly from lower
+  processors in the processing tree. For example, framing windows or filters.
 
 This method should have the ``Hidden=true`` method attribute. Hidden methods are
 sometimes used in the |AFE| when we need public access to it (i.e., other
@@ -775,6 +800,7 @@ the processor parameters. A good example here is
 ``ratemapProc.prepareForProcessing``, which initializes internal parameters
 (framing windows), the output sampling frequency and some filters.
 
+.. _sec_afe-instantiate-output:
 
 ``instantiateOutput``
 ^^^^^^^^^^^^^^^^^^^^^
@@ -785,33 +811,209 @@ signal to the data object.
 
 .. note::
 
-  Override this method if your output signal object constructor needs additional input arguments (e.g., ``FeatureSignal``)
+  Override this method if your output signal object constructor needs additional
+  input arguments (e.g., for a ``FeatureSignal``), if your processor generates
+  more than one type of output, or if your processor can generate either mono or
+  stereo output (e.g., the current ``preProc``). There is no processor in the
+  current implementation that generates two different outputs. However, the pre-
+  processor can generate either mono or stereo outputs depending on the number
+  of channels in the input signal (see ``preProc.instantiateOutput`` for an
+  example).
+
+This method should have the ``Hidden=true`` method attribute. It takes as input
+an instance of your processor and a instance of a data object to add the signal
+to. It returns the output signal object(s) as a cell array with the usual
+convention that first column is left channel (or mono) and right column is right
+channel. Different lines are for different types of signals.
+
+.. warning::
+
+  Because there is no such processor at the moment, creating a new processor
+  that returns two different types of output (and not just left/right channels)
+  might involve some changes in other pieces of code. This is left to the
+  developers responsibility to test and adjust existing code.
+
+
 
 Input/output routing methods
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+When the manager creates a processing "tree", it also populates the ``Input``
+and ``Output`` properties of each processors with handles to their respective
+input and output signal objects. The methods defined in the parent ``Processor``
+should cover most cases already, and it is unlikely that you will have to
+override them for your own processor. For these two methods, it is important to
+remember the internal convention when storing multiple signals in a cell array:
+columns are for audio channels (first column is left or mono and second column
+is right). Different lines are for different types of signals.
+
+The way ``Input`` and ``Output`` properties are routed should be in accordance
+with how they are used in the ``initiateProcessing`` method, which will be
+described in the next subsection.
+
 ``addInput``
+^^^^^^^^^^^^
+
+This method takes an instance of the processor and a cell array of handles to
+dependent processors (i.e., processors one level below in the processing tree)
+and does not return any arguments. Instead, it will populate the ``Input``
+property of your processor with a cell array of handles to the signals that are
+outputs to the dependent processors. The current implementation of
+``Processor.addInput`` works for three cases, which overall cover all currently
+existing processors in the |AFE|:
+
+* There is a single dependent processor which has a single output.
+* There are two dependent processors each with single output corresponding to 
+  the left and right channels of a same signal.
+* There is a single dependent processor which produces two outputs: a left and 
+  a right channel (such as ``preProc`` for stereo signals).
+
+.. note::
+
+  Override this method if your processor input signals are related to its
+  dependent processors in a different way than the three scenarios listed above.
+
+This method should have the ``Hidden=true`` attribute. You should just route the
+output of your dependent processors to the input of your new processor
+adequately. Again, it was not necessary thus far to override this method, hence
+no examples can be provided here. Additionally, this functionality has not been
+tested, so it might imply some minor reworking of other code components.
+
 ``addOutput``
+^^^^^^^^^^^^^
+
+This method adds a signal object (or a cell array of signals) to the ``Output``
+property of your processor.
+
+.. note::
+
+  Override this method if your processor has multiple outputs of different
+  types. If your processor returns two outputs as the left and right channel of
+  a same representation, it is not necessary to override this method.
+
+This method should have the ``Hidden=true`` method attribute. It takes as input
+an instance of the processor and a single or a cell array of signal objects.
+
 
 Processing method
 ~~~~~~~~~~~~~~~~~
 
+.. _sec-afe-initiate-processing:
+
 ``initiateProcessing``
-``update``
+^^^^^^^^^^^^^^^^^^^^^^
+
+This method is closely linked to the ``addInput``, ``addOutput`` and
+``processChunk`` methods. It is a wrapper to the actual processing method that
+routes elements of the cell arrays ``Input`` and ``Output`` to actual inputs and
+outputs of the ``processChunk`` method and call that method. It also appends the
+new chunk(s) of output to the corresponding output signal(s).
+
+The parent implementation considers two cases: monaural and binaural (i.e., a
+"left" and a "right" inputs) which produce single outputs.
+
+.. note::
+
+  Override this method if your processor is not part of the two cases above or
+  if your implementation of the ``processChunk`` has a different signature than
+  :ref:`the standard<sec-afe-processing-method>`.
+
+A good example of an overridden ``initiateProcessing`` method is found in
+``preProc.initiateProcessing``, as the processing method of the pre-processor
+does not have a standard signature as it returns two outputs (left and right
+channels).
+
 
 .. _sec-afe-alternative-processing:
 
 Allowing alternative processing options
 ---------------------------------------
 
+Sometimes, two different processors (implemented as two different classes) can
+perform the same operation. The choice between such alternative processors is
+made depending on a given user-provided (or default) request parameter value.
+This is the case for example for the auditory filterbank, which can be performed
+by either a Gammatone filterbank (``gammatoneProc.m``) or a dual-resonance non-
+linear filterbank (``drnlProc.m``).
+
+As can be seen when browsing ``parameterHelper``, the two processors should be
+listed under the same request name, and one of the parameters (``'fb_type'`` in
+the example above) should allow to switch between the two (or more)
+alternatives. When the manager instantiates the processors and notices that a
+given representation has alternative ways of being computed, it will call the
+methods ``isSuitableForRequest`` of each alternatives to know which one should
+be used.
+
+Therefore, if your processor represents an alternative way of carrying out a
+given operation, you should implement its ``isSuitableForRequest`` method, as
+well as for its alternative, if it was not already existing.
+
+This method takes as unique input an instance of a processor and will look into
+its ``parameters`` property to determine if it is the suitable alternative. It
+will return a boolean indicating if it is suitable (``true``) or not
+(``false``). Note that this method is internally called, not from an actual
+processor instance that would be used afterwards, but from a dummy, empty
+processor generated using the user-provided request and parameters. 
+
+See as examples ``gammatoneProc.isSuitableForRequest`` and
+``drnlProc.isSuitableForRequest``.
+
 .. _sec-afe-new-signal:
 
 Implement a new signal type
 ---------------------------
+
+The |AFE| supports already a wide range of signal types:
+
+* ``TimeDomainSignal``: used for single-dimensional signal 
+* ``TimeFrequencySignal``: used for two-dimension signals (time and frequency)
+* ``CorrelationSignal``: used for three-dimension signals (time, frequency and 
+  lags)
+* ``ModulationSignal``: used for three-dimension signals (time, audio frequency 
+  and modulation frequency). 
+* ``FeatureSignal``: used for a labelled collection of time-domain signals
+* ``BinaryMask``: used for two-dimensional (time and frequency) binary signals 
+  (0 or 1).
+
+If your new processor generates a new type of signal that is not currently
+supported, you might have to add your own implementation of a new signal. This
+tutorial will not go in depth about implementation of new types of signal, as
+this should be a marginal occurrence. Some important aspects are however given
+below:
+
+* Your signal class should inherit the parent ``Signal`` class.
+* It should implement the abstract ``plot`` method. If there is no practical 
+  way of plotting your signal, this method could be left empty.
+* Its constructor should take as argument a handle to your new processor (that 
+  generates this signal as output), a buffer size in seconds, and a vector of 
+  size across the other dimensions (``[size_dim2, size_dim3,...]``). If more 
+  arguments are needed (as is the case for ``FeatureSignal``), then this 
+  signature can be changed, but the ``instantiateOutput`` of your processor 
+  should also be :ref:`overridden<sec_afe-instantiate-output>`.
+
+
 
 .. _sec-afe-final-testing:
 
 Recommendations for final testing
 ---------------------------------
 
-- Test batch vs. chunk processing
+Now the implementation of your new processor should be finalized, and it is
+important to test it thoroughly before moving on to another task. Below are some
+recommendations with regard to testing:
+
+* Make sure that all aspects of your implementation work. Test for mono as well 
+  as stereo input signals, vary your processor parameters and check that the 
+  change is reflected accordingly in the output.
+* If you have based your implementation on another existing implementation 
+  (even better, one that is documented in the literature), then run your new 
+  implementation with the reference implementation and control that both 
+  provide the same output up to a reasonable error. A reasonable error, for a 
+  processor that does not involve stochastic processes should be around 
+  quantization error, assuming that your new implementation is exactly as the 
+  reference.
+* Test the online capability of your processor (i.e., the respect of the 
+  continuity of its output) by processing a whole signal and the same signal 
+  cut into chunks. Both runs should provide the same output (up to a 
+  "reasonable error"). You can use the test script ``test_onlineVSoffline`` to 
+  perform that task.
