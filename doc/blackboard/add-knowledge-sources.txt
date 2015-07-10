@@ -58,10 +58,12 @@ architecture <sec-blackboard-architecture>`. As an example, the implementation o
         end
     end
 
-After the basic structure of the class has been set up, the individual functions can be implemented. In this example, a simple localisation algorithm based on a geometric model of the head is considered. The only parameter that is needed for the computation is the distance between the two microphones, which is specified within the class properties as follows::
+After the basic structure of the class has been set up, the individual functions can be implemented. In this example, a simple localisation algorithm based on a geometric model of the head is considered. The parameters that are needed for the computation is the distance between the two microphones, the speed of sound and the size of one signal block in seconds. These can be specified within the class properties as follows::
 
     properties (SetAccess = private)
         micDistance;    % Microphone distance in meters
+        speedOfSound;   % Speed of sound in m/s
+        blockSizeSec;   % Size of one audio block in seconds
     end
 
 This parameter can be specified by the user, hence it will be handled as an input argument in the class constructor. Additionally, the constructor must contain a specification of the parameters that should be used for data processing within the |AFE|, to compute the corresponding ITD values from the available binaural audio data::
@@ -71,6 +73,11 @@ This parameter can be specified by the user, hence it will be handled as an inpu
 
         % Assign specified microphone distance to class properties
         obj.micDistance = micDistance;
+
+        % For simplicity, block size and speed of sound will be 
+        % hard-coded here
+        obj.blockSizeSec = 0.1;
+        obj.speedOfSound = 343;
 
         % Generate parameter structure for the AFE
         afeParams = genParStruct( ...
@@ -86,18 +93,37 @@ This parameter can be specified by the user, hence it will be handled as an inpu
         requests{1}.params = param;
 
         % Initialize AFE
-        obj = obj@AuditoryFrontEndDepKS( requests );
+        obj = obj@AuditoryFrontEndDepKS(requests);
     end
 
 The :ref:`knowledge source <sec-knowledge-sources>` is now able to compute ITD's from incoming binaural audio signals and make this data available for further processing within the class. The actual processing happens in the ``execute`` method, which can contain arbitrary algorithms and processing steps. In this case, using simple geometric mapping from ITD's to azimuth locations, the ``execute`` method can be specified as::
 
     function execute(obj)
-        % Put algorithm here
+        % Get ITDs from the AFE
+        afeData = obj.getAFEdata();
+        itdObj = afeData('itd');
+        itds = itdObj.getSignalBlock(obj.blockSizeSec, obj.timeSinceTrigger)';
+
+        % Compute average ITD value over time and frequency
+        avgItd = mean(mean(itds));
+
+        % Map ITD to position
+        azimuth = asind(avgItd * obj.speedOfSound / obj.micDistance);
+
+        % Generate a new location hypothesis and put it on the blackboard.
+        % For simplicity, head orientation is assumed to be fixed to 0°
+        % in this case.
+        headOrientation = 0;
+        locHyp = LocationHypothesis(headOrientation, azimuth, 1);
+        obj.blackboard.addData('locationHypotheses', ...
+            locHyp, false, obj.trigger.tmIdx);
+
+        % Trigger the event that is KS has been executed
+        notify(obj, 'KsFiredEvent', BlackboardEventData( obj.trigger.tmIdx ));
     end
 
-.. warning::
-
-    Add description here.
+The class destructor and the ``canExecute`` method will be left unchanged in this example. An explaination on how these methods work in detail can be found in the :ref:`blackboard
+architecture <sec-blackboard-architecture>` section. Having defined all four methods as described above, the :ref:`knowledge source <sec-knowledge-sources>` is now ready to be used within the |blackboard|.
 
 Example of adding a new knowledge source and auditory front-end processor
 -------------------------------------------------------------------------
