@@ -448,6 +448,15 @@ suggestions as to how to solve them. Try to run these tests in the order they
 are listed below, as this will help troubleshooting. They should run as expected
 before you go further in your implementation.
 
+.. note::   
+  You will not be able to instantiate your processor before you have written a 
+  concrete implementation to ``Processor`` abstract methods. To carry out the 
+  tests below, just write empty ``processChunk`` and ``reset`` methods. This 
+  way, Matlab will not complain about trying to instantiate a class that 
+  contains abstract methods. The actual implementation of these methods will be 
+  described in later sections.
+
+
 Default instantiation
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -639,12 +648,156 @@ buffering of the input or output as described in the :ref:`technical description
 can be found in e.g., ``ildProc.processChunk``.
 
 
+Reset method
+~~~~~~~~~~~~
+
+To ensure continuity between output chunks, your new processor might include
+"internal states" (e.g., built-in filter objects or internal buffers). Normally,
+incoming chunks of input are assumed to be consecutive segments of a same
+signal. However, the user can decide to feed an entirely new signal as input at
+any time. If that is the case, then your processor should be able to reset its
+internal states in order to start anew.
+
+This is performed in the ``reset`` method. This method should be implemented as
+the constructor in a method block with no method attributes. It should simply
+reset the filters (if any) by calling all the filters ``reset`` methods, and/or
+empty all internal buffers.
+
+If your processor did not need any internal state storage, then the ``reset``
+method should still be implemented (as it is an abstract method of the parent
+class) but can be left empty (see, e.g., ``itdProc.reset``).
 
 
 .. _sec-afe-override-methods:
 
 Override parent methods
 -----------------------
+
+The |AFE| framework was developed such as to maximize code reusing. Many of the
+existing processors, although they carry out different processing tasks, have
+common attributes in terms of e.g., number of inputs, number of outputs, how to
+call their processing methods, ... Hence all aspects of initialization (and re-
+initialization following a response to feedback) and input/output routing have
+been implemented for common-cases as methods of the parent ``Processor`` class.
+If your processor does not behave similarly to others in one of these regards,
+then this approach allows you to redefine the specific method in your new
+children processor class definition. In the object oriented jargon, this is
+called method overriding.
+
+In the following, we list the methods that might need overriding and how to do
+so. Subsections for each methods will start with a description of what the
+method does and a note explaining in which cases the method needs to be
+overridden, such that you can quickly identify if this is necessary for your
+processor or not. Some examples of existing processors that override a given
+method will also be given so they can be used as examples.
+
+.. note::
+
+  Overridden methods need to have the same method attribute(s) as the parent
+  method they are overriding.
+
+Initialization methods
+~~~~~~~~~~~~~~~~~~~~~~
+
+``verifyParameters``
+^^^^^^^^^^^^^^^^^^^^
+
+This method is called at the end of the ``Processor`` super-constructor. It
+allows to control that user-provided parameters are suitable. The current
+implementation of the |AFE| relies a lot on the user being responsible and aware
+of which type or values are suitable for a given parameter. Therefore, we do not
+perform a systematic check on all parameters. Sometimes though, you might want
+to verify that user-provided parameters are correct in order to avoid Matlab
+returning an error at a later stage. For example, ``ihcProc.verifyParameters``
+will check that the inner hair-cell model name entered by the user is part of
+the list of valid names.
+
+Another use for the ``verifyParameters`` method is to solve conflicts between
+parameters. For example, the auditory filterbank in ``gammatoneProc`` can be
+instantiated in three different ways (e.g., by providing a range of frequency
+and a number of channels, or directly a vector of centre frequencies). The user-
+provided parameters for this processor are therefore potentially "over-
+determining" the position of centre frequencies. To make sure that there is no
+conflict, some priority rules are defined in ``gammatoneProc.verifyParameters``
+to ensure that a unique and non-ambiguous vector of centre frequencies is
+generated.
+
+.. note::
+
+  This method does nothing by default. Override it if you need to perform
+  specific checks on external parameters (i.e., the user-provided parameters
+  extended by the default values) before instantiating your processor.
+
+To override this method, place it in a methods block with the
+``Access=protected`` attribute. The method takes only an instance of the
+processor object (say, ``pObj``) as input argument, and does not return any
+output.
+
+If you are checking that parameters have valid values, replace those which are
+invalid with their default value in ``pObj.parameters.map`` (see e.g.,
+``ihcProc.verifyParameters``). It is a good practice here to inform the user by
+returning a warning, so that he/she knows that it is not the value they intended
+that is actually used.
+
+If you are solving conflicts between parameters, set up a priority rule and only
+retain user-provided parameters that have higher priority according to this rule
+(see e.g., ``gammatoneProc.verifyParameters``). Mention explicitly this rule in
+the help line of your processor constructor.
+
+
+``prepareForProcessing``
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+This method performs the remaining initialization steps that we purposely did
+not include in the constructor as they initialized properties that are
+susceptible to change when receiving feedback. This method will be called at
+instantiation, but also whenever feedback affecting that processor is received.
+
+.. note::
+
+  Override this method if your processor has properties or internal parameters
+  that can be changed via user feedback. For example, framing windows or
+  filters.
+
+This method should have the ``Hidden=true`` method attribute. Hidden methods are
+sometimes used in the |AFE| when we need public access to it (i.e., other
+objects than the processor itself should be able to call the method) but when it
+is not deemed necessary to have the user call it. The user can still call the
+method by explicitly writing its name, but the method will not appear in the
+list of methods returned by Matlab script ``methods(.)`` nor by Matlab's
+automatic completion.
+
+The method only takes an instance of the processor as input argument and does
+not return outputs. In the method, you should initialize all internal parameters
+that are susceptible to change from user feedback. Note that this includes the
+processor's output sampling frequency ``FsHzOut`` if this frequency depends on
+the processor parameters. A good example here is
+``ratemapProc.prepareForProcessing``, which initializes internal parameters
+(framing windows), the output sampling frequency and some filters.
+
+
+``instantiateOutput``
+^^^^^^^^^^^^^^^^^^^^^
+
+This method is called just after a processor has been instantiated to create a
+signal object that will contain the output of this new processor and add the
+signal to the data object.
+
+.. note::
+
+  Override this method if your output signal object constructor needs additional input arguments (e.g., ``FeatureSignal``)
+
+Input/output routing methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``addInput``
+``addOutput``
+
+Processing method
+~~~~~~~~~~~~~~~~~
+
+``initiateProcessing``
+``update``
 
 .. _sec-afe-alternative-processing:
 
