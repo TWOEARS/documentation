@@ -17,36 +17,118 @@ generate the ear signals by using our |BinSim|.
 
 There are two operation modi the |BinSim| creates the ear signals. One way is to
 specify your acoustic scene completely with metadata and the simulator then
-renders it by using :abbr:`HRTF (head-related transfer function)` and its
-:ref:`sec-binaural-renderer`. The other way is to use a mixture of metadata and
-pre-recorded scene details as they could be stored in :abbr:`BRIR (binaural room
-impulse response)` or :abbr:`BRS (binaural room scaning)` files [Horbach1999]_
-using the :ref:`sec-brs-renderer`. :abbr:`BRIR (binaural room impulse
-response)`\ s represent sources placed in a room. :abbr:`BRS (binaural room
-scaning)` files could even include the simulation of complex scenarios like
-loudspeaker arrays reproducing driven by spatial audio reproduction techniques
-to generate a virtual sound source. Those files could also be
-used in an experiment using dynamic binaural synthesis, see for example
-[Wierstorf2014]_ and then feed directly into the model in order to predict the
-results.
+renders it by using |HRTF| and its :ref:`sec-binaural-renderer`. The other way
+is to use a mixture of metadata and pre-recorded scene details as they could be
+stored in |BRIR| or |BRS| files [Horbach1999]_ using the
+:ref:`sec-brs-renderer`. |BRIR|\ s represent sources placed in a room. |BRS|
+files could even include the simulation of complex scenarios like loudspeaker
+arrays reproducing driven by spatial audio reproduction techniques to generate a
+virtual sound source. Those files could also be used in an experiment using
+dynamic binaural synthesis, see for example [Wierstorf2014]_ and then feed
+directly into the model in order to predict the results.
 
 .. _sec-binaural-renderer:
 
 Binaural renderer
 -----------------
 
-.. warning::
+In the first example we use a |HRTF| dataset together with a cello as audio
+material to generate a static source to the left of the listener. We could
+define such a scene via the following XML-file:
 
-    Add easy anechoic example
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <scene
+      Renderer="ssr_binaural"
+      BlockSize="4096"
+      SampleRate="44100"
+      HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa">
+      <source Name="Cello"
+              Type="point"
+              Position="1 2 1.75">
+        <buffer ChannelMapping="1"
+                Type="fifo"
+                File="stimuli/anechoic/instruments/anechoic_cello.wav"/>
+      </source>
+      <sink Name="Head"
+            Position="0 0 1.75"
+            UnitX="1 0 0"
+            UnitZ="0 0 1"/>
+    </scene>
+
+In the file we have to specify the renderer type we want to use, the block size
+of the simulator (the Two!Ears model works completely in a block based manner),
+which |HRTF| dataset we want to use from our |database|, the audio material and
+where the source and our head should be placed.
+
+After we have defined the scene and saved the file under the name
+:file:`binaural_renderer.xml` we maybe would like to test it independent of the
+rest of the model. We can do it with by running the binaural simulation with in
+a standalone version with::
+
+    >> sim = simulator.SimulatorConvexRoom('binaural_renderer.xml');
+    >> sim.set('Init',true);
+    >> signal = sim.getSignal();
+
+Now we have the simulated binaural audio data stored in ``signal`` to which we
+can listen in Matlab via::
+
+    >> sound(signal,sim.SampleRate);
+
+We could also store the audio data in a file via::
+
+    >> sim.Sinks.saveFile('binaural_renderer.wav',sim.SampleRate);
+
+When we are finished we shutdown the simulation to clean up temporary files with::
+
+    >> sim.set('ShutDown',true);
 
 .. _sec-brs-renderer:
 
 Binaural room scanning renderer
 -------------------------------
 
-.. warning::
+In the second example we use the |BRS| renderer in order to simulate a source
+placed within a room from a |BRIR| recording. Again we define the scene within a
+XML-file, this time we call it ``brs_renderer.xml``:
 
-    Add easy BRS example
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <scene
+      Renderer="ssr_brs"
+      BlockSize="4096"
+      SampleRate="44100"
+      LengthOfSimulation="5.0">
+      <source Type="point"
+              Name="SoundSource"
+              IRs="impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa">
+        <buffer ChannelMapping="1"
+            Type="noise"/>
+      </source>
+      <sink Name="Head"
+            Position="0 0 0"
+            UnitX="0 1 0"
+            UnitZ="0 0 1"/>
+    </scene>
+
+This time the renderer type is set to ``ssr_brs`` and the |BRIR| is now
+specified within the ``<source>`` tag as the source position within the room is
+directly given by the |BRIR| measurement.  Another small change involves the
+``UnitX`` axis. As the head was looking towards the y-axis during the
+measurement and ``UnitX`` defines the 0° direction of the head we are setting
+``UnitX`` to be in the direction of the y-axis ``0 1 0``. As audio material we
+are using further not a file from the database, but the build in white noise
+generator of the |BinSim|. This is a infinitely long signal per default so we
+have also to specify the ``LengthOfSimulation`` property.  We can again listen
+to the final simulation by the following commands which should result in a noise
+source placed in a larger room in the front-right direction from a listener
+point of view::
+
+    >> sim = simulator.SimulatorConvexRoom('brs_renderer.xml',1);
+    >> signal = sim.getSignal();
+    >> sound(signal, sim.SampleRate);
 
 .. ...::: References :::...
 .. [Horbach1999] Horbach, U., Karamustafaoglu, A., Pellegrini, R., Mackensen, P., Theile, G. (1999), “Design and Applications of a Data-based Auralization System for Surround Sound,” 106th AES Convention, Paper 4976

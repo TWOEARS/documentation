@@ -5,8 +5,8 @@ Installation guide
 
 To install the |TwoEarsModel| download it from its `official download site`_ and
 store it somewhere on your PC. The download includes only the files needed to
-run it in Matlab, possible data files like :abbr:`HRTF (head related transfer
-function)` will be later downloaded by the model on the fly if needed.
+run it in Matlab, possible data files like |HRTF| will be later downloaded by
+the model on the fly if needed.
 
 If stored on your PC you can add the main folder **without** its sub-folders to
 your Matlab paths and then run::

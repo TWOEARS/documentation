@@ -284,14 +284,15 @@ the number of the figure.
 Using acronyms
 ~~~~~~~~~~~~~~
 
-If you have an acronym like HRTF, you should write the following::
+If you have an acronym like HRTF, you should define it in the :file:`acronym.py`
+file in the following way::
 
-    acronym like :abbr:`HRTF (head related transfer function)`
+    .. |HRTF| replace:: :abbr:`HRTF (head-related transfer function)`
 
-This will transform to acronym like :abbr:`HRTF (head related transfer
-function)` in the :abbr:`HTML (hypertext markup language)` version and will be
-written out only the first time in the :abbr:`PDF (portable document format)`
-version of the documentation.
+In the text you then simply write ``|HRTF|``.  This will transform to acronym
+like |HRTF| in the HTML version and will be written out only the first time in
+the PDF version of the documentation. If you need the plural form you have to
+write ``|HRTF|\ s`` which will translate into |HRTF|\ s.
 
 Documenting new features
 ------------------------

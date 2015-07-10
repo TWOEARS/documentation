@@ -219,10 +219,11 @@ html_theme_path = ["_theme",sphinx_rtd_theme.get_html_theme_path()]
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Theauditoryfront-endframeworkdoc'
+htmlhelp_basename = 'TwoEars-doc'
 
 # Appended to every page
-rst_epilog = """
+execfile('acronyms.py') # This includes things like |HRTF| etc.
+rst_epilog = rst_epilog + """
 .. |TwoearsMailingList| replace:: `Two!Ears mailing list`_
 .. |TwoEars| replace:: Two!Ears
 .. |TwoEarsModel| replace:: :ref:`Two!Ears Auditory Model <index>`
@@ -264,8 +265,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'Theauditoryfront-endframework.tex', u'The auditory front-end framework Documentation',
-   u'Chris Hold', 'manual'),
+  (master_doc, 'TwoEars-documentation.tex', u'The Two!Ears Auditory Model Documentation',
+   u'Two!Ears team', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -294,7 +295,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'theauditoryfront-endframework', u'The auditory front-end framework Documentation',
+    (master_doc, 'TwoEars-doc', u'The Two!Ears Auditory Model Documentation',
      [author], 1)
 ]
 
@@ -308,8 +309,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'Theauditoryfront-endframework', u'The auditory front-end framework Documentation',
-   author, 'Theauditoryfront-endframework', 'One line description of project.',
+  (master_doc, 'TwoEars-doc', u'The Two!Ears Auditory Model Documentation',
+   author, 'Two!Ears team', 'Everything you need to know about Two!Ears',
    'Miscellaneous'),
 ]
 

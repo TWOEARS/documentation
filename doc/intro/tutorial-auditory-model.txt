@@ -1,6 +1,153 @@
+.. highlight:: Matlab
+
 .. _sec-tutorial-auditory-model:
 
 Setting up an auditory model
 ============================
+
+From other auditory modeling frameworks like the |amtoolbox| you are most
+probably used to have one function for an auditory model. In addition you
+normally first create your complete binaural signal which is then fed into the
+function. For example, in |amtoolbox| the following would return a localisation
+probability distribution for the binaural input ``signal``::
+
+    >> out = may2011(input,fs);
+
+In the |TwoEarsModel| things work slightly different as the model has the
+ability to interact with the scene. This means that we have no fix binaural
+signal, but only a description of the acoustic scene. For an introduction see
+:ref:`sec-tutorial-acoustic-scene`. The binaural signal is then created on the
+fly in a block based manner during the processing of the auditory model and can
+be changed if the model decides to interact with the scene, for example by
+rotating its head. Another difference is that the |TwoEarsModel| comes not with
+different functions for different tasks like localisation, speaker
+identification and so on. It always has its central *brain* the |blackboard| in
+which :ref:`sec-knowledge-sources` are available for different tasks. In the end
+it is planned that the |blackboard| resolves by itself which knowledge sources
+are needed in order to solve the given task, at the moment the user has to
+define which knowledge sources should be active.
+
+.. note::
+
+    If you don't need the *brain* unit of the model, but are only interested in
+    extracting whatever auditory cue from your input signals or simulated
+    acoustic scene, you can use the |AFE| as a standalone part that extracts
+    auditory cues for you. This is further explained in its
+    :ref:`sec-afe-overview` section.
+
+In the following we explain this by a simple example. Lets assume we have the
+acoustic scene definition from the :ref:`sec-binaural-renderer` tutorial and it
+is stored in the file :file:`binaural_renderer.xml`. Now we want to configure
+the |TwoEarsModel| to localise the sound source in that scene. As described
+above we have to configure the |blackboard| to do so. The configuration is also
+done via a XML-file, which would look like this for the localisation task:
+
+.. code-block:: xml
+    :linenos:
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <blackboardsystem>
+
+        <dataConnection Type="AuditoryFrontEndKS"/>
+
+        <KS Name="loc" Type="LocationKS">
+            <Param Type="char">default</Param>
+        </KS>
+        <KS Name="conf" Type="ConfusionKS"/>
+        <KS Name="confSolv" Type="ConfusionSolvingKS"/>
+        <KS Name="rot" Type="RotationKS">
+            <Param Type="ref">robotConnect</Param>
+        </KS>
+
+        <Connection Mode="replaceOld" Event="AgendaEmpty">
+            <source>scheduler</source>
+            <sink>dataConnect</sink>
+        </Connection>
+        <Connection Mode="replaceOld">
+            <source>dataConnect</source>
+            <sink>loc</sink>
+        </Connection>
+        <Connection Mode="add">
+            <source>loc</source>
+            <sink>conf</sink>
+        </Connection>
+        <Connection Mode="replaceOld" Event="ConfusedLocations">
+            <source>conf</source>
+            <sink>rot</sink>
+        </Connection>
+        <Connection Mode="add" Event="ConfusedLocations">
+            <source>conf</source>
+            <sink>confSolv</sink>
+        </Connection>
+
+    </blackboardsystem>
+
+It looks a little bit complicated, so let us go through it step by step.
+First the |blackboard| needs some data it can work on. This data has the form of
+auditory cues which are extracted by the |afe|. There exists a special knowledge
+source to get the data into the blackboard, which is handled in line 4.
+After that in line 6-13 four other knowledge sources are included for our actual
+localisation task. Some of them come with parameters like ``default`` for the
+``LocationKS`` which defines the learned localisation mapping of binaural cues
+to a perceived direction. The other knowledge sources should then interpret the
+probability distribution data from ``LocationKS`` and see if they are able to
+estimate a single location from it. If not, ``ConfusionSolvingKS`` decides to
+turn the head of the listener in order to get a better estimation.
+In order to allow for the communication between the knowledge sources all the
+``<Connection>`` tags are used. For a detailed explanation on it have a look at
+:ref:`sec-blackboard-configure`.
+
+Now after having configured the acoustic scene in :file:`binaural_renderer.xml`
+and the blackboard in :file:`blackboard.xml` we could finally run the model
+with::
+
+    % Initialise binaural simulator
+    sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
+    sim.set('Init', true);
+    % Initialise blackboard and connect to binaural simulation
+    bbs = BlackboardSystem(0);
+    bbs.setRobotConnect(sim);
+    bbs.buildFromXml('blackboard.xml');
+    % Run model
+    bbs.run();
+
+Now the model is finished, but we are of cause interested in seeing the results.
+What you could do here is the following::
+
+    >> sourceAzimuth = 63; % real phyiscal position of the source
+    >> perceivedLocations = bbs.blackboard.getData('perceivedLocations');
+    >> displayLocalisationResults(perceivedLocations, sourceAzimuth);
+
+    ------------------------------------------------------------------------------------
+    Reference target angle:  63 degrees
+    ------------------------------------------------------------------------------------
+    Localised source angle:
+    BlockTime   PerceivedLocation   (head orient., relative loc.)   Probability
+    ------------------------------------------------------------------------------------
+      0.46       63 degrees     (  0 degrees,     63 degrees)   0.59
+      1.02       63 degrees     ( 62 degrees,      1 degrees)   0.92
+      1.58       63 degrees     ( 62 degrees,      1 degrees)   1.00
+      2.14       63 degrees     ( 62 degrees,      1 degrees)   1.00
+      2.69       63 degrees     ( 62 degrees,      1 degrees)   1.00
+      3.25       63 degrees     ( 62 degrees,      1 degrees)   0.92
+      3.81       63 degrees     ( 62 degrees,      1 degrees)   0.88
+      4.37       63 degrees     ( 63 degrees,      0 degrees)   0.99
+      4.92       63 degrees     ( 63 degrees,      0 degrees)   0.98
+      5.48       63 degrees     ( 63 degrees,      0 degrees)   0.98
+      6.04       63 degrees     ( 63 degrees,      0 degrees)   1.00
+      8.27       64 degrees     ( 63 degrees,      1 degrees)   0.72
+    ------------------------------------------------------------------------------------
+    Mean localisation error: 0
+    ------------------------------------------------------------------------------------
+
+Here you see for several steps in time the predicted location together with the
+actual head orientation of the listener and the probability of the predicted
+location. If the probability is below a given threshold the model decides to
+turn its head towards the most likely source position.
+
+For details on how to view more results, like the extracted binaural cues, have
+a look at :ref:`sec-examples-localisation-details`. And for more details on
+localisation and on how to switch off the head rotations of the model, see
+:ref:`sec-examples-localisation`.
 
 .. vim: filetype=rst spell:
