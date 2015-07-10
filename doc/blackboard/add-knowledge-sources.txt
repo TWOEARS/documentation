@@ -22,6 +22,9 @@ architecture <sec-blackboard-architecture>`.
 Example of adding a new knowledge source
 ----------------------------------------
 
+The following example is considered as a step-by-step tutorial on how to implement a new :ref:`knowledge source <sec-knowledge-sources>` to be used within the :ref:`blackboard
+architecture <sec-blackboard-architecture>`.
+
 .. warning::
 
     Add description here.
