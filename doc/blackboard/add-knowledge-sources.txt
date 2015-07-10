@@ -22,8 +22,78 @@ architecture <sec-blackboard-architecture>`.
 Example of adding a new knowledge source
 ----------------------------------------
 
-The following example is considered as a step-by-step tutorial on how to implement a new :ref:`knowledge source <sec-knowledge-sources>` to be used within the :ref:`blackboard
-architecture <sec-blackboard-architecture>`.
+The following step-by-step tutorial on how to implement a new :ref:`knowledge source <sec-knowledge-sources>` to be used within the :ref:`blackboard
+architecture <sec-blackboard-architecture>`. As an example, the implementation of a :ref:`knowledge source <sec-knowledge-sources>` that performs a simple localisation task is considered here. The :ref:`knowledge source <sec-knowledge-sources>` will take interaural time differences computed by the |AFE| as inputs and produce a hypothesis about the mostly likely position of a sound source which will be put on the blackboard. The first step of the implementation is to set-up a class ``SimpleLocalisationKS``, including a constructor and a destructor method and two additional methods ``canExecute`` and ``execute``. Certain constraints on the execution of a specific :ref:`knowledge source <sec-knowledge-sources>` have to be specified in the ``canExecute`` method. The ``execute`` method contains the actual algorithm which will be computed if the :ref:`knowledge source <sec-knowledge-sources>` is executed by the blackboard scheduler. As the processing for this example class is dependent on data from the |AFE| as inputs, it has to be inherited from the ``AuditoryFrontEndDepKS`` superclass::
+
+    classdef SimpleLocalisationKS < AuditoryFrontEndDepKS
+        % This is the basic skeleton structure to be used for setting
+        % up a new KS class.
+    
+        properties (SetAccess = private)
+            % Properties of the class can be specified here
+        end
+
+        methods
+            function obj = SimpleLocalisationKS()
+                % This is the class constructor. Parameters of the KS 
+                % can be initialized here.
+            end
+
+            function delete(obj)
+                % Class destructor for cleaning up after processing.
+                % This function is optional.
+            end
+
+            function [bExecute, bWait] = canExecute(obj)
+                % Put constraints here that prevent the KS from being
+                % executed by the scheduler. Otherwise just put
+
+                bExecute = true;    % KS can always be executed
+                bWait = false;
+            end
+
+            function execute(obj)
+                % Put algorithm here
+            end
+        end
+    end
+
+After the basic structure of the class has been set up, the individual functions can be implemented. In this example, a simple localisation algorithm based on a geometric model of the head is considered. The only parameter that is needed for the computation is the distance between the two microphones, which is specified within the class properties as follows::
+
+    properties (SetAccess = private)
+        micDistance;    % Microphone distance in meters
+    end
+
+This parameter can be specified by the user, hence it will be handled as an input argument in the class constructor. Additionally, the constructor must contain a specification of the parameters that should be used for data processing within the |AFE|, to compute the corresponding ITD values from the available binaural audio data::
+
+    function obj = SimpleLocalisationKS(micDistance)
+        % Class constructor for the example KS.
+
+        % Assign specified microphone distance to class properties
+        obj.micDistance = micDistance;
+
+        % Generate parameter structure for the AFE
+        afeParams = genParStruct( ...
+            'fb_type', 'gammatone', ...
+            'fb_lowFreqHz', 80, ...
+            'fb_highFreqHz', 8000, ...
+            'fb_nChannels', 32, ...
+            'cc_wSizeSec', 20E-3, ...
+            'cc_hSizeSec', 10E-3);
+        
+        % Specify requested signal features
+        requests{1}.name = 'itd';
+        requests{1}.params = param;
+
+        % Initialize AFE
+        obj = obj@AuditoryFrontEndDepKS( requests );
+    end
+
+The :ref:`knowledge source <sec-knowledge-sources>` is now able to compute ITD's from incoming binaural audio signals and make this data available for further processing within the class. The actual processing happens in the ``execute`` method, which can contain arbitrary algorithms and processing steps. In this case, using simple geometric mapping from ITD's to azimuth locations, the ``execute`` method can be specified as::
+
+    function execute(obj)
+        % Put algorithm here
+    end
 
 .. warning::
 
