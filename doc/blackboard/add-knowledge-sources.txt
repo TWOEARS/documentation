@@ -1,3 +1,5 @@
+.. highlight:: Matlab
+
 .. warning::
 
     This site is not complete yet.
