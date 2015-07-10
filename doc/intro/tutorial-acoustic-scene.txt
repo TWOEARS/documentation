@@ -1,3 +1,5 @@
+.. highlight:: matlab
+
 .. _sec-tutorial-acoustic-scene:
 
 Setting up an acoustic scene
@@ -129,6 +131,13 @@ point of view::
     >> sim = simulator.SimulatorConvexRoom('brs_renderer.xml',1);
     >> signal = sim.getSignal();
     >> sound(signal, sim.SampleRate);
+
+Here, we are omitting the ``sim.set('Init', true)`` line by adding a ``1`` as
+second argument to the initialisation of the simulator which does the same.
+
+If you are looking for complex acoustic scenes, like moving around in a room or
+simulating moving sources, have a look at the :ref:`sec-binsim-examples` section
+of the :ref:`sec-binsim`.
 
 .. ...::: References :::...
 .. [Horbach1999] Horbach, U., Karamustafaoglu, A., Pellegrini, R., Mackensen, P., Theile, G. (1999), “Design and Applications of a Data-based Auralization System for Surround Sound,” 106th AES Convention, Paper 4976
