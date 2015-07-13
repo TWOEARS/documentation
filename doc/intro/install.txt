@@ -5,11 +5,19 @@ Installation guide
 
 To install the |TwoEarsModel| download it from its `official download site`_ and
 store it somewhere on your PC. The download includes only the files needed to
-run it in Matlab, possible data files like |HRTF| will be later downloaded by
-the model on the fly if needed.
+run it in Matlab. Additional files such as |HRTF| data will be downloaded later by
+the model on-the-fly if needed. 
 
-If stored on your PC you can add the main folder **without** its sub-folders to
-your Matlab paths and then run::
+We have tested the software with Matlab versions 2012b and later. You will also need
+the Signal Processing Toolbox.
+
+.. warning::
+
+    Is this correct? is there a minimum matlab version required for WP1 or WP2 code?
+    What about tool boxes?
+
+When stored on your PC, you should add the main folder **without** its sub-folders to
+your Matlab path and then run::
 
     >> startTwoEars
 
