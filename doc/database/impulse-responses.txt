@@ -1,22 +1,12 @@
-.. warning::
-
-    This site is not complete yet.
-
 .. _sec-impulse-responses:
 
 Impulse responses
 =================
 
 Here you will find a large collection of binaural impulse responses recorded
-with different dummy heads.
-
-At the moment the following measurements are available:
-
-.. contents::
-    :local:
-
-To enable fast copy and paste of the names you can use together with the
-automatic download capabilities, here is a list of all available data sets::
+with different dummy heads.  To enable fast copy and paste of the names you can
+use together with the automatic download capabilities of the |Binsim|, here is a
+list of all available data sets::
 
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
@@ -48,19 +38,13 @@ automatic download capabilities, here is a list of all available data sets::
 
 
 
-Anechoic measurements (:abbr:`HRTF (head related transfer function)`\ s)
-------------------------------------------------------------------------
+Anechoic measurements (|HRTF|\ s)
+---------------------------------
 
-Have a look at the single sections for a documentation of the single
-measurements. If you you know what you are doing, here is a list of all
-available :abbr:`HRIR (head related impulse response)`\ s with the path that can
-be directly used with the |BinSim|
+.. _sec-hrtf-qu-kemar:
 
-
-.. _sec-hrir-qu-kemar:
-
-Anechoic HRIRs from the KEMAR manikin with different distances
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Anechoic |HRTF|\ s from the KEMAR manikin with different distances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -70,132 +54,163 @@ Anechoic HRIRs from the KEMAR manikin with different distances
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
 
 
-:abbr:`HRTF (head related transfer function)`\ s measured with a KEMAR dummy
-head in the anechoic chamber of the TU Berlin [Wierstorf2011]_.  The :abbr:`HRTF
-(head related transfer function)`\ s were measured in the horizontal plane with
-a resolution of 1° for the three different distances of 0.5m, 1m, 2m, 3m.
-
-Setup
-^^^^^
-
-.. figure:: img/qu_kemar_anechoic.jpg
+.. figure:: img/hrtf_qu_kemar.jpg
+    :align: center
 
     Setup of the KEMAR in the anechoic chamber of TU Berlin.
 
-The impulse response measurements were carried out in the anechoic chamber of
-the Institut für Technische Akustik at Technische Universität Berlin.
-The lower frequency limit of the anechoic chamber is 63 Hz. An active two-way
-loudspeaker (Genelec 8030A) was used as a sound source. The excitation signal
-was a linear sine sweep with a length of 5.3s. It had a 6dB per octave
-low-shelf emphasis below 1000Hz causing an amplification of 20dB for low
-frequencies.
-
-The responses were measured using a Knowles Electronics Manikin for Acoustic
-Research (KEMAR, type 45BA) with the corresponding large ears (type KB0065 and
-KB0066). The manikin was mounted on the turntable of the VariSphear measurement
-system [Bernschuetz2010]_ to be able to rotate it automatically with high mechanical
-precision. All measurements were performed for a full rotation (360◦) in 1◦
-increments. The distance between the center of the manikin and the center of the
-loudspeaker was set to 3m, 2m, 1m and 0.5m, respectively. The loudspeaker was
-positioned at ear height of the manikin.
-
-Ear signals were recorded with G.R.A.S. 40AO pressure microphones using a RME
-QuadMic pre-amplifier and a RME Multiface II audio interface. Playback,
-recording and control of the measurements was done with the VariSphear
-software [Bernschuetz2010]_. All data was recorded with a sampling rate of 44.1kHz and stored
-as single precision floating point values.
+|HRTF|\ s measured with a KEMAR dummy head in the anechoic chamber of the TU
+Berlin [Wierstorf2011]_.  The |HRTF|\ s were measured in the horizontal plane
+with a resolution of 1° for the three different distances of 0.5m, 1m, 2m, 3m.
 
 Note, that for the distance of 0.5m the used Genelec loudspeaker presents not
-really a point source. In addition, the :abbr:`HRTF (head related transfer
-function)`\ s for 0.5m include reflections of
-the sound going from the KEMAR head back to the loudspeaker and back to the
+really a point source. In addition, the |HRTF|\ s for 0.5m include reflections
+of the sound going from the KEMAR head back to the loudspeaker and back to the
 dummy head.
 
-.. [Wierstorf2011] H. Wierstorf, M. Geier, A. Raake, S. Spors (2011), "A Free Database of Head-Related Impulse Response Measurements in the Horizontal Plane with Multiple Distances," in 130th AES Convention, eBrief 6.
-.. [Bernschuetz2010] B. Bernschütz, C. Pörschmann, S. Spors, S. Weinzierl (2019), "Entwurf und Aufbau eines variablen sphärischen Mikrofonarrays für Forschungsanwendungen in Raumakustik und virtual Audio," In German Annual Conference on Acoustics (DAGA).
+The measurement comes also with the following headphone compensation filters::
 
-Spherical Far Field HRIR Compilation of the Neumann KU100
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_AKGK271_hcomp.wav
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_AKGK601_hcomp.wav
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_SennheiserHD25_hcomp.wav
 
-.. _sec-hrir-mit-kemar:
+.. [Wierstorf2011] Wierstorf, H., Geier, M., Raake, A., Spors, S. (2011) "A Free Database of Head-Related Impulse Response Measurements in the Horizontal Plane with Multiple Distances," 130th AES Convention, eBrief 6
 
-HRTF Measurements of a KEMAR Dummy-Head Microphone (MIT)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _sec-hrtf-fhk-neumann:
+
+Spherical far-field |HRTF| compilation of the Neumann KU100
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-    MIT_KEMAR_anechoic_1.7m_large.sofa
-    MIT_KEMAR_anechoic_1.7m_normal.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360RM.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_FULL2DEG.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_L2354.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_L2702.sofa
 
-Files were downloaded from the SOFA database (See http://www.sofaconventions.org/mediawiki/index.php/Files). 
+.. figure:: img/hrtf_fhk_neumann.jpg
+    :align: center
 
-For Documentation see [Gardner1994]_
+    Setup of the measurement in the anechoic chamber of FH Köln.
 
-.. [Gardner1994] [Gardner, Bill, and Keith Martin - HRTF measurements of a KEMAR dummy-head microphone. Massachusetts Institute of Technology 280,  1994]
+|HRTF|\ s measured with the Neumann KU100 dummy head.
+For further details, see the `FH Köln website`_
+or the corresponding paper [Bernschuetz2013]_.
 
-(http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf)
+.. _FH Köln website: http://www.audiogroup.web.fh-koeln.de/ku100hrir.html
+.. [Bernschuetz2013] Bernschütz, B. (2013) "A Spherical Far Field HRIR/HRTF Compilation of the Neumann KU 100," German Annual Conference on Acoustics (DAGA)
 
+.. _sec-hrtf-mit-kemar:
 
-.. _sec-hrir-scut-kemar:
+MIT |HRTF| measurements of a KEMAR dummy head
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
+    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
+
+Files were downloaded from the `SOFA database`_.  For documentation see
+[Gardner1994]_ which is available `here
+<http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf>`_.
+
+.. _SOFA database: http://www.sofaconventions.org/mediawiki/index.php/Files
+.. [Gardner1994] Gardner, B., Martin, K. (1994) "HRTF measurements of a KEMAR dummy-head microphone," Massachusetts Institute of Technology 280
+
+.. _sec-hrtf-scut-kemar:
 
 Near-field HRTFs from SCUT database of the KEMAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-    SCUT_KEMAR_anechoic.sofa
-    SCUT_KEMAR_anechoic_0.2m.sofa
-    SCUT_KEMAR_anechoic_0.3m.sofa
-    SCUT_KEMAR_anechoic_0.4m.sofa
-    SCUT_KEMAR_anechoic_0.5m.sofa
-    SCUT_KEMAR_anechoic_0.6m.sofa
-    SCUT_KEMAR_anechoic_0.7m.sofa
-    SCUT_KEMAR_anechoic_0.8m.sofa
-    SCUT_KEMAR_anechoic_0.9m.sofa
-    SCUT_KEMAR_anechoic_0.25m.sofa
-    SCUT_KEMAR_anechoic_1m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.2m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.3m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.4m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.5m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.6m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.7m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.8m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.9m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
+    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa
 
 
-Files were downloaded from the SOFA database. See http://www.sofaconventions.org/mediawiki/index.php/Files
+Files were downloaded from the `SOFA database`_. See [Xie2013a]_ and [Xie2013b]_
+for documentation on the measurements.
 
-## References
-
-[1] [Xie, Bo-sun - Head-related transfer function and virtual auditory display.
-J Ross, 2013]
-
+.. [Xie2013a] Xie, B. (2013), "Head-related transfer function and virtual auditory display," J Ross Publishing
+.. [Xie2013b] Xie, B. et al. (2013), "Report on Research Projects on Head-Related Transfer Functions and Virtual Auditory Displays in China," Journal of the Audio Engineering Society (61) 5, pages 314-26
 
 
 
-Reverberant measurements (:abbr:`BRIR (binaural room impulse response)`\ s)
----------------------------------------------------------------------------
+Reverberant measurements (|BRIR|\ s)
+------------------------------------
+
+.. _sec-brir-qu-auditorium3:
 
 TU Berlin, Telefunken-building, room Auditorium 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
+
+.. figure:: img/brir_qu_auditorium3.jpg
+    :align: center
+
+The |BRIR|\ s are measured for three different sources and with a resolution of
+1° and head movement from -90° to 90°.  The measurement was done in two parts,
+which are shown in the following two figures. The measurement equipment was the
+same as described in [Wierstorf2011]_.
+
+.. figure:: img/brir_qu_auditorium3_setup1.png
+    :align: center
+
+    Room sketch of the setup. The green crosses are the positions of the three
+    loudspeakers *src1*, *src2*, *src3*.
+
+.. figure:: img/brir_qu_auditorium3_setup2.png
+    :align: center
+
+    Room sketch of the setup. The green crosses are the positions of the three
+    loudspeakers that correspond to *src4*, *src5*, *src6* in the |BRIR| file
+    names.
+
+.. _sec-brir-qu-spirit:
 
 TU Berlin, Telefunken-building, room Spirit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-    QU_KEMAR_spirit.sofa
-    QU_KEMAR_spirit_src1_30deg.sofa
-    QU_KEMAR_spirit_src2_0deg.sofa
-    QU_KEMAR_spirit_src3_-30deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
 
-The BRIRs are measured for three different sources and with a resolution of 1°
-and head movement from -90° to 90°.
+.. figure:: img/brir_qu_spirit.jpg
+    :align: center
 
-.. figure:: img/foto_room.jpg
+    Photo of the room *Spirit* at the Telefunken-building at TU Berlin.
 
-    Foto of the room "Spirit".
+The |BRIR|\ s are measured for three different sources and with a resolution of
+1° and head movement from -90° to 90°.  Note, that the photo of the room was not
+taken for the actual measurement setup.  The measurement equipment was the same
+as described in [Wierstorf2011]_.
 
-Note, that the photo of the room was not taken for the actual measurement setup.
+.. figure:: img/brir_qu_spirit_setup.png
+    :align: center
 
-.. figure:: img/setup.png
-
-    Room sketch of the setup.
-
-
+    Room sketch of the setup. The green crosses are the positions of the three
+    loudspeakers starting with *src1* on the left side.
 
 
 .. vim: filetype=rst spell:
