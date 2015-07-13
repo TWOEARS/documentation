@@ -16,10 +16,14 @@ the Signal Processing Toolbox.
     Is this correct? is there a minimum matlab version required for WP1 or WP2 code?
     What about tool boxes?
 
-When stored on your PC, you should add the main folder **without** its sub-folders to
-your Matlab path and then run::
+When stored on your PC, you should add the main folder to your Matlab path and then run the 
+``startTwoEars`` function, which will add the necessary sub-folders and compile the
+mex files. From within the main folder do the following::
 
+    >> addpath(pwd)
     >> startTwoEars
+
+Finally, in order to use the location knowledge source ``LocationKS()``, you need to install GMTK as follows.
 
 Now everything is setup and you can use the model.
 
