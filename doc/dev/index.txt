@@ -4,13 +4,13 @@
 Development of Two!Ears
 =======================
 
-Two!Ears is developed by different Universities in a collaborate fashion.
+|twoears| is developed by different Universities in a collaborate fashion.
 This section should help to streamline the development and gave guides on how to
 write code and documentation.
 
 If you want to become involved yourself you can do the following things:
 
-* Join the |twoears| mailing list and ask your questions or share your ideas.
+* Join the |TwoearsMailingList| and ask your questions or share your ideas.
 
 * Clone our code from https://github.com/TWOEARS, change it and create `pull
   requests`_.
