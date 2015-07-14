@@ -22,13 +22,13 @@ Finally, in order to use the location knowledge source ``LocationKS()``, you nee
 
     * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in /usr/local/bin
     * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in /usr/local/bin
-    * For Windows systems you need to use `Cygwin`_ and download `GMTK for Cygwin`_ and put the unzipped binaries in c:\\cygwin64\\usr\\local\\bin
+    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_ and put the unzipped binaries in c:\\cygwin64\\usr\\local\\bin
 
 To test if GMTK works for you, do the following::
 
     $ /usr/local/bin/gmtkTriangulate
 
-In most the cases the GMTK binaries provided should work for you. If you have trouble using the binaries, you can try compiling GMTK yourself:
+In most the cases the GMTK binaries provided should work for you. If you have any trouble, try compiling GMTK from source code:
 
     1. Download the latest `GMTK source code`_
     2. Unpack the source code package and switch to the extracted directory
