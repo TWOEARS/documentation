@@ -20,11 +20,11 @@ the Two!Ears project (e.g., adding new processors), so the expandability and
 maintainability of its implementation should be optimal. For these reasons, the
 framework is implemented using a modular object-oriented approach.
 
-This chapter exposes the architecture and interactions of all the |AFE| objects
-involved in the and how the main constraints were tackled conceptually. In an
-effort to respect encapsulation and the hierarchical organisation of the
+This chapter exposes the architecture and interactions of all the objects
+involved in the |AFE| and how the main constraints were tackled conceptually. In
+an effort to respect encapsulation and the hierarchical organisation of the
 objects, the sections are arranged in a “bottom-up” way: from the most
-fundamental objects to the more global processing.
+fundamental objects to the more global processes.
 
 All classes involved in the |AFE| implementation are inheriting the Matlab
 ``handle`` master class. This allows every created object to be of the
@@ -55,15 +55,15 @@ duration.
 
 The issue in a real-time scenario is that the signal duration is unknown. To
 overcome this problem, data for each signal is stored in a buffer of fixed
-duration which is itself pre-allocated. Buffers are updated following
-:abbr:`FIFO (first in, first out)` a rule: once the buffer is full, the oldest
+duration which is itself pre-allocated. Buffers are updated following a
+:abbr:`FIFO (first in, first out)` rule: once the buffer is full, the oldest
 samples in the buffer are overwritten by the new signal samples.
 
 The ``circVBuf`` class
 ^^^^^^^^^^^^^^^^^^^^^^
 
 A conceptual way of implementing a :abbr:`FIFO (first in, first out)` rule is to
-use circular (or ring) buffers. The inconvenience of a traditional, linear
+use circular (or ring) buffers. The inconvenience of a traditional linear
 buffer is that once it is full and new input overwrites old samples (i.e., it is
 in its “steady-state”), reading the data from it implies reaching the end of the
 buffer and continuing reading from its beginning. The data read will be in two
@@ -146,7 +146,9 @@ are implemented:
    and the second to the frequency channel. These signals include as an
    additional property a vector of channel centre frequencies ``cfHz``.
    Signals of such form are obtained from requesting, for example,
-   ``’filterbank’``, ``’innerhaircell’``,\ ``’ild’``,...
+   ``’filterbank’``, ``’innerhaircell’``,\ ``’ild’``,... In addition, 
+   time-frequency signals containing binary data (used e.g., in onset or offset 
+   mapping) have their own ``BinaryMask`` signal class.
 
 -  ``CorrelationSignal`` for three-dimensional signals where the third
    dimension is a lag position. These include also the ``cfHz`` property
@@ -333,26 +335,73 @@ General considerations
 As for signal objects, processors make use of inheritance, with a parent
 ``Processor`` class. The parent class defines shared properties of the
 processor, abstract classes that each children must implement, and a couple of
-methods shared among children. Each processor shares the properties:
+methods shared among children. 
+
+The motivation behind the implementation of these methods is probably not clear
+at this stage, but should appear in the following sections.  Many of these
+methods are used in the manager object described later for organising and
+routing the processing such as to always perform as few operations as needed.
+
+Properties
+^^^^^^^^^^
+
+Each processor shares the properties:
 
 -  ``Type`` - describes formally the processing performed
 
--  ``Input`` - handle to input signal object
+-  ``Input`` - list of input signal object handles
 
--  ``Output`` - handle to output signal object
+-  ``Output`` - list of output signal object handles
 
 -  ``isBinaural`` - Flag indicating the need of left and right channel
    as input
 
--  ``FsHzIn`` - Input signal sampling frequency
+-  ``FsHzIn`` - Input signal sampling frequency (Hz)
 
--  ``FsHzOut`` - Output signal sampling frequency
+-  ``FsHzOut`` - Output signal sampling frequency (Hz)
 
--  ``Dependencies`` - Handle to the processor that generated the input
-   signal
+-  ``UpperDependencies`` - List of processors that directly depend on this 
+   processor
+
+-  ``LowerDependencies`` - List of processors this processor directly depends on
+
+-  ``Channel`` - Audio channel this processor operates on
+
+-  ``parameters`` - Parameter object instance that contains parameter values for 
+   this processor
 
 These properties are populated automatically when using the |AFE| by the manager
-class which is described later in :ref:`sec-afe-manager`.
+class which is described later in :ref:`sec-afe-manager`. All of them, apart
+from ``Type`` are implemented as ``Hidden`` properties as they should not be
+relevant to the user but still need public access by other classes.
+
+In addition, three private properties are implemented:
+
+-  ``bHidden`` - A flag indicating that the processor should be hidden from the 
+   framework. This is used for example for "sub-processors" such as 
+   ``downSamplerProc``
+
+-  ``listenToModify`` - An event listener for modifications in any lower 
+   dependent processor
+
+-  ``listenToDelete`` - An event listener for deletion of any lower dependent 
+   processor
+
+
+Feedback handling
+^^^^^^^^^^^^^^^^^
+
+To these two listeners mentioned above correspond two events, ``hasChanged`` and
+``isDeleted``. These events are used in connection to feedback as a mean to
+communicate between processors. When parameters of a processor are modified, it
+will broadcast a message that will be picked up by its upper dependencies which
+will then "know" they have to react accordingly (usually by resetting).
+Connecting events and listeners is done automatically when instantiating a
+"processing tree". Modifying a parameter is done via the ``modifyParameter``
+method which will broadcast the ``hasChanged`` message to upper dependencies.
+
+Abstract and shared methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The parent ``Processor`` class defines the following abstract methods.  Because
 these methods are children dependent, each processor sub-class ``pObj`` should
@@ -370,26 +419,46 @@ then implement them:
    be used e.g., in an offline scenario in between two different input
    signals.
 
--  ``pObj.hasParameters(parStruct)``, which should return true if and
-   only if the processor has the parameter values described in the
-   structure ``parStruct``. This structure is of the same form as the
-   structure used for requests and can be generated using the script
-   ``genParStruct``.
-
-Two methods are then identical across all processors and are therefore
+Some methods are then identical across all processors and are therefore
 implemented in the parent ``Processor`` class:
 
--  ``value = pObj.getDependentParameter(parName)`` recursively recovers
-   the value of a specific parameter used by ``pObj`` or by one of its
-   dependencies
+-  ``getDependentParameter`` and ``getDependentProperty`` recursively recovers
+   the value of a specific parameter (or property) used by ``pObj`` or by one 
+   of its dependencies
 
--  ``parStruct = pObj.getCurrentParameters`` returns a structure of the
+-  ``hasParameters`` check that the processor uses a specific set of parameter 
+   values
+
+-  ``getCurrentParameters`` returns a structure of the
    parameter values currently used by the processor.
 
-The motivation behind the implementation of these methods is probably not clear
-at this stage, but should appear in the following sections.  Many of these
-methods are used in the manager object described later for organising and
-routing the processing such as to always perform as few operations as needed.
+
+Potentially overridden methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Most processors behave in similar ways with regard to how many inputs and
+outputs they have, as well as how they connect with their dependencies. However,
+there can always be exceptions. To provide sufficient code modularity to easily
+handle these exceptions without changing existing code, heavy use of methods
+overriding was made. This means that general behaviour for a given method is
+implemented in the ``Processor`` super-class, and any children which needs to
+handle things differently will override this specific method. These methods
+susceptible to being overridden are the following, in order in which they are
+called:
+
+-  ``prepareForProcessing``: Finalize processor initialization or re-initialize 
+   after receiving feedback
+-  ``addInput``: Populate the ``Input`` property
+-  ``addOutput``: Populate the ``Output`` property
+-  ``instantiateOutput``: Instantiate an output signal and add it to the data 
+   object
+-  ``initiateProcessing``: Calls the processing method, appropriately routing 
+   inputs and output signals to the input and output arguments of the 
+   ``processChunk`` method.
+
+Any of these method are then overridden in children that do not behave 
+"normally" (e.g., processors with multiple input or outputs)
+
 
 .. _sec-process-chunk:
 
