@@ -3,41 +3,57 @@
 Installation guide
 ==================
 
-To install the |TwoEarsModel| download it from its `official download site`_ and
+To install the |TwoEarsModel| download the |LatestVersion|, unzip it, and
 store it somewhere on your PC. The download includes only the files needed to
-run it in Matlab. Additional files such as |HRTF| data will be downloaded later by
-the model on-the-fly if needed. 
+run it in Matlab. Additional files such as |HRTF| data will be downloaded later
+by the model on-the-fly if needed.
 
-We have tested the software with Matlab versions 2012b and later. You will also need
-the Signal Processing and Instrument Control toolboxes. Currently the Statistics toolbox is also required for some plotting functions, but we expect to remove this dependency in a future release.
+We have tested the software with Matlab versions 2012b and later. You will also
+need the Signal Processing and Instrument Control toolboxes. Currently the
+Statistics toolbox is also required for some plotting functions, but we expect
+to remove this dependency in a future release.
 
-When stored on your PC, you should add the main folder to your Matlab path and then run the 
-``startTwoEars`` function, which will add the necessary sub-folders and compile the
-mex files. From within the main folder do the following::
+When stored on your PC, you should add the main folder to your Matlab path and
+then run the ``startTwoEars`` function, which will add the necessary sub-folders.
+From within the main folder do the following:
+
+.. code-block:: Matlab
 
     >> addpath(pwd)
     >> startTwoEars
 
-Finally, in order to use the location knowledge source ``LocationKS()``, you need to download `GMTK`_ binaries for your operating system:
+Finally, in order to use the location knowledge source ``LocationKS()``, you
+need to download `GMTK`_ binaries for your operating system:
 
-    * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in ``/usr/local/bin``
-    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in ``/usr/local/bin``
-    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_ and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``
+    * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in
+      ``/usr/local/bin``
+    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in
+      ``/usr/local/bin``
+    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_
+      and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``
 
-To test if GMTK works for you, open a shell and do the following::
+To test if GMTK works for you, open a shell and do the following:
+
+.. code-block:: bash
 
     $ /usr/local/bin/gmtkTriangulate
 
-In most the cases the GMTK binaries provided should work for you. If you have any trouble, try compiling GMTK from source code:
+In most the cases the GMTK binaries provided should work for you. If you have
+any trouble, try compiling GMTK from source code:
 
     1. Download the latest `GMTK source code`_
     2. Unpack the source code package and switch to the extracted directory
-    3. Compile the GMTK binaries in a shell as follows::
+    3. Compile the GMTK binaries in a shell as follows:
+
+    .. code-block:: bash
 
         $ ./configure && make && make install
 
 
-Now everything is setup and you can use the model. It is a good idea to try one of examples provided::
+Now everything is setup and you can use the model. It is a good idea to try one
+of :ref:`examples provided <sec-examples-localisation>`:
+
+.. code-block:: Matlab
 
         >> cd Examples/localisation_w_and_wo_head_movements
         >> localise;
