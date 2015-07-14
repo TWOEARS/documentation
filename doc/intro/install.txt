@@ -21,12 +21,12 @@ mex files. From within the main folder do the following::
 Finally, in order to use the location knowledge source ``LocationKS()``, you need to download `GMTK`_ binaries for your operating system:
 
     * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in ``/usr/local/bin``
-    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in ``/usr/local/bin``
+    * For MacOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in ``/usr/local/bin``
     * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_ and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``
 
 To test if GMTK works for you, open a shell and do the following::
 
-    $ /usr/local/bin/gmtkTriangulate
+    $ /usr/local/bin/gmtkTriangulate -version
 
 In most the cases the GMTK binaries provided should work for you. If you have any trouble, try compiling GMTK from source code:
 
@@ -37,7 +37,7 @@ In most the cases the GMTK binaries provided should work for you. If you have an
         $ ./configure && make && make install
 
 
-Now everything is setup and you can use the model. It is a good idea to try one of examples provided::
+Now everything is setup and you can use the model. We suggest that you start by trying one of the examples provided::
 
         >> cd Examples/localisation_w_and_wo_head_movements
         >> localise;
