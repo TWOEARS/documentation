@@ -18,13 +18,13 @@ mex files. From within the main folder do the following::
     >> addpath(pwd)
     >> startTwoEars
 
-Finally, in order to use the location knowledge source ``LocationKS()``, you need to download GMTK binaries for your operating system:
+Finally, in order to use the location knowledge source ``LocationKS()``, you need to download `GMTK`_ binaries for your operating system:
 
-    * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in /usr/local/bin
-    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in /usr/local/bin
-    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_ and put the unzipped binaries in c:\\cygwin64\\usr\\local\\bin
+    * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in ``/usr/local/bin``
+    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in ``/usr/local/bin``
+    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_ and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``
 
-To test if GMTK works for you, do the following::
+To test if GMTK works for you, open a shell and do the following::
 
     $ /usr/local/bin/gmtkTriangulate
 
@@ -32,12 +32,15 @@ In most the cases the GMTK binaries provided should work for you. If you have an
 
     1. Download the latest `GMTK source code`_
     2. Unpack the source code package and switch to the extracted directory
-    3. Compile the GMTK binaries as follows::
+    3. Compile the GMTK binaries in a shell as follows::
 
         $ ./configure && make && make install
 
 
-Now everything is setup and you can use the model.
+Now everything is setup and you can use the model. It is a good idea to try one of examples provided::
+
+        >> cd Examples/localisation_w_and_wo_head_movements
+        >> localise;
 
 .. _official download site: http://twoears.eu/download
 
@@ -50,5 +53,7 @@ Now everything is setup and you can use the model.
 .. _GMTK for Cygwin: http://twoears.aipa.tu-berlin.de/files/gmtk-1.0.1.binaries.Cygwin64.zip
 
 .. _Cygwin: http://www.cygwin.com
+
+.. _GMTK: http://melodi.ee.washington.edu/gmtk/
 
 .. vim: filetype=rst spell:
