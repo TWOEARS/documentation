@@ -41,13 +41,13 @@ Now everything is setup and you can use the model.
 
 .. _official download site: http://twoears.eu/download
 
-.. _GMTK source code: https://dev.qu.tu-berlin.de/projects/twoears-wp3/repository/revisions/master/raw/third_party_software/gmtk-1.2.0+20150206.da165982fb7b.tar.gz
+.. _GMTK source code: http://twoears.aipa.tu-berlin.de/files/gmtk-1.2.0+20150206.da165982fb7b.tar.gz
 
-.. _GMTK for Linux:  https://dev.qu.tu-berlin.de/projects/twoears-wp3/repository/revisions/master/raw/third_party_software/gmtk_binaries/gmtk-1.0.1.binaries.Linux_x86_64.tar.gz
+.. _GMTK for Linux:  http://twoears.aipa.tu-berlin.de/files/gmtk-1.0.1.binaries.Linux_x86_64.tar.gz
 
-.. _GMTK for MacOS X: https://dev.qu.tu-berlin.de/projects/twoears-wp3/repository/revisions/master/raw/third_party_software/gmtk_binaries/gmtk-1.0.1.binaries.MacOSX.tar.gz
+.. _GMTK for MacOS X: http://twoears.aipa.tu-berlin.de/files/gmtk-1.0.1.binaries.MacOSX.tar.gz
 
-.. _GMTK for Cygwin: https://dev.qu.tu-berlin.de/projects/twoears-wp3/repository/revisions/master/raw/third_party_software/gmtk_binaries/gmtk-1.0.1.binaries.Cygwin64.zip
+.. _GMTK for Cygwin: http://twoears.aipa.tu-berlin.de/files/gmtk-1.0.1.binaries.Cygwin64.zip
 
 .. _Cygwin: http://www.cygwin.com
 
