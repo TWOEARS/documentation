@@ -36,7 +36,7 @@ To test if GMTK works for you, open a shell and do the following:
 
 .. code-block:: bash
 
-    $ /usr/local/bin/gmtkTriangulate
+    $ /usr/local/bin/gmtkTriangulate -version
 
 In most the cases the GMTK binaries provided should work for you. If you have
 any trouble, try compiling GMTK from source code:
@@ -49,9 +49,8 @@ any trouble, try compiling GMTK from source code:
 
         $ ./configure && make && make install
 
-
-Now everything is setup and you can use the model. It is a good idea to try one
-of :ref:`examples provided <sec-examples-localisation>`:
+Now everything is setup and you can use the model. We suggest that you start by
+trying one of the :ref:`examples provided <sec-examples-localisation>`:
 
 .. code-block:: Matlab
 
