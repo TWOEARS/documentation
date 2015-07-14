@@ -1,7 +1,3 @@
-.. warning::
-
-    This site is not up-to-date
-
 .. _sec-install-development-system:
 
 Installation of the development version
@@ -11,73 +7,178 @@ Getting the code
 ----------------
 
 The development of the |TwoEarsModel| happens independently for its different
-modules (see :doc:`../intro/modules`). All of them are hosted as git repositories
-on github. For an overview go to https://github.com/TWOEARS.
+:ref:`modules <sec-modules>`. All of them are hosted as git repositories on
+github. For an overview go to https://github.com/TWOEARS.
 
 .. note::
 
-    |TwoEars| internally the development happens also under
-    https://dev.qu.tu-berlin.de which holds code or data that cannot be made
-    public, but otherwise the repositories at github should represent the actual
-    status of the code.
+    Internally the |TwoEars| development happens at https://dev.qu.tu-berlin.de.
+    The repositories on github are mirrors of our internal ones, excluding
+    code or data that cannot be made public.
 
-In order to get started you should `familarize yourself with git`_ and then
-start to clone the repository you would like to change the code.
-Then you have to start with getting the `main repository`_ as all other modules
-need some basic functionality from that one:
+In order to get started you should :ref:`familarize yourself with git <sec-git>`
+and then start to clone the repository you would like to change the code.  First
+you have to start with getting the `main repository`_ as all other modules need
+this as a basis:
 
 .. code-block:: bash
 
     $ git clone https://github.com/TWOEARS/TwoEars.git
 
-In addition, single modules could depend on other modules.
-For example, to work on the |AFE| you have to clone the tools repository as
-well:
+Working on the whole Two!Ears model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
-
-    $ git clone https://github.com/TWOEARS/auditory-front-end.git
-    $ git clone https://github.com/TWOEARS/tools.git
-
-You can find the dependencies of a single module in its :abbr:`XML
-(extended markup language)` configurations. In the case of the |AFE| it is
-stored in the file :file:`AuditroyFrontEnd.xml` in its main directory of the
-repository:
+Let us now assume you want to take part in the development of the complete
+|TwoEarsModel|. What you have to do then is the following. In the `main
+repository`_ you will find the file :file:`TwoEars.xml` which defines all
+modules that are part of the |TwoEarsModel|:
 
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
-    <!-- Configure dependency of the Two!Ears Auditory Front-End module -->
-
-    <!-- Start the Two!Ears Auditory Front-End with
-         startTwoEars('AuditoryFrontEnd.xml'); -->
+    <!-- Configure which parts of the Two!Ears model should be started -->
 
     <requirements>
-        <TwoEarsPart sub="src" startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
-        <TwoEarsPart branch="master" sub="src" startup="startTools" >tools</TwoEarsPart>
+        <TwoEarsPart sub="src"    startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
+        <TwoEarsPart sub="API_MO" startup="SOFAstart">sofa</TwoEarsPart>
+        <TwoEarsPart sub="src"    startup="startTools">tools</TwoEarsPart>
+        <TwoEarsPart              startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
+        <TwoEarsPart              startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
     </requirements>
 
-In the `main repository`_ you will find the file :file:`TwoEars.xml` which
-defines all modules that are part of the |TwoEarsModel|. If you want to start
-the whole model you can simply run:
+So first clone of off the necessary repositories:
+
+.. code-block:: bash
+
+    $ mkdir git
+    $ mkdir git/twoears/
+    $ cd git/twoears
+    $ git clone https://github.com/TWOEARS/TwoEars.git
+    $ git clone https://github.com/TWOEARS/binaural-simulator.git
+    $ git clone https://github.com/TWOEARS/SOFA.git
+    $ git clone https://github.com/TWOEARS/tools.git
+    $ git clone https://github.com/TWOEARS/auditory-front-end.git
+    $ git clone https://github.com/TWOEARS/blackboard-system.git
+
+Then you have to define the paths of the single modules. In the `main
+repository`_ copy the file :file:`TwoEarsPaths_Example.xml` to
+:file:`TwoEarsPaths.xml` and adjust it to the used paths, in our case the
+default settings, which is:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configuration file for the Two!Ears auditory model -->
+
+    <repoPaths>
+        <!-- https://github.com/TWOEARS/binaural-simulator -->
+        <binaural-simulator>~/git/twoears/binaural-simulator</binaural-simulator>
+        <!-- https://github.com/TWOEARS/auditory-front-end -->
+        <auditory-front-end>~/git/twoears/auditory-front-end</auditory-front-end>
+        <!-- https://github.com/TWOEARS/blackboard-system -->
+        <blackboard-system>~/git/twoears/blackboard-system</blackboard-system>
+        <!-- https://github.com/TWOEARS/SOFA -->
+        <sofa>~/git/twoears/SOFA</sofa>
+        <!-- https://github.com/TWOEARS/tools -->
+        <tools>~/git/twoears/twoears-tools</tools>
+    </repoPaths>
+
+After that you can simply run the following command in the folder of the `main
+repository`_ in order to work with the model:
 
 .. code-block:: Matlab
 
     >> startTwoEars;
 
-Which would require all the modules cloned that are defined in
-:file:`TwoEars.xml`. If you would only work on the |AFE| from the example above,
-you have to start the model with the specific :abbr:`XML (extended markup
-language)` configuration file:
+Working on a single module
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: Matlab
+If you would like to work only on a single module you need only to get its
+repository as well as all its dependencies. If you not sure what are the
+dependencies, you can have a look at its XML configuration file.  For example,
+in the case of the |BinSim| it is stored in the file
+:file:`BinauralSimulator.xml` in its main directory of the `binaural-simulator
+repository`_:
 
-    >> startTwoEars('AuditroyFrontEnd.xml');
+.. code-block:: xml
 
-.. _familarize yourself with git: 
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configure dependency of Two!Ears modules for the Binaural Simulator -->
+
+    <!-- Start the Two!Ears Binaural Simulator with
+         startTwoEars('BinauralSimulator.xml'); -->
+
+    <requirements>
+      <TwoEarsPart  sub="src"
+                    startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
+      <TwoEarsPart  sub="API_MO"
+                    startup="SOFAstart">sofa</TwoEarsPart>
+      <TwoEarsPart  sub="src"
+                    startup="startTools" >tools</TwoEarsPart>
+    </requirements>
+
+This means in this case you have to clone the `sofa repository`_ as well as the
+`tools repository`_ in order to use the |BinSim|:
+
+.. code-block:: bash
+
+    $ mkdir git
+    $ mkdir git/twoears
+    $ cd git/twoears
+    $ git clone https://github.com/TWOEARS/TwoEars.git
+    $ git clone https://github.com/TWOEARS/SOFA.git
+    $ git clone https://github.com/TWOEARS/tools.git
+
+After that you can start the |BinSim| in Matlab with the following command in
+order to test it::
+
+    >> startTwoEars('BinauralSimulator.xml');
+
 .. _main repository: https://github.com/TWOEARS/TwoEars
+.. _tools repository: https://github.com/TWOEARS/tools
+.. _sofa repository: https://github.com/TWOEARS/SOFA
+.. _binaural-simulator repository: https://github.com/TWOEARS/binaural-simulator
+
+.. _sec-dev-setting-up-whole-model:
 
 Setting up dependencies on particular branches
 ----------------------------------------------
+
+Git allows to ease software development by using :ref:`branches
+<sec-git-branches>`. During the development of the whole model it could happen
+that you have dependencies to particular branches of other modules. You can
+specify those dependencies also in the XML configuration files, for example:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configure which parts of the Two!Ears model should be started -->
+
+    <requirements>
+        <TwoEarsPart branch="master"
+                     sub="src"
+                     startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
+        <TwoEarsPart branch="master"
+                     sub="API_MO"
+                     startup="SOFAstart">sofa</TwoEarsPart>
+        <TwoEarsPart branch="feature1"
+                     sub="src"
+                     startup="startTools">tools</TwoEarsPart>
+        <TwoEarsPart branch="feature1"
+                     startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
+        <TwoEarsPart branch="master"
+                     startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
+    </requirements>
+
+The ``startTwoEars`` function will then check if you have all the modules
+checked out at the correct branches. Of course you have to have git installed in
+order to use this feature.
+Even if you are using only the master branches you are encouraged to use the
+``branch`` setting as it ensures that other people testing your code are also
+using the master branch and not another one.
+
+Another feature of the ``startTwoEars`` script is the setting ``sub-all``
+instead of ``sub`` which will include the specified path, as ``sub`` will do,
+but also all of its sub-folders.
 
 .. vim: filetype=rst spell:

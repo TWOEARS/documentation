@@ -21,13 +21,17 @@ Getting the raw documentation
 
 Though Two!Ears' documentation is intended to be read as HTML or PDF at
 http://twoears.eu/doc/, we edit it as a collection of text files for maximum
-flexibility. These files live in the top-level ``doc/`` directory of the
-`Two!Ears Main repository <https://github.com/TWOEARS/twoears>`_.
+flexibility. These files live in the 
+`Two!Ears documentation repository <https://github.com/TWOEARS/documentation>`_.
 
-If you'd like to start contributing to our docs, get the `main repository
-<https://github.com/TWOEARS/twoears>`_ of the |TwoEarsModel| from our
-development version (see :doc:`development-system`). The development version has
-the latest-and-greatest documentation, just as it has latest-and-greatest code.
+If you'd like to start contributing to our docs, clone this repository and get
+started:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/TWOEARS/documentation.git
+
+For help on how to work with git, see :ref:`sec-git`.
 
 Getting started with Sphinx
 ---------------------------

@@ -1,2 +1,4 @@
 TwoEarsPaths.xml
 doc/_build/
+.DS_Store
+acronyms.pyc

@@ -106,6 +106,8 @@ example google after
 
     git undo last commit
 
+.. _sec-git-branches:
+
 Developing and branching
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
