@@ -20,9 +20,9 @@ mex files. From within the main folder do the following::
 
 Finally, in order to use the location knowledge source ``LocationKS()``, you need to download `GMTK`_ binaries for your operating system:
 
-    * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in /usr/local/bin
-    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in /usr/local/bin
-    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_ and put the unzipped binaries in c:\\cygwin64\\usr\\local\\bin
+    * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in ``/usr/local/bin``
+    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in ``/usr/local/bin``
+    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_ and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``
 
 To test if GMTK works for you, open a shell and do the following::
 
