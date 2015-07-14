@@ -1,9 +1,5 @@
 .. highlight:: Matlab
 
-.. warning::
-
-    This site is not complete yet.
-
 .. _sec-blackboard-add-knowledge-source:
 
 Add your own knowledge sources
@@ -126,12 +122,5 @@ The :ref:`knowledge source <sec-knowledge-sources>` is now able to compute ITD's
 
 The class destructor and the ``canExecute`` method will be left unchanged in this example. An explaination on how these methods work in detail can be found in the :ref:`blackboard
 architecture <sec-blackboard-architecture>` section. Having defined all four methods as described above, the :ref:`knowledge source <sec-knowledge-sources>` is now ready to be used within the |blackboard|.
-
-Example of adding a new knowledge source and auditory front-end processor
--------------------------------------------------------------------------
-
-.. warning::
-
-    Add description here.
 
 .. vim: filetype=rst spell:

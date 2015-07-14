@@ -1,7 +1,3 @@
-.. warning::
-
-    This site is not complete yet.
-
 .. _sec-sound-databases:
 
 Sound databases
@@ -9,11 +5,6 @@ Sound databases
 
 This is a collection of different sound databases. A sound database can be
 anything that comes as a collection of related sound files like a speech corpus.
-
-At the moment the following databases are available:
-
-.. contents::
-    :local:
 
 Speech databases
 ----------------
@@ -26,13 +17,13 @@ GRID corpus
 GRID is a large multi-talker audiovisual sentence corpus to support joint
 computational-behavioural studies in speech perception. In brief, the corpus
 consists of high-quality audio and video (facial) recordings of 1000 sentences
-spoken by each of 34 talkers (18 male, 16 female). Sentences are of the form
-::
+spoken by each of 34 talkers (18 male, 16 female). Sentences are of the form::
 
     put red at G9 now
 
-More details about GRID can be found on the `GRID website`_ or in the
-corresponding `GRID paper`_.
+The database provided here is a subset of the original database containing 360
+randomly selected sentences for each speaker. More details about GRID can be
+found on the `GRID website`_ or in the corresponding `GRID paper`_.
 
 .. _GRID website: http://spandh.dcs.shef.ac.uk/gridcorpus/
 .. _GRID paper: http://dx.doi.org/10.1121/1.2229005
@@ -46,11 +37,18 @@ use.
 Usage
 ^^^^^
 
-.. warning::
+Each speaker comes with separate folder containing 360 sentences::
 
-    Add example use case of the corpus using file lists to learn and test an
-    identification model. Maybe link to an example (toy scenario1) where it is
-    used.
+    sound_databases/grid_subset/s1/bbaf2n.wav
+    ...
+    sound_databases/grid_subset/s1/swwv9a.wav
+    sound_databases/grid_subset/s2/bbaf1n.wav
+    ...
+    sound_databases/grid_subset/s34/swws3n.wav
+
+All available files are listed in::
+
+    sound_databases/grid_subset/flist.txt
 
 Acoustic scenes and events
 --------------------------
@@ -92,9 +90,27 @@ Each class contains ten recordings. Each recording is 30 s long. Files are named
 according to the class name, i.e. ``classXX.wav`` where ``XX`` is a two-digit,
 non-consecutive number.
 
-.. warning::
+In the ``events_single_sounds/`` folder stereo recordings of the following
+acoustic events are provided:
 
-    Add description for other folders.
+    | alert
+    | clearthroat
+    | cough
+    | doorslam
+    | drawer
+    | keyboard
+    | keys
+    | knock
+    | laughter
+    | mouse
+    | pageturn
+    | pendrop
+    | phone
+    | printer
+    | speech
+    | switch
 
+Again each class comes with different recordings and the files are named
+according to their class.
 
 .. vim: filetype=rst spell:

@@ -170,7 +170,7 @@ should be provided as a ``png``-file and stored in a ``img/`` folder::
 
         Figure caption explaining the results.
 
-    Text in which the Figure :ref:`fig-super-result` is referenced in.
+    Text in which the :numref:`fig-super-result` is referenced in.
 
 Add a table
 ~~~~~~~~~~~
