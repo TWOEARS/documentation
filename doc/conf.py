@@ -20,7 +20,9 @@ import sphinx_rtd_theme
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('.'))
+
+from acronyms import rst_epilog # This includes things like |HRTF| etc.
 
 # -- General configuration ------------------------------------------------
 
@@ -222,7 +224,6 @@ html_theme_path = ["_theme",sphinx_rtd_theme.get_html_theme_path()]
 htmlhelp_basename = 'TwoEars-doc'
 
 # Appended to every page
-execfile('acronyms.py') # This includes things like |HRTF| etc.
 rst_epilog = rst_epilog + """
 .. |TwoearsMailingList| replace:: `Two!Ears mailing list`_
 .. |TwoEars| replace:: Two!Ears
