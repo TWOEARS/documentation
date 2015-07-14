@@ -1,3 +1,5 @@
+.. highlight:: Matlab
+
 .. _sec-tutorial-database:
 
 Working with the database
@@ -13,8 +15,8 @@ For example, you could browse the database and get any file you want by
 specifying its relative position inside the database. The next command will
 download a WAV-file for you which you can then use inside Matlab::
 
-    filename = xml.dbGetFile('stimuli/anechoic/instruments/anechoic_cello.wav');
-    sig = wavread(filename);
+    >> filename = xml.dbGetFile('stimuli/anechoic/instruments/anechoic_cello.wav');
+    >> sig = wavread(filename);
 
 In addition, as we have seen in the :ref:`sec-tutorial-acoustic-scene` tutorial
 you normally never directly use the ``xml.dbGetFile()`` function, but ask for
