@@ -130,6 +130,8 @@ the listeners.
     experiments/sound_field_synthesis/localisation/human_label_localization_nfchoa_pw_circular.txt
     experiments/sound_field_synthesis/localisation/nfchoa_pw_circular.flist
 
+.. [Wierstorf2014b] Wierstorf, H. (2014), "Perceptual Assessment of Sound Field Synthesis," PhD-thesis, TU Berlin
+
 .. _sec-experiments-quality:
 
 Quality ratings
