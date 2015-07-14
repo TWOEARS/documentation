@@ -54,7 +54,7 @@ But don't worry there is an easy way to get an overview of the results. First,
 we are only interested in the summary of the localisation result::
 
     >> sourceAzimuth = 0; % the actual source position
-    >> [loc, locError] = evaluateLocalisationResults(perceivedLocations, sourceAzimuth);
+    >> [loc, locError] = evaluateLocalisationResults(perceivedLocations, sourceAzimuth)
 
     loc =
 
