@@ -55,12 +55,11 @@ version 8.0.0.783 (R2012b). The source code, test and demo scripts are
 all available from the public repository at
 https://github.com/TWOEARS/auditory-front-end.
 
-The files for the are divided in three folders, ``/doc``, ``/src`` and
-``/test`` containing respectively the documentation of the framework,
-the source code, and various test scripts. Once Matlab opened, the
-source code (and if needed the other folders) should be added to the
-Matlab path. This can be done by executing the script
-``startAuditoryFrontEnd`` in the main folder::
+All files are divided in three folders, ``/doc``, ``/src`` and ``/test``
+containing respectively the documentation of the framework, the source code, and
+various test scripts. Once Matlab opened, the source code (and if needed the
+other folders) should be added to the Matlab path. This can be done by executing
+the script ``startAuditoryFrontEnd`` in the main folder::
 
     >> startAuditoryFrontEnd
 
@@ -72,25 +71,27 @@ a short *nametag*. The command ``requestList`` can be used to get a
 summary of all supported auditory representations::
 
     >> requestList
-    The following requests for Two!Ears Auditory Front-End processing are currently valid:
-        'time'
-        'filterbank'
-        'innerhaircell'
+    
+    ans = 
+
         'adaptation'
-        'ams_features'
-        'crosscorrelation'
+        'amsFeatures'
         'autocorrelation'
-        'ratemap'
-        'ild'
-        'itd'
-        'ic'
-        'spectral_features'
-        'onset_strength'
-        'offset_strength'
-        'pitch'
-        'onset_map'
-        'offset_map'
+        'crosscorrelation'
+        'filterbank'
         'gabor'
+        'ic'
+        'ild'
+        'innerhaircell'
+        'itd'
+        'offsetMap'
+        'offsetStrength'
+        'onsetMap'
+        'onsetStrength'
+        'pitch'
+        'ratemap'
+        'spectralFeatures'
+        'time'
 
 A detailed description of the individual processors used to obtain
 these auditory representations will be given in :ref:`sec-afe-processors`.
@@ -124,7 +125,8 @@ operation is referred to as *batch processing*. As stated before, the
 framework is also compatible with *chunk-based processing* (i.e., when
 the input signal is acquired continuously over time, but the auditory
 representation is computed for smaller signal chunks). The chunk-based
-processing will be explained in :ref:`sec-chunk-based-processing`.
+processing will be explained in a 
+:ref:`later section<sec-chunk-based-processing>`.
 
 Using default parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -159,15 +161,14 @@ manager instance ``managerObj`` to perform that type of processing, but
 the processing itself is performed at line 9 by calling the
 ``processSignal`` method of the manager class.
 
-The request of an auditory representation via the ``addProcessor``
-method of the manager class on line 6 returns as an output argument a
-handle to the requested signal, here named ``sOut``. In the |AFE|,
-signals are also objects. For example, for the output signal just
-generated::
+The request of an auditory representation via the ``addProcessor`` method of the
+manager class on line 6 returns as an output argument a cell array containing a
+handle to the requested signal, here named ``sOut``. In the |AFE|, signals are
+also objects. For example, for the output signal just generated::
 
-    >> sOut
+    >> sOut{1}
 
-    sOut = 
+    ans = 
 
       TimeFrequencySignal with properties:
 
@@ -180,13 +181,13 @@ generated::
               Data: [267x31 circVBufArrayInterface]
 
 This shows the various properties of the signal object ``sOut``. These
-properties will be described in detail in :ref:`sec-technical-description`.
+properties will be described in detail in the :ref:`sec-technical-description`.
 To access the
 computed representation, e.g., for further processing, one can create a
 copy of the data contained in the signal into a variable, say
 ``myILDs``::
 
-    >> myILDs = sOut.Data(:);
+    >> myILDs = sOut{1}.Data(:);
 
 .. note::
 
@@ -215,11 +216,8 @@ provided instead of a binaural signal, the request of computing the :abbr:`ILD
 (interaural level difference)` representation would produce the following
 warning and the request would not be computed::
 
-    Warning: Manager cannot instantiate a binaural cue extractor
-       for a single-channel signal 
-    > In manager>manager.addProcessor at 823
-    Warning: The request was invalid, returning an empty handle 
-    > In manager>manager.addProcessor at 963
+    Warning: Cannot instantiate a binaural processor with a mono input signal! 
+    > In manager>manager.addProcessor at 1127 
 
 The dimensions of the output signal from the ``addProcessor`` method
 will depend on the representation requested. In the previous example,
@@ -266,31 +264,33 @@ command \ ``parameterHelper``::
     name and chosen value as inputs.
 
     Parameters names for each processor are listed below:
-        Adaptation loop
-        Amplitude modulation spectrogram features
-        Auditory filterbank
+        Amplitude modulation
         Auto-correlation
         Cross-correlation
-        Gabor features
-        Inner hair-cell extraction
-        Interaural coherence
-        Interaural level difference
-        Interaural time difference
-        Offset strength extraction
-        Onset strength extraction
-        Pitch estimation
-        Plot properties
-        Pre-processing
-        Ratemap extraction
+        DRNL filterbank
+        Gabor features extractor
+        Gammatone filterbank
+        IC Extractor
+        ILD Extractor
+        ITD Extractor
+        Inner hair-cell envelope extraction
+        Neural adaptation model
+        Offset detection
+        Offset mapping
+        Onset detection
+        Onset mapping
+        Pitch
+        Pre-processing stage
+        Ratemap
         Spectral features
-        Transient mapping
+        Plotting parameters
 
 Each element in the list is a hyperlink, which will reveal the list of
-parameters for a given element, e.g.
+parameters for a given element, e.g. when clicking on ``ILD Extractor``
 
 ::
 
-    Interaural Level Difference parameters:
+    Inter-aural Level Difference Extractor parameters::
 
       Name            Default   Description
       ----            -------   -----------
@@ -305,11 +305,14 @@ structure which contains the parameter name (*nametags*) and the corresponding
 value. The function ``genParStruct`` can be used to create such a parameter
 structure. For instance::
 
-    >> parameters = genParStruct('ild_wSizeSec',0.04,'ild_hSizeSec',0.02);
+    >> parameters = genParStruct('ild_wSizeSec',0.04,'ild_hSizeSec',0.02)
 
     parameters = 
-        ild_wSizeSec: 0.0400
+
+      Parameters with properties:
+
         ild_hSizeSec: 0.0200
+        ild_wSizeSec: 0.0400
 
 will generate a suitable parameter structure ``parameters`` to request the
 computation of :abbr:`ILD (interaural level difference)` with a window duration
@@ -351,12 +354,12 @@ Most auditory representations will depend on another representation,
 itself being derived from yet another one. Thus, there is a chain of
 *dependencies* between different representations, and multiple
 processing stages will be required to compute a particular output. The
-list of dependencies for a given request can be visualised using the
-function ``getDependencies(’nametag’)``, e.g.
+list of dependencies for a given processor can be visualised using the
+function ``Processor.getDependencyList(’processorName’)``, e.g.
 
 ::
 
-    >> getDependencies('ild')
+    >> ProcessorgetDependencyList('ildProc')
 
     ans = 
 
@@ -389,7 +392,7 @@ level difference)`. This is done in the same way as previously shown:
     managerObj.processSignal;
 
 The resulting :abbr:`ILD (interaural level difference)` representation stored in
-``sOut`` will be based on 16 channels, instead of 31.
+``sOut{1}`` will be based on 16 channels, instead of 31.
 
 Compute multiple auditory representations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -410,7 +413,9 @@ requests, e.g.:
 
 This way, the manager set up in the previous example will extract an :abbr:`ILD
 (interaural level difference)` and an auto-correlation representation, and
-provide a handle to both signals in ``sOut1`` and ``sOut2``.
+provide handles to the three signals, in ``sOut1{1}`` for the ILD (it is a mono
+representation), ``sOut2{1}`` and ``sOut2{2}`` for the autocorrelations of
+respectively left and right channels.
 
 To use non-default parameter values, three syntax are possible:
 
@@ -443,7 +448,7 @@ Note that in the two examples above, no output is specified for the
 ``addProcessor`` method, but the representations will be computed
 nonetheless. The output of ``addProcessor`` is there for convenience and
 the following subsection will explain how to get a hang on the computed
-signals without an explicit handle from ``addProcessor``.
+signals without an explicit output from ``addProcessor``.
 
 Requests can also be placed directly as optional arguments in the
 manager constructor, e.g., to reproduce the previous script example:
@@ -485,36 +490,35 @@ the data object can be inspected::
 
        bufferSize_s: 10
            isStereo: 1
-          gammatone: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
-            ratemap: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
-    autocorrelation: {[1x1 CorrelationSignal]  [1x1 CorrelationSignal]}
                 ild: {[1x1 TimeFrequencySignal]}
+      innerhaircell: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
               input: {[1x1 TimeDomainSignal]  [1x1 TimeDomainSignal]}
                time: {[1x1 TimeDomainSignal]  [1x1 TimeDomainSignal]}
-      innerhaircell: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
+         filterbank: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
+    autocorrelation: {[1x1 CorrelationSignal]  [1x1 CorrelationSignal]}
 
 Apart from the properties ``bufferSize_s`` and ``isStereo`` which are inherent
-properties of the data object (and discussed later in
+properties of the data object (and discussed later in the
 :ref:`sec-technical-description`), the remaining properties each correspond to
 one of the representations computed to achieve the user's request(s). They are
 each arranged in cell arrays, with first column being the left, or mono channel,
 and the second column the right channel. For instance, to get a handle
 ``sGammaR`` to the right channel of the gammatone filter bank output, type::
 
-    >> sGammaR = dataObj.gammatone{2}
+    >> sGammaR = dataObj.filterbank{2}
 
     sGammaR = 
 
       TimeFrequencySignal with properties:
 
-              cfHz: [1x31 double]
-           scaling: 'magnitude'
-             Label: 'Gammatone filterbank output'
-              Name: 'gammatone'
-        Dimensions: 'nSamples x nFilters'
-              FsHz: 44100
-           Channel: 'right'
-              Data: [118299x31 circVBufArrayInterface]
+          cfHz: [1x31 double]
+         Label: 'Gammatone filterbank output'
+          Name: 'filterbank'
+    Dimensions: 'nSamples x nFilters'
+          FsHz: 44100
+       Channel: 'right'
+          Data: [118299x31 circVBufArrayInterface]
+
 
 How to plot the result
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -541,7 +545,7 @@ from the previous subsection:
     managerObj.processSignal;
 
     % Plot the ILDs in a separate figure
-    sOut.plot;
+    sOut{1}.plot;
 
     % Create an empty figure with subplots
     figure;
@@ -556,8 +560,8 @@ from the previous subsection:
     % Plot additional representations
     dataObj.innerhaircell{1}.plot(h1,p);
     dataObj.innerhaircell{2}.plot(h2,p);
-    dataObj.gammatone{1}.plot(h3,p);
-    dataObj.gammatone{2}.plot(h4,p);
+    dataObj.filterbank{1}.plot(h3,p);
+    dataObj.filterbank{2}.plot(h4,p);
 
 This script will produce the two figure windows displayed in
 :numref:`fig-plot-example`. Line 22 of the script creates the window
@@ -604,7 +608,7 @@ In this script, one can note the two differences in using the |AFE| in a
 chunk-based scenario, in comparison to a batch scenario:
 
 .. code-block:: Matlab
-    :lineno-start: 18
+    :lineno-start: 21
 
     % Instantiation of data and manager objects
     dataObj = dataObject([],fsHz,10,2);
@@ -612,7 +616,7 @@ chunk-based scenario, in comparison to a batch scenario:
 
 Because the signal is not known before the processing is carried out, the data
 object cannot be initialised from the input signal. Hence, as is seen on line
-19, one needs to instantiate an empty data object, by leaving the first input
+22, one needs to instantiate an empty data object, by leaving the first input
 argument blank. The sampling frequency is still necessary however. The third
 argument (here set to ``10``) is a global signal buffer size in seconds. Because
 in an online scenario, the framework could be operating over a long period of
@@ -624,12 +628,12 @@ know the number of channels in the input signal, to instantiate the necessary
 objects in the data object and the manager.
 
 .. code-block:: Matlab
-    :lineno-start: 40
+    :lineno-start: 43
 
     % Request the processing of the chunk
     managerObj.processChunk(sIn(chunkStart:chunkStop,:),1);
 
-The processing is carried out on line 40 by calling the ``processChunk`` method
+The processing is carried out on line 44 by calling the ``processChunk`` method
 of the manager. This method takes as input argument the new chunk of input
 signal. The additional argument, ``1``, indicates that the results should be
 appended to the internal representations already computed. This can be set to
@@ -651,7 +655,7 @@ to some round-off errors.
 
 .. figure:: img/onlineVsOffline.png
 
-   Difference in obtained in online and offline processing
+   Difference in ILDs obtained with online and offline processing
 
 List of commands
 ----------------
@@ -709,7 +713,9 @@ Processors ``pObj``
 ^^^^^^^^^^^^^^^^^^^
 
 +-------------------------------------------+-----------------------------------------------------------+
-| ``pObj.Dependencies``                     | Handle to the dependent processor of ``pObj``             |
+| ``pObj.LowerDependencies``                | List of processors ``pObj`` depends on                    |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.UpperDependencies``                | List of processors depending on ``pObj``                  |
 +-------------------------------------------+-----------------------------------------------------------+
 | ``pObj.getCurrentParameters``             | Parameter summary for that processor                      |
 +-------------------------------------------+-----------------------------------------------------------+
