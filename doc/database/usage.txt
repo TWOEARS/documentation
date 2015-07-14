@@ -14,7 +14,8 @@ calling ``xml.dbGetFile()``, for example::
     sig = wavread(filename);
 
 All the data that is automatically downloaded is cached inside a temporary
-folder. You can get the position of this folder by executing ``xml.dbTmp``. If
+folder. You can get the position of this folder by executing ``xml.dbTmp`` and
+change it with ``xml.dbTmp('/path/to/tmp')``. If
 you would like to clear the temporary folder you can execute ``xml.dbClearTmp``.
 Before downloading a file from the remote database ``xml.dbGetFile`` first looks
 if you have a file on your computer in the exact relative position as specified,
