@@ -5,25 +5,24 @@ Add your own processors
 
 .. vim: filetype=rst spell:
 
-The |AFE| framework has been designed such as to be easily upgraded. To add a 
-new processor, write its class definition in a new ``.m`` file and add it to 
-the ``/src/Processors`` folder. If correctly written, the processor should be 
-detected by the framework and be ready to use. This section documents in 
-details how to correctly write the class definition of a new processor. It is 
-highly recommended to look into the definition of existing processors to get 
-a grasp of how classes are defined and written in Matlab. In the following, we 
-will sometimes refer to a particular existing processor to illustrate some 
-aspects of the implementation.
+The |AFE| framework has been designed in such a way that it can be easily
+upgraded. To add a new processor, write its class definition in a new ``.m``
+file and add it to the ``/src/Processors`` folder. If correctly written, the
+processor should be automatically detected by the framework and be ready to use.
+This section documents in details how to correctly write the class definition
+of a new processor. It is highly recommended to look into the definition of
+existing processors to get a grasp of how classes are defined and written in
+Matlab. In the following, we will sometimes refer to a particular existing
+processor to illustrate some aspects of the implementation.
 
 .. note::
     
     - The following descriptions are exhaustive, and adding a processor to the
       framework is actually easier than the length of this page suggests!
-    - This tutorial is written assuming close to no knowledge about object-
+    - This tutorial is written assuming limited knowledge about object-
       oriented programming using Matlab. Hence most 
       :abbr:`OOP(object-oriented programming)` concepts involved are briefly 
-      explained. If you are already familiar with them, then the process should 
-      be relatively painless.
+      explained.
 
 .. _sec-afe-addition-checklist:
 
@@ -53,7 +52,7 @@ Getting started and setting up processor properties
 The properties of an object are a way to store data used by the object. There
 are two types of properties for processors, those which:
 
-- store all the parameters needed to integrate the processor in the framework 
+- store all the parameters needed to integrate the processor into the framework 
   (e.g., the sampling frequency on which it operates, the number of 
   inputs/outputs, ...)
 - store parameter values which are used in the actual processing
@@ -64,18 +63,19 @@ parameters needed for the integration of the processor in the framework are
 already defined in the parent ``Processor`` class. Your new processor should
 inherit this parent class in order to automatically have access to the
 properties and methods of the parent class. Inheritance in Matlab is indicated
-by the command ``< nameOfParentClass`` following the name of your new class on
+by the command ``< nameOfParentClass`` following the name of your new class in
 the first line of its definition.
 
 .. Maybe we could set up a template file, i.e., a blank processor with basic guidelines on how to populate the blanks
 
-The new processor class definition should be saved in a ``.m`` file that bears
+The new processor class definition should be saved in a ``.m`` file that has
 the same name as the defined class. In the example below, that would be
 ``myNewProcessor.m``.
 
-There are usually two categories of properties to implement for a new processor:
-external (user-controlled) parameters and internal parameters necessary for the
-processor but which do not need to be known to the "outside world".
+There are usually two categories of properties to be implemented for a new
+processor: external (user-controlled) parameters and internal parameters
+necessary for the processor but which do not need to be known to the "outside
+world".
 
 .. note::
 
@@ -86,21 +86,21 @@ processor but which do not need to be known to the "outside world".
 External parameters controllable by the user
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-External parameters are directly related to the parameters the user has control
-upon. The actual values for these are stored in a specific object accessible via
-the ``.parameters`` property of the processor. Defining them as individual
-properties seems redundant, and is therefore optional. However it can be very
-convenient in order to simplify the access to the parameter value and to make
-your code more readable.
+External parameters are directly related to the parameters the user can access
+and change. The actual values for these are stored in a specific object
+accessible via the ``.parameters`` property of the processor. Defining them as
+individual properties seems redundant, and is therefore optional. However it can
+be very convenient in order to simplify the access to the parameter value and to
+make your code more readable.
 
 Instead of storing an actual value, the corresponding processor property should
 only point to a value in the ``.parameters`` object. This will avoid having two
-different values for a same parameter. To do this, external parameters should be
-defined as a set of dependent properties. This is indicated by the ``Dependent =
-true`` property attribute. If a property is set to ``Dependent``, then a
-corresponding "getter" method has to be implemented for it. This will be
-developed :ref:`in a following section<sec-afe-getter-methods>`. For example,
-if your new processor has two parameters, ``parA`` and ``parB``, you can define
+different values for the same parameter. To do this, external parameters should
+be defined as a set of dependent properties. This is indicated by the
+``Dependent = true`` property attribute. If a property is set to ``Dependent``,
+then a corresponding "getter" method has to be implemented for it. This will be
+developed :ref:`in a following section<sec-afe-getter-methods>`. For example, if
+your new processor has two parameters, ``parA`` and ``parB``, you can define
 these as properties as follow::
 
 
@@ -125,11 +125,11 @@ particularly when many parameters are involved.
 Internal parameters
 ~~~~~~~~~~~~~~~~~~~
 
-Internal parameters are sometimes (not always) needed for the good functioning
-of the processor. They are typically used to store internal states of the
-processor (to allow continuity in block-based processing), filter instances (if
-your processor involves filtering), or just intermediate parameter values used
-to make code more readable.
+Internal parameters are sometimes (not always) needed for the functioning of the
+processor. They are typically used to store internal states of the processor
+(e.g., to allow continuity in block-based processing), filter instances (if your
+processor involves filtering), or just intermediate parameter values used to
+make code more readable.
 
 Because they are "internal" to the processor, these parameters are usually
 stored as a set of private properties by using the ``GetAccess = private``
@@ -145,8 +145,8 @@ Static methods are methods that can be called without an existing instance of an
 object. In the implementation of processors, they are used to store all the
 hard-coded information. This can be for example the processor name, the type of
 signal it accepts as input, or the names and default values of its external
-parameters. To implement a static method, define it in a method block with the
-``(Static)`` method attribute::
+parameters. A static method is implemented by defining it in a method block with
+the ``(Static)`` method attribute::
 
 
     classdef myNewProcessor < Processor
@@ -192,10 +192,12 @@ This method returns the type of input signal your processor should accept::
 
 where ``'requestNameOfInputSignal'`` is the request name of the signal that
 should be used as input. "Request name" corresponds to the request a user would
-call in order to obtain that signal. For example, the inner hair-cell envelope
-processor requires as input the output of e.g., a gammatone filterbank. The
-request name for this signal is ``'filterbank'`` which should therefore be the
-output of the static method ``ihcProc.getDependency()``.
+place in order to obtain a particular signal. For example, the inner hair-cell
+envelope processor requires as input the output of e.g., a gammatone filterbank.
+The request name for this signal is ``'filterbank'`` which should therefore be
+the output of the static method ``ihcProc.getDependency()``. You can also  check
+the list of currently valid request names by typing ``requestList`` in Matlab's
+command window.
 
 If you are unsure about which name should be used, consider which processor
 would come directly before your new processor in a processing chain (i.e., the
@@ -219,7 +221,7 @@ The lists are returned as cell arrays of strings (or any other type for the
 default parameter values). They should follow the same order, such that the n-th
 member of each of the three lists relate to the same parameter.
 
-Parameter names need not be the same as the parameter properties names you
+Parameter names need not be the same as the parameter property name you
 defined :ref:`earlier<sec-afe-class-properties>`. This will become apparent in
 the :ref:`next section<sec-afe-getter-methods>`. In fact, names should be
 changed to at least include a two or three letters prefix that is unique to your
@@ -263,7 +265,8 @@ it in the framework. It outputs a structure with the following fields:
 - ``.label``: A name for the processor that is used as a label. It can the same 
   as ``.name`` if that is sufficient, or a bit longer if needed.
 - ``.requestName``: The name tag of the request that a user should input when 
-  calling the ``.addProcessor`` method of the manager. *Cannot* include spaces.
+  calling the ``.addProcessor`` method of the manager. This has to be a valid 
+  Matlab name (e.g., it *cannot* include spaces).
 - ``.requestLabel``: A longer name for the signal this processor produces, used 
   e.g., as plot labels.
 - ``outputType``: The type of signal object (name of the class) this processor 
@@ -271,9 +274,9 @@ it in the framework. It outputs a structure with the following fields:
   will need to :ref:`implement a new one<sec-afe-new-signal>`.
 - ``isBinaural``: Set to 0 if your processor operates on a single channel (e.g.,
   an auditory filterbank) or to 1 if it *needs* a binaural input (e.g., the 
-  inter-aural level differences processor). If your processor can indifferently 
-  operate on mono or stereo signals (such as the pre-processor ``preProc.m``), 
-  set to 2.
+  inter-aural level differences processor). If your processor can operate 
+  on both mono and stereo signals (such as the pre-processor ``preProc.m``), 
+  set it to 2.
 
 Your method should initialize the structure that will be returned as output and
 give a value to all of the above-mentioned fields::
@@ -297,12 +300,12 @@ Implementing parameters "getter" methods
 ----------------------------------------
 
 As described in an :ref:`earlier section<sec-afe-class-properties>`, external
-parameters of the processor, i.e., those that can be modified by the user, were
+parameters of the processor, i.e., those that can be modified by the user, are
 implemented as ``Dependent`` properties of your processor class. For your
 implementation to be valid, a "getter" method needs to be implemented for each
 of these parameters. If not, Matlab will generate an error when trying to access
 that parameter value. If a property is set as ``Dependent``, then its getter
-method will be called whenever the program try to access that property. In
+method will be called whenever the program tries to access that property. In
 general, this can be useful for a property that *depends* on others and that
 need to be recomputed whenever accessed. In the present case, we will set the
 getter method to read the corresponding parameter value in the parameter object
@@ -326,7 +329,7 @@ adjusted::
 
 In the above example, ``parName`` is the name of the parameter as a dependent
 *property* of your processor class, and ``xx_parNameTag`` is the name of the
-parameter as the user accesses it and as is defined in the :ref:`static<sec-afe-static-methods>`
+parameter defined in the :ref:`static<sec-afe-static-methods>`
 ``.getParameterInfo`` method. ``pObj`` represents an instance of your processor
 class, it does not need to be changed across methods.
 
@@ -336,18 +339,17 @@ class, it does not need to be changed across methods.
 Implement the processor constructor
 -----------------------------------
 
-For any possible application, every concrete classes one defines in Matlab
-should implement a very specific method: a class constructor. A class
-constructor is a function that bears the exact same name as your class, that can
-take any combination of input arguments but that can return only a single
-output: an "instance" of your class.
+For any possible application, every class should implement a very specific
+method: a class constructor. A class constructor is a function that has the
+exact same name as your class. It can take any combination of input arguments
+but can return only a single output: an "instance" of your class.
 
 In the |AFE| architecture however, the input arguments to the constructor of all
-processors have been normalized, such that all processor constructors can be
+processors have been standardized, such that all processor constructors can be
 called using the exact same arguments. The input arguments should be (in this
 order) the sampling frequency of the input signal to the processor and an
-instance of parameter object returned e.g. by the script ``genParStruct.m``. The
-constructor's role is then to create an object of the class, and often to
+instance of a parameter object returned e.g. by the script ``genParStruct.m``.
+The constructor's role is then to create an object of the class, and often to
 initialize all its properties. Most of this initialization step is the same
 across all processors (e.g., setting input/output sampling frequencies,
 indicating the type of processor, ...). Hence all processor constructors rely
@@ -355,8 +357,8 @@ heavily on the constructor of their parent class (or super-constructor),
 ``Processor(...)`` which defines these across-processors operations. This allows
 to have all this code in one place which reduces the code you have to write for
 your processor, as well as reducing chances for bugs and increasing
-maintainability. This concept of "inheritance" will be further taken advantage
-of in a :ref:`further section<sec-afe-override-methods>`.
+maintainability. This concept of "inheritance" will be discussed in a
+:ref:`further section<sec-afe-override-methods>`.
 
 In practice, this means that the constructor for your processor will be very
 short:
@@ -382,14 +384,14 @@ short:
 .. note::
 
     The constructor method should be placed in a "method" block with no method 
-    attribute.
+    attributes.
 
 Let us break down the constructor structure line by line:
 
 - *Line 1*: As stated earlier, all processor constructors take two input and 
   return a single output, your processor instance ``pObj``. Matlab restricts all 
   constructors to return a single output. If for any reason you need additional 
-  information as output, you would have to place it in a property of your 
+  outputs, you would have to place them in a property of your 
   processor instead of a regular output. Input arguments are the **input** 
   sampling frequency, i.e., the sampling frequency of the signal at the input of 
   the processor, and a parameter object ``parObj``.
@@ -443,15 +445,15 @@ instantiated and recognised by the framework. In some cases (e.g., your
 processor is a simple single input / single output processor), it might even be
 correctly integrated and routed to other processors. In any case, now is a good
 time to take a break from writing code and do some preliminary testing. We will
-go through a few example tests you can run, which problems could arise and some
-suggestions as to how to solve them. Try to run these tests in the order they
-are listed below, as this will help troubleshooting. They should run as expected
+go through a few example tests you can run, describe which problems could arise
+and suggest how to solve them. Try to run these tests in the order they are
+listed below, as this will help troubleshooting. They should run as expected
 before you go further in your implementation.
 
 .. note::   
   You will not be able to instantiate your processor before you have written a 
   concrete implementation to ``Processor`` abstract methods. To carry out the 
-  tests below, just write empty ``processChunk`` and ``reset`` methods. This 
+  tests below, just write empty ``processChunk`` and ``reset`` methods. In this 
   way, Matlab will not complain about trying to instantiate a class that 
   contains abstract methods. The actual implementation of these methods will be 
   described in later sections.
@@ -469,10 +471,9 @@ without any input arguments::
 
 If this line returns an error, then you have to revise your implementation of
 the :ref:`constructor<sec-afe-processor-constructor>`. The error message should
-indicate clearly enough where the problem is, so that you can easily correct it.
-Note that it is necessary for this test to pass for your processor to be
-integrated in the framework. If it cannot be instantiated with no arguments,
-then it will not be listed as a valid processor.
+indicate where the problem is located, so that you can easily correct it. If
+your processor cannot be instantiated with no arguments, then it will not be
+listed as a valid processor.
 
 If on the other hand this line executed without error, then there are two things
 you should control:
@@ -493,16 +494,16 @@ you should control:
 
 To test that your external properties are indeed dependent, you can change the
 value of one or more of them directly in your ``parameter`` processor property
-and see if that change is reflected on the dependent property. For example if
+and see if that change is reflected in the dependent property. For example if
 you type::
 
   p.parameters.map('xx_par1') = someRandomValue
 
-then this should reflect in the property associated with that parameter.
+then this should be reflected in the property associated with that parameter.
 
 .. note::
   
-  The input and output frequencies properties of your processor, ``FsHzIn`` and
+  The input and output frequency properties of your processor, ``FsHzIn`` and
   ``FsHzOut`` are probably incorrect, but that is normal as you did not specify
   the sampling frequency when calling the constructor with no arguments.
 
@@ -525,35 +526,34 @@ enable this option.
 Are parameters correctly described?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If your processor is recognised as valid, then you can call the
+If your processor is properly recognised, then you can call the
 ``parameterHelper`` script from the command window. There you should see a new
 category corresponding to your processor. Clicking on it will display a list of
-user-controllable parameters for your processor, as well as the description you
-gave. Feel free to adjust your ``getParameterInfo`` static method to have more
-suitable or better looking descriptions.
+user-controllable parameters for your processor, as well as their descriptions.
+Feel free to adjust your ``getParameterInfo`` static method to have a more
+suitable description.
 
 
 
 .. _sec-afe-processing-method:
 
-Implement the core processing method
-------------------------------------
+Implementing the core processing method
+---------------------------------------
 
 At this stage, and if the previous tests were successfully passed, your
 processor should be correctly detected by the |AFE| framework. However, there is
-still some implementation work to do. In particular, the core of your processor,
-the method which performs the processing of the input signal and returns a
+still some work to do. In particular, the core of your processor has to be
+implemented, which performs the processing of the input signal and returns a
 corresponding output.
 
 This section will provide guidelines as to how to implement that method.
-However, this task is very dependent on the functionality you want your
-processor to have. You can get insights as to how to perform the signal
-processing task by looking at the code of the ``.processChunk`` methods of
-existing processors. 
+However, this task is very dependent on the functionality of a particular
+processor. You can get insights as to how to perform the signal processing task
+by looking at the code of the ``.processChunk`` methods of existing processors.
 
 .. note::
 
-  The problems faced here and some aspects to build solutions were already
+  Some of the challenges in implementing the processing method were already
   presented in a :ref:`section<sec-process-chunk>` of the technical description.
   It is recommended at that stage to go back and read that section again.
 
@@ -564,7 +564,7 @@ The processing method should be called ``processChunk`` and be placed in a block
 of methods with no attributes (e.g., following the class constructor). The
 function takes a single effective input argument, a chunk of input signal and
 returns a single output argument, the corresponding chunk of output signal.
-Because it is a non-static method of the processor however, an instance of the
+Because it is a non-static method of the processor, an instance of the
 processor is passed as first input argument. Hence the method definition looks
 something like this for a monaural single-output processor::
 
@@ -600,27 +600,31 @@ in two different ways:
 
 The two calls will of course return the same output.
 
-Having an instance of the processor as an argument means that you can access all
-of its properties to carry out the processing. In particular, the external and
-internal parameter properties you have defined earlier.
+.. note::
+
+  Having an instance of the processor as an argument means that you can access
+  all of its properties to carry out the processing. In particular, the external
+  and internal parameter properties you have defined earlier. For example, the
+  processing method of a simple "gain" processor could read as ``out = in *
+  p.gain``
 
 The arguments ``in`` and ``out`` are arrays containing "pure" data. Although
 signal-related data is stored as specific signal objects in the |AFE|, only the
-data is passed around when it comes to processing. It is done internally and
-with emphasis on avoiding unnecessary copies. So it is not something to address
-in the implementation of your processing method. Your input is an array whose
+data is passed around when it comes to processing. It is done internally to
+avoid unnecessary copies. So it is not something that has to be addressed in the
+implementation of your processing method. Your input is an array whose
 dimensionality depends on the type of signal. Dimensions are ordered in the same
-way as in the data-storing buffer of the signal object. For example, the input
-``in`` in the ``gammatoneProc.processChunk`` is a one-dimensional array spanning
-time. Similarly, the output should be arranged in the same way it is stored in
-its corresponding output signal object. For example, the output ``out`` of
-``modulationProc.processChunk`` is a three-dimensional array where the first
-dimension spans time, the second spans audio frequency and the third spans
-modulation frequency. Just like the way data is stored in the
-``modulationSignal.Data`` buffer.
+way as in the data-storing :ref:`buffer<sec-afe-circular-buffer>` of the signal
+object. For example, the input ``in`` in the ``gammatoneProc.processChunk`` is a
+one-dimensional array indexing time. Similarly, the output should be arranged in
+the same way than in its corresponding output signal object. For example, the
+output ``out`` of ``modulationProc.processChunk`` is a three-dimensional array
+where the first dimension indexes time, the second refers to audio frequency and
+the third corresponds to modulation frequency. Just like the way data is stored
+in the ``modulationSignal.Data`` buffer.
 
 .. note::
-  The first dimension for all signals used in the |AFE| is always spanning time.
+  The first dimension for all signals used in the |AFE| is always indexing time.
 
 
 Chunk-based and signal-based processing 
@@ -628,13 +632,13 @@ Chunk-based and signal-based processing
 
 As the name of the method ``processChunk`` suggests, you should implement the
 processing method such that it can process consecutive chunks of input signal,
-as opposed to the entire signal at once. This is to enable "online" processing,
-and later down the way "real-time" processing once the software has been
+as opposed to the entire signal at once. This enables "online" processing,
+and eventually "real-time" processing once the software has been
 sufficiently optimised. This has two fundamental consequences on your
 implementation:
 
 1. The input data to the processing method can be of arbitrary duration.
-2. The processing method need to respect continuity between input chunks. In 
+2. The processing method needs to maintain continuity between input chunks. In 
    other words, when concatenating the outputs obtained by processing 
    individual consecutive chunks of input, one need to obtain the same output 
    as if all the consecutive input were concatenated and processed at once.
@@ -650,17 +654,17 @@ technical description of the framework. This also means that for some processor
 time might produce an empty output. But this input will still be considered in
 the next chunk.
 
-Point 2. is the most challenging one. How to fulfil it depends entirely on what
-your processor performs. Hence there are no specific guidelines. However, the
-|AFE| comes with some building blocks to help with this task. It features for
-instance filter objects that can be used for processing. All filters manage
-their internal states themselves, such that output continuity is ensured. For an
-example on how to use filters, see e.g. ``gammatoneProc.processChunk``.
-Sometimes however, one need more than simple filtering operations. One can often
-find a workaround by using some sort of "overlap-save" method using smart
-buffering of the input or output as described in the :ref:`technical description
-<sec-process-chunk>`. A good example of using buffering  for output continuity
-can be found in e.g., ``ildProc.processChunk``.
+Point 2. is the most challenging one because it very much depends on the
+processing carried out by the processor. Hence there are no general guidelines.
+However, the |AFE| comes with some building blocks to help with this task. It
+features for instance filter objects that can be used for processing. All
+filters manage their internal states themselves, such that output continuity is
+ensured. For an example on how to use filters, see e.g.
+``gammatoneProc.processChunk``. Sometimes however, one need more than simple
+filtering operations. One can often find a workaround by using some sort of
+"overlap-save" method using smart buffering of the input or output as described
+in the :ref:`technical description <sec-process-chunk>`. A good example of using
+buffering  for output continuity can be found in e.g., ``ildProc.processChunk``.
 
 
 Reset method
@@ -669,16 +673,16 @@ Reset method
 To ensure continuity between output chunks, your new processor might include
 "internal states" (e.g., built-in filter objects or internal buffers). Normally,
 incoming chunks of input are assumed to be consecutive segments of a same
-signal. However, the user can decide to feed an entirely new signal as input at
-any time. If that is the case, then your processor should be able to reset its
-internal states in order to start anew.
+signal. However, the user can decide to process an entirely new signal as input
+at any time. In this case, your processor should be able to reset its internal
+states.
 
-This is performed in the ``reset`` method. This method should be implemented as
-the constructor in a method block with no method attributes. It should simply
-reset the filters (if any) by calling all the filters ``reset`` methods, and/or
-empty all internal buffers.
+This is performed by the ``reset`` method. This method should be implemented in
+a method block with no method attributes, just like the constructor. It should
+simply reset the filters (if any) by calling all the filters ``reset`` methods,
+and/or empty all internal buffers.
 
-If your processor did not need any internal state storage, then the ``reset``
+If your processor does not need any internal state storage, then the ``reset``
 method should still be implemented (as it is an abstract method of the parent
 class) but can be left empty (see, e.g., ``itdProc.reset``).
 
@@ -688,26 +692,26 @@ class) but can be left empty (see, e.g., ``itdProc.reset``).
 Override parent methods
 -----------------------
 
-The |AFE| framework was developed such as to maximize code reusing. Many of the
-existing processors, although they carry out different processing tasks, have
-common attributes in terms of e.g., number of inputs, number of outputs, how to
-call their processing methods, ... Hence all aspects of initialization (and re-
+The |AFE| framework was developed to maximize code reusing. Many of the existing
+processors, although they carry out different processing tasks, have common
+attributes in terms of e.g., number of inputs, number of outputs, how to call
+their processing methods, ... Hence all aspects of initialization (and re-
 initialization following a response to feedback) and input/output routing have
 been implemented for common-cases as methods of the parent ``Processor`` class.
 If your processor does not behave similarly to others in one of these regards,
 then this approach allows you to redefine the specific method in your new
-children processor class definition. In the object oriented jargon, this is
-called method overriding.
+children processor class definition. In the object oriented jargon, this
+procedure is called method overriding.
 
 In the following, we list the methods that might need overriding and how to do
 so. Subsections for each methods will start with a description of what the
 method does and a note explaining in which cases the method needs to be
 overridden, such that you can quickly identify if this is necessary for your
-processor or not. Some examples of existing processors that override a given
-method will also be given so they can be used as examples. Note that all non-
-static methods from the parent ``Processor`` class can be overridden if
-necessary. The following list only concerns methods that were written with
-overriding in mind to deal with particular cases.
+processor. Some examples of existing processors that override a given method
+will also be given so they can be used as examples. Note that all non- static
+methods from the parent ``Processor`` class can be overridden if necessary. The
+following list only concerns methods that were written with overriding in mind
+to deal with particular cases.
 
 .. note::
 
@@ -721,14 +725,13 @@ Initialization methods
 ^^^^^^^^^^^^^^^^^^^^
 
 This method is called at the end of the ``Processor`` super-constructor. It
-allows to control that user-provided parameters are suitable. The current
-implementation of the |AFE| relies a lot on the user being responsible and aware
-of which type or values are suitable for a given parameter. Therefore, we do not
-perform a systematic check on all parameters. Sometimes though, you might want
-to verify that user-provided parameters are correct in order to avoid Matlab
-returning an error at a later stage. For example, ``ihcProc.verifyParameters``
-will check that the inner hair-cell model name entered by the user is part of
-the list of valid names.
+ensures that user-provided parameters are valid. The current implementation of
+the |AFE| relies on the user being responsible and aware of which type or values
+are suitable for a given parameter. Therefore, we do not perform a systematic
+check of all parameters. Sometimes though, you might want to verify that user-
+provided parameters are correct in order to avoid Matlab returning an error at a
+later stage. For example, ``ihcProc.verifyParameters`` will check that the inner
+hair-cell model name entered by the user is part of the list of valid names.
 
 Another use for the ``verifyParameters`` method is to solve conflicts between
 parameters. For example, the auditory filterbank in ``gammatoneProc`` can be
@@ -754,8 +757,8 @@ output.
 If you are checking that parameters have valid values, replace those which are
 invalid with their default value in ``pObj.parameters.map`` (see e.g.,
 ``ihcProc.verifyParameters``). It is a good practice here to inform the user by
-returning a warning, so that he/she knows that it is not the value they intended
-that is actually used.
+returning a warning, so that he/she knows that the default value is used
+instead.
 
 If you are solving conflicts between parameters, set up a priority rule and only
 retain user-provided parameters that have higher priority according to this rule
@@ -767,22 +770,22 @@ the help line of your processor constructor.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 This method performs the remaining initialization steps that we purposely did
-not include in the constructor as they initialized properties that are
+not include in the constructor as they initialize properties that are
 susceptible to change when receiving feedback. It also includes initialization
 steps that can be performed only once processors have been linked together in a
 "processing tree". For example, ``ildProc`` needs to know the original sampling
 frequency of the signal before its cross-correlation was computed to provide lag
 values in seconds. But to access the cross-correlation processor and request
 that value, the two processors need to be linked together already, which does
-not happen at instantiation but later. Hence this method will be called for each
-processors once they all have been inter-linked, but also whenever feedback
-affecting that processor is received.
+not happen at the level of instantiation but later. Hence this method will be
+called for each processors once they all have been inter-linked, but also
+whenever feedback is received.
 
 .. note::
 
   Override this method if your processor has properties or internal parameters
-  that can be changed via user feedback or that come directly from lower
-  processors in the processing tree. For example, framing windows or filters.
+  that can be changed via user feedback or that comes directly from preceding
+  processors in the processing tree.
 
 This method should have the ``Hidden=true`` method attribute. Hidden methods are
 sometimes used in the |AFE| when we need public access to it (i.e., other
@@ -794,9 +797,9 @@ automatic completion.
 
 The method only takes an instance of the processor as input argument and does
 not return outputs. In the method, you should initialize all internal parameters
-that are susceptible to change from user feedback. Note that this includes the
+that are susceptible to changes from user feedback. Note that this includes the
 processor's output sampling frequency ``FsHzOut`` if this frequency depends on
-the processor parameters. A good example here is
+the processor parameters. A good example is
 ``ratemapProc.prepareForProcessing``, which initializes internal parameters
 (framing windows), the output sampling frequency and some filters.
 
@@ -830,8 +833,8 @@ channel. Different lines are for different types of signals.
 
   Because there is no such processor at the moment, creating a new processor
   that returns two different types of output (and not just left/right channels)
-  might involve some changes in other pieces of code. This is left to the
-  developers responsibility to test and adjust existing code.
+  might involve additional changes. This is left to the developers
+  responsibility to test and adjust existing code.
 
 
 
@@ -864,7 +867,7 @@ existing processors in the |AFE|:
 
 * There is a single dependent processor which has a single output.
 * There are two dependent processors each with single output corresponding to 
-  the left and right channels of a same signal.
+  the left and right channels of a same input signal.
 * There is a single dependent processor which produces two outputs: a left and 
   a right channel (such as ``preProc`` for stereo signals).
 
@@ -918,7 +921,7 @@ The parent implementation considers two cases: monaural and binaural (i.e., a
   if your implementation of the ``processChunk`` has a different signature than
   :ref:`the standard<sec-afe-processing-method>`.
 
-A good example of an overridden ``initiateProcessing`` method is found in
+A good example of an overridden ``initiateProcessing`` method can be found in
 ``preProc.initiateProcessing``, as the processing method of the pre-processor
 does not have a standard signature as it returns two outputs (left and right
 channels).
@@ -951,7 +954,7 @@ well as for its alternative, if it was not already existing.
 This method takes as unique input an instance of a processor and will look into
 its ``parameters`` property to determine if it is the suitable alternative. It
 will return a boolean indicating if it is suitable (``true``) or not
-(``false``). Note that this method is internally called, not from an actual
+(``false``). Note that this method is called internally, not from an actual
 processor instance that would be used afterwards, but from a dummy, empty
 processor generated using the user-provided request and parameters. 
 
@@ -977,9 +980,8 @@ The |AFE| supports already a wide range of signal types:
 
 If your new processor generates a new type of signal that is not currently
 supported, you might have to add your own implementation of a new signal. This
-tutorial will not go in depth about implementation of new types of signal, as
-this should be a marginal occurrence. Some important aspects are however given
-below:
+tutorial will not go in details on how to implement new signal types. However,
+the following aspects should be considered:
 
 * Your signal class should inherit the parent ``Signal`` class.
 * It should implement the abstract ``plot`` method. If there is no practical 
@@ -999,20 +1001,20 @@ Recommendations for final testing
 ---------------------------------
 
 Now the implementation of your new processor should be finalized, and it is
-important to test it thoroughly before moving on to another task. Below are some
-recommendations with regard to testing:
+important to test it thoroughly. Below are some recommendations with regard to
+testing:
 
 * Make sure that all aspects of your implementation work. Test for mono as well 
   as stereo input signals, vary your processor parameters and check that the 
   change is reflected accordingly in the output.
 * If you have based your implementation on another existing implementation 
-  (even better, one that is documented in the literature), then run your new 
+  (even better, one that is documented in the literature), then compare your new 
   implementation with the reference implementation and control that both 
   provide the same output up to a reasonable error. A reasonable error, for a 
   processor that does not involve stochastic processes should be around 
   quantization error, assuming that your new implementation is exactly as the 
   reference.
-* Test the online capability of your processor (i.e., the respect of the 
+* Test the online capability of your processor (i.e., maintaining the 
   continuity of its output) by processing a whole signal and the same signal 
   cut into chunks. Both runs should provide the same output (up to a 
   "reasonable error"). You can use the test script ``test_onlineVSoffline`` to 
