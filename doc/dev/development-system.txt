@@ -1,7 +1,3 @@
-.. warning::
-
-    This site is not up-to-date
-
 .. _sec-install-development-system:
 
 Installation of the development version
@@ -159,11 +155,19 @@ specify those dependencies also in the XML configuration files, for example:
     <!-- Configure which parts of the Two!Ears model should be started -->
 
     <requirements>
-        <TwoEarsPart branch="master"   sub="src"    startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
-        <TwoEarsPart branch="master"   sub="API_MO" startup="SOFAstart">sofa</TwoEarsPart>
-        <TwoEarsPart branch="feature1" sub="src"    startup="startTools">tools</TwoEarsPart>
-        <TwoEarsPart branch="feature1"              startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
-        <TwoEarsPart branch="master"                startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
+        <TwoEarsPart branch="master"
+                     sub="src"
+                     startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
+        <TwoEarsPart branch="master"
+                     sub="API_MO"
+                     startup="SOFAstart">sofa</TwoEarsPart>
+        <TwoEarsPart branch="feature1"
+                     sub="src"
+                     startup="startTools">tools</TwoEarsPart>
+        <TwoEarsPart branch="feature1"
+                     startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
+        <TwoEarsPart branch="master"
+                     startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
     </requirements>
 
 The ``startTwoEars`` function will then check if you have all the modules
