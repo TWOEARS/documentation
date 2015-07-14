@@ -14,7 +14,11 @@ list of all available data sets::
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360RM.sofa
     impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_FULL2DEG.sofa
+    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
+    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.2m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.3m.sofa
@@ -86,8 +90,6 @@ Spherical far-field |HRTF| compilation of the Neumann KU100
     impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360RM.sofa
     impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
     impulse_responses/fhk_ku100_anechoic/HRIR_FULL2DEG.sofa
-    impulse_responses/fhk_ku100_anechoic/HRIR_L2354.sofa
-    impulse_responses/fhk_ku100_anechoic/HRIR_L2702.sofa
 
 .. figure:: img/hrtf_fhk_neumann.jpg
     :align: center
@@ -191,7 +193,6 @@ TU Berlin, Telefunken-building, room Spirit
 
 ::
 
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit.sofa
     impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
     impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
     impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
