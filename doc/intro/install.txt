@@ -9,12 +9,7 @@ run it in Matlab. Additional files such as |HRTF| data will be downloaded later 
 the model on-the-fly if needed. 
 
 We have tested the software with Matlab versions 2012b and later. You will also need
-the Signal Processing Toolbox.
-
-.. warning::
-
-    Is this correct? is there a minimum matlab version required for WP1 or WP2 code?
-    What about tool boxes?
+the Signal Processing Toolbox. Currently the Statistics toolbox is also required for some plotting functions, but we expect to remove this dependency in a future release.
 
 When stored on your PC, you should add the main folder to your Matlab path and then run the 
 ``startTwoEars`` function, which will add the necessary sub-folders and compile the
