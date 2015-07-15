@@ -13,13 +13,13 @@ probability distribution for the binaural input ``signal``::
 
     >> out = may2011(input,fs);
 
-In the |TwoEarsModel| things work slightly different as the model has the
-ability to interact with the scene. This means that we have no fix binaural
+In the |TwoEarsModel| things work differently as the model has the
+ability to interact with the scene. This means that we have no fixed binaural
 signal, but only a description of the acoustic scene. For an introduction see
 :ref:`sec-tutorial-acoustic-scene`. The binaural signal is then created on the
-fly in a block based manner during the processing of the auditory model and can
+fly in a block-based manner during the processing of the auditory model and can
 be changed if the model decides to interact with the scene, for example by
-rotating its head. Another difference is that the |TwoEarsModel| comes not with
+rotating its head. Another difference is that the |TwoEarsModel| does not come with
 different functions for different tasks like localisation, speaker
 identification and so on. It always has its central *brain* the |blackboard| in
 which :ref:`sec-knowledge-sources` are available for different tasks. In the end
@@ -30,17 +30,17 @@ define which knowledge sources should be active.
 .. note::
 
     If you don't need the *brain* unit of the model, but are only interested in
-    extracting whatever auditory cue from your input signals or simulated
+    extracting whatever auditory cues from your input signals or simulated
     acoustic scene, you can use the |AFE| as a standalone part that extracts
     auditory cues for you. This is further explained in its
     :ref:`sec-afe-overview` section.
 
-In the following we explain this by a simple example. Lets assume we have the
+In the following we explain this by a simple example. Let's assume we have the
 acoustic scene definition from the :ref:`sec-binaural-renderer` tutorial and it
 is stored in the file :file:`binaural_renderer.xml`. Now we want to configure
 the |TwoEarsModel| to localise the sound source in that scene. As described
 above we have to configure the |blackboard| to do so. The configuration is also
-done via a XML-file, which would look like this for the localisation task:
+done via an XML file, which would look like this for the localisation task:
 
 .. code-block:: xml
     :linenos:
@@ -82,11 +82,11 @@ done via a XML-file, which would look like this for the localisation task:
 
     </blackboardsystem>
 
-It looks a little bit complicated, so let us go through it step by step.
+It looks a little complicated, so let us go through it step by step.
 First the |blackboard| needs some data it can work on. This data has the form of
 auditory cues which are extracted by the |afe|. There exists a special knowledge
 source to get the data into the blackboard, which is handled in line 4.
-After that in line 6-13 four other knowledge sources are included for our actual
+After that in lines 6-13 four other knowledge sources are included for our actual
 localisation task. Some of them come with parameters like ``default`` for the
 ``LocationKS`` which defines the learned localisation mapping of binaural cues
 to a perceived direction. The other knowledge sources should then interpret the
@@ -111,7 +111,7 @@ with::
     % Run model
     bbs.run();
 
-Now the model is finished, but we are of cause interested in seeing the results.
+Now the model is finished, but we are of course interested in seeing the results.
 What you could do here is the following::
 
     >> sourceAzimuth = 63; % real phyiscal position of the source
