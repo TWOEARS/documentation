@@ -3,18 +3,21 @@
 Examples
 ========
 
-These examples are use cases of the |BinSim| They apply the configuration
-directly in Matlab For larger setups it might be easier to use the
+These examples are use cases of the |BinSim|. They apply the configuration
+directly in Matlab. For larger setups it might be easier to use the
 :ref:`sec-xml-scene-description`, which will also be used in the overall
-:ref:`sec-examples` where the complete model is demonstrated.
+:ref:`sec-examples` where the complete model is demonstrated. If you want to
+execute or modify them have a look into the ``examples/`` folder of the
+|BinSim|.
 
 Simulate two dry sources
 ------------------------
 
-In this example, two dry sources will be simulated
-and the binaural output is written to the file :file:`out_two_sources.wav`.
-One source is a cello placed to the left of the listener and the other source
-is castanets placed in the front of the listener.
+In this example, two dry sources will be simulated and the binaural output is
+written to the file :file:`out_two_sources.wav`.  One source is a cello placed
+to the left of the listener and the other source is castanets placed in the
+front of the listener. If you want to test it run the :file:`two_sources.m`
+script.
 
 .. code-block:: Matlab
     :linenos:
@@ -61,7 +64,9 @@ Simulate a moving source
 
 This example simulates a dry cello that moves from the left to the right of the
 listener and stores the resulting binaural signal as
-:file:`out_moving_source.wav`.
+:file:`out_moving_source.wav`. If you want to test it run the
+:file:`moving_source.m` script.
+
 
 .. code-block:: Matlab
     :linenos:
@@ -100,7 +105,7 @@ Simulate rooms using the Image Source Model
 
 This example simulates a dry cello in a shoe box room and stores the resulting
 binaural signal in :file:`out_room.wav`. The shoe box room is simulated with an
-image source model.
+image source model. If you want to test it run the :file:`room.m` script.
 
 .. code-block:: Matlab
     :linenos:
@@ -150,8 +155,9 @@ image source model.
 Simulate rooms using Binaural Room Impulse Responses
 ----------------------------------------------------
 
-This example simulates a cello in a reverberant environment using BRIR
+This example simulates a cello in a reverberant environment using |BRIR|
 recordings. The resulting binaural signal as stored in :file:`out_brirs.wav`.
+If you want to test it run the :file:`room.m` script.
 
 .. code-block:: Matlab
     :linenos:

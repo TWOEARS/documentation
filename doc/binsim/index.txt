@@ -5,15 +5,15 @@ Binaural simulator
 ==================
 
 The |BinSim| enables the creation of binaural audio signals for different
-situations. This is done via the usage of :abbr:`HRTF (head-related transfer
-function)`\ s or :abbr:`BRIR (binaural room impulse response)`\ s, which are
+situations. This is done via the usage of |HRTF|\ s or |BRIR|\ s, which are
 provided in the |database|. All the needed data will be downloaded on demand
 from the data repository via a http connection.  The next sections will help you
-to set up the |BinSim| and define and simulate your own acoustic scenes with it.
+to get started with the |BinSim| by defining and simulating your own acoustic
+scenes with it.
 
 For all its calculations the |BinSim| uses the signal processing core of the
-`SoundScape Renderer`_ which is written in C++ and provided via a mex-file to
-Matlab. If you have problems with the provided mex-files, see the
+`SoundScape Renderer`_ which is written in C++ and provided via a MEX-file to
+Matlab. If you have problems with the provided MEX-files, see the
 :ref:`sec-binsim-install` for how to compile them yourself.  If you have trouble
 during the installation, don't hesitate to write a mail to the
 |TwoearsMailingList|.
