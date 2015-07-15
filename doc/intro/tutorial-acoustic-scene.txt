@@ -38,9 +38,9 @@ the need of setting up all the required loudspeakers.
 
 .. note::
 
-    Note that these files can also be used in perceptual experiments with
-    dynamic binaural synthesis (see for example [Wierstorf2014]_); here, our
-    model could help to predict the experimental outcome.
+    These files can also be used in perceptual experiments with dynamic binaural
+    synthesis (see for example [Wierstorf2014]_); here, our model could help to
+    predict the experimental outcome.
 
 .. _sec-binaural-renderer:
 
