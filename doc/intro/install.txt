@@ -22,14 +22,22 @@ From within the main folder do the following:
     >> addpath(pwd)
     >> startTwoEars
 
+When you are planning to use the |BinSim| module you have to prepare the
+following things:
+
+    * **Linux/Mac**: install the packages *make*, *g++ (at least version
+      4.7.3)*, *libsndfile1-dev*, *libxml2-dev*, *libfftw3-dev*
+    * **Windows**: add ``TwoEarsDir/BinauralSimulator/src/mex/dll`` folder to
+      ``PATH`` environment variable (`HOWTO`_)
+
 Finally, in order to use the location knowledge source ``LocationKS()``, you
 need to download `GMTK`_ binaries for your operating system:
 
-    * For Linux, download `GMTK for Linux`_ and put the unzipped binaries in
+    * **Linux**: download `GMTK for Linux`_ and put the unzipped binaries in
       ``/usr/local/bin``
-    * For MaxOS X, download `GMTK for MacOS X`_ and put the unzipped binaries in
+    * **Mac**: download `GMTK for MacOS X`_ and put the unzipped binaries in
       ``/usr/local/bin``
-    * For Windows systems you need to use `Cygwin`_. Download `GMTK for Cygwin`_
+    * **Windows**: you need to use `Cygwin`_. Download `GMTK for Cygwin`_
       and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``
 
 To test if GMTK works for you, open a shell and do the following:
@@ -70,5 +78,7 @@ trying one of the :ref:`examples provided <sec-examples-localisation>`:
 .. _Cygwin: http://www.cygwin.com
 
 .. _GMTK: http://melodi.ee.washington.edu/gmtk/
+
+.. _HOWTO: http://www.computerhope.com/issues/ch000549.htm
 
 .. vim: filetype=rst spell:
