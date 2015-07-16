@@ -170,10 +170,9 @@ action, afterwards we will have a look at what happened::
 
 As you can see the model with head rotation returned better results as the model
 without head rotation enabled. The reason why we have problems without head
-rotations is that we have trained the model with another :abbr:`HRTF (head
-related transfer function)` data set (:ref:`QU KEMAR <sec-hrir-qu-kemar>`) as
-we used for the creation of the acoustic scene (:ref:`SCUT KEMAR
-<sec-hrir-scut-kemar>`).
+rotations is that we have trained the model with another |HRTF| data set
+(:ref:`QU KEMAR <sec-hrtf-qu-kemar>`) as we used for the creation of the
+acoustic scene (:ref:`SCUT KEMAR <sec-hrtf-scut-kemar>`).
 
 Now, we have a look into the details of the ``localise()`` function. We will
 only talk about the parts that are responsible for the task, not for printing
