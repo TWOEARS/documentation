@@ -5501,11 +5501,11 @@ div[class^='highlight'] pre {
 
 .wy-side-nav-search {
     z-index: 200;
-    background-color: #2980B9;
+    background-color: #e0eaf2;
     text-align: center;
     padding: 0.809em;
     display: block;
-    color: #fcfcfc;
+    color: #0083c3;
     margin-bottom: 0.809em
 }
 
@@ -5513,7 +5513,8 @@ div[class^='highlight'] pre {
     width: 100%;
     border-radius: 50px;
     padding: 6px 12px;
-    border-color: #2472a4
+    /*border-color: #2472a4*/
+    border-color: #e0eaf2;
 }
 
 .wy-side-nav-search img {
@@ -5528,7 +5529,7 @@ div[class^='highlight'] pre {
 
 .wy-side-nav-search>a,
 .wy-side-nav-search .wy-dropdown>a {
-    color: #fcfcfc;
+    color: #0083c3;
     font-size: 100%;
     font-weight: bold;
     display: inline-block;
@@ -6408,5 +6409,4 @@ span[id*='MathJax-Span'] {
     src: local("Roboto Slab Bold"), local("RobotoSlab-Bold"), url(../fonts/RobotoSlab-Bold.ttf) format("truetype")
 }
 /*# sourceMappingURL=theme.css.map */
-
    
