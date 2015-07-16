@@ -4,17 +4,30 @@ Modules of the Two!Ears Auditory Model
 ======================================
 
 Below you see an overview over the architecture of the complete |TwoEarsModel|.
-It starts with getting binaural ear signals out of a |robot| or simulating them
-with the |BinSim|. In both cases we allow for active listening like rotating
-the head of the listener.
+This architecture allows to retrieve binaural ear signals in two different ways:
+on the one hand, a dummy head mounted on a |robot| can be used to capture
+real-world audio input for follow-up processing. On the other hand, the |BinSim|
+can be used to simulate artificial ear signals. In both cases, our auditory
+model allows for active listening by, e.g., rotating the listener's head.
+
+Based on the above, classic auditory cues can be extracted from the sampled ear
+signals in a completely block-based manner, using the |AFE| which could also act
+as a standalone module.  However, our model's inference capabilities are not
+only based on such bottom-up features; instead, the Two!Ears system incorporates
+top-down feedback methods and a |blackboard| to allow for scene understanding in
+given scenarios. The blackboard coordinates several expert units, so called
+:ref:`sec-knowledge-sources` that interpret the extracted auditory cues based on
+internal world knowledge and try to disambiguate complex input by performing
+sophisticated active exploration patterns.
+
 Afterwards we extract classic auditory cues as you might know from the
 |amtoolbox|, but now in a completely block based manner. This is part of the
-|AFE| which can also be used as a standalone module.
-The judgements of the |TwoEarsModel| should not only be bottom-up driven by the
-acoustic cues, but also incorporate top-down feedback. To incorporate such a
-behavior a |blackboard| module follows the |AFE|, that incorporates several
-experts, so called *knowledge sources* that interpret the auditory cues based
-on there world knowledge and active explorations.
+|AFE| which can also be used as a standalone module.  The judgements of the
+|TwoEarsModel| should not only be bottom-up driven by the acoustic cues, but
+also incorporate top-down feedback. To incorporate such a behavior a
+|blackboard| module follows the |AFE|, that incorporates several experts, so
+called :ref:`sec-knowledge-sources` that interpret the auditory cues based on
+there world knowledge and active explorations.
 
 .. code::
     :class: ascii-sketch

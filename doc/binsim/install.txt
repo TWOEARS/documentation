@@ -39,11 +39,11 @@ Compile MEX Binaries
 
       cd SSR_DIR/mex/
 
-* if you are using a Mac and installed MATLAB at ``/Applications/MATLAB_R2013a.app``
+* if you are using a Mac and installed Matlab at ``/Applications/Matlab_R2013a.app``
   ::
 
-      export PATH="/Applications/MATLAB_R2013a.app/bin:$PATH"
-      export CPPFLAGS="-I/Applications/MATLAB_R2013a.app/extern/include"
+      export PATH="/Applications/Matlab_R2013a.app/bin:$PATH"
+      export CPPFLAGS="-I/Applications/Matlab_R2013a.app/extern/include"
 
 * generate mex-files
   ::
@@ -51,15 +51,15 @@ Compile MEX Binaries
       make matlab
 
 * If you get an error saying that the version of ``GLIBCXX`` is not correct this
-  is due to the usage of the MATLAB provided ``libstdc++`` which is for an older
+  is due to the usage of the Matlab provided ``libstdc++`` which is for an older
   gcc version. You can solve this by deleting linking it to your system
   ``libstdc++`` via
   ::
 
       ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.<LIBSTDC-VERSION> \
-            /usr/local/MATLAB/MATLAB-VERSION/bin/glnxa64/libstdc++.so.6
+            /usr/local/Matlab/Matlab-VERSION/bin/glnxa64/libstdc++.so.6
 
-* open Matlab and add ``SSR_DIR/mex/`` to MATLAB-path using ``pathtool`` or ``addpath``
+* open Matlab and add ``SSR_DIR/mex/`` to Matlab-path using ``pathtool`` or ``addpath``
 
 That's all, now you should be able to :doc:`use the Two!Ears Binaural Simulator <usage>`.
 
@@ -91,7 +91,7 @@ First you have to ensure some prerequisites:
 Compile MEX Binaries
 ~~~~~~~~~~~~~~~~~~~~
 
-* edit ``SSR_DIR/mex/win64/Makefile`` and set the ``MATLABROOT`` to the location of your systems MATLAB
+* edit ``SSR_DIR/mex/win64/Makefile`` and set the ``MatlabROOT`` to the location of your systems Matlab
 * edit or create ``MSYS_DIR\etc\fstab`` and add mounts for ``MINGW_DIR`` and ``SSR_DIR``
   ::
 
@@ -105,8 +105,8 @@ Compile MEX Binaries
       cd /ssr/mex/win64
       make
 
-* open Matlab and add ``SSR_DIR/mex/`` to MATLAB-path using ``pathtool`` or ``addpath``
+* open Matlab and add ``SSR_DIR/mex/`` to Matlab-path using ``pathtool`` or ``addpath``
 
-That's all, now you should be able to :doc:`use the Two!Ears Binaural Simulator <usage>`.
+That's all, now you should be able to :ref:`use the Two!Ears Binaural Simulator <sec-binsim-usage>`.
 
 .. vim: filetype=rst spell:

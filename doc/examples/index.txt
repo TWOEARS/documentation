@@ -4,11 +4,17 @@
 Examples
 ========
 
+In this part you find a collection of several examples using the complete |TwoEarsModel| for common tasks.
+At the moment the following examples are available:
+
 .. toctree::
     :maxdepth: 1
 
     localisation
     localisation-details
     train-localisation
+
+This section will expand with every new major feature that will be added to the
+model.
 
 .. vim: filetype=rst spell:

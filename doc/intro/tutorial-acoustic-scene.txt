@@ -5,38 +5,51 @@
 Setting up an acoustic scene
 ============================
 
-The auditory models available normally work in a way that you have your
-pre-recorded or generated signals that you used also in the experiments and then
-simply feed them into your model and it returns the results.
+Contemporary auditory models generally work in a feed-forward manner:
+pre-recorded or pre-generated signals are simply fed into the model and the
+model calculates and returns the results.
 
-For the |TwoEarsModel| this is slightly different as the model is allowed to
-actively explore the provided acoustic scene. For example, it could decide to
-turn its head in order to generate better predictions. This means the ear
-signals have to be able to change accordingly. One way to achieve this is to use
-a |robot| in order to record the signals on the fly. For an introduction to
-that, see :ref:`sec-tutorial-robot`. Here, we will focus on the other way to
-generate the ear signals by using our |BinSim|.
+The |TwoEarsModel| behaves quite different in that respect - our framework
+allows to actively explore the provided acoustic scene: the model's feedback
+mechanisms could, for instance, initiate a turn of the audio capture unit (dummy
+head) in order to disambiguate complex input and to arrive at a more precise
+scenario analysis.  Such active exploration can be achieved, on the one hand, in
+the real world by using a dummy head in order to record binaural ear signals on
+the fly. Those dummy head should have a moveable head and will be mounted on a
+robotic platform to allow for translatory movements. For an introduction to
+that, see :ref:`sec-tutorial-robot`.  On the other hand, this task can be
+addressed in a virtual way, setting up a simulated acoustic scene in the
+|BinSim|.  Below, we focus on the latter method.
 
-There are two operation modi the |BinSim| creates the ear signals. One way is to
-specify your acoustic scene completely with metadata and the simulator then
-renders it by using |HRTF| and its :ref:`sec-binaural-renderer`. The other way
-is to use a mixture of metadata and pre-recorded scene details as they could be
-stored in |BRIR| or |BRS| files [Horbach1999]_ using the
-:ref:`sec-brs-renderer`. |BRIR|\ s represent sources placed in a room. |BRS|
-files could even include the simulation of complex scenarios like loudspeaker
-arrays reproducing driven by spatial audio reproduction techniques to generate a
-virtual sound source. Those files could also be used in an experiment using
-dynamic binaural synthesis, see for example [Wierstorf2014]_ and then feed
-directly into the model in order to predict the results.
+There are two ways how the |BinSim|
+creates the ear signals. One is to specify the entire
+acoustic scene using meta-data, pass appropriate |HRTF|\ s to the simulator, and,
+with that, render the scenario using the simulator's :ref:`sec-binaural-renderer`
+component. The
+other way is to use a mixture of meta-data and pre-recorded scene details that
+could be represented by |BRIR| or |BRS| files
+[Horbach1999]_.
+The :ref:`sec-brs-renderer`
+can use this information (|BRIR|\ s) to represent sources placed in a room. Stepping
+further, |BRS| files enable the simulation of complex scenarios with loudspeaker
+arrays driven by spatial audio reproduction techniques. With this method the complete synthesized sound field of
+those reproduction methods could be investigated by binaural synthesis without
+the need of setting up all the required loudspeakers.
+
+.. note::
+
+    These files can also be used in perceptual experiments with dynamic binaural
+    synthesis (see for example [Wierstorf2014]_); here, our model could help to
+    predict the experimental outcome.
 
 .. _sec-binaural-renderer:
 
 Binaural renderer
 -----------------
 
-In the first example we use a |HRTF| dataset together with a cello as audio
-material to generate a static source to the left of the listener. We could
-define such a scene via the following XML-file:
+In the first example, a KEMAR |HRTF| dataset is used together with a sound
+stimulus (cello) as static source to the left of the listener. Such an anechoic
+scene can be defined via the following XML-file:
 
 .. code-block:: xml
 
@@ -59,30 +72,30 @@ define such a scene via the following XML-file:
             UnitZ="0 0 1"/>
     </scene>
 
-In the file we have to specify the renderer type we want to use, the block size
-of the simulator (the Two!Ears model works completely in a block based manner),
-which |HRTF| dataset we want to use from our |database|, the audio material and
-where the source and our head should be placed.
+The file specifies the renderer type to be used, the simulator's processing
+block size (the |TwoEarsModel| works in a completely block based manner), the
+|HRTF| dataset to be loaded from the |database|, the audio material provided,
+and the positions of the sources (here: cello) / sinks (here: KEMAR dummy head).
 
-After we have defined the scene and saved the file under the name
-:file:`binaural_renderer.xml` we maybe would like to test it independent of the
-rest of the model. We can do it with by running the binaural simulation with in
-a standalone version with::
+With that, the scene is defined. Assume the file is saved as
+:file:`binaural_renderer.xml`. To test the correctness of the scene description,
+without having to invoke the full Two!Ears model framework, the binaural
+simulation can be run in a standalone version using the following statements::
 
     >> sim = simulator.SimulatorConvexRoom('binaural_renderer.xml');
     >> sim.set('Init',true);
     >> signal = sim.getSignal();
 
-Now we have the simulated binaural audio data stored in ``signal`` to which we
-can listen in Matlab via::
+This yields a variable named ``signal`` which stores the simulated binaural audio
+data. Matlab can replay this signal via::
 
     >> sound(signal,sim.SampleRate);
 
-We could also store the audio data in a file via::
+The data can also be stored in a file using::
 
     >> sim.Sinks.saveFile('binaural_renderer.wav',sim.SampleRate);
 
-When we are finished we shutdown the simulation to clean up temporary files with::
+To finish the simulation and clean up temporary files, type::
 
     >> sim.set('ShutDown',true);
 
@@ -91,9 +104,9 @@ When we are finished we shutdown the simulation to clean up temporary files with
 Binaural room scanning renderer
 -------------------------------
 
-In the second example we use the |BRS| renderer in order to simulate a source
-placed within a room from a |BRIR| recording. Again we define the scene within a
-XML-file, this time we call it ``brs_renderer.xml``:
+In the second example the |BRS| renderer will use |BRIR| recordings to simulate a
+source placed within a (reverberant) room. Again, the scene is defined via an
+XML-file named :file:`brs_renderer.xml`:
 
 .. code-block:: xml
 
@@ -115,29 +128,31 @@ XML-file, this time we call it ``brs_renderer.xml``:
             UnitZ="0 0 1"/>
     </scene>
 
-This time the renderer type is set to ``ssr_brs`` and the |BRIR| is now
-specified within the ``<source>`` tag as the source position within the room is
-directly given by the |BRIR| measurement.  Another small change involves the
-``UnitX`` axis. As the head was looking towards the y-axis during the
-measurement and ``UnitX`` defines the 0° direction of the head we are setting
-``UnitX`` to be in the direction of the y-axis ``0 1 0``. As audio material we
-are using further not a file from the database, but the build in white noise
-generator of the |BinSim|. This is a infinitely long signal per default so we
-have also to specify the ``LengthOfSimulation`` property.  We can again listen
-to the final simulation by the following commands which should result in a noise
-source placed in a larger room in the front-right direction from a listener
-point of view::
+The renderer type is set to ``ssr_brs`` and the |BRIR| is specified within the
+``<source>`` section. A source position is no longer required, as it is inherently
+given by the
+corresponding |BRIR| measurement.
+Note that the KEMAR dummy head was *looking* towards the y-axis during the |BRIR|
+measurement.  In the scene description, the ``UnitX`` vector defines the looking
+direction of the virtual head; thus ``UnitX`` becomes ``[0 1 0]``.
+The audio material used is synthesized by the simulator's built-in white noise
+generator. That way, an infinitely long signal is generated, and the
+``LengthOfSimulation``
+property has to be specified.
+The following commands allow to listen to the final simulation; the perceptual
+impression should correspond to a noise source placed in a larger room to the
+front-right of the listener::
 
     >> sim = simulator.SimulatorConvexRoom('brs_renderer.xml',1);
     >> signal = sim.getSignal();
     >> sound(signal, sim.SampleRate);
 
-Here, we are omitting the ``sim.set('Init', true)`` line by adding a ``1`` as
-second argument to the initialisation of the simulator which does the same.
+Here, the ``sim.set('Init', true)`` line has been omitted; the ``1`` used in
+simulator initialisation serves the same purpose.
 
-If you are looking for complex acoustic scenes, like moving around in a room or
-simulating moving sources, have a look at the :ref:`sec-binsim-examples` section
-of the :ref:`sec-binsim`.
+If you are looking for complex acoustic scenes (e.g., moving around in a room or
+simulating moving sources), please have a look at the :ref:`sec-binsim-examples`
+section of the :ref:`sec-binsim`.
 
 .. ...::: References :::...
 .. [Horbach1999] Horbach, U., Karamustafaoglu, A., Pellegrini, R., Mackensen, P., Theile, G. (1999), “Design and Applications of a Data-based Auralization System for Surround Sound,” 106th AES Convention, Paper 4976

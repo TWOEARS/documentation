@@ -1,3 +1,5 @@
+.. _sec-robot-install:
+
 Installation of the robotic tools
 =================================
 
@@ -23,10 +25,12 @@ Install |ROS|
 
 The distribution of |ROS| you can install will depend on your Ubuntu version:
 
-* If you have Ubuntu 14.04 LTS or 13.10, you can install |ROS| Indigo following
-  `these instructions <http://wiki.ros.org/indigo/Installation/Ubuntu>`_.
-* Otherwise, you should install |ROS| Hydro following `these instructions
-  <http://wiki.ros.org/hydro/Installation/Ubuntu>`_.
+* If you have Ubuntu 14.04 LTS or 13.10, follow the `ROS Indigo`_ installation
+  instructions.
+* Otherwise, follow the `ROS Hydro`_ installation instructions.
+
+.. _ROS Indigo: http://wiki.ros.org/indigo/Installation/Ubuntu
+.. _ROS Hydro: http://wiki.ros.org/hydro/Installation/Ubuntu
 
 Install the |GenoM3| tools through robotpkg
 -------------------------------------------

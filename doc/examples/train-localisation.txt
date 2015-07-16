@@ -27,7 +27,7 @@ which consists of the following files::
 
 Before starting with the training of ``LocationKS`` we have to define the
 binaural signals that should be used during training. As we would like to train
-on the :ref:`MIT KEMAR HRTFs <sec-hrir-mit-kemar>` we do the definition in the
+on the :ref:`MIT KEMAR HRTFs <sec-hrtf-mit-kemar>` we do the definition in the
 ``SceneDescriptionMIT.xml`` file, which looks like this:
 
 .. code-block:: xml
@@ -101,7 +101,7 @@ inside :file:`BlackboardQU.xml` and:
 inside :file:`BlackboardMIT.xml`.
 The first parameter specifies which learned model to use. Now, we are generating
 an audio scene with the :ref:`HRTFs used for the default setting
-<sec-hrir-qu-kemar>` and localise with both models::
+<sec-hrtf-qu-kemar>` and localise with both models::
 
     >> localise
 

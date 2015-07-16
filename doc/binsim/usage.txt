@@ -6,10 +6,10 @@ Usage
 This instruction guides you in detail on how to use the |BinSim|, for a brief
 guide have a look at the tutorial :ref:`sec-tutorial-acoustic-scene`. For
 instructions on how to use the whole |TwoEarsModel| have a look at the provided
-usage :ref:`sec-examples`.
+:ref:`sec-examples`.
 
 In the following it is assumed that you have started the |TwoEarsModel| already
-via the :code:`startTwoEars()` command.
+via the :code:`startTwoEars()` command, see also the :ref:`sec-install`.
 
 Configuration
 -------------
@@ -21,6 +21,8 @@ the large |database|. In that case you only have to specify the
 path of the desired files in the database and the |BinSim|
 will download them during processing. For further information on that have a
 look at the :ref:`sec-tutorial-database`.
+
+.. _sec-matlab-scene-description:
 
 Configuration using a Matlab script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,9 +84,9 @@ functionality of Matlab should be used, e.g.
         'impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa') ...
       );
 
-Line 3 and 4 set the sample rate of the simulator to 44.1 kHz and defines a block
-size aka. frame size of 4096 Samples. To define the acoustic scene, e.g.
-the sound sources and the listener.
+Line 3 and 4 set the sample rate of the simulator to 44.1 kHz and defines a
+block size of 4096 samples. To define the acoustic scene, add the sound
+sources and the listener.
 
 .. code-block:: Matlab
     :linenos:
@@ -132,11 +134,11 @@ simulator object, e.g.
 ``Name`` defines an unique identifier for the scene object, which
 should not be re-used for any other scene object. ``Position``
 defines the position of the scene object in 3D Cartesian coordinates (measured
-in meter). In order to emit sound from a sound sources, audio buffers have to be
+in meter). In order to emit sound from sound sources, audio buffers have to be
 respectively defined containing the sources' audio signals. A single-channel
-FIFO-Buffer (First-In-First-Out) can be defined by ``simulator.buffer.FIFO(1)``.
+|FIFO|-Buffer can be defined by ``simulator.buffer.FIFO(1)``.
 For more details about possible buffer types please refer to the
-`API documentation on buffers`_. To load a sound files into the buffers execute
+`API documentation on buffers`_. To load sound files into the buffers execute
 
 .. code-block:: Matlab
     :linenos:
@@ -156,9 +158,10 @@ For more details about possible buffer types please refer to the
 Configuration using XML Scene Description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In following the configuration as defined above using a Matlab script is done
-calling the constructor of the simulator object with an extra argument defining
-the file name of a XML scene description file.
+In following the configuration as defined above :ref:`using a Matlab script
+<sec-matlab-scene-description>` is done calling the constructor of the simulator
+object with an extra argument defining the file name of a XML scene description
+file.
 
 .. code-block:: Matlab
 
@@ -233,8 +236,8 @@ of ear signals whose length is defined by ``sim.BlockSize``. Between two
 processing steps, the properties of scene objects may be manipulated, e.g. the
 position of a scene object is changed. If necessary, call line 2 once before
 processing a new block in order to send any modification to the simulation
-kernel. The ear signals are stored in the :abbr:`FIFO (first in, first out)`
-buffer of the ``sim.Sinks`` object.
+kernel. The ear signals are stored in the |FIFO| buffer of the ``sim.Sinks``
+object.
 
 .. code-block:: Matlab
     :linenos:
@@ -265,7 +268,7 @@ Again, objects' initial positions have to be defined **before** re-initialisatio
 in order to initialise the simulation properly. The simulator however remains in
 an initialised state.
 
-To get more hands on the |BinSim| have a look at the
-:ref:`sec-binsim-examples`.
+To get more hands on the |BinSim| have a look at its
+:ref:`sec-binsim-examples` page.
 
 .. vim: filetype=rst spell:
