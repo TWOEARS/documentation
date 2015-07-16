@@ -102,7 +102,7 @@ and the blackboard in :file:`blackboard.xml` we could finally run the model
 with::
 
     % Initialise binaural simulator
-    sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
+    sim = simulator.SimulatorConvexRoom('binaural_renderer.xml');
     sim.set('Init', true);
     % Initialise blackboard and connect to binaural simulation
     bbs = BlackboardSystem(0);
