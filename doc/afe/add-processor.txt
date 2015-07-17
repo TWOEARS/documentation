@@ -23,6 +23,10 @@ processor to illustrate some aspects of the implementation.
       oriented programming using Matlab. Hence most 
       :abbr:`OOP(object-oriented programming)` concepts involved are briefly 
       explained.
+    - You can base your implementation on the available ``templateProc.m`` file
+      which contains a pre-populated list of properties and methods. Simply 
+      copy the file, rename it to your processor name, and follow the 
+      instructions.
 
 .. _sec-afe-addition-checklist:
 
