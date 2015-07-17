@@ -1125,7 +1125,7 @@ centre frequencies. Moreover, it has been shown that an :abbr:`AMS (amplitude
 modulation spectrogram)` feature representation based on an auditory-inspired
 modulation filter bank with logarithmically-scaled modulation filters
 substantially improved the performance of computational speech segregation in
-the presence of stationary and fluctuating interferers [MayPress]_. In addition,
+the presence of stationary and fluctuating interferers [May2014c]_. In addition,
 such a processing based on auditory-inspired modulation filters has recently
 also been successful in speech intelligibility prediction
 studies [Joergensen2011]_, [Joergensen2013]_. To investigate the contribution of
@@ -1509,7 +1509,7 @@ binaural cues might be unreliable due to the impact of the reverberation.
 .. [May2013b] May, T., van de Par, S., and Kohlrausch, A. (2013), “Binaural Localization and Detection of Speakers in Complex Acoustic Scenes,” in The technology of binaural listening, edited by J. Blauert, Springer, Berlin–Heidelberg–New York NY, chap. 15, pp. 397–425.
 .. [May2014a] May, T. and Dau, T. (2014), “Requirements for the evaluation of computational speech segregation systems,” Journal of the Acoustical Society of America 136(6), pp. EL398– EL404.
 .. [May2014b] May, T. and Gerkmann, T. (2014), “Generalization of supervised learning for binary mask estimation,” in International Workshop on Acoustic Signal Enhancement, Antibes, France.
-.. [MayPress] May, T. and Dau, T. (in press), “Computational speech segregation based on an auditory-inspired modulation analysis,” Journal of the Acoustical Society of America.
+.. [May2014c] May, T. and Dau, T. (2014), “Computational speech segregation based on an auditory-inspired modulation analysis,” Journal of the Acoustical Society of America 136(6), pp. 3350-3359.
 .. [Meddis1991] Meddis, R. and Hewitt, M. J. (1991), “Virtual pitch and phase sensitivity of a computer model of the auditory periphery. I: Pitch identification,” Journal of the Acoustical Society of America 89(6), pp. 2866–2882.
 .. [Meddis1997] Meddis, R. and O’Mard, L. (1997), “A unitary model of pitch perception,” Journal of the Acoustical Society of America 102(3), pp. 1811–1820.
 .. [Meddis2001] Meddis, R., O’Mard, L. P., and Lopez-Poveda, E. A. (2001), “A computational algorithm for computing nonlinear auditory frequency selectivity,” Journal of the Acoustical Society of America 109(6), pp. 2852–2861.
