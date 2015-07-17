@@ -40,7 +40,9 @@ acoustic scene definition from the :ref:`sec-binaural-renderer` tutorial and it
 is stored in the file :file:`binaural_renderer.xml`. Now we want to configure
 the |TwoEarsModel| to localise the sound source in that scene. As described
 above we have to configure the |blackboard| to do so. The configuration is also
-done via an XML file, which would look like this for the localisation task:
+done via an XML file, which would look like this for the localisation task.  The
+file is called :file:`blackboard.xml` and can be found in the
+`Examples/first_steps/setting_up_an_auditory_model` folder:
 
 .. code-block:: xml
     :linenos:

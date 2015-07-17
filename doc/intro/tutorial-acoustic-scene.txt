@@ -49,7 +49,9 @@ Binaural renderer
 
 In the first example, a KEMAR |HRTF| dataset is used together with a sound
 stimulus (cello) as static source to the left of the listener. Such an anechoic
-scene can be defined via the following XML-file:
+scene can be defined via the following XML-file. The file is called
+:file:`binaural_renderer.xml` and can be found in the
+`Examples/first_steps/setting_up_an_acoustic_scene` folder:
 
 .. code-block:: xml
 
@@ -77,10 +79,10 @@ block size (the |TwoEarsModel| works in a completely block based manner), the
 |HRTF| dataset to be loaded from the |database|, the audio material provided,
 and the positions of the sources (here: cello) / sinks (here: KEMAR dummy head).
 
-With that, the scene is defined. Assume the file is saved as
-:file:`binaural_renderer.xml`. To test the correctness of the scene description,
-without having to invoke the full Two!Ears model framework, the binaural
-simulation can be run in a standalone version using the following statements::
+With that, the scene is defined. To test the correctness of the scene
+description, without having to invoke the full Two!Ears model framework, the
+binaural simulation can be run in a standalone version using the following
+statements::
 
     >> sim = simulator.SimulatorConvexRoom('binaural_renderer.xml');
     >> sim.set('Init',true);
@@ -106,7 +108,7 @@ Binaural room scanning renderer
 
 In the second example the |BRS| renderer will use |BRIR| recordings to simulate a
 source placed within a (reverberant) room. Again, the scene is defined via an
-XML-file named :file:`brs_renderer.xml`:
+XML-file, this time named :file:`brs_renderer.xml`:
 
 .. code-block:: xml
 
