@@ -245,7 +245,7 @@ rst_epilog = rst_epilog + """
 .. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
 .. _Two!Ears Robotic Platform: https://github.com/TWOEARS
 .. _Auditory Modeling Toolbox: http://amtoolbox.sf.net
-.. _latest version: http://twoears.aipa.tu-berlin.de/files/twoears-auditory-model-1.0-rc3.zip
+.. _latest version: http://twoears.aipa.tu-berlin.de/files/twoears-auditory-model-1.0-rc4.zip
 """
 
 # -- Options for LaTeX output ---------------------------------------------
