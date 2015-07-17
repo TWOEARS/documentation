@@ -76,7 +76,6 @@ it provides a way to interpret the auditory cues and extract meaning from them.
 Learn how this happens below:
 
 * :ref:`sec-blackboard-introduction`
-* :ref:`sec-blackboard-install`
 * :ref:`sec-blackboard-usage`
 * :ref:`sec-blackboard-architecture`
 * :ref:`sec-knowledge-sources`
@@ -101,7 +100,6 @@ A key concept of the Two!Ears Auditory Model is reproducible research. Here, you
 will find scripts show casing basic usage examples of the model or redoing
 figures from our publications:
 
-* :ref:`Overview <sec-examples>`
 * :ref:`sec-examples-localisation`
 * :ref:`sec-examples-localisation-details`
 * :ref:`sec-examples-train-localisation`

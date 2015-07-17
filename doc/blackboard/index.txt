@@ -10,7 +10,6 @@ This is not up to date, but for testing the following is included:
     :maxdepth: 2
 
     introduction 
-    install
     usage
     architecture
     knowledge-sources

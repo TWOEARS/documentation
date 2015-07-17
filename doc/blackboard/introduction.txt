@@ -57,8 +57,7 @@ which is performed by two independent modules.
 
 Read on for :ref:`further details on the blackboard architecture
 <sec-blackboard-architecture>`, :ref:`details on the knowledge sources
-<sec-knowledge-sources>`, or start with :ref:`how to install
-<sec-blackboard-install>` and :ref:`use the blackboard system
+<sec-knowledge-sources>`, or start with :ref:`use the blackboard system
 <sec-blackboard-usage>`.
 
 .. [Bregman1990] Bregman, A. S. (1990), Auditory scene analysis: The perceptual organization of sound, The MIT Press, Cambridge, MA, USA.
