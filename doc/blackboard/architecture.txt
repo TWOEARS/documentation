@@ -300,6 +300,8 @@ the |AFE| requested by knowledge sources inheriting from
 for recall is implemented in the |AFE| through :ref:`circular buffers
 <sec-afe-circular-buffer>`.
 
+.. _sec-dynamic-interactions:
+
 Dynamic blackboard interactions
 -------------------------------
 
