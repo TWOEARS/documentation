@@ -8,7 +8,6 @@ Audio streaming
 
     bass
     basc
-    dedicated-socket
 
 .. vim: filetype=rst spell:
 .. emacs:

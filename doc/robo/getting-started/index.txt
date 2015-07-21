@@ -7,7 +7,6 @@ Getting started
     :maxdepth: 2
 
     introduction
-    genom3-overview
     installation
 
 .. vim: filetype=rst spell:

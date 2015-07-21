@@ -3,19 +3,17 @@
 Installation of the robotic tools
 =================================
 
-The robotic tools should be installed on any system that will host components of
-the software architecture for the |robot|. This page details the installation
-process. In addition, a :ref:`Matlab bridge <sec-install-matlab-bridge>` can be
-installed on any other system to control the |robot| from a Matlab environment.
+The robotic tools should be installed on any system that hosts components of the
+software architecture for the |robot|. This section details the installation
+process.
 
 .. note::
 
-    For all the guidelines gathered on this page other than :ref:`the Matlab
-    bridge installation <sec-install-matlab-bridge>`, we will assume that you
-    are using Ubuntu Linux as it is the supported distribution for |ROS| (but
-    for the |GenoM3| tools, any other UNIX platform should work). We also assume
-    that you use the :command:`bash` shell. If you use a different shell, you
-    should adapt the shell-dependent commands accordingly.
+    For all the guidelines gathered here, we will assume that you are using
+    Ubuntu GNU/Linux as it is the supported distribution for |ROS| (though any
+    other UNIX platform should be suited to the |GenoM3| tools). Many commands
+    given here are intended for the :command:`bash` shell. If you use a
+    different shell, you should adapt the bash-related commands accordingly.
 
 .. contents::
     :local:
@@ -23,7 +21,7 @@ installed on any other system to control the |robot| from a Matlab environment.
 Install |ROS|
 -------------
 
-The distribution of |ROS| you can install will depend on your Ubuntu version:
+The |ROS| distribution you can install will depend on your Ubuntu version:
 
 * If you have Ubuntu 14.04 LTS or 13.10, follow the `ROS Indigo`_ installation
   instructions.
@@ -32,17 +30,17 @@ The distribution of |ROS| you can install will depend on your Ubuntu version:
 .. _ROS Indigo: http://wiki.ros.org/indigo/Installation/Ubuntu
 .. _ROS Hydro: http://wiki.ros.org/hydro/Installation/Ubuntu
 
-Install the |GenoM3| tools through robotpkg
--------------------------------------------
+Install the |GenoM3| tools through |robotpkg|
+---------------------------------------------
 
-This section will guide you through the installation of |GenoM3| tools. Though
-|GenoM3| is open-source software (available at https://git.openrobots.org/) and
-can be compiled from source, the common installation uses robotpkg, a
-compilation framework and packaging system for robotics software (more
-information at http://robotpkg.openrobots.org/).
+This section will guide you through the installation of |GenoM3| tools. |GenoM3|
+is open-source software (available at https://git.openrobots.org/) and can be
+compiled from source, but the common installation uses |robotpkg|, a compilation
+framework and packaging system for robotics software (more information at
+http://robotpkg.openrobots.org/).
 
-Get robotpkg on your system
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get |robotpkg| on your system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
 
@@ -51,27 +49,33 @@ Get robotpkg on your system
      instructed `here <http://robotpkg.openrobots.org/install.html>`_ and `there
      <http://robotpkg.openrobots.org/robotpkg-wip.html>`_.
 
-First, get the ``robotpkg`` repository in your home folder (or you can choose
-another location, but we would recommend this one)::
+First, get the ``robotpkg`` repository in your home folder (you can choose
+another location, but we recommend this one):
 
-    $ cd
-    $ git clone git://git.openrobots.org/robots/robotpkg
+.. code-block:: bash
+
+    cd
+    git clone git://git.openrobots.org/robots/robotpkg
 
 You will also need the `wip <http://robotpkg.openrobots.org/robotpkg-wip.html>`_
-subset of robotpkg, it contains some work in progress that is not officially
-released, but already available::
+subset of |robotpkg|, it contains some work in progress that is not officially
+released, but already available:
 
-    $ cd ~/robotpkg
-    $ git clone git://git.openrobots.org/robots/robotpkg/robotpkg-wip wip
+.. code-block:: bash
+
+    cd ~/robotpkg
+    git clone git://git.openrobots.org/robots/robotpkg/robotpkg-wip wip
 
 Next, set the installation path. The tools that you will soon install will be
-placed in your home folder under a dedicated folder named ``openrobots`` (or you
-can choose another location with a different prefix, but we would recommend this
-one. Installing robotic components in your home folder ensures that you do not
-need root privileges for the installation)::
+placed in your home folder under a dedicated folder named
+``openrobots``. Installing robotic components in your home folder ensures that
+you do not need root privileges for the installation (you can choose another
+location with a different prefix, but we recommend this one):
 
-    $ cd ~/robotpkg/bootstrap
-    $ ./bootstrap --prefix $HOME/openrobots
+.. code-block:: bash
+
+    cd ~/robotpkg/bootstrap
+    ./bootstrap --prefix $HOME/openrobots
 
 To finish, update your environment variables to include the installation
 folder:
@@ -80,31 +84,31 @@ folder:
 
     In the following commands, note the use of an environment variable
     :envvar:`ROBOTPKG_BASE` to indicate your installation path, set to
-    ``$HOME/openrobots``. If you have chosen a different location at the
+    ``$HOME/openrobots``. If you have selected a different location at the
     previous step, you should modify the corresponding command accordingly.
 
-::
+.. code-block:: bash
 
-    $ echo >> ~/.bashrc
-    $ echo "# ROBOTPKG" >> ~/.bashrc
-    $ echo "export ROBOTPKG_BASE=$HOME/openrobots" >> ~/.bashrc
-    $ echo "export PATH=$PATH:$ROBOTPKG_BASE/bin:$ROBOTPKG_BASE/sbin" >> ~/.bashrc
-    $ echo "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$ROBOTPKG_BASE/lib/pkgconfig" >> ~/.bashrc
-    $ echo "export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROBOTPKG_BASE/src/ros-nodes:$ROBOTPKG_BASE/share" >> ~/.bashrc
-    $ echo "export PYTHONPATH=$PYTHONPATH:$ROBOTPKG_BASE/lib/python2.7/site-packages:$ROBOTPKG_BASE/lib/python3.2/site-packages" >> ~/.bashrc
-    $ echo "# ROBOTPKG END" >> ~/.bashrc
-    $ source ~/.bashrc
+    echo >> ~/.bashrc
+    echo "# ROBOTPKG" >> ~/.bashrc
+    echo "export ROBOTPKG_BASE=$HOME/openrobots" >> ~/.bashrc
+    echo "export PATH=$PATH:$ROBOTPKG_BASE/bin:$ROBOTPKG_BASE/sbin" >> ~/.bashrc
+    echo "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$ROBOTPKG_BASE/lib/pkgconfig" >> ~/.bashrc
+    echo "export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROBOTPKG_BASE/src/ros-nodes:$ROBOTPKG_BASE/share" >> ~/.bashrc
+    echo "export PYTHONPATH=$PYTHONPATH:$ROBOTPKG_BASE/lib/python2.7/site-packages:$ROBOTPKG_BASE/lib/python3.2/site-packages" >> ~/.bashrc
+    echo "# ROBOTPKG END" >> ~/.bashrc
+    source ~/.bashrc
 
 .. _sec-install-robotpkg-package:
 
-How to install a robotpkg package
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How to install a |robotpkg| package
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Your ``~/robotpkg`` directory contains a tree of packages, grouped into main
 categories. In the next part, we will invite you to install some of those
-packages. Here we expose you the guidelines to follow for each package.
+packages. Here, we expose you the guidelines to follow for each package.
 
-1. **Add eventual options to the package**
+1. **Add options to the package**
 
     If you are asked to add options ``option-1 option-2 ...`` to the package
     ``pkg-name``, edit the file :file:`~/openrobots/etc/robotpkg.conf` and add a
@@ -112,41 +116,50 @@ packages. Here we expose you the guidelines to follow for each package.
 
         PKG_OPTIONS.pkg-name+= option-1 option-2 ...
 
-2. **Change to the package's diretory**
+    You will get a better idea about this step with an actual example in the
+    next part.
+
+2. **Move to the package's directory**
 
     You will be given the path to the package, such as
-    ``robotpkg/<category>/<pkg-name>``. Change to this directory::
+    ``robotpkg/category/pkg-name``. Change to this directory:
 
-        $ cd ~/robotpkg/<category>/<pkg-name>
+    .. code-block:: bash
 
-3. **Install eventual missing system dependencies**
+        cd ~/robotpkg/category/pkg-name
+
+3. **Install possibly missing system dependencies**
 
     Run the following command to list the dependencies for the package you are
-    about to install::
+    about to install:
 
-        $ make show-depends
+    .. code-block:: bash
+
+        make show-depends
 
     At the end of the command's output, the dependencies are separated into
-    ``Robotpkg dependencies`` and ``System dependencies``. If any robotpkg
+    ``Robotpkg dependencies`` and ``System dependencies``. If any |robotpkg|
     dependency is missing, it will be automatically installed. If any system
     dependency is missing, you need to install it (commonly with
-    :command:`apt-get` under Ubuntu).
+    :command:`apt-get` under Ubuntu). Iterate this step until no system
+    dependency is missing.
 
     You may skip this step, but if a system dependency is missing, the package
-    installation will stop at some point and you will be asked to install the
-    missing dependency.
+    installation will stop at some point and you will be asked to install it.
 
 4. **Install the package**
 
-    Run the following command::
+    Run the following command:
 
-        $ make update
+    .. code-block:: bash
+
+        make update
 
     This will download the sources, compile them locally on your system, and
     install the output files in the ``~/openrobots`` directory.
 
-Install the needed packages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Install packages for |GenoM3|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Install the package ``demo-genom3`` from ``robotpkg/wip/demo-genom3`` with
   options ``codels ros-server ros-client-ros ros-client-c``.
@@ -154,39 +167,48 @@ Install the needed packages
     This package will install the *demo* module. It is a sample component
     distributed with |GenoM3|, serving as an example of a |GenoM3| module. It
     simply controls the motion of a fictional robot. The aim of installing the
-    *demo* module is twofold: first aim is to automatically install all the
-    dependencies for using |GenoM3| with |ROS|; second one is to already have a
-    |GenoM3| module ready to be run to test your installation (*c.f.* section
-    :ref:`sec-test-install`). For your convenience, we give you here what
-    applying the :ref:`above steps <sec-install-robotpkg-package>` could look
-    like::
+    *demo* module is twofold: first, it automatically installs all the
+    dependencies for using |GenoM3| (the provided options specifying that we
+    will use the |ROS| templates); second, you get a |GenoM3| module ready to be
+    run to start using the robotic tools.
 
-        $ echo "PKG_OPTIONS.demo-genom3+= codels ros-server ros-client-ros ros-client-c" >> ~/openrobots/etc/robotpkg.conf
-        $ # or better, edit the file manually and add the line near the beginning
+    For your convenience, here is how applying the :ref:`above steps
+    <sec-install-robotpkg-package>` could look like:
 
-        $ cd ~/robotpkg/wip/demo-genom3
+    .. code-block:: bash
 
-        $ make show-depends
-        $ # Let's say that `make show-depends` revealed two missing system
-        $ # dependencies named 'bison' and 'flex'. Next step would be:
-        $ sudo apt-get install bison flex
+        # 1. Add options to the package
+        echo "PKG_OPTIONS.demo-genom3+= codels ros-server ros-client-ros ros-client-c" >> ~/openrobots/etc/robotpkg.conf
+        # or better, edit the file manually and add the line near the beginning
 
-        $ make update
+        # 2. Change to the package's directory
+        cd ~/robotpkg/wip/demo-genom3
 
-* Install the packages ``genomix`` from ``robotpkg/net/genomix`` and ``rosix``
-  from ``robotpkg/net/rosix``.
+        # 3. Install missing system dependencies
+        make show-depends
+        # Let's say that `make show-depends` revealed two missing system
+        # dependencies named 'bison' and 'flex'. Next step would be:
+        sudo apt-get install bison flex
+        make show-depends
+        # No missing system dependency left
 
-    genomix and rosix are HTTP servers providing an interface for some clients
-    to control |GenoM3| modules and generic |ROS| nodes respectively.
+        # 4. Install the package
+        make update
 
-* Install the packages ``tcl-genomix`` from ``robotpkg/wip/tcl-genomix`` and
-  ``matlab-genomix`` from ``robotpkg/supervision/matlab-genomix``.
+* Then, install the packages ``genomix`` from ``robotpkg/net/genomix`` and
+  ``rosix`` from ``robotpkg/net/rosix``.
 
-    These are clients of the genomix and rosix servers. The tcl-genomix client
-    allows to control components using the Tcl language. The matlab-genomix
-    client allows to control components from Matlab, its installation is
-    optional. Section :ref:`sec-test-install` shows examples of use of those two
-    clients.
+    |genomix| and |rosix| are HTTP servers providing an interface for some
+    clients to control |GenoM3| modules and generic |ROS| nodes respectively.
+
+* Then, install the packages ``tcl-genomix`` from ``robotpkg/wip/tcl-genomix``
+  and ``matlab-genomix`` from ``robotpkg/supervision/matlab-genomix``.
+
+    These are clients of |genomix| and |rosix| servers. The |tcl-genomix| client
+    allows to control components using the Tcl language. Its installation is not
+    mandatory (we will rather use the |matlab-genomix| client), but recommended
+    as a common package distributed with |GenoM3|. The |matlab-genomix| client
+    allows to control components from Matlab.
 
     .. note::
 
@@ -194,42 +216,39 @@ Install the needed packages
         ``matlab-genomix`` package. If you encounter a missing dependency for
         ``mex`` (the MEX compiler from Matlab), you need to add the path to
         Matlab executables to the :envvar:`PATH` environment variable. For
-        example, with Matlab R2013a installed in ``/usr/local``, it would be
-        done with::
+        example, with Matlab R2013a installed in ``/usr/local/MATLAB/R2013a``,
+        it would be done with:
 
-            $ export PATH=$PATH:/usr/local/MATLAB/R2013a/bin
+        .. code-block:: bash
+
+            export PATH=$PATH:/usr/local/MATLAB/R2013a/bin
+
+The |GenoM3| tools should now be installed on your system. You can now follow
+the `official tutorial on the Matlab bridge
+<https://git.openrobots.org/projects/matlab-genomix/gollum/demo>`_ using the
+demo module. The tutorial :ref:`sec-tutorial-bass` is also a simple example of use
+of the Matlab bridge.
 
 Keeping up-to-date
 ~~~~~~~~~~~~~~~~~~
 
-If a new release is available for a package, you can update to newest content:
+If a new release is available for a package, you can update to newest contents:
 
 1. **Update the git repositories**
 
-::
+.. code-block:: bash
 
-    $ cd ~/robotpkg
-    $ git pull
-    $ cd wip
-    $ git pull
+    cd ~/robotpkg
+    git pull
+    cd wip
+    git pull
 
 2. **Change to the package's repository and update the package**
 
-::
+.. code-block:: bash
 
-    $ cd ~/robotpkg/<category>/<pkg-name>
-    $ make update
-
-.. _sec-test-install:
-
-Test your installation
-----------------------
-
-.. warning::
-
-    Section TBD. Simply links to two examples of use of the *demo* module, one
-    with the Tcl client, one with the Matlab client. The examples will be under
-    main section :ref:`sec-examples`.
+    cd ~/robotpkg/category/pkg-name
+    make update
 
 Install a |GenoM3| module from the sources
 ------------------------------------------
@@ -237,42 +256,39 @@ Install a |GenoM3| module from the sources
 Instructions
 ~~~~~~~~~~~~
 
-The software part of the |robot| include several |GenoM3| modules. You may have
-to install them from their source files. Each |GenoM3| module has its own
-folder, containing a description file named after the module with the ``.gen``
-extension (something like :file:`<module>.gen`). These steps will install the
-module in your ``~/openrobots`` folder::
+The software part of the |TwoEars| robotic architecture includes several
+|GenoM3| modules. You may have to install them from their source files. Each
+|GenoM3| module has its own folder, containing a description file named after
+the module with the ``.gen`` extension (something like
+:file:`module.gen`). These steps will install the module in your
+``~/openrobots`` folder:
 
-    $ cd <path to the module's folder>
-    $ genom3 skeleton -i <module>.gen
-    $ ./bootstrap.sh
-    $ mkdir build && cd build
-    $ ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
-    $ make install
+.. code-block:: bash
+
+    cd path/to/module/folder
+    genom3 skeleton -i module.gen
+    ./bootstrap.sh
+    mkdir build && cd build
+    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
+    make install
 
 Example: installing the |BASS| module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-|BASS| is a :ref:`module for binaural audio streaming <sec-bass>`,
-located in a folder named ``bass-genom3`` in the audio-streaming
-repository. Applying the above commands to install |BASS| gives::
+|BASS| is a :ref:`module for binaural audio streaming <sec-bass>`, located in a
+sub-folder named ``RoboticPlateform/bass-genom3/`` of the software
+repository. Applying the above commands to install |BASS| gives:
 
-    $ cd <path to audio-stream-server-repo>/bass-genom3
-    $ genom3 skeleton -i bass.gen
-    $ ./bootstrap.sh
-    $ mkdir build && cd build
-    $ ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
-    $ make install
+.. code-block:: bash
+
+    cd RoboticPlateform/bass-genom3
+    genom3 skeleton -i bass.gen
+    ./bootstrap.sh
+    mkdir build && cd build
+    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
+    make install
 
 .. _sec-install-matlab-bridge:
-
-Install the Matlab bridge on another platform
----------------------------------------------
-
-.. warning::
-
-    Section TBD. Have to test if the Matlab bridge could be installed on a Mac
-    OS using robotpkg. Give specific instructions for Windows.
 
 .. vim: filetype=rst spell:
 .. emacs:

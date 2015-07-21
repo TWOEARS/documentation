@@ -1,10 +1,9 @@
-========================
-Write a client of |BASS|
-========================
+Writing a client of |BASS|
+==========================
 
-This page provides information about designing clients of the |BASS| module. It
-first defines a formal algorithm that clients could use, and shows a sample
-implementation in a |GenoM3| module called |BASC|.
+This section provides information about designing clients of the |BASS|
+module. It first defines a formal algorithm that clients could use, and shows a
+sample implementation in a |GenoM3| module called |BASC|.
 
 .. contents::
    :local:
@@ -49,16 +48,17 @@ here in a formal definition:
   +------------------+--------------------+---------------------------------+
 
 The left and right members are arrays of :math:`FOP` samples each, updated as
-|FIFO|\ s (*c.f.* :ref:`sec-bass-output-port`). The server also stores the index
-of the last published frame in the ``lastFrameIndex`` member. What the client
-need is to copy blocks of given size :math:`N` from the ``left`` and ``right``
-arrays. Let's define a function ``getAudioData``, taking :math:`N` as input and
-returning one copied block.
+|FIFO|\ s (*c.f.* :ref:`related section in BASS documentation
+<sec-bass-output-port>`). The server also stores the index of the last published
+frame in the ``lastFrameIndex`` member. What the client need is to copy blocks
+of given size :math:`N` from the ``left`` and ``right`` arrays. Let's define a
+function ``getAudioData``, taking :math:`N` as input and returning one copied
+block.
 
 In order not to drop any frames between two consecutive blocks retrieved with
-two calls, the ``getAudioData`` function takes both as input and output an index
-of the *next frame to be read*, noted :math:`nfr`. For instance, the client will
-get a first block of :math:`N` frames starting from a given index
+two calls, the ``getAudioData`` function also takes both as input and output an
+index of the *next frame to be read*, noted :math:`nfr`. For instance, the
+client will get a first block of :math:`N` frames starting from a given index
 :math:`nfr`. The function will return, along with the block of data, the new
 value of the index, corresponding to the next frame right after the first
 retrieved block. Then, the client can call the function again with this new
@@ -78,7 +78,7 @@ With a call to ``getAudioData``, the client requests a block of given size
 that is not yet published by the server. Thus, the function returns the amount
 of frames :math:`n` it was able to get (:math:`n ≤ N`). The client can then call
 the function again and ask for the remaining frames in a loop until the desired
-block is complete. This will occur in the following situations:
+block is complete. Here are examples of when this could occur:
 
 * The client requests data faster than they are captured by the microphones
   (which should be the regular case, because a slower client will end up losing
@@ -103,8 +103,8 @@ Below is the ``getAudioData`` function written with formal syntax::
   |
   | outputs: integer     n     (amount of frames the function was able to get) 
   |          integer     loss  (amount of lost frames, 0 if no loss)
-  |          integer     l[n]  (the retrieved data block from left channel)
-  |          integer     r[n]  (the retrieved data block from right channel)
+  |          array(int)  l[n]  (the retrieved data block from left channel)
+  |          array(int)  r[n]  (the retrieved data block from right channel)
   |
   | in&out:  integer     nfr   (index of the Next Frame to Read)
   |
@@ -149,10 +149,9 @@ Sample implementation in a |GenoM3| module
 ------------------------------------------
 
 |BASC| is a |GenoM3| module that acts as a client of |BASS|. It can be connected
-to the output port of |BASS|, and proposes a generic algorithm to retrieve
-binaural audio data from the port. |BASC| does not perform any processing on the
-retrieved data. It is only intended to give an example on how a client can get
-data from bass, trying to deal with any possible situation a client can face.
+to the output port of |BASS|, and implements the algorithm previously exposed to
+retrieve blocks of audio signals. |BASC| does not perform any processing on the
+data. It only attempts to show what a |GenoM3| client of |BASS| could look like.
 
 Services
 ~~~~~~~~
@@ -176,7 +175,7 @@ parameters:
   +------------------+--------------------+--------------+---------------------+
 
 The first parameter ``nBlocks`` sets the amount of blocks that the service will
-get, or can be set to 0 to run indefinitely. The second parameter
+get, or can be set to 0 to run the service indefinitely. The second parameter
 ``nFramesPerBlock`` sets the block size (:math:`N` in the previous
 section). Last, the ``startOffs`` parameter sets the index of the first frame to
 read, relatively to the current value of the Last Frame Index on the port. For
@@ -200,43 +199,55 @@ not return a full one. Depending on the sample rate, if the requested block size
 block is more than 250ms, the client will request data faster than they are
 streamed, which should be fine.
 
-This can be tested with |BASC|: let's assume that the sample rate is
-44100Hz. 250ms @44100Hz is 11025 frames. So calling ``GetBlocks`` with
-``nFramesPerBlock < 11025`` will lead to data loss. Here is an example from the
-Tcl client::
+This can be tested: let's assume that the sample rate is 44100Hz. 250ms @44100Hz
+is 11025 frames. So calling ``GetBlocks`` with ``nFramesPerBlock < 11025`` will
+lead to data loss. Here is an example from the |tcl-genomix| client:
+
+.. code-block:: tcl
 
   # The middleware, genomix, bass and basc should be running
-  eltclsh > package require genomix
-  eltclsh > set g [::genomix::connect]
-  eltclsh > $g load bass; $g load basc ;#load the server and the client
-  eltclsh > ::basc::connect_port Audio bass/Audio ;#connect the port
+
+  # Connect to genomix
+  package require genomix
+  set g [::genomix::connect]
+
+  # Load the server BASS and the client BASC
+  $g load bass; $g load basc
+
+  # Connect the output port of BASS to the input port of BASC
+  ::basc::connect_port Audio bass/Audio
 
   # Start the acquisition (using default values)
-  eltclsh > ::bass::Acquire {device hw:1,0 sampleRate 44100 \
-                             nFramesPerChunk 2205 nChunksOnPort 20} &
+  ::bass::Acquire {device hw:1,0 sampleRate 44100 nFramesPerChunk 2205 \
+                   nChunksOnPort 20} &
 
-  # Get unlimited amount of blocks, with nFramesPerBlock < 11025
-  eltclsh > ::basc::GetBlocks {nBlocks 0 nFramesPerBlock 10000 \
-                               startOffs -10000} &
-  # After a few seconds, the client prints a message at each attempt
-  # to get the following block, indicating that some frames are lost
-  eltclsh > ::basc::Stop
-
-  # Get unlimited amount of blocks, with nFramesPerBlock > 11025
-  eltclsh > ::basc::GetBlocks {nBlocks 0 nFramesPerBlock 12000 \
-                               startOffs -12000} &
-  # In that case, as the client reads slighlty faster than data are
-  # streamed, it can be seen from time to time that the retrieved
-  # block is not complete and the client makes a second request to
-  # get the remaining part.
-  eltclsh > ::basc::Stop
-
+  # EXAMPLE 1
   # Get one block of 2 seconds (88200 frames at 44100Hz)
-  eltclsh > ::basc::GetBlocks {nBlocks 1 nFramesPerBlock 88200 \
-                               startOffs 0}
+  ::basc::GetBlocks {nBlocks 1 nFramesPerBlock 88200 startOffs 0}
 
-  eltclsh > ::bass::kill; ::basc::kill;
-  eltclsh > exit
+  # Stop the running GetBlocks service
+  ::basc::Stop
+
+  # EXAMPLE 2
+  # Get unlimited amount of blocks, with nFramesPerBlock < 11025
+  ::basc::GetBlocks {nBlocks 0 nFramesPerBlock 10000 startOffs -10000} &
+
+  # After a few seconds, the client prints a message at each attempt to get the
+  # following block, indicating that some frames are lost.
+
+  # Stop the running GetBlocks service
+  ::basc::Stop
+
+  # EXAMPLE 3
+  # Get unlimited amount of blocks, with nFramesPerBlock > 11025
+  ::basc::GetBlocks {nBlocks 0 nFramesPerBlock 12000 startOffs -12000} &
+
+  # In that case, as the client reads slighlty faster than data are streamed,
+  # it can be seen from time to time that the retrieved block is not complete
+  #and the client makes a second request to get the remaining part.
+
+  # Kill the modules
+  ::bass::kill; ::basc::kill;
 
 The ``getAudioData`` function in charge of getting the requested block is
 written in C in file :file:`basc-genom3/codels/basc_read_codels.c`. The codels

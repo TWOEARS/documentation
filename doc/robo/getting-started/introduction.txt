@@ -12,27 +12,27 @@ Component-based software architectures in robotics
 Robots are highly complex systems that embed numerous sensors and actuators, in
 the service of a variety of algorithms performing heterogeneous tasks. They
 often have to deal with severe requirements (timing constraints, limited energy,
-memory and processing resources...) and must show a robust conception as
+memory and processing resources, *etc.*) and must show a robust conception as
 uncertainty about their environment is high, and unexpected events can have
 critical consequences.
 
 To facilitate the development of robotic software, **component-based
-architectures**, where components are independent processes, have become the
-*de facto* standard in robotics. Each software component is dedicated to a given
-task, from low-level control to high-level processing. They communicate with
-each other with the help of a software piece called the **middleware**.
+architectures**, where components are independent processes, have become the *de
+facto* standard in robotics. Each software component is dedicated to a given
+task, from low-level control to high-level processing. Components communicate
+with each other with the help of a software piece called the **middleware**.
 
 For instance, consider a robot embedding a camera and performing object
 detection in the images. One component could be in charge of acquiring the
-images using the camera's driver, and would output these data. Another component
-could input the images and run an algorithm to detect objects, producing the
+images using the camera's driver, and would output them. Another component could
+input the images and run an algorithm on them to detect objects, producing the
 detection result as output for any other component in need of this
 information. Routing data from the output of the first component to the input of
 the second one is ensured by the middleware, this is called **data flow**.
 
 Components offer **services** to the user to modify their behaviour and adapt to
 different situations. To follow with the example above, the component acquiring
-images could have a service to select which camera to use, another one to
+images could provide a service to select which camera to use, another one to
 configure parameters such as the image size and the number of frames per second,
 a third one to explicitly request the start of the acquisition, *etc.* The
 component detecting objects could have a service to change some parameters in
@@ -46,33 +46,31 @@ middleware, this is called **control flow**.
     The *user* mentioned here is not necessarily a physical person. For
     autonomous robots, it will probably be a detached software piece,
     supervising the state of the robot and choosing to start a given service to
-    accomplish a new goal it has identified. This software piece belongs to the
-    **decisional level**, while other components make up the **functional
-    level**.
-
+    accomplish a new goal. This software piece belongs to the **decisional
+    level**, while other components make up the **functional level**.
 
 Component-based software architectures offer great benefits in robotics, in
 particular [1]_:
 
-Modularity
+* **Modularity**
     * As many operations handled by a robot require to have their own thread of
-      execution (*e.g.* data acquisition for sensors and motion control for
-      actuators), having them in separated programs facilitates their concurrent
+      execution (*e.g.* data acquisition for sensors, motion control for
+      actuators), having them in separate programs eases their concurrent
       execution.
     * The architecture can be adapted to the needs of the robot: adding a new
-      hardware piece such as a sensor will simply result in running a new
-      software component to drive it.
-    * The system can be distributed over a network, the middleware seamlessly
-      ensuring communication between components running on different host
+      hardware piece such as a sensor will result in running a new software
+      component to drive it.
+    * The system can be distributed over a network, as the middleware seamlessly
+      ensures communication between components running on different host
       machines.
 
-Re-usability
+* **Re-usability**
     * Common components can be used across robots without having to recode them
       from scratch.
     * Components can be packaged and easily shared in the robotics community,
       where open source software prevails.
-    * Re-usable components reduce cost and time as well as improve software
-      quality and sustainability.
+    * Re-usable components reduce development cost and time, while improving
+      software quality and sustainability.
 
 |ROS|, a software platform for robotics
 ---------------------------------------
@@ -87,8 +85,7 @@ into software components (such as localization, mapping, path-planning, obstacle
 avoidance, *etc.*), with a build system and a packaging system for easy
 compilation and installation. |ROS| benefits from a large community of users and
 developers, and runs on many robots today. This makes |ROS| a common choice as a
-software platform, as it is for |TwoEars|.
-
+robotic software platform, as it is for |TwoEars|.
 
 |ROS| embraces the principles of component-based software architectures,
 allowing distributed computation, software reuse and rapid testing [2]_. If you
@@ -101,9 +98,13 @@ Nodes
     Software components using |ROS| middleware are called |ROS| **nodes**.
 
 Topics and messages
-    Data flows are called **topics**. A node that outputs data *publishes* on
-    a topic. A node that inputs data *subscribes* to a topic. The data
-    elements flowing on topics are called **messages**.
+
+    Data flows are called **topics**. A node that outputs data *publishes* on a
+    topic. A node that inputs data *subscribes* to a topic. The data elements
+    flowing on topics are called **messages**. Each message is made of various
+    data fields forming part of a data structure called *message type*. As a
+    given topic only carries one message type, the term *topic type* is equally
+    used.
 
 Services and actions
     Nodes can provide **services** to control them. Some special services that
@@ -119,13 +120,79 @@ Services and actions
 |GenoM3|, a tool to develop robotic components
 ----------------------------------------------
 
-.. warning::
+The process of developing robotic components can significantly be improved by
+the mean of a tool called |GenoM3|. As a result of two decades of research on
+real time architectures for autonomous systems [4]_ [5]_, |GenoM3| brings
+valuable attributes to robotic components:
 
-    Section TBD.
+* **Middleware independence**
+
+    Components developed with |GenoM3| are middleware independent, *i.e.* they
+    are not tied to a specific middleware and can be compiled for different
+    middlewares without changing their source code.
+
+    This is achieved through the notion of *templates*: a template is a set of
+    instructions which, when applied to the component's source files,
+    automatically generates the code related to middleware communication. A
+    clear separation of concerns between the algorithmic core and the middleware
+    is thus conducted, helping towards the good design of robotic components.
+
+    |ROS| appears among the middlewares supported by |GenoM3|. When using |ROS|
+    templates to compile a |GenoM3| component, the resulting program is a
+    genuine |ROS| node. Only the development process differs from what could be
+    done by writing a |ROS| node without the |GenoM3| tool.
+
+* **Model-driven design**
+
+    |GenoM3| emphasizes the clear definition of robotic components by adopting a
+    model-driven approach. A |GenoM3| component is first defined by a
+    description file, called the **dotgen** file, with the ``.gen``
+    extension. This file gathers in a single place all the definitions related
+    to the component's interface, needed by a user to interact with it.
+
+    Each |GenoM3| component has its own dotgen file, mainly including the
+    definition of its **services** and its data flows by the mean of **ports**
+    (either from the component to the outside, or the other way round). Each
+    service is defined by a name and a list of input and output parameters with
+    their related data type. Each port is defined by a name, a direction (either
+    in or out), and a data type for the data elements it uses. The dotgen file
+    often include in-line documentation to help the understanding of the
+    component's features (for instance, the role of a given service parameter).
+
+    On the basis of the model specified in the dotgen file, |GenoM3|
+    automatically generates real time code as well as skeletons of functions run
+    by the services. So, the developer just has to fill these functions, called
+    **codels** (for code element) with its algorithms. The corresponding
+    algorithmic core is written in separate C or C++ source files or libraries.
+
+* **Powerful framework**
+
+    |GenoM3| facilitates the development of essential features for robotic
+    components, such as:
+
+    * the definition of finite state automata with an optional clock,
+    * clean interruption mechanisms,
+    * efficient error handling.
+
+If you decide to be a user of |GenoM3| components, the tutorial `GenoM3 through
+an example
+<https://git.openrobots.org/projects/genom3/wiki/Genom3tutorialdemo-genom3>`_
+will help you to learn how to read dotgen files. For a developer of |GenoM3|
+components, the `documentation
+<https://git.openrobots.org/projects/genom3/gollum/index>`_ defines the whole
+grammar for writing dotgen files, and how dotgen specifications are mapped into
+C or C++ codels.
+
+.. note::
+
+    |GenoM3| components are often called **modules** (hence the name *Generator
+    of Modules*). The words *module* and *component* refer to the same entity:
+    an independent program that can run on a host machine where the robotic
+    software architecture is distributed.
 
 .. [1]
-    A\. Brooks, T. Kaupp, A. Makarenko, S. Williams, and A. Ore- back. Towards
-    component-based robotics. In *IEEE Interna- tional Conference on Intelligent
+    A. Brooks, T. Kaupp, A. Makarenko, S. Williams, and A. Ore- back. Towards
+    component-based robotics. In *IEEE International Conference on Intelligent
     Robots and Systems*, pages 163–168, Tsukuba (Japan), 2005.
 
 .. [2]
@@ -134,6 +201,16 @@ Services and actions
 
 .. [3]
     http://wiki.ros.org/ROS/Introduction
+
+.. [4]
+    R. Alami, R. Chatila, S. Fleury, M. Ghallab, and F. Ingrand. An
+    Architecture for Autonomy. In *Int. Jour. on Robotics Research 17*, pages
+    315–337, 1998.
+
+.. [5]
+    A. Mallet, C. Pasteur, M. Herrb, S. Lemaignan, and F. Ingrand. GenoM3:
+    Building Middleware-independent Robotic Components. In *IEEE Int. Conf. on
+    Robotics and Automation*, Anchorage (Alaska), 2010.
 
 .. vim: filetype=rst spell:
 .. emacs:

@@ -1,20 +1,19 @@
 .. _sec-bass:
 
-========================================
-|BASS|, an audio streaming server module
-========================================
-
+|BASS|, an audio streaming server component
+===========================================
 
 |BASS| is a |GenoM3| module in charge of acquiring binaural audio data from a
-hardware sound interface, and making it available to other components, branded
-as clients of |BASS|.
+hardware sound interface, and making it available to other components,
+henceforth termed as its clients.
 
 The module offers services to start and stop the acquisition of audio data, and
 streams the captured data on an output port. A sliding window of the most recent
 data is kept on the port, the size of which can be set at runtime (for instance,
-the port keeps the last 2 seconds of acquired signals).
+the port can be configured so as to keep the last 2 seconds of acquired
+signals).
 
-|BASS| relies on |ALSA| to communicate with the hardware interface.
+|BASS| relies on the |ALSA| library to communicate with the hardware interface.
 
 .. contents::
   :local:
@@ -33,64 +32,66 @@ Acquisition and capture
   interface.
 
 Binaural audio and channels
-  **Binaural audio** consists of two **channels** (like stereo audio),
-  corresponding to left and right audio streams.
+  **Binaural audio** signals consist of two **channels** (like stereo audio),
+  corresponding to left and right ears.
 
 Samples and frames
   A **sample** is a digital value encoding the signal on one channel at one
-  point in time. A **frame** is a collection of samples, one from each channel,
-  at one point in time (thus for binaural audio, a frame is two samples).
+  point in time. A **frame** is a vector of samples, one from each channel, at
+  one point in time (thus for binaural audio, a frame is two samples).
 
 Chunks
   In capturing state, the sound device regularly delivers blocks of new data to
   the module. These blocks are called **chunks**. The size of these chunks
-  (commonly given in amount of frames) can be chosen when starting an
-  acquisition, and is then fixed for this acquisition.
+  (commonly given in amount of frames) can be selected at the start of a new
+  acquisition, and is fixed until its end.
 
-Note that these definitions can differ from other applications where the word
-*frame* may refer to data blocks of a few milliseconds. Here, these blocks are
-rather called *chunks*, a frame being a single point in time.
+.. note::
 
+    The above definitions can differ from other applications where the word
+    *frame* may refer to data blocks of a few milliseconds. Here, these blocks
+    are rather called *chunks*, a frame being a single point in time.
 
 Services
 --------
 
-Services offered by the |BASS| module are defined in the description file
-:file:`bass-genom3/bass.gen`, along with their documentation. This section
-recaps them and adds a few specifications.
+The services offered by the |BASS| module are defined and documented in the
+description file :file:`bass-genom3/bass.gen`. This section also provides
+additional details.
 
-* The ``ListDevices`` service can be called to print the available sound devices
-  for acquisition on standard output.
+* The ``ListDevices`` service can be called to display on standard output
+  (``stdout``) the available sound devices.
 
 * The ``Acquire`` service starts the acquisition of audio data and updates the
-  output port with captured data (see details about the port in section
+  output port with the captured data (see details about the port in section
   :ref:`sec-bass-output-port`). This service expects 4 input parameters, shown
-  in table :ref:`tab-bass-acquire-input-params`.
+  in :numref:`tab-bass-acquire-input-params`.
 
   .. _tab-bass-acquire-input-params:
 
   .. table:: Input parameters of the ``Acquire`` service of |BASS|
 
-    +-----------+--------------------+--------------+----------------------+
-    |Data type  |Name                |Default value |Documentation         |
-    +===========+====================+==============+======================+
-    |``string`` |``device``          |``"hw:1,0"``  ||ALSA| name of the    |
-    |           |                    |              |sound device          |
-    +-----------+--------------------+--------------+----------------------+
-    |``unsigned |``sampleRate``      |``44100``     | Sample rate in Hz    |
-    |long``     |                    |              |                      |
-    +-----------+--------------------+--------------+----------------------+
-    |``unsigned |``nFramesPerChunk`` |``2205``      | Chunk size in frames |
-    |long``     |                    |              |                      |
-    +-----------+--------------------+--------------+----------------------+
-    |``unsigned |``nChunksOnPort``   |``20``        | Port size in chunks  |
-    |long``     |                    |              |                      |
-    +-----------+--------------------+--------------+----------------------+
+    +--------------------+-----------+--------------+----------------------+
+    |Name                |Data type  |Default value |Documentation         |
+    +====================+===========+==============+======================+
+    |``device``          |``string`` |``"hw:1,0"``  ||ALSA| name of the    |
+    |                    |           |              |sound device          |
+    +--------------------+-----------+--------------+----------------------+
+    |``sampleRate``      |``unsigned |``44100``     | Sample rate in Hz    |
+    |                    |long``     |              |                      |
+    +--------------------+-----------+--------------+----------------------+
+    |``nFramesPerChunk`` |``unsigned |``2205``      | Chunk size in frames |
+    |                    |long``     |              |                      |
+    +--------------------+-----------+--------------+----------------------+
+    |``nChunksOnPort``   |``unsigned |``20``        | Port size in chunks  |
+    |                    |long``     |              |                      |
+    +--------------------+-----------+--------------+----------------------+
 
-  The ``device`` parameter can be found by calling the ``ListDevices`` service
-  mentioned above first. The ``nFramesPerChunk`` parameter is important, as
-  smaller chunks will lead to shorter latency but also higher computational
-  demand. Last, the ``nChunksOnPort`` parameter sets the amount of chunks kept
+  The ``device`` parameter is the identifier of your sound device. If you do not
+  know its value, you can find it with the aforementioned ``ListDevices``
+  service. The ``nFramesPerChunk`` parameter is important, as smaller chunks
+  will lead to shorter latency but also higher communication with the
+  device. Last, the ``nChunksOnPort`` parameter sets the amount of chunks kept
   on the port. With the default values given above, 20 chunks of 2205 frames is
   a total of 44100 frames kept on the port, i.e. 1 second of audio data at the
   default sample rate.
@@ -98,10 +99,10 @@ recaps them and adds a few specifications.
   The ``Acquire`` service can return an exception if the configuration of the
   interface fails (*e.g.* the requested sample rate is not supported), if a
   problem occurs during the acquisition (*e.g.* the interface gets unplugged),
-  *etc.* If an exception occur, the user can get more information by reading the
-  message printed on standard error stream.
+  *etc.* If an exception occurs, the user can get more information by reading
+  the error message flushed on standard error stream (``stderr``).
 
-* The ``Stop`` service stops the acquisition of audio data. (Note that the
+* The ``Stop`` service stops the acquisition of audio data. Note that the
   ``Acquire`` service also interrupts itself, so a new acquisition with
   different parameters can directly be started from a running one without having
   to call ``Stop``).
@@ -111,12 +112,12 @@ recaps them and adds a few specifications.
 Output port
 -----------
 
-Data captured by the ``Acquire`` service are streamed on an output port named
-``Audio`` (defined in :file:`bass-genom3/bassInterface.gen`). They are gathered
-in two arrays, one for each channel, updated with a |FIFO| design: every time a
-new chunk is retrieved from the hardware interface, the content of the arrays is
-shifted, deleting the oldest chunk of data and making room to the newest one, as
-detailed below.
+the data captured by the ``Acquire`` service are streamed on an output port
+named ``Audio`` (defined in :file:`bass-genom3/bassInterface.gen`). They are
+gathered in two arrays, one for each channel, updated with a |FIFO| design:
+every time a new chunk is retrieved from the hardware interface, the content of
+the arrays is shifted, deleting the oldest chunk of data and making room to the
+newest one, as detailed below.
 
 At the beginning of the acquisition, the arrays are filled with zeros and the
 first captured chunks are progressively added. For instance, the state of one
@@ -168,7 +169,7 @@ also publishes an index that indicates the number of frames that have been
 streamed since the beginning of the acquisition. In other words, it is the index
 of the last streamed frame, noted ``lastFrameIndex``. The data structure of the
 ``Audio`` output port (defined in :file:`bass-genom3/bassStruct.idl`) is
-summarized in table :ref:`tab-bass-port-struct`.
+summarized in :numref:`tab-bass-port-struct`.
 
 .. _tab-bass-port-struct:
 
@@ -209,10 +210,8 @@ summarized in table :ref:`tab-bass-port-struct`.
 Example of use
 --------------
 
-.. warning::
-
-    Section TBD. Simply a link to an example of use with the Matlab client under
-    the main section :ref:`sec-examples`.
+Section :ref:`sec-tutorial-bass` is an example of use of |BASS| from Matlab,
+using the |matlab-genomix| bridge.
 
 .. vim: filetype=rst spell:
 .. emacs:
