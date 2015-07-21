@@ -114,4 +114,49 @@ it, read on:
 * :ref:`Writing this documentation <sec-writing-documentation>`
 * :ref:`sec-git`
 
+.. rubric:: License
+
+If not otherwise stated inside single files the |TwoEarsModel| is licensed
+under `GNU General Public License, version 2`_, and its parts available in the
+``RoboticPlatform`` and the ``Tools`` folder are licensed under `The BSD
+2-Clause License`_.
+
+.. _GNU General Public License, version 2: http://www.gnu.org/licenses/gpl-2.0.html
+.. _The BSD 2-Clause License: http://opensource.org/licenses/BSD-2-Clause
+
+.. rubric:: Acknowledgement
+
+The Two!Ears team are in alphabetical order:
+
+Sylvain Argentieri (UPMC),
+Jens Blauert (RUB),
+Jonas Braasch (Rensselaer),
+Guy Brown (USFD),
+Benjamin Cohen-L'hyver (UPMC),
+Patrick Danès (LAAS),
+Torsten Dau (DTU),
+Rémi Decorsière (DTU),
+Thomas Forgue (LAAS),
+Bruno Gas (UPMC),
+Chungeun Kim (TU/e),
+Armin Kohlrausch (TU/e),
+Dorothea Kolossa (RUB),
+Ning Ma (USFD),
+Tobias May (DTU),
+Johannes Mohr (TUB),
+Klaus Obermayer (TUB),
+Ariel Podlubne (LAAS),
+Alexander Raake (TUIl),
+Christopher Schymura (RUB),
+Sascha Spors (URO),
+Jalil Taghia (TUB),
+Ivo Trowitsch (TUB),
+Thomas Walther (RUB),
+Hagen Wierstorf (TUB),
+Fiete Winter (URO).
+
+This project has received funding from the European Union's Seventh Framework
+Programme for research, technological development and demonstration under grant
+agreement no 618075.
+
 .. vim: filetype=rst spell:
