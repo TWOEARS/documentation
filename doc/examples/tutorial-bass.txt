@@ -1,0 +1,282 @@
+.. _sec-tutorial-bass:
+
+Stream binaural signals from |BASS| to Matlab
+=============================================
+
+This tutorial shows an example of how to control the |BASS| module and retrieve
+audio streams from Matlab, using the |matlab-genomix| bridge.
+
+.. contents::
+    :local:
+
+Preliminary steps
+-----------------
+
+In order to follow this tutorial, you will need:
+
+* A Linux system with the robotic tools and the |BASS| module installed (*c.f.*
+  :ref:`sec-robot-install`). We will call this system the **BASS host**.
+
+* An |ALSA|-compliant sound acquisition interface with at least two input
+  channels, and two microphones plugged into it. The interface must be connected
+  to the |BASS| host.
+
+  .. note::
+
+    Alternatively, if you do not possess an external sound interface but the
+    |BASS| host has an integrated sound card and microphone, you still might be
+    able to follow the tutorial. Keep in mind though that if there is only one
+    microphone, you will not have a genuine stereo signal, but a simulated one
+    from your mono input.
+
+* A computer with Matlab and the |matlab-genomix| bridge installed. We will call
+  it the **remote client**. The |BASS| host and the remote client could
+  possibly, but not necessarily, be the same computer.
+
+On the |BASS| host, open 3 new terminals. In the first terminal, run the
+command:
+
+.. code-block:: bash
+
+    $ roscore
+
+This launches the |ROS| middleware. |ROS| nodes can now connect to this node
+called the |ROS| master. In the second terminal, run the command:
+
+.. code-block:: bash
+
+    $ genomixd
+
+This launches a |genomix| server, now waiting for incoming connections from
+clients on port 8080 by default. In the third terminal, run the command:
+
+.. code-block:: bash
+
+    $ bass-ros
+
+This is the |BASS| component, now running on the system. The name ``bass-ros``
+specifies that this |GenoM3| module uses the |ROS| middleware. So it is actually
+a |ROS| node, connected to the |ROS| master running in the first terminal.
+
+For the moment, the |BASS| module is not doing anything. It is waiting for
+requests from a client to start services. Here is the followed process:
+
+1. The client emits a HTTP message destined for the |genomix| server, requesting
+   to call a service of the |BASS| component.
+
+2. |genomix| executes the call directed at the |BASS| component.
+
+3. When the service is completed, |BASS| returns its output to |genomix|, and
+   |genomix| relays it back to the client.
+
+Keep the third terminal running |BASS| visible on the screen. When we
+will call some services, we will notice their effect on the module's standard
+output.
+
+Control |BASS| to start an acquisition
+--------------------------------------
+
+On the remote client, start a Matlab session and make sure that |matlab-genomix|
+is in the Matlab path.
+
+Connect to |genomix| and load |BASS|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have Matlab on the same computer where the |genomix| server is running,
+you can simply connect to |genomix| with: 
+
+.. code-block:: matlab
+
+    >> client = genomix.client
+    client = 
+
+      client with no properties.
+
+This will attempt a connection on ``localhost:8080`` by default. Otherwise if
+your |BASS| host and your remote client are two different computers, get the IP
+address of the |BASS| host and override the default value:
+
+.. code-block:: matlab
+
+    >> client = genomix.client('xxx.xxx.xxx.xxx:8080') % write the IP address of the BASS host
+
+Then, load the |BASS| module:
+
+.. code-block:: matlab
+
+    >> bass = client.load('bass')
+
+    bass = 
+
+      component with properties:
+
+            genom_state: [function_handle]
+                   kill: [function_handle]
+           connect_port: [function_handle]
+        connect_service: [function_handle]
+                   Stop: [function_handle]
+            ListDevices: [function_handle]
+        DedicatedSocket: [function_handle]
+                  Audio: [function_handle]
+         abort_activity: [function_handle]
+                Acquire: [function_handle]
+            CloseSocket: [function_handle]
+
+The returned handle ``bass`` has a list of properties either corresponding to
+services (*e.g.* ``Acquire``) or ports (*e.g.* ``Audio``) of the component.
+
+Get the name of your sound interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Invoke the ``ListDevices`` service to get the name of your |ALSA| device:
+
+.. code-block:: matlab
+
+    >> bass.ListDevices();
+
+The detected sound devices are listed on the module's standard output. Look in
+the terminal on the |BASS| host where the module is running, and find a line
+that matches your interface, for instance::
+
+    hw:1,0 [Babyface2361116] [USB Audio]
+
+The leading string, ``hw:1,0`` in the example, is the name of your |ALSA|
+device.
+
+Start an acquisition
+~~~~~~~~~~~~~~~~~~~~
+
+We will now use the ``Acquire`` service to start an acquisition.
+
+.. note::
+
+    By default, services are invoked synchronously, *i.e.* the command to invoke
+    them only returns after completion of the service. As the acquisition runs
+    indefinitely, the ``Acquire`` service never completes unless you explicitly
+    stop it. So you must invoke this service asynchronously, otherwise you will
+    be blocked in the Matlab command window without control, including stopping
+    the service. If this happens, a solution is to kill the Matlab process and
+    start again.
+
+The service can be invoked asynchronously by providing the ``'-a'`` option:
+
+.. code-block:: matlab
+
+    >> r = bass.Acquire('-a')
+     string device: ALSA name of the sound device (hw:1,0) >
+
+The ``Acquire`` service expects input arguments. As we did not passed them to
+the function directly, they are prompted interactively. Enter values according
+to your sound interface (see the example below):
+
+* For the ``device`` parameter, take the value you obtained at the previous
+  step.
+* For the ``sampleRate`` parameter, choose a sample rate that your device
+  supports. The default value (44100 Hz) is most likely to work.
+* For the ``nFramesPerChunk`` parameter, choose a chunk size that your device
+  supports. Some devices only support powers of 2 (*e.g.* 512, 1024, 2048...),
+  refer to your device manual.
+* For the ``nChunksOnPort`` parameter, choose a value that is big enough so that
+  the output port of |BASS| streams a few seconds of audio data. For instance,
+  if the sample rate is 44100 Hz and the chunk size 2205 frames, keep 80
+  chunks on the port to have 4 seconds:
+
+  .. math::
+
+      duration &= nChunksOnPort * nFramesPerChunk / sampleRate \\
+               &= 80 * 2205 / 44100 \\
+               &= 4 s
+
+.. code-block:: matlab
+
+    >> r = bass.Acquire('-a')
+     string device: ALSA name of the sound device (hw:1,0) > 'hw:1,0'
+     unsigned long sampleRate: Sample rate in Hz (44100) > 44100
+     unsigned long nFramesPerChunk: Chunk size in frames (2205) > 2205
+     unsigned long nChunksOnPort: Port size in chunks (20) > 80
+
+    r = 
+
+      request with properties:
+
+           status: 'sent'
+           result: []
+        exception: []
+
+
+If starting the acquisition succeeded, you should see the status ``'sent'`` in
+the returned handle. Otherwise, the status would be ``'error'``, check then the
+error message printed in the terminal on the |BASS| host. It could be an invalid
+input parameter.
+
+.. note::
+
+    The parameter prompts like ``string device: ALSA name of the sound device
+    (hw:1,0) >`` contains valuable information, *i.e.* the data type of the
+    parameter, its name, a short description and a default value between
+    parenthesis that will be used if you press enter without specifying another
+    value. All this information comes from the dotgen file of the module, and is
+    part of its definition.
+
+
+Get audio data in Matlab
+------------------------
+
+You can read the output port of |BASS|, named ``Audio``, in Matlab:
+
+.. code-block:: matlab
+
+    >> p = bass.Audio()
+    p = 
+
+        Audio: [1x1 struct]
+
+    >> p.Audio
+    ans = 
+
+             sampleRate: 44100
+          nChunksOnPort: 80
+        nFramesPerChunk: 2205
+         lastFrameIndex: 251370
+                   left: {176400x1 cell}
+                  right: {176400x1 cell}
+
+The data structure shown here was retrieved when reading the port. The audio
+signals are stored in the ``left`` and ``right`` fields. Note the presence of
+the index ``lastFrameIndex`` for keeping track of the data.
+
+If your remote client computer has speakers, you can listen to the retrieved
+signals:
+
+.. code-block:: matlab
+
+    % Speak in the microphones for a few seconds
+
+    % Read the last few recorded seconds
+    >> p = bass.Audio();
+
+    % Play the recorded sound, on left channel for instance
+    >> soundsc(cell2mat(p.Audio.left), p.Audio.sampleRate);
+
+Notice how the duration of the sound matches the one you selected with parameter
+``nChunkOnPort`` when starting the acquisition.
+
+End the session
+---------------
+
+When you are done, you can clear the used objects in Matlab:
+
+.. code-block:: matlab
+
+    >> delete(bass);
+    >> delete(client); % This closes the connection to genomix
+
+On the |BASS| host, you can kill processes ``roscore``, ``genomixd`` and
+``bass-ros`` by typing :kbd:`Control-c` in each terminal.
+
+.. vim: filetype=rst spell:
+.. emacs:
+   Local Variables:
+   mode: rst
+   fill-column: 80
+   End:

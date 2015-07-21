@@ -13,6 +13,7 @@ At the moment the following examples are available:
     localisation
     localisation-details
     train-localisation
+    tutorial-bass
 
 This section will expand with every new major feature that will be added to the
 model.
