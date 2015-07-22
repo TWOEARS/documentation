@@ -5,10 +5,10 @@
 Add your own knowledge sources
 ==============================
 
-If you want to add some new functionality to the |TwoEarsModel| the best way to do
-this is to add a :ref:`knowledge source <sec-knowledge-sources>`. This implies of
-course that the auditory cues or data that your new knowledge source will need
-is already available. To check this first, have a look at all the
+If you want to add some new functionality to the |TwoEarsModel| the best way to
+do this is to add a :ref:`knowledge source <sec-knowledge-sources>`. This
+implies of course that the auditory cues or data that your new knowledge source
+will need is already available. To check this first, have a look at all the
 :ref:`available processors <sec-afe-processors>` of the |AFE|. If the cues you
 need are not provided then read on :ref:`how to add them
 <sec-afe-add-processor>`. Otherwise you can go on and create your own knowledge
@@ -20,8 +20,23 @@ architecture <sec-blackboard-architecture>`.
 Example of adding a new knowledge source
 ----------------------------------------
 
-The following step-by-step tutorial on how to implement a new :ref:`knowledge source <sec-knowledge-sources>` to be used within the :ref:`blackboard
-architecture <sec-blackboard-architecture>`. As an example, the implementation of a :ref:`knowledge source <sec-knowledge-sources>` that performs a simple localisation task is considered here. The :ref:`knowledge source <sec-knowledge-sources>` will take interaural time differences computed by the |AFE| as inputs and produce a hypothesis about the mostly likely position of a sound source which will be put on the blackboard. The first step of the implementation is to set-up a class ``SimpleLocalisationKS``, including a constructor and a destructor method and two additional methods ``canExecute`` and ``execute``. Certain constraints on the execution of a specific :ref:`knowledge source <sec-knowledge-sources>` have to be specified in the ``canExecute`` method. The ``execute`` method contains the actual algorithm which will be computed if the :ref:`knowledge source <sec-knowledge-sources>` is executed by the blackboard scheduler. As the processing for this example class is dependent on data from the |AFE| as inputs, it has to be inherited from the ``AuditoryFrontEndDepKS`` superclass::
+The following step-by-step tutorial on how to implement a new :ref:`knowledge
+source <sec-knowledge-sources>` to be used within the :ref:`blackboard
+architecture <sec-blackboard-architecture>`. As an example, the implementation
+of a :ref:`knowledge source <sec-knowledge-sources>` that performs a simple
+localisation task is considered here. The :ref:`knowledge source
+<sec-knowledge-sources>` will take interaural time differences computed by the
+|AFE| as inputs and produce a hypothesis about the mostly likely position of a
+sound source which will be put on the blackboard. The first step of the
+implementation is to set-up a class ``SimpleLocalisationKS``, including a
+constructor and a destructor method and two additional methods ``canExecute``
+and ``execute``. Certain constraints on the execution of a specific
+:ref:`knowledge source <sec-knowledge-sources>` have to be specified in the
+``canExecute`` method. The ``execute`` method contains the actual algorithm
+which will be computed if the :ref:`knowledge source <sec-knowledge-sources>` is
+executed by the blackboard scheduler. As the processing for this example class
+is dependent on data from the |AFE| as inputs, it has to be inherited from the
+``AuditoryFrontEndDepKS`` superclass::
 
     classdef SimpleLocalisationKS < AuditoryFrontEndDepKS
         % This is the basic skeleton structure to be used for setting
@@ -56,7 +71,12 @@ architecture <sec-blackboard-architecture>`. As an example, the implementation o
         end
     end
 
-After the basic structure of the class has been set up, the individual functions can be implemented. In this example, a simple localisation algorithm based on a geometric model of the head is considered. The parameters that are needed for the computation is the distance between the two microphones, the speed of sound and the size of one signal block in seconds. These can be specified within the class properties as follows::
+After the basic structure of the class has been set up, the individual functions
+can be implemented. In this example, a simple localisation algorithm based on a
+geometric model of the head is considered. The parameters that are needed for
+the computation is the distance between the two microphones, the speed of sound
+and the size of one signal block in seconds. These can be specified within the
+class properties as follows::
 
     properties (SetAccess = private)
         micDistance;    % Microphone distance in meters
@@ -64,7 +84,11 @@ After the basic structure of the class has been set up, the individual functions
         blockSizeSec;   % Size of one audio block in seconds
     end
 
-This parameter can be specified by the user, hence it will be handled as an input argument in the class constructor. Additionally, the constructor must contain a specification of the parameters that should be used for data processing within the |AFE|, to compute the corresponding ITD values from the available binaural audio data::
+This parameter can be specified by the user, hence it will be handled as an
+input argument in the class constructor. Additionally, the constructor must
+contain a specification of the parameters that should be used for data
+processing within the |AFE|, to compute the corresponding |ITD| values from the
+available binaural audio data::
 
     function obj = SimpleLocalisationKS(micDistance)
         % Class constructor for the example KS.
@@ -85,7 +109,7 @@ This parameter can be specified by the user, hence it will be handled as an inpu
             'fb_nChannels', 32, ...
             'cc_wSizeSec', 20E-3, ...
             'cc_hSizeSec', 10E-3);
-        
+
         % Specify requested signal features
         requests{1}.name = 'itd';
         requests{1}.params = param;
@@ -94,7 +118,12 @@ This parameter can be specified by the user, hence it will be handled as an inpu
         obj = obj@AuditoryFrontEndDepKS(requests);
     end
 
-The :ref:`knowledge source <sec-knowledge-sources>` is now able to compute ITD's from incoming binaural audio signals and make this data available for further processing within the class. The actual processing happens in the ``execute`` method, which can contain arbitrary algorithms and processing steps. In this case, using simple geometric mapping from ITD's to azimuth locations, the ``execute`` method can be specified as::
+The :ref:`knowledge source <sec-knowledge-sources>` is now able to compute |ITD|\ s
+from incoming binaural audio signals and make this data available for further
+processing within the class. The actual processing happens in the ``execute``
+method, which can contain arbitrary algorithms and processing steps. In this
+case, using simple geometric mapping from |ITD|\ s to azimuth locations, the
+``execute`` method can be specified as::
 
     function execute(obj)
         % Get ITDs from the AFE
@@ -120,7 +149,10 @@ The :ref:`knowledge source <sec-knowledge-sources>` is now able to compute ITD's
         notify(obj, 'KsFiredEvent', BlackboardEventData(obj.trigger.tmIdx));
     end
 
-The class destructor and the ``canExecute`` method will be left unchanged in this example. An explaination on how these methods work in detail can be found in the :ref:`blackboard
-architecture <sec-blackboard-architecture>` section. Having defined all four methods as described above, the :ref:`knowledge source <sec-knowledge-sources>` is now ready to be used within the |blackboard|.
+The class destructor and the ``canExecute`` method will be left unchanged in
+this example. An explanation on how these methods work in detail can be found in
+the :ref:`blackboard architecture <sec-blackboard-architecture>` section. Having
+defined all four methods as described above, the :ref:`knowledge source
+<sec-knowledge-sources>` is now ready to be used within the |blackboard|.
 
 .. vim: filetype=rst spell:

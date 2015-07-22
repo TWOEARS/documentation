@@ -3,6 +3,8 @@
 rst_epilog = """
 .. |HRTF| replace:: :abbr:`HRTF (Head-Related Transfer Function)`
 .. |BRIR| replace:: :abbr:`BRIR (Binaural Room Impulse Response)`
+.. |ITD| replace:: :abbr:`ITD (Interaural Time Difference)`
+.. |ILD| replace:: :abbr:`ILD (Interaural Level Difference)`
 .. |BRS|  replace:: :abbr:`BRS (Binaural Room Scaning)`
 .. |WFS|  replace:: :abbr:`WFS (Wave Field Synthesis)`
 .. |NFC-HOA| replace:: :abbr:'NFC-HOA (Near-Field Compensated Higher Order Ambisonics)`

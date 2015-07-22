@@ -75,7 +75,7 @@ If you changed and committed something the changes are still only on your local
 machine you have to push it to the remote until everyone can see it.
 Before pushing and also before starting to work on something the next day it is
 always a good idea to pull the latest changes from the remote.
-This is then summarized by these two commands
+This is then summarised by these two commands
 
 .. code-block:: bash
 

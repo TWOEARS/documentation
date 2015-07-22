@@ -169,7 +169,7 @@ also publishes an index that indicates the number of frames that have been
 streamed since the beginning of the acquisition. In other words, it is the index
 of the last streamed frame, noted ``lastFrameIndex``. The data structure of the
 ``Audio`` output port (defined in :file:`bass-genom3/bassStruct.idl`) is
-summarized in :numref:`tab-bass-port-struct`.
+summarised in :numref:`tab-bass-port-struct`.
 
 .. _tab-bass-port-struct:
 

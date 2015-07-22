@@ -106,7 +106,7 @@ documentation:
 * ``|database|`` -- when referring to the database of the |TwoEarsModel|, this will be
   automatically replaced by |database|.
 
-* ``|amtoolbox|`` -- when referring to the Auditory Modeling Toolbox, this will
+* ``|amtoolbox|`` -- when referring to the Auditory Modelling Toolbox, this will
   be automatically replaced by |amtoolbox|.
 
 * ``Matlab`` -- when referring to the language, capitalise Matlab.

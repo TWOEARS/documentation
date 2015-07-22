@@ -177,7 +177,7 @@ acoustic scene (:ref:`SCUT KEMAR <sec-hrtf-scut-kemar>`).
 Now, we have a look into the details of the ``localise()`` function. We will
 only talk about the parts that are responsible for the task, not for printing
 out the results onto the screen. First we define the source angles we are going
-to synthesize and start the :ref:`sec-binsim`::
+to synthesise and start the :ref:`sec-binsim`::
 
     % Different angles the sound source is placed at
     sourceAngles = [0 33 76 239];

@@ -59,7 +59,7 @@ from the :ref:`sec-database`
 the specifying of the used audio material during training, which is set to white
 noise with the ``Type="noise"`` option and a length of 30 s with by
 ``LengthOfSimulation = "30"``. For more details on how to configure the binaural
-simulator or how to include wav-files as audio material see
+simulator or how to include WAV-files as audio material see
 :ref:`sec-xml-scene-description`.  After setting up the audio scene we can train
 the ``LocationKS`` knowledge source with the following command::
 

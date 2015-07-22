@@ -333,6 +333,6 @@ Coloration knowledge source: ``ColorationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This knowledge source will compare to signal representations and state how much
-they differ in sound color.
+they differ in sound colour.
 
 .. vim: filetype=rst spell:

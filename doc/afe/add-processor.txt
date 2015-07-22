@@ -282,7 +282,7 @@ it in the framework. It outputs a structure with the following fields:
   on both mono and stereo signals (such as the pre-processor ``preProc.m``), 
   set it to 2.
 
-Your method should initialize the structure that will be returned as output and
+Your method should initialise the structure that will be returned as output and
 give a value to all of the above-mentioned fields::
 
   %...
@@ -349,12 +349,12 @@ exact same name as your class. It can take any combination of input arguments
 but can return only a single output: an "instance" of your class.
 
 In the |AFE| architecture however, the input arguments to the constructor of all
-processors have been standardized, such that all processor constructors can be
+processors have been standardised, such that all processor constructors can be
 called using the exact same arguments. The input arguments should be (in this
 order) the sampling frequency of the input signal to the processor and an
 instance of a parameter object returned e.g. by the script ``genParStruct.m``.
 The constructor's role is then to create an object of the class, and often to
-initialize all its properties. Most of this initialization step is the same
+initialise all its properties. Most of this initialisation step is the same
 across all processors (e.g., setting input/output sampling frequencies,
 indicating the type of processor, ...). Hence all processor constructors rely
 heavily on the constructor of their parent class (or super-constructor),
@@ -422,18 +422,18 @@ Let us break down the constructor structure line by line:
   - the name of the children processor, here ``myNewProcessor``.
   - the parameter object ``parObj`` already provided as input.
 
-- *Line 11*: Your processor might need additional initialization. All extra code
+- *Line 11*: Your processor might need additional initialisation. All extra code
   should go there. To ensure that no error is generated when calling the 
   constructor with no arguments (which Matlab sometimes does implicitly), the 
   code should be embedded in a ``if nargin > 0 ... end`` block. Here you can 
-  for example initialize buffers or internal properties.
+  for example initialise buffers or internal properties.
 
 .. warning::
 
-    The initialization of anything that depends on external parameters (e.g.,
+    The initialisation of anything that depends on external parameters (e.g.,
     filters, framing windows, ...) is not performed here on line 11. When 
     parameters change due to feedback, these properties need to be 
-    re-initialized. Hence their initialization is performed in another method 
+    re-initialised. Hence their initialisation is performed in another method 
     that will be described in a 
     :ref:`following section<sec-afe-override-methods>`.
 
@@ -696,11 +696,11 @@ class) but can be left empty (see, e.g., ``itdProc.reset``).
 Override parent methods
 -----------------------
 
-The |AFE| framework was developed to maximize code reusing. Many of the existing
+The |AFE| framework was developed to maximise code reusing. Many of the existing
 processors, although they carry out different processing tasks, have common
 attributes in terms of e.g., number of inputs, number of outputs, how to call
-their processing methods, ... Hence all aspects of initialization (and re-
-initialization following a response to feedback) and input/output routing have
+their processing methods, ... Hence all aspects of initialisation (and re-
+initialisation following a response to feedback) and input/output routing have
 been implemented for common-cases as methods of the parent ``Processor`` class.
 If your processor does not behave similarly to others in one of these regards,
 then this approach allows you to redefine the specific method in your new
@@ -773,9 +773,9 @@ the help line of your processor constructor.
 ``prepareForProcessing``
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-This method performs the remaining initialization steps that we purposely did
-not include in the constructor as they initialize properties that are
-susceptible to change when receiving feedback. It also includes initialization
+This method performs the remaining initialisation steps that we purposely did
+not include in the constructor as they initialise properties that are
+susceptible to change when receiving feedback. It also includes initialisation
 steps that can be performed only once processors have been linked together in a
 "processing tree". For example, ``ildProc`` needs to know the original sampling
 frequency of the signal before its cross-correlation was computed to provide lag
@@ -800,11 +800,11 @@ list of methods returned by Matlab script ``methods(.)`` nor by Matlab's
 automatic completion.
 
 The method only takes an instance of the processor as input argument and does
-not return outputs. In the method, you should initialize all internal parameters
+not return outputs. In the method, you should initialise all internal parameters
 that are susceptible to changes from user feedback. Note that this includes the
 processor's output sampling frequency ``FsHzOut`` if this frequency depends on
 the processor parameters. A good example is
-``ratemapProc.prepareForProcessing``, which initializes internal parameters
+``ratemapProc.prepareForProcessing``, which initialises internal parameters
 (framing windows), the output sampling frequency and some filters.
 
 .. _sec_afe-instantiate-output:
@@ -1004,7 +1004,7 @@ the following aspects should be considered:
 Recommendations for final testing
 ---------------------------------
 
-Now the implementation of your new processor should be finalized, and it is
+Now the implementation of your new processor should be finalised, and it is
 important to test it thoroughly. Below are some recommendations with regard to
 testing:
 
@@ -1016,7 +1016,7 @@ testing:
   implementation with the reference implementation and control that both 
   provide the same output up to a reasonable error. A reasonable error, for a 
   processor that does not involve stochastic processes should be around 
-  quantization error, assuming that your new implementation is exactly as the 
+  quantisation error, assuming that your new implementation is exactly as the 
   reference.
 * Test the online capability of your processor (i.e., maintaining the 
   continuity of its output) by processing a whole signal and the same signal 

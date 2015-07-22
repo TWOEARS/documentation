@@ -81,7 +81,7 @@ their control.
 
 |ROS| is a widely known software platform in robotics, providing not only a
 middleware, but also implementing a wide range of commonly-used functionalities
-into software components (such as localization, mapping, path-planning, obstacle
+into software components (such as localisation, mapping, path-planning, obstacle
 avoidance, *etc.*), with a build system and a packaging system for easy
 compilation and installation. |ROS| benefits from a large community of users and
 developers, and runs on many robots today. This makes |ROS| a common choice as a
@@ -144,7 +144,7 @@ valuable attributes to robotic components:
 
 * **Model-driven design**
 
-    |GenoM3| emphasizes the clear definition of robotic components by adopting a
+    |GenoM3| emphasises the clear definition of robotic components by adopting a
     model-driven approach. A |GenoM3| component is first defined by a
     description file, called the **dotgen** file, with the ``.gen``
     extension. This file gathers in a single place all the definitions related

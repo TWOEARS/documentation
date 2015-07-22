@@ -21,20 +21,17 @@ that, see :ref:`sec-tutorial-robot`.  On the other hand, this task can be
 addressed in a virtual way, setting up a simulated acoustic scene in the
 |BinSim|.  Below, we focus on the latter method.
 
-There are two ways how the |BinSim|
-creates the ear signals. One is to specify the entire
-acoustic scene using meta-data, pass appropriate |HRTF|\ s to the simulator, and,
-with that, render the scenario using the simulator's :ref:`sec-binaural-renderer`
-component. The
-other way is to use a mixture of meta-data and pre-recorded scene details that
-could be represented by |BRIR| or |BRS| files
-[Horbach1999]_.
-The :ref:`sec-brs-renderer`
-can use this information (|BRIR|\ s) to represent sources placed in a room. Stepping
-further, |BRS| files enable the simulation of complex scenarios with loudspeaker
-arrays driven by spatial audio reproduction techniques. With this method the complete synthesized sound field of
-those reproduction methods could be investigated by binaural synthesis without
-the need of setting up all the required loudspeakers.
+There are two ways how the |BinSim| creates the ear signals. One is to specify
+the entire acoustic scene using meta-data, pass appropriate |HRTF|\ s to the
+simulator, and, with that, render the scenario using the simulator's
+:ref:`sec-binaural-renderer` component. The other way is to use a mixture of
+meta-data and pre-recorded scene details that could be represented by |BRIR| or
+|BRS| files [Horbach1999]_.  The :ref:`sec-brs-renderer` can use this
+information (|BRIR|\ s) to represent sources placed in a room. Stepping further,
+|BRS| files enable the simulation of complex scenarios with loudspeaker arrays
+driven by spatial audio reproduction techniques. With this method the complete
+synthesised sound field of those reproduction methods could be investigated by
+binaural synthesis without the need of setting up all the required loudspeakers.
 
 .. note::
 
@@ -47,7 +44,7 @@ the need of setting up all the required loudspeakers.
 Binaural renderer
 -----------------
 
-In the first example, a KEMAR |HRTF| dataset is used together with a sound
+In the first example, a KEMAR |HRTF| data set is used together with a sound
 stimulus (cello) as static source to the left of the listener. Such an anechoic
 scene can be defined via the following XML-file. The file is called
 :file:`binaural_renderer.xml` and can be found in the
@@ -76,7 +73,7 @@ scene can be defined via the following XML-file. The file is called
 
 The file specifies the renderer type to be used, the simulator's processing
 block size (the |TwoEarsModel| works in a completely block based manner), the
-|HRTF| dataset to be loaded from the |database|, the audio material provided,
+|HRTF| data set to be loaded from the |database|, the audio material provided,
 and the positions of the sources (here: cello) / sinks (here: KEMAR dummy head).
 
 With that, the scene is defined. To test the correctness of the scene
@@ -137,7 +134,7 @@ corresponding |BRIR| measurement.
 Note that the KEMAR dummy head was *looking* towards the y-axis during the |BRIR|
 measurement.  In the scene description, the ``UnitX`` vector defines the looking
 direction of the virtual head; thus ``UnitX`` becomes ``[0 1 0]``.
-The audio material used is synthesized by the simulator's built-in white noise
+The audio material used is synthesised by the simulator's built-in white noise
 generator. That way, an infinitely long signal is generated, and the
 ``LengthOfSimulation``
 property has to be specified.

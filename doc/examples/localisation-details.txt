@@ -67,7 +67,7 @@ we are only interested in the summary of the localisation result::
 
 As you can see the source was localised at 0° meaning that the localisation
 error is also 0°. After that we would like to have a more detailed view on what
-happend during the localisation::
+happened during the localisation::
 
     >> displayLocalisationResults(perceivedLocations, sourceAzimuth)
 

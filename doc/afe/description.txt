@@ -446,7 +446,7 @@ handle things differently will override this specific method. These methods
 susceptible to being overridden are the following, in order in which they are
 called:
 
--  ``prepareForProcessing``: Finalize processor initialization or re-initialize 
+-  ``prepareForProcessing``: Finalise processor initialisation or re-initialise 
    after receiving feedback
 -  ``addInput``: Populate the ``Input`` property
 -  ``addOutput``: Populate the ``Output`` property

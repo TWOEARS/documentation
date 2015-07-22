@@ -17,14 +17,14 @@ Coloration of a point source in Wave Field Synthesis
 .. figure:: img/wfs_coloration.png
     :align: center
 
-    Mean rated coloration of a point source synthesized with |WFS| compared to a
+    Mean rated coloration of a point source synthesised with |WFS| compared to a
     reference point source. The error bars are showing the confidence intervals.
 
 This database entry contains stimuli and results from the experiments described
-in [Wierstorf2014a]_. In the experiment different |WFS| systems synthesizing a
+in [Wierstorf2014a]_. In the experiment different |WFS| systems synthesising a
 point source were rated in terms of their perceived coloration compared to real
 point source. This was done for different audio material, namely pink noise,
-speech, and music and different listener positions. The results are summarized
+speech, and music and different listener positions. The results are summarised
 in :numref:`fig-wfs-coloration` and available in the following database files::
 
     experiments/sound_field_synthesis/coloration/human_label_center_positon_music.csv
@@ -37,7 +37,7 @@ in :numref:`fig-wfs-coloration` and available in the following database files::
 The corresponding stimuli are provided as |BRS| files that can be used together
 with the |BinSim| and the corresponding the corresponding scene description file
 :file:`wfs_coloration.xml` to reproduce the exact pink noise signals from the
-test. The available |BRS| files are summarized in the ``*.flist`` files that
+test. The available |BRS| files are summarised in the ``*.flist`` files that
 simply provide listings of them.
 
 ::
@@ -99,16 +99,16 @@ Localisation of different source types in sound field synthesis
     :align: center
 
     Average localization results. The black symbols indicate loudspeakers, the
-    grey ones the synthesized source. At every listening position, an arrow is
+    grey ones the synthesised source. At every listening position, an arrow is
     pointing into the direction from which the listeners perceived the
     corresponding auditory event. The color of the arrow displays the absolute
-    localization error, which is also summarized as an average beside the arrows
+    localization error, which is also summarised as an average beside the arrows
     for every row of positions. The average confidence interval for all
     localization results is 2.3°. Listening conditions which resulted in
     listeners saying that they perceived two sources are highlighted with a
     small 2 written below the position.
 
-In this experiment listeners localised different synthesized sources using
+In this experiment listeners localised different synthesised sources using
 different sound field synthesis methods and loudspeaker setups. The
 experiment is described in [Wierstorf2014b]_. Here, we are providing the |BRS|
 files that were used for binaural simulations of the different systems and
@@ -150,7 +150,7 @@ Scene related sound quality
 We did a preference test where we asked for the preferred audio quality of the
 presented stimuli, see [Raake2014]_ for details. The stimuli consisted always of
 the same acoustic scene with three individual sources, which had different
-degrees of degradations. We provide the ratings of the listeners and the
+degrees of impairments. We provide the ratings of the listeners and the
 WAV-files of the stimuli in the following folders::
 
     experiments/sound_field_synthesis/scene_quality/stimuli/*

@@ -663,7 +663,7 @@ Feedback inclusion
 
 A key concept of the |AFE| is its ability to respond to feedback from the user
 or from external, higher stage models. Conceptually, feedback at the stage of
-auditory feature extraction is realized by allowing changes in parameters and/or
+auditory feature extraction is realised by allowing changes in parameters and/or
 changes in which features are extracted at run time, i.e., in between two chunks
 of input signal in a :ref:`chunk-based processing 
 scenario<sec-chunk-based-processing>`.
