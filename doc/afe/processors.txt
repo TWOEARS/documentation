@@ -25,13 +25,13 @@ Prior to computing any of the supported auditory representations, the input
 signal stored in the data object can be pre-processed with one of the following
 elements:
 
-#. :abbr:`DC (direct current)` bias removal
+#. |DC| bias removal
 
 #. Pre-emphasis
 
-#. :abbr:`RMS (root mean square)` normalisation using an automatic gain control
+#. |RMS| normalisation using an automatic gain control
 
-#. Level scaling to a pre-defined :abbr:`SPL (sound pressure level)` reference
+#. Level scaling to a pre-defined |SPL| reference
 
 #. Middle ear filtering
 
@@ -48,7 +48,7 @@ Moreover, a list of adjustable parameters is listed in
     +----------------------------+--------------+-----------------------------------------------------+
     | Parameter                  | Default      |  Description                                        |
     +============================+==============+=====================================================+
-    | ``pp_bRemoveDC``           | ``false``    | Activate :abbr:`DC (direct current)` removal filter |
+    | ``pp_bRemoveDC``           | ``false``    | Activate |DC| removal filter                        |
     +----------------------------+--------------+-----------------------------------------------------+
     | ``pp_cutoffHzDC``          | ``20``       | Cut-off frequency in Hz of the high-pass filter     |
     +----------------------------+--------------+-----------------------------------------------------+
@@ -56,20 +56,18 @@ Moreover, a list of adjustable parameters is listed in
     +----------------------------+--------------+-----------------------------------------------------+
     | ``pp_coefPreEmphasis``     | ``0.97``     | Coefficient of first-order high-pass filter         |
     +----------------------------+--------------+-----------------------------------------------------+
-    | ``pp_bNormalizeRMS``       | ``false``    | Activate :abbr:`RMS (root mean square)`             |
+    | ``pp_bNormalizeRMS``       | ``false``    | Activate |RMS|                                      |
     |                            |              | normalisation                                       |
     +----------------------------+--------------+-----------------------------------------------------+
-    | ``pp_intTimeSecRMS``       | ``2``        | Time constant in s used for :abbr:`RMS (root mean   |
-    |                            |              | square)` estimation                                 |
+    | ``pp_intTimeSecRMS``       | ``2``        | Time constant in s used for |RMS| estimation        |
     +----------------------------+--------------+-----------------------------------------------------+
-    | ``pp_bBinauralRMS``        | ``true``     | Link :abbr:`RMS (root mean square)` normalisation   |
+    | ``pp_bBinauralRMS``        | ``true``     | Link |RMS| normalisation                            |
     |                            |              | across both ear signals                             |
     +----------------------------+--------------+-----------------------------------------------------+
     | ``pp_bLevelScaling``       | ``false``    | Apply level scaling to the given reference          |
     +----------------------------+--------------+-----------------------------------------------------+
-    | ``pp_refSPLdB``            | ``100``      | Reference dB :abbr:`SPL (sound pressure level)` to  |
-    |                            |              | correspond to the input :abbr:`RMS (root mean       |
-    |                            |              | square)` of 1                                       |
+    | ``pp_refSPLdB``            | ``100``      | Reference dB |SPL| to                               |
+    |                            |              | correspond to the input |RMS|                       |
     +----------------------------+--------------+-----------------------------------------------------+
     | ``pp_bMiddleEarFiltering`` | ``false``    | Apply middle ear filtering                          |
     +----------------------------+--------------+-----------------------------------------------------+
@@ -82,15 +80,14 @@ scaling is illustrated in :numref:`fig-pre-proc`, which can be reproduced by
 running the script ``DEMO_PreProcessing.m``. Panel 1 shows the left and the
 right ears signals of two sentences at two different levels. The ear signals are
 then mixed with a sinusoid at 0.5 Hz to simulate an interfering humming noise.
-This humming can be effectively removed by the :abbr:`DC (direct current)`
+This humming can be effectively removed by the |DC|
 removal filter, as shown in panel 3. Panel 4 shows the influence of the
-pre-emphasis stage. The :abbr:`AGC (automatic gain control)` can be used to
-equalise the long-term :abbr:`RMS (root mean square)` level difference between
+pre-emphasis stage. The |AGC| can be used to
+equalise the long-term |RMS| level difference between
 the two sentences.  However, if the level difference between both ear signals
-should be preserved, it is important to synchronise the :abbr:`AGC (automatic
-gain control)` across both channels, as illustrated in panel 5 and 6. Panel 7
+should be preserved, it is important to synchronise the |AGC| across both channels, as illustrated in panel 5 and 6. Panel 7
 shows the influence of the level scaling when using a reference value of 100
-dB :abbr:`SPL (sound pressure level)`. Panel 8 shows the signals after middle
+dB |SPL|. Panel 8 shows the signals after middle
 ear filtering, as the stapes motion velocity.  Each individual pre-processing
 stage is described in the following subsections.
 
@@ -100,26 +97,23 @@ stage is described in the following subsections.
 
    Illustration of the individual pre-processing steps.  1) Ear signals
    consisting of two sentences recorded at different levels, 2) ear signals
-   mixed with a 0.5 Hz humming, 3) ear signals after :abbr:`DC (direct current)`
-   removal filter, 4) influence of pre-emphasis filter, 5) monaural :abbr:`RMS
-   (root mean square)` normalisation, 6) binaural :abbr:`RMS (root mean square)`
+   mixed with a 0.5 Hz humming, 3) ear signals after |DC|
+   removal filter, 4) influence of pre-emphasis filter, 5) monaural |RMS| normalisation, 6) binaural |RMS|
    normalisation, 7) level scaling and 8) middle ear filtering.
 
 
-:abbr:`DC (direct current)` removal filter
+|DC| removal filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To remove low-frequency humming, a :abbr:`DC (direct current)` removal filter
-can be activated by using the flag ``pp_bRemoveDC = true``. The :abbr:`DC
-(direct current)` removal filter is based on a fourth-order :abbr:`IIR (infinite
+To remove low-frequency humming, a |DC| removal filter
+can be activated by using the flag ``pp_bRemoveDC = true``. The |DC| removal filter is based on a fourth-order :abbr:`IIR (infinite
 impulse response)` Butterworth filter with a cut-off frequency of 20 Hz, as
 specified by the parameter ``pp_cutoffHzDC = 20``.
 
 Pre-emphasis
 ~~~~~~~~~~~~
 
-A common pre-processing stage in the context of :abbr:`ASR (automatic speech
-recognition)` includes a signal whitening. The goal of this pre-processing stage
+A common pre-processing stage in the context of |ASR| includes a signal whitening. The goal of this pre-processing stage
 is to roughly compensate for the decreased energy at higher frequencies (e.g.
 due to lip radiation). Therefore, a first-order :abbr:`FIR (finite impulse
 response)` high-pass filter is employed, where the filter coefficient
@@ -129,16 +123,15 @@ selected from the range between 0.9 and 1. Here, we set the coefficient to
 pre-emphasis filter can be activated by setting the flag ``pp_bPreEmphasis =
 true``.
 
-:abbr:`RMS (root mean square)` normalisation
+|RMS| normalisation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A signal level normalisation stage is available which can be used to equalise
 long-term level differences (e.g. when recording two speakers at two different
-distances). For some applications, such as :abbr:`ASR (automatic speech
-recognition)` and speaker identification systems, it can be advantageous to
+distances). For some applications, such as |ASR| and speaker identification systems, it can be advantageous to
 maintain a constant signal power, such that the features extracted by subsequent
 processors are invariant to the overall signal level. To achieve this, the input
-signal is normalised by its :abbr:`RMS (root mean square)` value that has been
+signal is normalised by its |RMS| value that has been
 estimated by a first-order low-pass filter with a time constant of
 ``pp_intTimeSecRMS = 2``. Such a normalisation stage has also been suggested in
 the context of :abbr:`AMS (amplitude modulation spectrogram)` feature
@@ -150,11 +143,10 @@ allowing the normalisation stage to follow sudden level changes.
 The normalisation can be either applied independently for the left and the right
 ear signal by setting the parameter ``pp_bBinauralRMS = false``, or the
 processing can be linked across ear signals by setting ``pp_bBinauralRMS =
-true``. When being used in the binaural mode, the larger :abbr:`RMS (root mean
-square)` value of both ear signals is used for normalisation, which will
+true``. When being used in the binaural mode, the larger |RMS| value of both ear signals is used for normalisation, which will
 preserve the binaural cues (e.g. :abbr:`ITD (interaural time difference)` and
 :abbr:`ILD (interaural level difference)`) that are encoded in the signal. The
-:abbr:`RMS (root mean square)` normalisation can be activated by the parameter
+|RMS| normalisation can be activated by the parameter
 ``pp_bNormalizeRMS = true``.
 
 Level reference and scaling
@@ -165,11 +157,11 @@ amplitude of the incoming digital signal is matched to sound pressure in the
 physical domain. This operation is necessary when any of the |AFE| models
 requires the input to be represented in physical units (such as pascals, see the
 middle ear filtering stage below). Within the current |AFE| framework, the
-:abbr:`DRNL (dual-resonance non-linear)` filter bank model requires this signal
+|DRNL| filter bank model requires this signal
 representation (see :ref:`sec-DRNL`). The request for this is given by
 setting ``pp_bApplyLevelScaling = true``, with a reference value ``pp_refSPLdB``
-in dB :abbr:`SPL (sound pressure level)` which should correspond to the input
-:abbr:`RMS (root mean square)` of 1. Then the input signal is scaled
+in dB |SPL| which should correspond to the input
+|RMS| of 1. Then the input signal is scaled
 accordingly, if it had been calibrated to a different reference. The default
 value of ``pp_refSPLdB`` is 100, which corresponds to the convention used in the
 work of [Jepsen2008]_.  The implementation is adopted from the |amtoolbox|
@@ -186,8 +178,8 @@ based on the findings from the measurement of human stapes displacement by
 [Lopez-Poveda2001]_, [Jepsen2008]_.  The input is assumed to be the eardrum
 pressure represented in pascals which in turn assumes prior calibration.  This
 input-output representation in physical units is required particularly when the
-:abbr:`DRNL (dual-resonance non-linear)` filter bank model is used for the
-:abbr:`BM (basilar membrane)` operation, because of its level-dependent
+|DRNL| filter bank model is used for the
+|BM| operation, because of its level-dependent
 nonlinearity, designed based on that representation (see 
 :ref:`sec-DRNL`). When including the middle-ear filtering in combination with
 the linear gammatone filter, only the simple band-pass characteristic of this
@@ -212,13 +204,12 @@ composed of gammatone filters. This linear gammatone filter bank can be
 considered a standard element for auditory models and has therefore been
 included in the framework. A computationally more challenging, but at the same
 time physiologically more plausible simulation of this process can be realised
-by a *nonlinear* :abbr:`BM (basilar membrane)` model, and we have implemented
-the :abbr:`DRNL (dual-resonance non-linear)` model, as developed by
+by a *nonlinear* |BM| model, and we have implemented
+the |DRNL| model, as developed by
 [Meddis2001]_.  The filter bank representation is requested by using the name
 tag ``'filterbank'``. The filter bank type can be controlled by the parameter
 ``fb_type``. To select a gammatone filter bank, ``fb_type`` should be set to
-``’gammatone’`` (which is the default), whereas the :abbr:`DRNL (dual-resonance
-non-linear)` filter bank is used when setting ``fb_type = 'drnl'``. Some of the
+``’gammatone’`` (which is the default), whereas the |DRNL| filter bank is used when setting ``fb_type = 'drnl'``. Some of the
 parameters are common to the two filter bank, while some are specific, in which
 case their value is disregarded if the other type of filter bank was requested.
 :numref:`tab-filterbank-parameters` summarises all parameters corresponding
@@ -249,25 +240,24 @@ corresponding parameters.
     +-------------------+-----------------+-------------------------------------------------------------+
     | ``fb_nGamma``     | ``4``           | Filter order, ``'gammatone'``-only                          |
     +-------------------+-----------------+-------------------------------------------------------------+
-    | ``fb_bwERBs``     | ``1.01859``     | Filter bandwidth in :abbr:`ERB (equivalent rectangular      |
-    |                   |                 | bandwidth)`, ``'gammatone'``-only                           |
+    | ``fb_bwERBs``     | ``1.01859``     | Filter bandwidth in |ERB|, ``'gammatone'``-only             |
     +-------------------+-----------------+-------------------------------------------------------------+
     | ``fb_lowFreqHz``  | ``80``          | Lowest characteristic frequency in Hz, ``'gammatone'``-only |
     +-------------------+-----------------+-------------------------------------------------------------+
-    | ``fb_mocIpsi``    | ``1``           | Ipsilateral :abbr:`MOC (medial olivocochlear)` factor (0 to |
-    |                   |                 | 1). Given as a scalar                                       |
+    | ``fb_mocIpsi``    | ``1``           | Ipsilateral |MOC| factor (0 to 1). Given as a scalar        |
+    |                   |                 |                                                             |
     |                   |                 | (across all                                                 |
     |                   |                 |                                                             |
     |                   |                 | frequency channels) or a vector (individual per frequency   |
     |                   |                 |                                                             |
     |                   |                 | channel), ``'drnl'``-only                                   |
     +-------------------+-----------------+-------------------------------------------------------------+
-    | ``fb_mocContra``  | ``1``           | Contralateral :abbr:`MOC (medial olivocochlear)` factor (0  |
+    | ``fb_mocContra``  | ``1``           | Contralateral |MOC| factor (0                               |
     |                   |                 | to 1). Same format as                                       |
     |                   |                 |                                                             |
     |                   |                 | ``'fb_mocIpsi'``, ``'drnl'``-only                           |
     +-------------------+-----------------+-------------------------------------------------------------+
-    | ``fb_model``      | ``'CASP'``      | :abbr:`DRNL (dual-resonance non-linear)` model (reserved    |
+    | ``fb_model``      | ``'CASP'``      | |DRNL| model (reserved                                      |
     |                   |                 | for future extension), ``'drnl'``-only                      |
     +-------------------+-----------------+-------------------------------------------------------------+
 
@@ -278,13 +268,10 @@ Gammatone (``gammatoneProc.m``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The time domain signal can be processed by a bank of gammatone filters that
-simulates the frequency selective properties of the human :abbr:`BM (basilar
-membrane)`. The corresponding Matlab function is adopted from the |amtoolbox|
+simulates the frequency selective properties of the human |BM|. The corresponding Matlab function is adopted from the |amtoolbox|
 [Soendergaard2013]_. The gammatone filters cover a frequency range between
-``fb_lowFreqHz`` and ``fb_highFreqHz`` and are linearly spaced on the :abbr:`ERB
-(equivalent rectangular bandwidth)` scale [Glasberg1990]_.  In addition, the
-distance between adjacent filter centre frequencies on the :abbr:`ERB
-(equivalent rectangular bandwidth)` scale can be specified by ``fb_nERBs``,
+``fb_lowFreqHz`` and ``fb_highFreqHz`` and are linearly spaced on the |ERB| scale [Glasberg1990]_.  In addition, the
+distance between adjacent filter centre frequencies on the |ERB| scale can be specified by ``fb_nERBs``,
 which effectively controls the frequency resolution of the gammatone filter
 bank. There are three different ways to control the centre frequencies of the
 individual gammatone filters:
@@ -303,8 +290,7 @@ individual gammatone filters:
 
 #. It is also possible to specify ``fb_lowFreqHz``, ``fb_highFreqHz`` and
    ``fb_nERBs``. Starting at ``fb_lowFreqHz``, the centre frequencies will be
-   spaced at a distance of ``fb_nERBs`` on the :abbr:`ERB (equivalent
-   rectangular bandwidth)` scale until the specified frequency range is covered.
+   spaced at a distance of ``fb_nERBs`` on the |ERB| scale until the specified frequency range is covered.
    The centre frequency of the last filter will not necessarily match with
    ``fb_highFreqHz``.
 
@@ -336,30 +322,30 @@ panel.
 Dual-resonance non-linear filter bank (``drnlProc.m``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The :abbr:`DRNL (dual-resonance non-linear)` filter bank models the nonlinear
+The |DRNL| filter bank models the nonlinear
 operation of the cochlear, in addition to the frequency selective feature of the
-:abbr:`BM (basilar membrane)`. The :abbr:`DRNL (dual-resonance non-linear)`
+|BM|. The |DRNL|
 processor was motivated by attempts to better represent the nonlinear operation
-of the :abbr:`BM (basilar membrane)` in the modelling, and allows for testing
-the performance of peripheral models with the :abbr:`BM (basilar membrane)`
-nonlinearity and :abbr:`MOC (medial olivocochlear)` feedback in comparison to
-that with the conventional linear :abbr:`BM (basilar membrane)` model. All the
-internal representations that depend on the :abbr:`BM (basilar membrane)` output
-can be extracted using the :abbr:`DRNL (dual-resonance non-linear)` processor in
+of the |BM| in the modelling, and allows for testing
+the performance of peripheral models with the |BM|
+nonlinearity and |MOC| feedback in comparison to
+that with the conventional linear |BM| model. All the
+internal representations that depend on the |BM| output
+can be extracted using the |DRNL| processor in
 the dependency chain in place of the gammatone filter bank. This can reveal the
-implication of the :abbr:`BM (basilar membrane)` nonlinearity and :abbr:`MOC
+implication of the |BM| nonlinearity and :abbr:`MOC
 (medial olivocochlear)` feedback for activities such as speech perception in
 noise (see [Brown2010]_ for example) or source localisation. It is expected that
 the use of a nonlinear model, together with the adaptation loops (see 
 :ref:`sec-chap4.4`), will reduce the influence of overall level on the internal
 representations and extracted features. In this sense, the use of the
-:abbr:`DRNL (dual-resonance non-linear)` model is a physiologically motivated
-alternative for a linear :abbr:`BM (basilar membrane)` model where the influence
+|DRNL| model is a physiologically motivated
+alternative for a linear |BM| model where the influence
 of level is typically removed by the use of a level normalisation stage (see
-:abbr:`AGC (automatic gain control)` in :ref:`sec-chap4.1` for example).
-The structure of :abbr:`DRNL (dual-resonance non-linear)` filter bank is based
+|AGC| in :ref:`sec-chap4.1` for example).
+The structure of |DRNL| filter bank is based
 on the work of [Meddis2001]_. The frequencies corresponding to the places along
-the :abbr:`BM (basilar membrane)`, over which the responses are to be derived
+the |BM|, over which the responses are to be derived
 and observed, are specified as a list of characteristic frequencies ``fb_cfHz``.
 For each characteristic frequency channel, the time domain input signal is
 passed through linear and nonlinear paths, as seen in 
@@ -380,8 +366,7 @@ model, the linear path consists of a gain stage, two cascaded gammatone filters,
 and four cascaded low-pass filters; the nonlinear path consists of a gain
 (attenuation) stage, two cascaded gammatone filters, a ’broken stick’
 nonlinearity stage, two more cascaded gammatone filters, and a low-pass filter.
-The outputs at the two paths are then summed as the :abbr:`BM (basilar
-membrane)` output motion. These sub-modules and their individual parameters
+The outputs at the two paths are then summed as the |BM| output motion. These sub-modules and their individual parameters
 (e.g., gammatone filter centre frequencies) are specific to the model and hidden
 to the users. Details regarding the original idea behind the parameter
 derivation can be found in [Lopez-Poveda2001]_, which the :abbr:`CASP
@@ -389,10 +374,10 @@ derivation can be found in [Lopez-Poveda2001]_, which the :abbr:`CASP
 modified to provide a better fit of the output to physiological findings from
 human cochlear research works.
  
-The :abbr:`MOC (medial olivocochlear)` feedback is implemented in an open-loop
-structure within the :abbr:`DRNL (dual-resonance non-linear)` filter bank model
+The |MOC| feedback is implemented in an open-loop
+structure within the |DRNL| filter bank model
 as the gain factor to be applied to the nonlinear path. This approach is used by
-[Ferry2007]_, where the attenuation caused by :abbr:`MOC (medial olivocochlear)`
+[Ferry2007]_, where the attenuation caused by |MOC|
 the feedback at each of the filter bank channels is controlled externally by the
 user. Two additional input arguments are introduced for this feature:
 ``fb_mocIpsi`` and ``fb_mocContra``. These represent the amount of reflexive
@@ -402,22 +387,20 @@ conjunction. Conceptually, ``fb_mocIpsi = 1`` and ``fb_mocContra = 1`` would
 mean that no attenuation is applied to the nonlinear path input, and
 ``fb_mocIpsi = 0`` and ``fb_mocContra = 0`` would mean that the nonlinear path
 is totally eliminated. :numref:`tab-filterbank-parameters` summarises the
-parameters for :abbr:`DRNL (dual-resonance non-linear)` the processor that can
+parameters for |DRNL| the processor that can
 be controlled by the user.  Note that ``fb_cfHz`` corresponds to the
 *characteristic* frequencies and not the *centre* frequencies as used in the
 gammatone filter bank, although they can have the same values for comparison.
 Otherwise, the characteristic frequencies can be generated in the same way as
 the centre frequencies for the gammatone filter bank.
 
-:numref:`fig-drnl-output` shows the :abbr:`BM (basilar membrane)` stage
-output at 1 kHz characteristic frequency using the :abbr:`DRNL (dual-resonance
-non-linear)` processor (on the right hand side), compared to that using the
+:numref:`fig-drnl-output` shows the |BM| stage
+output at 1 kHz characteristic frequency using the |DRNL| processor (on the right hand side), compared to that using the
 gammatone filter bank (left hand side), based on the right ear input signal
 shown in panel 1 of :numref:`fig-pre-proc` (speech excerpt repeated twice with
 a level difference).  The plots can be generated by running the script
 ``DEMO_DRNL.m``. It should be noted that the :abbr:`CASP (computational auditory
-signal-processing and perception)` model of :abbr:`DRNL (dual-resonance
-non-linear)` filter bank expects the input signal to be transformed to the
+signal-processing and perception)` model of |DRNL| filter bank expects the input signal to be transformed to the
 middle ear *stapes velocity* before processing.  Therefore, for direct
 comparison of the outputs in this example, the same pre-processing was applied
 for the gammatone filter bank (stapes velocity was used as the input, through
@@ -432,12 +415,12 @@ input level changes as described earlier.
 .. figure:: img/DRNLs.png
 
    The gammatone processor output (left panel) compared to the output of the
-   :abbr:`DRNL (dual-resonance non-linear)` processor (right panel), based on
+   |DRNL| processor (right panel), based on
    the right ear signal shown in panel 1 of :numref:`fig-pre-proc`, at 1 kHz
    centre or characteristic frequency. Note that the input signal is converted
    to the stapes velocity before entering both processors for direct comparison.
    The level difference between the two speech excerpts is reduced in the
-   :abbr:`DRNL (dual-resonance non-linear)` response, showing its compressive
+   |DRNL| response, showing its compressive
    nature to input level variations.
 
 .. _sec-Inner-HC:
@@ -445,23 +428,22 @@ input level changes as described earlier.
 Inner hair-cell (``ihcProc.m``)
 -------------------------------
 
-The :abbr:`IHC (inner hair-cell)` functionality is simulated by extracting the
+The |IHC| functionality is simulated by extracting the
 envelope of the output of individual gammatone filters. The corresponding
-:abbr:`IHC (inner hair-cell)` function is adopted from the |amtoolbox|
+|IHC| function is adopted from the |amtoolbox|
 [Soendergaard2013]_. Typically, the envelope is extracted by combining half-wave
 rectification and low-pass filtering. The low-pass filter is motivated by the
 loss of phase-locking in the auditory nerve at higher
 frequencies [Bernstein1996]_, [Bernstein1999]_. Depending on the cut-off
-frequency of the :abbr:`IHC (inner hair-cell)` models, it is possible to control
+frequency of the |IHC| models, it is possible to control
 the amount of fine-structure information that is present in higher frequency
 channels. The cut-off frequency and the order of the corresponding low-pass
-filter vary across methods and a complete overview of supported :abbr:`IHC
-(inner hair-cell)` models is given in :numref:`tab-ihc-models`.  A particular
+filter vary across methods and a complete overview of supported |IHC| models is given in :numref:`tab-ihc-models`.  A particular
 model can be selected by using the parameter ``ihc_method``.
 
 .. _tab-ihc-models:
 
-.. table:: List of supported :abbr:`IHC (inner hair-cell)` models
+.. table:: List of supported |IHC| models
 
     ================ ===========================================================
     ``ihc_method``   Description
@@ -480,20 +462,18 @@ model can be selected by using the parameter ``ihc_method``.
                      at 425 Hz [Bernstein1999]_
     ================ ===========================================================
 
-The effect of the :abbr:`IHC (inner hair-cell)` processor is demonstrated in
+The effect of the |IHC| processor is demonstrated in
 :numref:`fig-ihc`, where the output of the gammatone filter bank is compared
-with the output of an :abbr:`IHC (inner hair-cell)` model by running the script
+with the output of an |IHC| model by running the script
 ``DEMO_IHC.m``.  Whereas individual peaks are resolved in the lowest channel of
-the :abbr:`IHC (inner hair-cell)` output, only the envelope is retained at
+the |IHC| output, only the envelope is retained at
 higher frequencies.
 
 .. _fig-ihc:
 
 .. figure:: img/IHC.png
 
-   Illustration of the envelope extraction processor.  :abbr:`BM (basilar
-   membrane)` output (left panel) and the corresponding :abbr:`IHC (inner
-   hair-cell)` model output using ``ihc_method = ’dau’`` (right panel). 
+   Illustration of the envelope extraction processor.  |BM| output (left panel) and the corresponding |IHC| model output using ``ihc_method = ’dau’`` (right panel). 
 
 .. _sec-chap4.4:
 
@@ -526,8 +506,7 @@ stationary input signals go through logarithmic compression.
     +----------------+---------------+----------------------------------------+
     | ``adpt_mindB`` | ``0``         | Lowest audible threshold of the signal |
     |                |               |                                        |
-    |                |               | in dB :abbr:`SPL (sound pressure       |
-    |                |               | level)`                                |
+    |                |               | in dB |SPL|                            |
     +----------------+---------------+----------------------------------------+
     | ``adpt_tau``   | ``[0.005      | Time constants of feedback loops       |
     |                | 0.050         |                                        |
@@ -548,7 +527,7 @@ stationary input signals go through logarithmic compression.
 
 
 The adaptation processor uses three parameters to generate the output from the
-:abbr:`IHC (inner hair-cell)` representation: ``adpt_lim`` determines the
+|IHC| representation: ``adpt_lim`` determines the
 maximum ratio of the onset response amplitude against the steady-state response,
 which sets a limit to the overshoot caused by the loops. ``adpt_mindB`` sets the
 lowest audible threshold of the input signal. ``adpt_tau`` are the time
@@ -565,15 +544,14 @@ relation from a perfect logarithmic transform, such that the input level
 increment at low level range results in a smaller output level increment than
 the input increment at higher level range. This corresponds to a smaller
 just-noticeable level change at high levels than at low levels [Dau1996]_,_
-[Jepsen2008]_, with the use of :abbr:`DRNL (dual-resonance non-linear)` model
-for the :abbr:`BM (basilar membrane)` stage, introduces an additional squaring
-expansion process between the :abbr:`IHC (inner hair-cell)` output and the
+[Jepsen2008]_, with the use of |DRNL| model
+for the |BM| stage, introduces an additional squaring
+expansion process between the |IHC| output and the
 adaptation stage, which transforms the input that comes through the :abbr:`DRNL
-(dual-resonance non-linear)`-:abbr:`IHC (inner hair-cell)` processors into an
+(dual-resonance non-linear)`-|IHC| processors into an
 intensity-like representation to be compatible with the adaptation
 implementation originally designed based on the use of gammatone filter bank.
-The adaptation processor recognises whether :abbr:`DRNL (dual-resonance
-non-linear)` or gammatone processor is used in the chain and adjusts the input
+The adaptation processor recognises whether |DRNL| or gammatone processor is used in the chain and adjusts the input
 signal accordingly.
 
 .. _tab-adaptation-models:
@@ -617,8 +595,7 @@ signal accordingly.
 
 
 The effect of the adaptation processor - the exaggeration of rapid variations -
-is demonstrated in :numref:`fig-ihc-adapt`, where the output of the :abbr:`IHC
-(inner hair-cell)` model from the same input as used in the example of
+is demonstrated in :numref:`fig-ihc-adapt`, where the output of the |IHC| model from the same input as used in the example of
 :ref:`sec-Inner-HC` (the right panel of :numref:`fig-ihc`) is compared to
 the adaptation output by running the script ``DEMO_Adaptation.m``.
 
@@ -626,7 +603,7 @@ the adaptation output by running the script ``DEMO_Adaptation.m``.
 
 .. figure:: img/IHCadapt.png
 
-   Illustration of the adaptation processor. :abbr:`IHC (inner hair-cell)`
+   Illustration of the adaptation processor. |IHC|
    output (left panel) as the input to the adaptation processor and the
    corresponding output using ``adpt_model=’adt_dau’`` (right panel). 
 
@@ -640,7 +617,7 @@ studied in the context of predicting human pitch perception [Licklider1951]_,
 [Meddis1991]_. To measure the amount of periodicity that is present in
 individual frequency channels, the :abbr:`ACF (auto-correlation function)` is
 computed in the :abbr:`FFT (fast Fourier transform)` domain for short time
-frames based on the :abbr:`IHC (inner hair-cell)` representation. The *unbiased*
+frames based on the |IHC| representation. The *unbiased*
 :abbr:`ACF (auto-correlation function)` scaling is used to account for the fact
 that fewer terms contribute to the :abbr:`ACF (auto-correlation function)` at
 longer time lags. The resulting :abbr:`ACF (auto-correlation function)` is
@@ -692,7 +669,7 @@ pitch processor, which is described in :ref:`sec-chap4.11`.
 
 A demonstration of the :abbr:`ACF (auto-correlation function)` processor is
 shown in :numref:`fig-acf`, which has been produced by the scrip
-``DEMO_ACF.m``. It shows the :abbr:`IHC (inner hair-cell)` output in response to
+``DEMO_ACF.m``. It shows the |IHC| output in response to
 a 20 ms speech signal for 16 frequency channels (left panel). The corresponding
 :abbr:`ACF (auto-correlation function)` is presented in the upper right panel,
 whereas the :abbr:`SACF (summary auto-correlation function)` is shown in the
@@ -706,7 +683,7 @@ exploited by the pitch processor, which is described in
 
 .. figure:: img/ACF.png
 
-   :abbr:`IHC (inner hair-cell)` representation of a speech signal shown for one
+   |IHC| representation of a speech signal shown for one
    time frame of 20 ms duration (left panel) and the corresponding :abbr:`ACF
    (auto-correlation function)` (right panel). The :abbr:`SACF (summary
    auto-correlation function)` summarises the :abbr:`ACF (auto-correlation
@@ -717,12 +694,10 @@ Rate-map (``ratemapProc.m``)
 
 The rate-map represents a map of auditory nerve firing rates [Brown1994]_ and is
 frequently employed as a spectral feature in :abbr:`CASA (computational auditory
-scene analysis)` systems [Wang2006]_, :abbr:`ASR (automatic speech recognition)`
+scene analysis)` systems [Wang2006]_, |ASR|
  [Cooke2001]_ and speaker identification systems [May2012]_. The rate-map is
-computed for individual frequency channels by smoothing the :abbr:`IHC (inner
-hair-cell)` signal representation with a leaky integrator that has a time
-constant of typically ``rm\_decaySec=8 ms``. Then, the smoothed :abbr:`IHC
-(inner hair-cell)` signal is averaged across all samples within a time frame and
+computed for individual frequency channels by smoothing the |IHC| signal representation with a leaky integrator that has a time
+constant of typically ``rm\_decaySec=8 ms``. Then, the smoothed |IHC| signal is averaged across all samples within a time frame and
 thus the rate-map can be interpreted as an auditory spectrogram. Depending on
 whether the rate-map scaling ``rm_scaling`` has been set to ``’magnitude’`` or
 ``’power’``, either the magnitude or the squared samples are averaged within
@@ -751,8 +726,7 @@ parameters are listed in :numref:`tab-ratemap`.
     +-------------------+-------------+---------------------------------------------------+
 
 The rate-map is demonstrated by the script ``DEMO_Ratemap`` and the
-corresponding plots are presented in :numref:`fig-ratemap`. The :abbr:`IHC
-(inner hair-cell)` representation of a speech signal is shown in the left panel,
+corresponding plots are presented in :numref:`fig-ratemap`. The |IHC| representation of a speech signal is shown in the left panel,
 using a bank of 64 gammatone filters spaced between 80 and 8000 Hz.  The
 corresponding rate-map representation scaled in `dB` is presented in the right
 panel.
@@ -761,7 +735,7 @@ panel.
 
 .. figure:: img/Ratemap.png
 
-   :abbr:`IHC (inner hair-cell)` representation of s speech signal using 64
+   |IHC| representation of s speech signal using 64
    auditory filters (left panel) and the corresponding rate-map representation
    (right panel).
 
@@ -1132,7 +1106,7 @@ studies [Joergensen2011]_, [Joergensen2013]_. To investigate the contribution o
 both :abbr:`AMS (amplitude modulation spectrogram)` feature representations, the
 amplitude modulation processor can be used to extract linearly- and
 logarithmically-scaled :abbr:`AMS (amplitude modulation spectrogram)` features.
-Therefore, each frequency channel of the :abbr:`IHC (inner hair-cell)`
+Therefore, each frequency channel of the |IHC|
 representation is analysed by a bank of modulation filters. The type of
 modulation filters can be controlled by setting the parameter ``ams_fbType`` to
 either ``’lin’`` or ``’log’``. To illustrate the difference between linear
@@ -1184,7 +1158,7 @@ spectrogram)` features are computed is specified by the window size
 important parameter, because it determines how many periods of the lowest
 modulation frequencies can be resolved within one individual time frame.
 Moreover, the window shape can be adjusted by ``ams_wname``. Finally, the
-:abbr:`IHC (inner hair-cell)` representation can be downsampled prior to
+|IHC| representation can be downsampled prior to
 modulation analysis by selecting a downsampling ratio ``ams_dsRatio`` larger
 than 1. A full list of :abbr:`AMS (amplitude modulation spectrogram)` feature
 parameters is shown in :numref:`tab-ams-features`.
@@ -1206,8 +1180,7 @@ parameters is shown in :numref:`tab-ams-features`.
     +--------------------+---------------+------------------------------------------------------+
     | ``ams_cfHz``       | ``[]``        | Vector of modulation filter centre frequencies in Hz |
     +--------------------+---------------+------------------------------------------------------+
-    | ``ams_dsRatio``    | ``4``         | Downsampling ratio of the :abbr:`IHC                 |
-    |                    |               | (inner hair-cell)` representation                    |
+    | ``ams_dsRatio``    | ``4``         | Downsampling ratio of the |IHC| representation       |
     +--------------------+---------------+------------------------------------------------------+
     | ``ams_wSizeSec``   | ``32E-3``     | Window duration in s                                 |
     +--------------------+---------------+------------------------------------------------------+
@@ -1219,30 +1192,28 @@ parameters is shown in :numref:`tab-ams-features`.
 The functionality of the :abbr:`AMS (amplitude modulation spectrogram)` feature
 processor is demonstrated by the script ``DEMO_AMS`` and the corresponding four
 plots are presented in :numref:`fig-ams`.  The time domain speech signal (top
-left panel) is transformed into a :abbr:`IHC (inner hair-cell)` representation
+left panel) is transformed into a |IHC| representation
 (top right panel) using 23 frequency channels spaced between 80 and 8000 Hz. The
 linear and the logarithmic :abbr:`AMS (amplitude modulation spectrogram)`
 feature representations are shown in the bottom panels. The response of the
-modulation filters are stacked on top of each other for each :abbr:`IHC (inner
-hair-cell)` frequency channel, such that the :abbr:`AMS (amplitude modulation
+modulation filters are stacked on top of each other for each |IHC| frequency channel, such that the :abbr:`AMS (amplitude modulation
 spectrogram)` feature representations can be read like spectrograms. It can be
 seen that the linear :abbr:`AMS (amplitude modulation spectrogram)` feature
 representation is more noisy in comparison to the logarithmically-scaled
 :abbr:`AMS (amplitude modulation spectrogram)` features. Moreover, the
 logarithmically-scaled modulation pattern shows a much higher correlation with
-the activity reflected in the :abbr:`IHC (inner hair-cell)` representation.
+the activity reflected in the |IHC| representation.
 
 .. _fig-ams:
 
 .. figure:: img/AMS.png
 
-   Speech signal (top left panel) and the corresponding :abbr:`IHC (inner
-   hair-cell)` representation (top right panel) using 23 frequency channels
+   Speech signal (top left panel) and the corresponding |IHC| representation (top right panel) using 23 frequency channels
    spaced between 80 and 8000 Hz. Linear :abbr:`AMS (amplitude modulation
    spectrogram)` features (bottom left panel) and logarithmic :abbr:`AMS
    (amplitude modulation spectrogram)` features (bottom right panel). The
    response of the modulation filters are stacked on top of each other for each
-   :abbr:`IHC (inner hair-cell)` frequency channel, and each frequency channel
+   |IHC| frequency channel, and each frequency channel
    is visually separated by a horizontal black line. The individual frequency
    channels, ranging from 1 to 23, are labels at the left hand side.
 
@@ -1257,7 +1228,7 @@ field)`. As suggested by [Qiu2003]_, the :abbr:`STRF (spectro-temporal receptiv
 field)` can be effectively modelled by two-dimensional (2D) Gabor functions.
 Based on these findings, a spectro-temporal filter bank consisting of 41 Gabor
 filters has been designed by [Schaedler2012]_.  This filter bank has been
-optimised for the task of :abbr:`ASR (automatic speech recognition)`, and the
+optimised for the task of |ASR|, and the
 respective real parts of the 41 Gabor filters is shown in
 :numref:`fig-gabor-2d`.
 
@@ -1284,8 +1255,7 @@ specifications as recommended in the :abbr:`ETSI (european telecommunications
 standards institute)` standard [ETSIES]_. The corresponding Gabor feature space
 with 311 dimension is presented in the right panel, where vowel transition (e.g.
 at time frames around 0.2 s) are well captured. This aspect might be
-particularly relevant for the task of :abbr:`ASR (automatic speech
-recognition)`.
+particularly relevant for the task of |ASR|.
 
 .. _fig-gabor:
 
@@ -1299,7 +1269,7 @@ recognition)`.
 Cross-correlation (``crosscorrelationProc.m``)
 ----------------------------------------------
 
-The :abbr:`IHC (inner hair-cell)` representations of the left and the right ear
+The |IHC| representations of the left and the right ear
 signals is used to compute the normalised :abbr:`CCF (cross-correlation
 function)` in the :abbr:`FFT (fast Fourier transform)` domain for short time
 frames of ``cc_wSizeSec`` duration with a step size of ``cc_hSizeSec``. The
@@ -1391,7 +1361,7 @@ Interaural level differences (``ildProc.m``)
 
 The :abbr:`ILD (interaural level difference)` is estimated for individual
 frequency channels by comparing the frame-based energy of the left and the
-right-ear :abbr:`IHC (inner hair-cell)` representations.  The temporal
+right-ear |IHC| representations.  The temporal
 resolution can be controlled by the frame size ``ild_wSizeSec`` and the step
 size ``ild_hSizeSec``. Moreover, the window shape can be adjusted by the
 parameter ``ild_wname``. The resulting :abbr:`ILD (interaural level difference)`
