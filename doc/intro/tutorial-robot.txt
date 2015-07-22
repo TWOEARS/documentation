@@ -62,13 +62,13 @@ functional module hereafter presented have been conducted.
 
     Frank, a KEMAR head-and-torso simulator mounted on Jido, a mobile robot.
 
-The current release of the |TwoEarsModel| provides the capability of binaural
-:ref:`sec-bass` which can be used to acquire the binaural signals from Frank or
-another dummy head from within Matlab. See further
-:ref:`sec-robot-getting-started` for an introduction on how to get started with
-the robotic software. In later releases of |TwoEars| we will provide you with a
-tutorial on how to build your own dummy head with rotatable head, and a
-corresponding Matlab-bridge in order to steer its movements from within Matlab.
+The current release of the |TwoEarsModel| provides :ref:`sec-bass` which can be
+used to acquire the binaural signals from Frank or another dummy head from
+within Matlab. See further :ref:`sec-robot-getting-started` for an introduction
+on how to get started with the robotic software. In later releases of |TwoEars|
+we will provide you with a tutorial on how to build your own dummy head with
+rotatable head, and how to use the aformentioned Matlab bridge in order to steer
+its movements from within Matlab.
 
 .. vim: filetype=rst spell:
 .. emacs:
