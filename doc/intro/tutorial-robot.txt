@@ -23,7 +23,7 @@ interaction with the environment, so that several local perception-action loops
 take place in this layer. Typical issues are components reusability (e.g., by
 encapsulating low-level locomotion primitives or sensor drivers under interfaces
 common to all the used robots), formal proofs of dependability and
-scalability. Higher in the architecture, the decisional/cognitive layer hosts
+scalability. Higher in the architecture, the decision/cognitive layer hosts
 deliberation primitives. Such purposeful, chosen or planned actions are critical
 for robot autonomy against variable environments. Among the ingredients of
 deliberation in robotics, one can cite learning, goal reasoning, task planning,
@@ -38,7 +38,7 @@ visual functions to the detection, segmentation and tracking of people or
 objects. In view of the above, these functions come within the functional
 layer. As shown later, they are implemented in C/C++ under the celebrated |ROS|
 middleware, which is ubiquitous in robotics. To improve their specification, the
-organization of their code, their reliability, their robustness and their
+organisation of their code, their reliability, their robustness and their
 sustainability, they are designed by using the middleware-independent |GenoM3|
 framework. Conversely, the |blackboard| takes place within the deliberative
 layer. A Matlab bridge has been designed so as to bridge these two extremal sets
