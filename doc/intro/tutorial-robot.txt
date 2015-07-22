@@ -6,7 +6,7 @@ Use a robotic platform
 Addressing real-life experiments (such as dynamic auditory scene analysis in a
 *search and rescue* scenario) implies to deploy and run the |TwoEarsModel| on a
 robotic platform. To assess the active and exploratory features of the model and
-its ability to handle multimodality, the robot must be endowed with binaural
+its ability to handle multi-modality, the robot must be endowed with binaural
 perception, adequate mobility, and other sensing modalities. It must come with a
 software platform enabling the concurrent execution of all the processes
 involved in the model. To ensure reproducible research, this architecture must

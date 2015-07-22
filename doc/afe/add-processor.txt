@@ -722,7 +722,7 @@ to deal with particular cases.
   Overridden methods need to have the same method attribute(s) as the parent
   method they are overriding.
 
-Initialization methods
+Initialisation methods
 ~~~~~~~~~~~~~~~~~~~~~~
 
 ``verifyParameters``
