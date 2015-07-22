@@ -19,9 +19,8 @@ processor to illustrate some aspects of the implementation.
     
     - The following descriptions are exhaustive, and adding a processor to the
       framework is actually easier than the length of this page suggests!
-    - This tutorial is written assuming limited knowledge about object-
-      oriented programming using Matlab. Hence most 
-      :abbr:`OOP(object-oriented programming)` concepts involved are briefly 
+    - This tutorial is written assuming limited knowledge about object- oriented
+      programming using Matlab. Hence most |OOP| concepts involved are briefly
       explained.
     - You can base your implementation on the available ``templateProc.m`` file
       which contains a pre-populated list of properties and methods. Simply 

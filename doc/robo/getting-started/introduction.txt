@@ -115,7 +115,7 @@ Services and actions
     In spite of its name, |ROS| does not replace, but instead works alongside a
     traditional operating system. As it provides features such as hardware
     abstraction and low-level device control [3]_, |ROS| has some similarities
-    with an :abbr:`OS (Operating System)`, hence its name.
+    with an OS (Operating System), hence its name.
 
 |GenoM3|, a tool to develop robotic components
 ----------------------------------------------

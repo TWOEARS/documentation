@@ -23,9 +23,8 @@ inside the blackboard system and has knowledge about an specific topic, which
 could come from bottom-up or top-down processing.
 
 If you have decided on what you want to do, you configure your blackboard in a
-:abbr:`XML (extended markup language)`-file. Let's assume that you want to
-classify a target speech source in your binaural input signals. A corresponding
-configuration file could then look like:
+XML-file. Let's assume that you want to classify a target speech source in your
+binaural input signals. A corresponding configuration file could then look like:
 
 .. code-block:: xml
     :linenos:

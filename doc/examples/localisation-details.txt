@@ -96,10 +96,9 @@ movement in order to see if the values would be higher for another head
 position.
 
 So far, we looked at all the details going on in the blackboard. In order to
-localise the blackboard uses different cues - like :abbr:`ITD (interaural time
-difference)`\ s and :abbr:`ILD (interaural level difference)`\ s - that are
-provided by the :ref:`sec-afe`. It might be of interest to have a detailed look
-on them. In order to see which are available, run::
+localise the blackboard uses different cues - like |ITD|\ s and |ILD|\ s - that
+are provided by the :ref:`sec-afe`. It might be of interest to have a detailed
+look on them. In order to see which are available, run::
 
     >> bbs.listAfeData
 
@@ -135,8 +134,7 @@ All those cues can be plotted with ``bbs.plotAfeData(cueName)``, for example::
 .. figure:: img/afe-ild.png
     :align: center
 
-    :abbr:`ILD (interaural level difference)`\ s between the two ear signals
-    over time.
+    |ILD|\ s between the two ear signals over time.
 
 The next one is not really a cue provided by the :ref:`sec-afe`, but is it good
 to know in which position the head was pointing at what time::

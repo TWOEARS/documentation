@@ -8,8 +8,7 @@ Localisation with and without head rotations
 The |TwoEarsModel| comes with several knowledge sources that work together to
 estimate the perceived azimuth of a sound source, see
 :ref:`sec-blackboard-localisation` for a summary. The main work is done by the
-``LocationKS`` knowledge source that uses :abbr:`ITD (interaural time
-difference)` and :abbr:`ILD (interaural level difference)` cues provided by the
+``LocationKS`` knowledge source that uses |ITD| and |ILD| cues provided by the
 :ref:`sec-afe` and compares them with learned cues to azimuth maps. As an output
 it provides a probability distribution of possible directions for the source.
 This will be passed on to the ``ConfusionKS`` knowledge source which looks at
@@ -57,7 +56,7 @@ order to simulate binaural signals. It looks like this:
     </scene>
 
 Here, we define basic things like the sampling rate, the length of the stimulus,
-the used :abbr:`HRTF (head related transfer function)`, the source material, the
+the used |HRTF|, the source material, the
 listener position, and the distance between listener and source. For more
 documentation on specifying an acoustic scene, see
 :ref:`sec-xml-scene-description`.

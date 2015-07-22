@@ -209,12 +209,11 @@ right channel. This is typically the format returned by Matlab´s
 embedded functions ``audioread`` and ``wavread``.
 
 The input signal can be either mono or stereo/binaural. The framework can
-operate on both. However, some representations, such as the as the :abbr:`ILD
-(interaural level difference)` as requested in the previous example, are based
-on a comparison between the left and the right ear signals. If a mono signal was
-provided instead of a binaural signal, the request of computing the :abbr:`ILD
-(interaural level difference)` representation would produce the following
-warning and the request would not be computed::
+operate on both. However, some representations, such as the as the |ILD| as
+requested in the previous example, are based on a comparison between the left
+and the right ear signals. If a mono signal was provided instead of a binaural
+signal, the request of computing the |ILD| representation would produce the
+following warning and the request would not be computed::
 
     Warning: Cannot instantiate a binaural processor with a mono input signal! 
     > In manager>manager.addProcessor at 1127 
@@ -298,12 +297,12 @@ parameters for a given element, e.g. when clicking on ``ILD Extractor``
       ild_wSizeSec    0.02      Window duration (s)
       ild_hSizeSec    0.01      Window step size (s)
 
-It can be seen that the :abbr:`ILD (interaural level difference)` processor can
-be controlled by three parameters, namely ``ild_wname``, ``ild_wSizeSec`` and
-``ild_hSizeSec``. A particular parameter can be changed by creating a parameter
-structure which contains the parameter name (*nametags*) and the corresponding
-value. The function ``genParStruct`` can be used to create such a parameter
-structure. For instance::
+It can be seen that the |ILD| processor can be controlled by three parameters,
+namely ``ild_wname``, ``ild_wSizeSec`` and ``ild_hSizeSec``. A particular
+parameter can be changed by creating a parameter structure which contains the
+parameter name (*nametags*) and the corresponding value. The function
+``genParStruct`` can be used to create such a parameter structure. For
+instance::
 
     >> parameters = genParStruct('ild_wSizeSec',0.04,'ild_hSizeSec',0.02)
 
@@ -315,11 +314,10 @@ structure. For instance::
         ild_wSizeSec: 0.0400
 
 will generate a suitable parameter structure ``parameters`` to request the
-computation of :abbr:`ILD (interaural level difference)` with a window duration
-of 40 ms and a step size of 20 ms. This parameter structure is then passed as a
-second input argument in the ``addProcessor`` method of a manager object. The
-previous example can be rewritten considering the change in parameter values as
-follows:
+computation of |ILD| with a window duration of 40 ms and a step size of 20 ms.
+This parameter structure is then passed as a second input argument in the
+``addProcessor`` method of a manager object. The previous example can be
+rewritten considering the change in parameter values as follows:
 
 .. code-block:: Matlab
 
@@ -339,14 +337,12 @@ follows:
 For a dependency of the request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The previous example showed that the processor extracting :abbr:`ILD (interaural
-level difference)`\ s was accepting three parameters. However, the
-representation it returns, the :abbr:`ILD (interaural level difference)`\ s,
-will depend on more than these three parameters. For instance, it includes a
-certain number of frequency channels, but there is no parameter to control these
-in the :abbr:`ILD (interaural level difference)` processor. That is because such
-parameters are from other processors that were used in intermediate steps to
-obtain the :abbr:`ILD (interaural level difference)`.  Controlling these
+The previous example showed that the processor extracting |ILD|\ s was accepting
+three parameters. However, the representation it returns, the |ILD|\ s, will
+depend on more than these three parameters. For instance, it includes a certain
+number of frequency channels, but there is no parameter to control these in the
+|ILD| processor. That is because such parameters are from other processors that
+were used in intermediate steps to obtain the |ILD|.  Controlling these
 parameters therefore requires knowledge of the individual steps in the
 processing.
 
@@ -365,20 +361,19 @@ function ``Processor.getDependencyList(’processorName’)``, e.g.
 
         'innerhaircell'    'filterbank'    'time'
 
-shows that the :abbr:`ILD (interaural level difference)` depends on the inner
-hair-cell representation (``’innerhaircell’``), which itself is obtained from
-the output of a gammatone filter bank (``’filterbank’``). The filter bank is
-derived from the time-domain signal, which itself has no further dependency as
-it is directly derived from the input signal.
+shows that the |ILD| depends on the inner hair-cell representation
+(``’innerhaircell’``), which itself is obtained from the output of a gammatone
+filter bank (``’filterbank’``). The filter bank is derived from the time-domain
+signal, which itself has no further dependency as it is directly derived from
+the input signal.
 
 When placing a request to the manager, the user can also request a change in
 parameters of any of the request's dependencies. For example, the number of
-frequency channels in the :abbr:`ILD (interaural level difference)`
-representation is a property of the filter bank, controlled by the parameter
-``’fb_nChannels’``. (which name can be found using ``parameterHelper.m``). This
-parameter can also be requested to have a non-default value, although it is not
-a parameter of the processor in charge of computing the :abbr:`ILD (interaural
-level difference)`. This is done in the same way as previously shown:
+frequency channels in the |ILD| representation is a property of the filter bank,
+controlled by the parameter ``’fb_nChannels’``. (which name can be found using
+``parameterHelper.m``). This parameter can also be requested to have a
+non-default value, although it is not a parameter of the processor in charge of
+computing the |ILD|. This is done in the same way as previously shown:
 
 .. code-block:: Matlab
 
@@ -391,8 +386,8 @@ level difference)`. This is done in the same way as previously shown:
     % Perform processing
     managerObj.processSignal;
 
-The resulting :abbr:`ILD (interaural level difference)` representation stored in
-``sOut{1}`` will be based on 16 channels, instead of 31.
+The resulting |ILD| representation stored in ``sOut{1}`` will be based on 16
+channels, instead of 31.
 
 Compute multiple auditory representations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -411,11 +406,10 @@ requests, e.g.:
     % Place a request for the computation of ILDs AND autocorrelation
     [sOut1 sOut2] = managerObj.addProcessor({'ild','autocorrelation'})
 
-This way, the manager set up in the previous example will extract an :abbr:`ILD
-(interaural level difference)` and an auto-correlation representation, and
-provide handles to the three signals, in ``sOut1{1}`` for the ILD (it is a mono
-representation), ``sOut2{1}`` and ``sOut2{2}`` for the autocorrelations of
-respectively left and right channels.
+This way, the manager set up in the previous example will extract an |ILD| and
+an auto-correlation representation, and provide handles to the three signals, in
+``sOut1{1}`` for the |ILD| (it is a mono representation), ``sOut2{1}`` and
+``sOut2{2}`` for the autocorrelations of respectively left and right channels.
 
 To use non-default parameter values, three syntax are possible:
 
@@ -601,8 +595,7 @@ ensure chunk-based processing is given in :ref:`sec-process-chunk`.
 Handling segmented input in practice is done mostly the same way as for a whole
 input signal. The available demo script ``DEMO_ChunkBased.m`` provides an
 example of chunk-based processing by simulating a chunk-based acquisition of the
-input signal with variable chunk size and computing the corresponding :abbr:`ILD
-(interaural level difference)`\ s.
+input signal with variable chunk size and computing the corresponding |ILD|\ s.
 
 In this script, one can note the two differences in using the |AFE| in a
 chunk-based scenario, in comparison to a batch scenario:

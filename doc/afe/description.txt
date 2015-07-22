@@ -55,25 +55,24 @@ duration.
 
 The issue in a real-time scenario is that the signal duration is unknown. To
 overcome this problem, data for each signal is stored in a buffer of fixed
-duration which is itself pre-allocated. Buffers are updated following a
-:abbr:`FIFO (first in, first out)` rule: once the buffer is full, the oldest
-samples in the buffer are overwritten by the new signal samples.
+duration which is itself pre-allocated. Buffers are updated following a |FIFO|
+rule: once the buffer is full, the oldest samples in the buffer are overwritten
+by the new signal samples.
 
 The ``circVBuf`` class
 ^^^^^^^^^^^^^^^^^^^^^^
 
-A conceptual way of implementing a :abbr:`FIFO (first in, first out)` rule is to
-use circular (or ring) buffers. The inconvenience of a traditional linear
-buffer is that once it is full and new input overwrites old samples (i.e., it is
-in its “steady-state”), reading the data from it implies reaching the end of the
-buffer and continuing reading from its beginning. The data read will be in two
-fragments, because of the linear buffer having a physical beginning and end
-which do not match to the oldest and newest data samples. This is eliminated in
-circular buffers which do not have a beginning or end, and a contiguous segment
-is always obtained upon reading. Circular buffers were implemented for the |AFE|
-based on the third-party class provided by [Goebbert2014]_, which has been
-slightly modified to account for multi-dimensional data (instead of
-vector-only).
+A conceptual way of implementing a |FIFO| rule is to use circular (or ring)
+buffers. The inconvenience of a traditional linear buffer is that once it is
+full and new input overwrites old samples (i.e., it is in its “steady-state”),
+reading the data from it implies reaching the end of the buffer and continuing
+reading from its beginning. The data read will be in two fragments, because of
+the linear buffer having a physical beginning and end which do not match to the
+oldest and newest data samples. This is eliminated in circular buffers which do
+not have a beginning or end, and a contiguous segment is always obtained upon
+reading. Circular buffers were implemented for the |AFE| based on the
+third-party class provided by [Goebbert2014]_, which has been slightly modified
+to account for multi-dimensional data (instead of vector-only).
 
 
 Circular buffer interface
@@ -179,9 +178,8 @@ share the following common “read-only” properties:
    arranged in the signal, e.g., ``’nSamples x nFilters’``
 
 -  ``FsHz``, the sampling frequency of this specific signal. If the signal is
-   framed or down-sampled (e.g., like a rate-map or an :abbr:`ILD (interaural
-   level difference)`) this value will be different from the input signal's
-   sampling frequency.
+  framed or down-sampled (e.g., like a rate-map or an |ILD|) this value will be
+  different from the input signal's sampling frequency.
 
 -  ``Channel``, which states ``’left’``, ``’right’`` or ``’mono’``,
    depending on which channel from the input signal this signal was
@@ -493,13 +491,12 @@ Adapting offline implementations to online is of course case-dependent, and how
 it was done for each individual processors will not be described here. However
 the same concept is used for each, and can be related to the *overlap-save*
 method traditionally used for filtering long signals (or a stream of input
-signal) with a :abbr:`FIR (finite impulse response)` filter. This concept
-revolves around using an internal buffer to store the input samples of a given
-chunk that will influence the processing of the next chunk. Because of the
-causality, these samples will always be at the end of the present chunk.
-Considering a processor which is in “steady-state” (i.e., has a populated
-internal buffer) and a new incoming chunk of input signal, the following steps
-are performed:
+signal) with a |FIR| filter. This concept revolves around using an internal
+buffer to store the input samples of a given chunk that will influence the
+processing of the next chunk. Because of the causality, these samples will
+always be at the end of the present chunk.  Considering a processor which is in
+“steady-state” (i.e., has a populated internal buffer) and a new incoming chunk
+of input signal, the following steps are performed:
 
 #. The buffer is appended in the beginning of the new input chunk.
    Conceptually, this provides also a chunk of the input signal, but a
@@ -526,14 +523,13 @@ An example: rate-map
 ^^^^^^^^^^^^^^^^^^^^
 
 A practical example to better illustrate the concepts described above is given
-in the following. The rate-map is conceptually a “framed” version of an
-:abbr:`IHC (inner hair cell)` multi-channel envelope. The :abbr:`IHC (inner hair
-cell)` envelope is a two-dimensional representation (time versus frequency), and
-the rate-map extraction is the same procedure repeated for every frequency
-channel. Hence the following is described for a single channel. To extract the
-rate-map, the envelope is windowed by a set of overlapping windows, and its
-magnitude averaged in each window. This process is adapted to online processing
-as illustrated in :numref:`fig-windowing`.
+in the following. The rate-map is conceptually a “framed” version of an |IHC|
+multi-channel envelope. The |IHC| envelope is a two-dimensional representation
+(time versus frequency), and the rate-map extraction is the same procedure
+repeated for every frequency channel. Hence the following is described for a
+single channel. To extract the rate-map, the envelope is windowed by a set of
+overlapping windows, and its magnitude averaged in each window. This process is
+adapted to online processing as illustrated in :numref:`fig-windowing`.
 
 .. _fig-windowing:
 
@@ -568,11 +564,10 @@ Particular case for filters
 
 The processing performed by the |AFE| often involves filtering (e.g., in
 auditory filter bank processing, inner hair cell envelope detection, or
-amplitude modulation detection). While filtering by :abbr:`FIR (finite impulse
-response)` filters could in principle be made compatible with chunk-based
-processing using the principle described above, it will be impractical for
-filters with long impulse response, and in theory impossible for :abbr:`IIR
-(infinite impulse response)` filters.
+amplitude modulation detection). While filtering by |FIR| filters could in
+principle be made compatible with chunk-based processing using the principle
+described above, it will be impractical for filters with long impulse response,
+and in theory impossible for |IIR| filters.
 
 For this reason, chunk-based compatibility is managed differently for filtering.
 In Matlab’s ``filter`` function, the user can specify initial conditions and can
