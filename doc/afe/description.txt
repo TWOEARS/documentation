@@ -178,8 +178,8 @@ share the following common “read-only” properties:
    arranged in the signal, e.g., ``’nSamples x nFilters’``
 
 -  ``FsHz``, the sampling frequency of this specific signal. If the signal is
-  framed or down-sampled (e.g., like a rate-map or an |ILD|) this value will be
-  different from the input signal's sampling frequency.
+   framed or down-sampled (e.g., like a rate-map or an |ILD|) this value will be
+   different from the input signal's sampling frequency.
 
 -  ``Channel``, which states ``’left’``, ``’right’`` or ``’mono’``,
    depending on which channel from the input signal this signal was

@@ -5,6 +5,7 @@ rst_epilog = """
 .. |AGC|             replace:: :abbr:`AGC (Automatic Gain Control)`
 .. |ALSA|            replace:: :abbr:`ALSA (Advanced Linux Sound Architecture)`
 .. |AMS|             replace:: :abbr:`AMS (Amplitude Modulation Spectrogram)`
+.. |ASA|             replace:: :abbr:`ASA (Auditory Scene Analysis)`
 .. |ASR|             replace:: :abbr:`ASR (Automatic Speech Recognition)`
 .. |BASC|            replace:: :abbr:`BASC (Binaural Audio Stream Client)`
 .. |BASS|            replace:: :abbr:`BASS (Binaural Audio Stream Server)`
