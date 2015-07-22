@@ -150,7 +150,7 @@ Alexander Raake (TUIl),
 Christopher Schymura (RUB),
 Sascha Spors (URO),
 Jalil Taghia (TUB),
-Ivo Trowitsch (TUB),
+Ivo Trowitzsch (TUB),
 Thomas Walther (RUB),
 Hagen Wierstorf (TUB),
 Fiete Winter (URO).
