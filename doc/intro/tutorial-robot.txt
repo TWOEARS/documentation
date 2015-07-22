@@ -10,7 +10,7 @@ its ability to handle multimodality, the robot must be endowed with binaural
 perception, adequate mobility, and other sensing modalities. It must come with a
 software platform enabling the concurrent execution of all the processes
 involved in the model. To ensure reproducible research, this architecture must
-enable maximum software sharing when switching from one plaftorm to another.
+enable maximum software sharing when switching from one platform to another.
 
 The above requirements advocate the design of a comprehensive software modular
 architecture composed of two distinct parts. Its lower functional layer consists
@@ -32,13 +32,13 @@ monitoring. These abilities take place at a more abstract level, under lighter
 time constraints. The functional and cognitive layers are connected with each
 other through a bridge.
 
-The |TwoEarsModel| involves functions for robot locomotion, streaming of
+The |TwoEarsModel| will involve functions for robot locomotion, streaming of
 binaural signals, |SLAM|, motion planning and navigation, as well as low-level
 visual functions to the detection, segmentation and tracking of people or
 objects. In view of the above, these functions come within the functional
 layer. As shown later, they are implemented in C/C++ under the celebrated |ROS|
 middleware, which is ubiquitous in robotics. To improve their specification, the
-organization of their code, their reliablity, their robustness and their
+organization of their code, their reliability, their robustness and their
 sustainability, they are designed by using the middleware-independent |GenoM3|
 framework. Conversely, the |blackboard| takes place within the deliberative
 layer. A Matlab bridge has been designed so as to bridge these two extremal sets
@@ -58,9 +58,17 @@ functional module hereafter presented have been conducted.
 .. _fig-frank-on-jido:
 
 .. figure:: img/frank-on-jido.jpg
+    :align: center
 
-    A KEMAR head-and-torso simulator mounted on Jido, a mobile robot.
+    Frank, a KEMAR head-and-torso simulator mounted on Jido, a mobile robot.
 
+The current release of the |TwoEarsModel| provides :ref:`sec-bass` which can be
+used to acquire the binaural signals from Frank or another dummy head from
+within Matlab. See further :ref:`sec-robot-getting-started` for an introduction
+on how to get started with the robotic software. In later releases of |TwoEars|
+we will provide you with a tutorial on how to build your own dummy head with
+rotatable head, and how to use the aformentioned Matlab bridge in order to steer
+its movements from within Matlab.
 
 .. vim: filetype=rst spell:
 .. emacs:
