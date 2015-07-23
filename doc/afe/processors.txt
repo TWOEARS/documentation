@@ -705,7 +705,7 @@ The rate-map is demonstrated by the script ``DEMO_Ratemap`` and the
 corresponding plots are presented in :numref:`fig-ratemap`. The |IHC|
 representation of a speech signal is shown in the left panel, using a bank of 64
 gammatone filters spaced between 80 and 8000 Hz.  The corresponding rate-map
-representation scaled in `dB` is presented in the right panel.
+representation scaled in dB is presented in the right panel.
 
 .. _fig-ratemap:
 
