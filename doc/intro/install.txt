@@ -9,9 +9,9 @@ run it in Matlab. Additional files such as |HRTF| data will be downloaded later
 by the model on-the-fly if needed.
 
 We have tested the software with Matlab versions 2012b and later. You will also
-need the Signal Processing and Instrument Control toolboxes. Currently the
-Statistics toolbox is also required for some plotting functions, but we expect
-to remove this dependency in a future release.
+need the Signal Processing toolbox. Currently the Statistics toolbox is also
+required for some plotting functions, but we expect to remove this dependency in
+a future release.
 
 When stored on your PC, you should add the main folder to your Matlab path and
 then run the ``startTwoEars`` function, which will add the necessary sub-folders.
@@ -38,7 +38,9 @@ need to download `GMTK`_ binaries for your operating system:
     * **Mac**: download `GMTK for MacOS X`_ and put the unzipped binaries in
       ``/usr/local/bin``
     * **Windows**: you need to use `Cygwin`_. Download `GMTK for Cygwin`_
-      and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``
+      and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``. Be sure to
+      use this path as our GMTK-Matlab function ``gmtkEngine.m`` will only look
+      there.
 
 To test if GMTK works for you, open a shell and do the following:
 
@@ -73,7 +75,7 @@ trying one of the :ref:`examples provided <sec-examples-localisation>`:
 
 .. _GMTK for MacOS X: http://twoears.aipa.tu-berlin.de/files/gmtk-1.0.1.binaries.MacOSX.tar.gz
 
-.. _GMTK for Cygwin: http://twoears.aipa.tu-berlin.de/files/gmtk-1.0.1.binaries.Cygwin64.zip
+.. _GMTK for Cygwin: http://twoears.aipa.tu-berlin.de/files/gmtk-1.2.0.binaries.Cygwin64.zip
 
 .. _Cygwin: http://www.cygwin.com
 
