@@ -37,10 +37,12 @@ need to download `GMTK`_ binaries for your operating system:
       ``/usr/local/bin``
     * **Mac**: download `GMTK for MacOS X`_ and put the unzipped binaries in
       ``/usr/local/bin``
-    * **Windows**: you need to use `Cygwin`_. Download `GMTK for Cygwin`_
-      and put the unzipped binaries in ``c:\cygwin64\usr\local\bin``. Be sure to
-      use this path as our GMTK-Matlab function ``gmtkEngine.m`` will only look
-      there.
+    * **Windows**: you need to use `Cygwin`_. During the Cygwin installation in
+      the *Select Packages* dialogue, select the ``gcc-core`` package as this
+      has to be installed as well.  Afterwards download `GMTK for Cygwin`_ and
+      put the unzipped binaries in ``c:\cygwin64\usr\local\bin``. Be sure to use
+      ``c:\cygwin64\usr\local\bin`` as our GMTK-Matlab function ``gmtkEngine.m``
+      will only look there.
 
 To test if GMTK works for you, open a shell and do the following:
 
