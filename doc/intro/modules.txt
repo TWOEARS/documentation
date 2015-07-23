@@ -20,15 +20,6 @@ given scenarios. The blackboard coordinates several expert units, so called
 internal world knowledge and try to disambiguate complex input by performing
 sophisticated active exploration patterns.
 
-Afterwards we extract classic auditory cues as you might know from the
-|amtoolbox|, but now in a completely block based manner. This is part of the
-|AFE| which can also be used as a standalone module.  The judgements of the
-|TwoEarsModel| should not only be bottom-up driven by the acoustic cues, but
-also incorporate top-down feedback. To incorporate such a behaviour a
-|blackboard| module follows the |AFE|, that incorporates several experts, so
-called :ref:`sec-knowledge-sources` that interpret the auditory cues based on
-there world knowledge and active explorations.
-
 .. code::
     :class: ascii-sketch
 
