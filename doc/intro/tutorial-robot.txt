@@ -13,21 +13,21 @@ involved in the model. To ensure reproducible research, this architecture must
 enable maximum software sharing when switching from one platform to another.
 
 The above requirements advocate the design of a comprehensive software modular
-architecture composed of two distinct parts. Its lower functional layer consists
-of components which run concurrently under severe time constraints and
-communicate by control or data flow in real time. Typical modules subject to
+architecture composed of two distinct parts. Its lower **functional layer**
+consists of components which run concurrently under severe time constraints and
+communicate by control or data flow in real time. Typical components subject to
 real time performance are sensorimotor functions, such as locomotion,
 proprioceptive or exteroceptive data acquisition and processing, |SLAM|,
-obstacle avoidance, reactive navigation, etc. Many such components are in
+obstacle avoidance, reactive navigation, *etc.* Many such components are in
 interaction with the environment, so that several local perception-action loops
-take place in this layer. Typical issues are components reusability (e.g., by
+take place in this layer. Typical issues are components reusability (*e.g.*, by
 encapsulating low-level locomotion primitives or sensor drivers under interfaces
 common to all the used robots), formal proofs of dependability and
-scalability. Higher in the architecture, the decision/cognitive layer hosts
-deliberation primitives. Such purposeful, chosen or planned actions are critical
-for robot autonomy against variable environments. Among the ingredients of
-deliberation in robotics, one can cite learning, goal reasoning, task planning,
-deliberate action, perception (which bottom-up as well as top-down) and
+scalability. Higher in the architecture, the **decisional/cognitive layer**
+hosts deliberation primitives. Such purposeful, chosen or planned actions are
+critical for robot autonomy against variable environments. Among the ingredients
+of deliberation in robotics, one can cite learning, goal reasoning, task
+planning, deliberate action, perception (bottom-up as well as top-down) and
 monitoring. These abilities take place at a more abstract level, under lighter
 time constraints. The functional and cognitive layers are connected with each
 other through a bridge.
@@ -49,11 +49,11 @@ transcoding into software components is ongoing.
 Platforms of increasing complexity have been planned. Frank is a binaural
 *head-on-a-stick* type system, that is, a KEMAR head-and-torso simulator which
 we endowed with an original silent controllable device enabling neck rotation.
-This device will shortly be equipped with stereovision. Meanwhile, it has been
+This device will shortly be equipped with stereo vision. Meanwhile, it has been
 mounted on Jido, a Neobotix MP-L655 nonholonomic mobile robot, so as to get
 translational degrees-of-freedom for long-range navigation (figure
 :numref:`fig-frank-on-jido`). Importantly, extensive evaluations of all the
-functional module hereafter presented have been conducted.
+functional components hereafter presented have been conducted.
 
 .. _fig-frank-on-jido:
 
@@ -67,8 +67,8 @@ used to acquire the binaural signals from Frank or another dummy head from
 within Matlab. See further :ref:`sec-robot-getting-started` for an introduction
 on how to get started with the robotic software. In later releases of |TwoEars|
 we will provide you with a tutorial on how to build your own dummy head with
-rotatable head, and how to use the aformentioned Matlab bridge in order to steer
-its movements from within Matlab.
+rotatable head, and how to use the aforementioned Matlab bridge in order to
+steer its movements from within Matlab.
 
 .. vim: filetype=rst spell:
 .. emacs:

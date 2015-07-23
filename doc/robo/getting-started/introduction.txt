@@ -98,7 +98,6 @@ Nodes
     Software components using |ROS| middleware are called |ROS| **nodes**.
 
 Topics and messages
-
     Data flows are called **topics**. A node that outputs data *publishes* on a
     topic. A node that inputs data *subscribes* to a topic. The data elements
     flowing on topics are called **messages**. Each message is made of various
@@ -131,8 +130,8 @@ valuable attributes to robotic components:
     are not tied to a specific middleware and can be compiled for different
     middlewares without changing their source code.
 
-    This is achieved through the notion of *templates*: a template is a set of
-    instructions which, when applied to the component's source files,
+    This is achieved through the notion of *templates*: a |GenoM3| template is a
+    set of instructions which, when applied to the component's source files,
     automatically generates the code related to middleware communication. A
     clear separation of concerns between the algorithmic core and the middleware
     is thus conducted, helping towards the good design of robotic components.
