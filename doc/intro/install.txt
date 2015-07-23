@@ -27,7 +27,7 @@ following things:
 
     * **Linux/Mac**: install the packages *make*, *g++ (at least version
       4.7.3)*, *libsndfile1-dev*, *libxml2-dev*, *libfftw3-dev*
-    * **Windows**: add ``TwoEarsDir/BinauralSimulator/src/mex/dll`` folder to
+    * **Windows**: add ``TwoEarsDir\BinauralSimulator\src\mex\dll`` folder to
       ``PATH`` environment variable (`HOWTO`_)
 
 Finally, in order to use the location knowledge source ``LocationKS()``, you
