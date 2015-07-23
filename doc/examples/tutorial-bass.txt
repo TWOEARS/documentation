@@ -150,7 +150,7 @@ Start an acquisition
 
 We will now use the ``Acquire`` service to start an acquisition.
 
-.. note::
+.. caution::
 
     By default, services are invoked synchronously, *i.e.* the command to invoke
     them only returns after completion of the service. As the acquisition runs
