@@ -350,7 +350,7 @@ operation, which is specified by the default argument ``'CASP'`` for
 
 .. figure:: img/DRNL_Diagram.png
 
-   filter bank channel structure, following the model specification as
+   Filter bank channel structure, following the model specification as
    default, with an additional nonlinear gain stage to receive feedback.
 
 In the |CASP| model, the linear path consists of a gain stage, two cascaded
