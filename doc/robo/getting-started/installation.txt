@@ -23,21 +23,21 @@ Install |ROS|
 
 The |ROS| distribution you can install will depend on your Ubuntu version:
 
-* If you have Ubuntu 14.04 LTS or 13.10, follow the `ROS Indigo`_ installation
-  instructions.
-* Otherwise, follow the `ROS Hydro`_ installation instructions.
+* If you have Ubuntu 14.04 LTS or 13.10, follow the `ROS Indigo installation
+  instructions`_.
+* Otherwise, follow the `ROS Hydro installation instructions`_.
 
-.. _ROS Indigo: http://wiki.ros.org/indigo/Installation/Ubuntu
-.. _ROS Hydro: http://wiki.ros.org/hydro/Installation/Ubuntu
+.. _ROS Indigo installation instructions: http://wiki.ros.org/indigo/Installation/Ubuntu
+.. _ROS Hydro installation instructions: http://wiki.ros.org/hydro/Installation/Ubuntu
 
 Install the |GenoM3| tools through |robotpkg|
 ---------------------------------------------
 
-This section will guide you through the installation of |GenoM3| tools. |GenoM3|
-is open-source software (available at https://git.openrobots.org/) and can be
-compiled from source, but the common installation uses |robotpkg|, a compilation
-framework and packaging system for robotics software (more information at
-http://robotpkg.openrobots.org/).
+This section will guide you through the installation of the |GenoM3|
+tools. |GenoM3| is open-source software (available at
+https://git.openrobots.org/) and can be compiled from source, but the common
+installation uses |robotpkg|, a compilation framework and packaging system for
+robotics software (more information at http://robotpkg.openrobots.org/).
 
 Get |robotpkg| on your system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,13 +90,13 @@ folder:
 .. code-block:: bash
 
     echo >> ~/.bashrc
-    echo "# ROBOTPKG" >> ~/.bashrc
-    echo "export ROBOTPKG_BASE=$HOME/openrobots" >> ~/.bashrc
-    echo "export PATH=$PATH:$ROBOTPKG_BASE/bin:$ROBOTPKG_BASE/sbin" >> ~/.bashrc
-    echo "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$ROBOTPKG_BASE/lib/pkgconfig" >> ~/.bashrc
-    echo "export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROBOTPKG_BASE/src/ros-nodes:$ROBOTPKG_BASE/share" >> ~/.bashrc
-    echo "export PYTHONPATH=$PYTHONPATH:$ROBOTPKG_BASE/lib/python2.7/site-packages:$ROBOTPKG_BASE/lib/python3.2/site-packages" >> ~/.bashrc
-    echo "# ROBOTPKG END" >> ~/.bashrc
+    echo '# ROBOTPKG' >> ~/.bashrc
+    echo 'export ROBOTPKG_BASE=$HOME/openrobots' >> ~/.bashrc
+    echo 'export PATH=$PATH:$ROBOTPKG_BASE/bin:$ROBOTPKG_BASE/sbin' >> ~/.bashrc
+    echo 'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$ROBOTPKG_BASE/lib/pkgconfig' >> ~/.bashrc
+    echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROBOTPKG_BASE/src/ros-nodes:$ROBOTPKG_BASE/share' >> ~/.bashrc
+    echo 'export PYTHONPATH=$PYTHONPATH:$ROBOTPKG_BASE/lib/python2.7/site-packages:$ROBOTPKG_BASE/lib/python3.2/site-packages' >> ~/.bashrc
+    echo '# ROBOTPKG END' >> ~/.bashrc
     source ~/.bashrc
 
 .. _sec-install-robotpkg-package:
@@ -164,13 +164,13 @@ Install packages for |GenoM3|
 * Install the package ``demo-genom3`` from ``robotpkg/wip/demo-genom3`` with
   options ``codels ros-server ros-client-ros ros-client-c``.
 
-    This package will install the *demo* module. It is a sample component
-    distributed with |GenoM3|, serving as an example of a |GenoM3| module. It
-    simply controls the motion of a fictional robot. The aim of installing the
-    *demo* module is twofold: first, it automatically installs all the
-    dependencies for using |GenoM3| (the provided options specifying that we
-    will use the |ROS| templates); second, you get a |GenoM3| module ready to be
-    run to start using the robotic tools.
+    This package will install the *demo* component. It is a sample component
+    distributed with |GenoM3|, serving as an example, simply controlling the
+    motion of a fictional robot. The aim of installing the *demo* component is
+    twofold: first, it automatically installs all the dependencies for using
+    |GenoM3| (the provided options specifying that we will use the |ROS|
+    templates); second, you get a |GenoM3| component ready to be run to start
+    using the robotic tools.
 
     For your convenience, here is how applying the :ref:`above steps
     <sec-install-robotpkg-package>` could look like:
@@ -178,7 +178,7 @@ Install packages for |GenoM3|
     .. code-block:: bash
 
         # 1. Add options to the package
-        echo "PKG_OPTIONS.demo-genom3+= codels ros-server ros-client-ros ros-client-c" >> ~/openrobots/etc/robotpkg.conf
+        echo 'PKG_OPTIONS.demo-genom3+= codels ros-server ros-client-ros ros-client-c' >> ~/openrobots/etc/robotpkg.conf
         # or better, edit the file manually and add the line near the beginning
 
         # 2. Change to the package's directory
@@ -199,7 +199,7 @@ Install packages for |GenoM3|
   ``rosix`` from ``robotpkg/net/rosix``.
 
     |genomix| and |rosix| are HTTP servers providing an interface for some
-    clients to control |GenoM3| modules and generic |ROS| nodes respectively.
+    clients to control |GenoM3| components and generic |ROS| nodes respectively.
 
 * Then, install the packages ``tcl-genomix`` from ``robotpkg/wip/tcl-genomix``
   and ``matlab-genomix`` from ``robotpkg/supervision/matlab-genomix``.
@@ -223,72 +223,57 @@ Install packages for |GenoM3|
 
             export PATH=$PATH:/usr/local/MATLAB/R2013a/bin
 
-The |GenoM3| tools should now be installed on your system. You can now follow
-the `official tutorial on the Matlab bridge
-<https://git.openrobots.org/projects/matlab-genomix/gollum/demo>`_ using the
-demo module. The tutorial :ref:`sec-tutorial-bass` is also a simple example of use
-of the Matlab bridge.
+The |GenoM3| tools are now installed on your system. If you want to try the
+Matlab bridge, you can follow the official `tutorial using the demo component
+<https://git.openrobots.org/projects/matlab-genomix/gollum/demo>`_. You can also
+follow the instructions below to install :ref:`sec-bass` and later on follow the
+tutorial :ref:`sec-tutorial-bass`.
 
-Keeping up-to-date
-~~~~~~~~~~~~~~~~~~
+.. note::
 
-If a new release is available for a package, you can update to newest contents:
+    The Matlab bridge is installed in ``~/openrobots/lib/matlab``. To follow the
+    tutorials using |matlab-genomix|, you need to add this path to the Matlab
+    path.
 
-1. **Update the git repositories**
-
-.. code-block:: bash
-
-    cd ~/robotpkg
-    git pull
-    cd wip
-    git pull
-
-2. **Change to the package's repository and update the package**
-
-.. code-block:: bash
-
-    cd ~/robotpkg/category/pkg-name
-    make update
-
-Install a |GenoM3| module from the sources
-------------------------------------------
+Install a |GenoM3| component from the sources
+---------------------------------------------
 
 Instructions
 ~~~~~~~~~~~~
 
 The software part of the |TwoEars| robotic architecture includes several
-|GenoM3| modules. You may have to install them from their source files. Each
-|GenoM3| module has its own folder, containing a description file named after
-the module with the ``.gen`` extension (something like
-:file:`module.gen`). These steps will install the module in your
+|GenoM3| components. You may have to install them from their source files. Each
+|GenoM3| component has its own folder, containing a description file named after
+the component with the ``.gen`` extension (something like
+:file:`component.gen`). These steps will install the component in your
 ``~/openrobots`` folder:
 
 .. code-block:: bash
 
-    cd path/to/module/folder
-    genom3 skeleton -i module.gen
+    cd path/to/component/folder
+    genom3 skeleton -i component.gen
     ./bootstrap.sh
     mkdir build && cd build
     ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
     make install
 
-Example: installing the |BASS| module
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example: installing the |BASS| component
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-|BASS| is a :ref:`module for binaural audio streaming <sec-bass>`, located in a
-sub-folder named ``RoboticPlateform/bass-genom3/`` of the software
-repository. Applying the above commands to install |BASS| gives:
+|BASS| is a :ref:`component for binaural audio streaming <sec-bass>`. The folder
+for this component is named ``bass-genom3``, under the ``RoboticPlateform``
+folder of the software repository. Applying the above commands to install |BASS|
+gives:
 
 .. code-block:: bash
 
+    # assuming that you are in the software repository
     cd RoboticPlateform/bass-genom3
     genom3 skeleton -i bass.gen
     ./bootstrap.sh
     mkdir build && cd build
     ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
     make install
-
-.. _sec-install-matlab-bridge:
 
 .. vim: filetype=rst spell:
 .. emacs:

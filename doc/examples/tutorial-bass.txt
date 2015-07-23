@@ -3,8 +3,8 @@
 Stream binaural signals from |BASS| to Matlab
 =============================================
 
-This tutorial shows an example of how to control the |BASS| module and retrieve
-audio streams from Matlab, using the |matlab-genomix| bridge.
+This tutorial shows an example of how to control the |BASS| component and
+retrieve audio streams in Matlab, using the |matlab-genomix| bridge.
 
 .. contents::
     :local:
@@ -14,7 +14,7 @@ Preliminary steps
 
 In order to follow this tutorial, you will need:
 
-* A Linux system with the robotic tools and the |BASS| module installed (*c.f.*
+* A Linux system with the robotic tools and |BASS| installed (*c.f.*
   :ref:`sec-robot-install`). We will call this system the **BASS host**.
 
 * An |ALSA|-compliant sound acquisition interface with at least two input
@@ -55,11 +55,13 @@ clients on port 8080 by default. In the third terminal, run the command:
     $ bass-ros
 
 This is the |BASS| component, now running on the system. The name ``bass-ros``
-specifies that this |GenoM3| module uses the |ROS| middleware. So it is actually
-a |ROS| node, connected to the |ROS| master running in the first terminal.
+specifies that this |GenoM3| component uses the |ROS| middleware. So it is
+actually a |ROS| node, connected to the |ROS| master running in the first
+terminal.
 
-For the moment, the |BASS| module is not doing anything. It is waiting for
-requests from a client to start services. Here is the followed process:
+For the moment, the |BASS| component is not doing anything. It is waiting for
+requests from a client (which will be Matlab here) to start services. This is
+the followed process:
 
 1. The client emits a HTTP message destined for the |genomix| server, requesting
    to call a service of the |BASS| component.
@@ -70,14 +72,14 @@ requests from a client to start services. Here is the followed process:
    |genomix| relays it back to the client.
 
 Keep the third terminal running |BASS| visible on the screen. When we
-will call some services, we will notice their effect on the module's standard
-output.
+will call some services, we will notice their effect on the component's standard
+output stream (*stdout*).
 
 Control |BASS| to start an acquisition
 --------------------------------------
 
 On the remote client, start a Matlab session and make sure that |matlab-genomix|
-is in the Matlab path.
+is in the Matlab path (*c.f.* :ref:`sec-robot-install`).
 
 Connect to |genomix| and load |BASS|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,13 +96,13 @@ you can simply connect to |genomix| with:
 
 This will attempt a connection on ``localhost:8080`` by default. Otherwise if
 your |BASS| host and your remote client are two different computers, get the IP
-address of the |BASS| host and override the default value:
+address of the |BASS| host and override the default value with:
 
 .. code-block:: matlab
 
     >> client = genomix.client('xxx.xxx.xxx.xxx:8080') % write the IP address of the BASS host
 
-Then, load the |BASS| module:
+Then, load |BASS|:
 
 .. code-block:: matlab
 
@@ -134,9 +136,9 @@ Invoke the ``ListDevices`` service to get the name of your |ALSA| device:
 
     >> bass.ListDevices();
 
-The detected sound devices are listed on the module's standard output. Look in
-the terminal on the |BASS| host where the module is running, and find a line
-that matches your interface, for instance::
+The detected sound devices are listed on the components's standard output stream
+(*stdout*). On the |BASS| host, look in the terminal where the component is
+running, and find a line that matches your interface, something like::
 
     hw:1,0 [Babyface2361116] [USB Audio]
 
@@ -153,10 +155,11 @@ We will now use the ``Acquire`` service to start an acquisition.
     By default, services are invoked synchronously, *i.e.* the command to invoke
     them only returns after completion of the service. As the acquisition runs
     indefinitely, the ``Acquire`` service never completes unless you explicitly
-    stop it. So you must invoke this service asynchronously, otherwise you will
-    be blocked in the Matlab command window without control, including stopping
-    the service. If this happens, a solution is to kill the Matlab process and
-    start again.
+    stop it. So you must invoke this service asynchronously, *i.e.* the command
+    invoking the service returns immediately and the service output can be
+    retrieved later on. Otherwise you will be blocked in the Matlab command
+    window without control, including stopping the service. If this happens, a
+    solution is to kill the Matlab process and start again.
 
 The service can be invoked asynchronously by providing the ``'-a'`` option:
 
@@ -171,15 +174,15 @@ to your sound interface (see the example below):
 
 * For the ``device`` parameter, take the value you obtained at the previous
   step.
-* For the ``sampleRate`` parameter, choose a sample rate that your device
+* For the ``sampleRate`` parameter, choose a sampling rate that your device
   supports. The default value (44100 Hz) is most likely to work.
 * For the ``nFramesPerChunk`` parameter, choose a chunk size that your device
   supports. Some devices only support powers of 2 (*e.g.* 512, 1024, 2048...),
   refer to your device manual.
 * For the ``nChunksOnPort`` parameter, choose a value that is big enough so that
   the output port of |BASS| streams a few seconds of audio data. For instance,
-  if the sample rate is 44100 Hz and the chunk size 2205 frames, keep 80
-  chunks on the port to have 4 seconds:
+  with the default values (44100 Hz for the sampling rate and 2205 frames for
+  the chunk size), keep 80 chunks on the port to have 4 seconds:
 
   .. math::
 
@@ -215,8 +218,8 @@ input parameter.
     (hw:1,0) >`` contains valuable information, *i.e.* the data type of the
     parameter, its name, a short description and a default value between
     parenthesis that will be used if you press enter without specifying another
-    value. All this information comes from the dotgen file of the module, and is
-    part of its definition.
+    value. All this information comes from the dotgen file of the component, and
+    is part of its definition.
 
 
 Get audio data in Matlab
@@ -241,9 +244,10 @@ You can read the output port of |BASS|, named ``Audio``, in Matlab:
                    left: {176400x1 cell}
                   right: {176400x1 cell}
 
-The data structure shown here was retrieved when reading the port. The audio
-signals are stored in the ``left`` and ``right`` fields. Note the presence of
-the index ``lastFrameIndex`` for keeping track of the data.
+The data structure shown here is retrieved when reading the port with function
+``bass.Audio()``. The audio signals are stored in the ``left`` and ``right``
+fields. Note the presence of the index ``lastFrameIndex`` for keeping track of
+the data.
 
 If your remote client computer has speakers, you can listen to the retrieved
 signals:
