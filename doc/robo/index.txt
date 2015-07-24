@@ -7,8 +7,8 @@ Robotic platform
 .. toctree::
     :maxdepth: 2
 
-    getting-started/index
-    audio-streaming/index
+    getting-started
+    audio-streaming
 
 .. vim: filetype=rst spell:
 .. emacs:

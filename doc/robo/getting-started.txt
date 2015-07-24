@@ -1,0 +1,498 @@
+.. _sec-robot-getting-started:
+
+Getting started
+===============
+
+.. contents::
+    :local:
+
+Introduction
+------------
+
+.. _sec-cbsa:
+
+Component-based software architectures in robotics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Robots are highly complex systems that embed numerous sensors and actuators, in
+the service of a variety of algorithms performing heterogeneous tasks. They
+often have to deal with severe requirements (timing constraints, limited energy,
+memory and processing resources, *etc.*) and must show a robust conception as
+uncertainty about their environment is high, and unexpected events can have
+critical consequences.
+
+To facilitate the development of robotic software, **component-based
+architectures**, where components are independent processes, have become the *de
+facto* standard in robotics. Each software component is dedicated to a given
+task, from low-level control to high-level processing. Components communicate
+with each other with the help of a software piece called the **middleware**.
+
+For instance, consider a robot embedding a camera and performing object
+detection in the images. One component could be in charge of acquiring the
+images using the camera's driver, and would output them. Another component could
+input the images and run an algorithm on them to detect objects, producing the
+detection result as output for any other component in need of this
+information. Routing data from the output of the first component to the input of
+the second one is ensured by the middleware, this is called **data flow**.
+
+Components offer **services** to the user to modify their behaviour and adapt to
+different situations. To follow with the example above, the component acquiring
+images could provide a service to select which camera to use, another one to
+configure parameters such as the image size and the number of frames per second,
+a third one to explicitly request the start of the acquisition, *etc.* The
+component detecting objects could have a service to change some parameters in
+the detection algorithm, another one to choose which image stream to take as
+input (because there could be several components streaming images from different
+cameras), *etc.* Making services available to the user is again handled by the
+middleware, this is called **control flow**.
+
+.. note::
+
+    The *user* mentioned here is not necessarily a physical person. For
+    autonomous robots, it will probably be a detached software piece,
+    supervising the state of the robot and choosing to start a given service to
+    accomplish a new goal. This software piece belongs to the **decisional
+    level**, while other components make up the **functional level**.
+
+Component-based software architectures offer great benefits in robotics, in
+particular [1]_:
+
+* **Modularity**
+    * As many operations handled by a robot require to have their own thread of
+      execution (*e.g.* data acquisition for sensors, motion control for
+      actuators), having them in separate programs eases their concurrent
+      execution.
+    * The architecture can be adapted to the needs of the robot: adding a new
+      hardware piece such as a sensor will result in running a new software
+      component to drive it.
+    * The system can be distributed over a network, as the middleware seamlessly
+      ensures communication between components running on different host
+      machines.
+
+* **Re-usability**
+    * Common components can be used across robots without having to recode them
+      from scratch.
+    * Components can be packaged and easily shared in the robotics community,
+      where open source software prevails.
+    * Re-usable components reduce development cost and time, while improving
+      software quality and sustainability.
+
+|ROS|, a software platform for robotics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The :ref:`previous section <sec-cbsa>` identifies the *middleware* as the
+software piece ensuring data flow between functional components, and allowing
+their control.
+
+|ROS| is a widely known software platform in robotics, providing not only a
+middleware, but also implementing a wide range of commonly-used functionalities
+into software components (such as localisation, mapping, path-planning, obstacle
+avoidance, *etc.*), with a build system and a packaging system for easy
+compilation and installation. |ROS| benefits from a large community of users and
+developers, and runs on many robots today. This makes |ROS| a common choice as a
+robotic software platform, as it is for |TwoEars|.
+
+|ROS| embraces the principles of component-based software architectures,
+allowing distributed computation, software reuse and rapid testing [2]_. If you
+will be a user of a robotic platform running |ROS|, the `core tutorials
+<http://wiki.ros.org/ROS/Tutorials>`_ can help you to get familiar with the
+|ROS| environment. The main |ROS| terminology, introduced in the tutorials, is
+recalled here:
+
+Nodes
+    Software components using |ROS| middleware are called |ROS| **nodes**.
+
+Topics and messages
+    Data flows are called **topics**. A node that outputs data *publishes* on a
+    topic. A node that inputs data *subscribes* to a topic. The data elements
+    flowing on topics are called **messages**. Each message is made of various
+    data fields forming part of a data structure called *message type*. As a
+    given topic only carries one message type, the term *topic type* is equally
+    used.
+
+Services and actions
+    Nodes can provide **services** to control them. Some special services that
+    can take a long time to execute are called **actions**.
+
+.. note::
+
+    In spite of its name, |ROS| does not replace, but instead works alongside a
+    traditional operating system. As it provides features such as hardware
+    abstraction and low-level device control [3]_, |ROS| has some similarities
+    with an OS (Operating System), hence its name.
+
+|GenoM3|, a tool to develop robotic components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The process of developing robotic components can significantly be improved by
+the mean of a tool called |GenoM3|. As a result of two decades of research on
+real time architectures for autonomous systems [4]_ [5]_, |GenoM3| brings
+valuable attributes to robotic components:
+
+* **Middleware independence**
+
+    Components developed with |GenoM3| are middleware independent, *i.e.* they
+    are not tied to a specific middleware and can be compiled for different
+    middlewares without changing their source code.
+
+    This is achieved through the notion of *templates*: a |GenoM3| template is a
+    set of instructions which, when applied to the component's source files,
+    automatically generates the code related to middleware communication. A
+    clear separation of concerns between the algorithmic core and the middleware
+    is thus conducted, helping towards the good design of robotic components.
+
+    |ROS| appears among the middlewares supported by |GenoM3|. When using |ROS|
+    templates to compile a |GenoM3| component, the resulting program is a
+    genuine |ROS| node. Only the development process differs from what could be
+    done by writing a |ROS| node without the |GenoM3| tool.
+
+* **Model-driven design**
+
+    |GenoM3| emphasises the clear definition of robotic components by adopting a
+    model-driven approach. A |GenoM3| component is first defined by a
+    description file, called the **dotgen** file, with the ``.gen``
+    extension. This file gathers in a single place all the definitions related
+    to the component's interface, needed by a user to interact with it.
+
+    Each |GenoM3| component has its own dotgen file, mainly including the
+    definition of its **services** and its data flows by the mean of **ports**
+    (either from the component to the outside, or the other way round). Each
+    service is defined by a name and a list of input and output parameters with
+    their related data type. Each port is defined by a name, a direction (either
+    in or out), and a data type for the data elements it uses. The dotgen file
+    often include in-line documentation to help the understanding of the
+    component's features (for instance, the role of a given service parameter).
+
+    On the basis of the model specified in the dotgen file, |GenoM3|
+    automatically generates real time code as well as skeletons of functions run
+    by the services. So, the developer just has to fill these functions, called
+    **codels** (for code element) with its algorithms. The corresponding
+    algorithmic core is written in separate C or C++ source files or libraries.
+
+* **Powerful framework**
+
+    |GenoM3| facilitates the development of essential features for robotic
+    components, such as:
+
+    * the definition of finite state automata with an optional clock,
+    * clean interruption mechanisms,
+    * efficient error handling.
+
+If you decide to be a user of |GenoM3| components, the tutorial `GenoM3 through
+an example
+<https://git.openrobots.org/projects/genom3/wiki/Genom3tutorialdemo-genom3>`_
+will help you to learn how to read dotgen files. For a developer of |GenoM3|
+components, the `documentation
+<https://git.openrobots.org/projects/genom3/gollum/index>`_ defines the whole
+grammar for writing dotgen files, and how dotgen specifications are mapped into
+C or C++ codels.
+
+.. note::
+
+    |GenoM3| components are often called **modules** (hence the name *Generator
+    of Modules*). The words *module* and *component* refer to the same entity:
+    an independent program that can run on a host machine where the robotic
+    software architecture is distributed.
+
+.. [1]
+    A. Brooks, T. Kaupp, A. Makarenko, S. Williams, and A. Ore- back. Towards
+    component-based robotics. In *IEEE International Conference on Intelligent
+    Robots and Systems*, pages 163–168, Tsukuba (Japan), 2005.
+
+.. [2]
+    Jason M. O'Kane. A Gentle Introduction to
+    ROS. http://www.cse.sc.edu/~jokane/agitr/, 2014.
+
+.. [3]
+    http://wiki.ros.org/ROS/Introduction
+
+.. [4]
+    R. Alami, R. Chatila, S. Fleury, M. Ghallab, and F. Ingrand. An
+    Architecture for Autonomy. In *Int. Jour. on Robotics Research 17*, pages
+    315–337, 1998.
+
+.. [5]
+    A. Mallet, C. Pasteur, M. Herrb, S. Lemaignan, and F. Ingrand. GenoM3:
+    Building Middleware-independent Robotic Components. In *IEEE Int. Conf. on
+    Robotics and Automation*, Anchorage (Alaska), 2010.
+
+.. _sec-robot-install:
+
+Installation of the robotic tools
+---------------------------------
+
+The robotic tools should be installed on any system that hosts components of the
+software architecture for the |robot|. This section details the installation
+process.
+
+.. note::
+
+    For all the guidelines gathered here, we will assume that you are using
+    Ubuntu GNU/Linux as it is the supported distribution for |ROS| (though any
+    other UNIX platform should be suited to the |GenoM3| tools). Many commands
+    given here are intended for the :command:`bash` shell. If you use a
+    different shell, you should adapt the bash-related commands accordingly.
+
+Install |ROS|
+~~~~~~~~~~~~~
+
+The |ROS| distribution you can install will depend on your Ubuntu version:
+
+* If you have Ubuntu 14.04 LTS or 13.10, follow the `ROS Indigo installation
+  instructions`_.
+* Otherwise, follow the `ROS Hydro installation instructions`_.
+
+.. _ROS Indigo installation instructions: http://wiki.ros.org/indigo/Installation/Ubuntu
+.. _ROS Hydro installation instructions: http://wiki.ros.org/hydro/Installation/Ubuntu
+
+Install the |GenoM3| tools through |robotpkg|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This section will guide you through the installation of the |GenoM3|
+tools. |GenoM3| is open-source software (available at
+https://git.openrobots.org/) and can be compiled from source, but the common
+installation uses |robotpkg|, a compilation framework and packaging system for
+robotics software (more information at http://robotpkg.openrobots.org/).
+
+Get |robotpkg| on your system
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note::
+
+     The following instructions invite you to download two git repositories. If
+     the given URLs using ``git://`` protocol fail, try ``https://`` protocol as
+     instructed `here <http://robotpkg.openrobots.org/install.html>`_ and `there
+     <http://robotpkg.openrobots.org/robotpkg-wip.html>`_.
+
+First, get the ``robotpkg`` repository in your home folder (you can choose
+another location, but we recommend this one):
+
+.. code-block:: bash
+
+    cd
+    git clone git://git.openrobots.org/robots/robotpkg
+
+You will also need the `wip <http://robotpkg.openrobots.org/robotpkg-wip.html>`_
+subset of |robotpkg|, it contains some work in progress that is not officially
+released, but already available:
+
+.. code-block:: bash
+
+    cd ~/robotpkg
+    git clone git://git.openrobots.org/robots/robotpkg/robotpkg-wip wip
+
+Next, set the installation path. The tools that you will soon install will be
+placed in your home folder under a dedicated folder named
+``openrobots``. Installing robotic components in your home folder ensures that
+you do not need root privileges for the installation (you can choose another
+location with a different prefix, but we recommend this one):
+
+.. code-block:: bash
+
+    cd ~/robotpkg/bootstrap
+    ./bootstrap --prefix $HOME/openrobots
+
+To finish, update your environment variables to include the installation
+folder:
+
+.. note::
+
+    In the following commands, note the use of an environment variable
+    :envvar:`ROBOTPKG_BASE` to indicate your installation path, set to
+    ``$HOME/openrobots``. If you have selected a different location at the
+    previous step, you should modify the corresponding command accordingly.
+
+.. code-block:: bash
+
+    echo >> ~/.bashrc
+    echo '# ROBOTPKG' >> ~/.bashrc
+    echo 'export ROBOTPKG_BASE=$HOME/openrobots' >> ~/.bashrc
+    echo 'export PATH=$PATH:$ROBOTPKG_BASE/bin:$ROBOTPKG_BASE/sbin' >> ~/.bashrc
+    echo 'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$ROBOTPKG_BASE/lib/pkgconfig' >> ~/.bashrc
+    echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROBOTPKG_BASE/src/ros-nodes:$ROBOTPKG_BASE/share' >> ~/.bashrc
+    echo 'export PYTHONPATH=$PYTHONPATH:$ROBOTPKG_BASE/lib/python2.7/site-packages:$ROBOTPKG_BASE/lib/python3.2/site-packages' >> ~/.bashrc
+    echo '# ROBOTPKG END' >> ~/.bashrc
+    source ~/.bashrc
+
+.. _sec-install-robotpkg-package:
+
+How to install a |robotpkg| package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Your ``~/robotpkg`` directory contains a tree of packages, grouped into main
+categories. In the next part, we will invite you to install some of those
+packages. Here, we expose you the guidelines to follow for each package.
+
+1. **Add options to the package**
+
+    If you are asked to add options ``option-1 option-2 ...`` to the package
+    ``pkg-name``, edit the file :file:`~/openrobots/etc/robotpkg.conf` and add a
+    line (near the beginning for instance) looking like::
+
+        PKG_OPTIONS.pkg-name+= option-1 option-2 ...
+
+    You will get a better idea about this step with an actual example in the
+    next part.
+
+2. **Move to the package's directory**
+
+    You will be given the path to the package, such as
+    ``robotpkg/category/pkg-name``. Change to this directory:
+
+    .. code-block:: bash
+
+        cd ~/robotpkg/category/pkg-name
+
+3. **Install possibly missing system dependencies**
+
+    Run the following command to list the dependencies for the package you are
+    about to install:
+
+    .. code-block:: bash
+
+        make show-depends
+
+    At the end of the command's output, the dependencies are separated into
+    ``Robotpkg dependencies`` and ``System dependencies``. If any |robotpkg|
+    dependency is missing, it will be automatically installed. If any system
+    dependency is missing, you need to install it (commonly with
+    :command:`apt-get` under Ubuntu). Iterate this step until no system
+    dependency is missing.
+
+    You may skip this step, but if a system dependency is missing, the package
+    installation will stop at some point and you will be asked to install it.
+
+4. **Install the package**
+
+    Run the following command:
+
+    .. code-block:: bash
+
+        make update
+
+    This will download the sources, compile them locally on your system, and
+    install the output files in the ``~/openrobots`` directory.
+
+Install packages for |GenoM3|
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Install the package ``demo-genom3`` from ``robotpkg/wip/demo-genom3`` with
+  options ``codels ros-server ros-client-ros ros-client-c``.
+
+    This package will install the *demo* component. It is a sample component
+    distributed with |GenoM3|, serving as an example, simply controlling the
+    motion of a fictional robot. The aim of installing the *demo* component is
+    twofold: first, it automatically installs all the dependencies for using
+    |GenoM3| (the provided options specifying that we will use the |ROS|
+    templates); second, you get a |GenoM3| component ready to be run to start
+    using the robotic tools.
+
+    For your convenience, here is how applying the :ref:`above steps
+    <sec-install-robotpkg-package>` could look like:
+
+    .. code-block:: bash
+
+        # 1. Add options to the package
+        echo 'PKG_OPTIONS.demo-genom3+= codels ros-server ros-client-ros ros-client-c' >> ~/openrobots/etc/robotpkg.conf
+        # or better, edit the file manually and add the line near the beginning
+
+        # 2. Change to the package's directory
+        cd ~/robotpkg/wip/demo-genom3
+
+        # 3. Install missing system dependencies
+        make show-depends
+        # Let's say that `make show-depends` revealed two missing system
+        # dependencies named 'bison' and 'flex'. Next step would be:
+        sudo apt-get install bison flex
+        make show-depends
+        # No missing system dependency left
+
+        # 4. Install the package
+        make update
+
+* Then, install the packages ``genomix`` from ``robotpkg/net/genomix`` and
+  ``rosix`` from ``robotpkg/net/rosix``.
+
+    |genomix| and |rosix| are HTTP servers providing an interface for some
+    clients to control |GenoM3| components and generic |ROS| nodes respectively.
+
+* Then, install the packages ``tcl-genomix`` from ``robotpkg/wip/tcl-genomix``
+  and ``matlab-genomix`` from ``robotpkg/supervision/matlab-genomix``.
+
+    These are clients of |genomix| and |rosix| servers. The |tcl-genomix| client
+    allows to control components using the Tcl language. Its installation is not
+    mandatory (we will rather use the |matlab-genomix| client), but recommended
+    as a common package distributed with |GenoM3|. The |matlab-genomix| client
+    allows to control components from Matlab.
+
+    .. note::
+
+        You need a Matlab installation on your system in order to install the
+        ``matlab-genomix`` package. If you encounter a missing dependency for
+        ``mex`` (the MEX compiler from Matlab), you need to add the path to
+        Matlab executables to the :envvar:`PATH` environment variable. For
+        example, with Matlab R2013a installed in ``/usr/local/MATLAB/R2013a``,
+        it would be done with:
+
+        .. code-block:: bash
+
+            export PATH=$PATH:/usr/local/MATLAB/R2013a/bin
+
+The |GenoM3| tools are now installed on your system. If you want to try the
+Matlab bridge, you can follow the official `tutorial using the demo component
+<https://git.openrobots.org/projects/matlab-genomix/gollum/demo>`_. You can also
+follow the instructions below to install :ref:`sec-bass` and later on follow the
+tutorial :ref:`sec-tutorial-bass`.
+
+.. note::
+
+    The Matlab bridge is installed in ``~/openrobots/lib/matlab``. To follow the
+    tutorials using |matlab-genomix|, you need to add this path to the Matlab
+    path.
+
+Install a |GenoM3| component from the sources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instructions
+^^^^^^^^^^^^
+
+The software part of the |TwoEars| robotic architecture includes several
+|GenoM3| components. You may have to install them from their source files. Each
+|GenoM3| component has its own folder, containing a description file named after
+the component with the ``.gen`` extension (something like
+:file:`component.gen`). These steps will install the component in your
+``~/openrobots`` folder:
+
+.. code-block:: bash
+
+    cd path/to/component/folder
+    genom3 skeleton -i component.gen
+    ./bootstrap.sh
+    mkdir build && cd build
+    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
+    make install
+
+Example: installing the |BASS| component
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+|BASS| is a :ref:`component for binaural audio streaming <sec-bass>`. The folder
+for this component is named ``bass-genom3``, under the ``RoboticPlateform``
+folder of the software repository. Applying the above commands to install |BASS|
+gives:
+
+.. code-block:: bash
+
+    # assuming that you are in the software repository
+    cd RoboticPlateform/bass-genom3
+    genom3 skeleton -i bass.gen
+    ./bootstrap.sh
+    mkdir build && cd build
+    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
+    make install
+
+.. vim: filetype=rst spell:
+.. emacs:
+   Local Variables:
+   mode: rst
+   fill-column: 80
+   End:
