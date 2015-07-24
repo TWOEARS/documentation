@@ -6,6 +6,8 @@ Development using git
 .. contents::
     :local:
 
+.. _sec-git-for-beginners:
+
 Git for beginners
 -----------------
 

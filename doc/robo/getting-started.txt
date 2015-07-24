@@ -263,6 +263,8 @@ Get |robotpkg| on your system
      the given URLs using ``git://`` protocol fail, try ``https://`` protocol as
      instructed `here <http://robotpkg.openrobots.org/install.html>`_ and `there
      <http://robotpkg.openrobots.org/robotpkg-wip.html>`_.
+     If you need an introduction to git have a look at
+     :ref:`sec-git-for-beginners`.
 
 First, get the ``robotpkg`` repository in your home folder (you can choose
 another location, but we recommend this one):
