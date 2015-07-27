@@ -172,7 +172,11 @@ Location knowledge source: ``LocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Class ``LocationKS`` implements knowledge about the statistical relationship
-between spatial cues and azimuth locations. This knowledge source requires
+between spatial cues and azimuth locations. Currently we model the 
+relationship using Gaussian mixture models (GMMs), which are trained on binaural
+cues from the |AFE| including |ITD| and |ILD| cues.
+
+This knowledge source requires
 signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``
 (Section :ref:`sec-afe-dep-knowledge-source`) and needs to be bound to the
 ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The ``canExecute`` precondition
