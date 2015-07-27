@@ -32,7 +32,7 @@ the localisation data::
 
     perceivedLocations =
 
-    1x7 struct array with fields:
+    1x8 struct array with fields:
 
         sndTmIdx
         data
@@ -41,6 +41,7 @@ It returns a relatively complicated struct that comes with time stamps
 ``sndTmIdx`` and the corresponding ``data`` which again is a struct containing
 different things, here is the output for one time stamp::
 
+    >> perceivedLocations(8).data
     ans =
 
       PerceivedLocation with properties:
@@ -80,6 +81,7 @@ happened during the localisation::
     0.09        0 degrees           (  0 degrees,      0 degrees)   0.57
     0.65        0 degrees           (181 degrees,    179 degrees)   0.98
     1.21        0 degrees           (181 degrees,    179 degrees)   0.56
+    1.76        0 degrees           (  0 degrees,      0 degrees)   0.88
     2.32        0 degrees           (  0 degrees,      0 degrees)   0.96
     2.88        0 degrees           (  0 degrees,      0 degrees)   0.48
     3.44        0 degrees           (122 degrees,    238 degrees)   0.81
