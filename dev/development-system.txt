@@ -23,7 +23,7 @@ this as a basis:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/TWOEARS/TwoEars.git
+    $ git clone https://github.com/TWOEARS/main.git
 
 Working on the whole Two!Ears model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,7 +41,6 @@ modules that are part of the |TwoEarsModel|:
     <requirements>
         <TwoEarsPart sub="src"    startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
         <TwoEarsPart sub="API_MO" startup="SOFAstart">sofa</TwoEarsPart>
-        <TwoEarsPart sub="src"    startup="startTools">tools</TwoEarsPart>
         <TwoEarsPart              startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
         <TwoEarsPart              startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
     </requirements>
@@ -53,10 +52,9 @@ So first clone of off the necessary repositories:
     $ mkdir git
     $ mkdir git/twoears/
     $ cd git/twoears
-    $ git clone https://github.com/TWOEARS/TwoEars.git
+    $ git clone https://github.com/TWOEARS/main.git
     $ git clone https://github.com/TWOEARS/binaural-simulator.git
     $ git clone https://github.com/TWOEARS/SOFA.git
-    $ git clone https://github.com/TWOEARS/tools.git
     $ git clone https://github.com/TWOEARS/auditory-front-end.git
     $ git clone https://github.com/TWOEARS/blackboard-system.git
 
@@ -79,8 +77,6 @@ default settings, which is:
         <blackboard-system>~/git/twoears/blackboard-system</blackboard-system>
         <!-- https://github.com/TWOEARS/SOFA -->
         <sofa>~/git/twoears/SOFA</sofa>
-        <!-- https://github.com/TWOEARS/tools -->
-        <tools>~/git/twoears/twoears-tools</tools>
     </repoPaths>
 
 After that you can simply run the following command in the folder of the `main
@@ -113,29 +109,25 @@ repository`_:
                     startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
       <TwoEarsPart  sub="API_MO"
                     startup="SOFAstart">sofa</TwoEarsPart>
-      <TwoEarsPart  sub="src"
-                    startup="startTools" >tools</TwoEarsPart>
     </requirements>
 
-This means in this case you have to clone the `sofa repository`_ as well as the
-`tools repository`_ in order to use the |BinSim|:
+This means in this case you have to clone the `sofa repository`_ in order to use
+the |BinSim|:
 
 .. code-block:: bash
 
     $ mkdir git
     $ mkdir git/twoears
     $ cd git/twoears
-    $ git clone https://github.com/TWOEARS/TwoEars.git
+    $ git clone https://github.com/TWOEARS/main.git
     $ git clone https://github.com/TWOEARS/SOFA.git
-    $ git clone https://github.com/TWOEARS/tools.git
 
 After that you can start the |BinSim| in Matlab with the following command in
 order to test it::
 
     >> startTwoEars('BinauralSimulator.xml');
 
-.. _main repository: https://github.com/TWOEARS/TwoEars
-.. _tools repository: https://github.com/TWOEARS/tools
+.. _main repository: https://github.com/TWOEARS/main
 .. _sofa repository: https://github.com/TWOEARS/SOFA
 .. _binaural-simulator repository: https://github.com/TWOEARS/binaural-simulator
 
@@ -158,12 +150,9 @@ specify those dependencies also in the XML configuration files, for example:
         <TwoEarsPart branch="master"
                      sub="src"
                      startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
-        <TwoEarsPart branch="master"
+        <TwoEarsPart branch="feature1"
                      sub="API_MO"
                      startup="SOFAstart">sofa</TwoEarsPart>
-        <TwoEarsPart branch="feature1"
-                     sub="src"
-                     startup="startTools">tools</TwoEarsPart>
         <TwoEarsPart branch="feature1"
                      startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
         <TwoEarsPart branch="master"
@@ -172,10 +161,9 @@ specify those dependencies also in the XML configuration files, for example:
 
 The ``startTwoEars`` function will then check if you have all the modules
 checked out at the correct branches. Of course you have to have git installed in
-order to use this feature.
-Even if you are using only the master branches you are encouraged to use the
-``branch`` setting as it ensures that other people testing your code are also
-using the master branch and not another one.
+order to use this feature.  Even if you are using only the master branches you
+are encouraged to use the ``branch`` setting as it ensures that other people
+testing your code are also using the master branch and not another one.
 
 Another feature of the ``startTwoEars`` script is the setting ``sub-all``
 instead of ``sub`` which will include the specified path, as ``sub`` will do,
