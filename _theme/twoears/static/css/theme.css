@@ -5793,7 +5793,7 @@ footer p {
     width: 300px;
     color: #fcfcfc;
     background: #1f1d1d;
-    border-top: solid 10px #343131;
+    /*border-top: solid 10px #343131;*/
     font-family: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
     z-index: 400
 }
