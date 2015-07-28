@@ -122,7 +122,7 @@ Looking at the configuration file step by step we find the following settings:
     Each of these connections can have a specific ``Mode``, which determines how
     the blackboard should add triggered knowledge sources into the agenda. For
     example, the ``replaceOld`` mode indicates that old instances of the
-    corresponding sink in the agenda should be replaced when a new once occurs.
+    corresponding sink in the agenda should be replaced when a new one occurs.
     For full details of the different modes, see the section on :ref:`dynamic
     blackboard interactions <sec-dynamic-interactions>`. 
 
