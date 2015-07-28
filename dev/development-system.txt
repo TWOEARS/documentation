@@ -165,6 +165,13 @@ order to use this feature.  Even if you are using only the master branches you
 are encouraged to use the ``branch`` setting as it ensures that other people
 testing your code are also using the master branch and not another one.
 
+.. note::
+
+    Under Windows it is most likely that Matlab complains that git cannot be
+    found in the system path, when executing ``startTwoEars``. To fix this you
+    have to add git to your system paths, see for example `this tutorial
+    <http://blog.countableset.ch/2012/06/07/adding-git-to-windows-7-path/>`_.
+
 Another feature of the ``startTwoEars`` script is the setting ``sub-all``
 instead of ``sub`` which will include the specified path, as ``sub`` will do,
 but also all of its sub-folders.
