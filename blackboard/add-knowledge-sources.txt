@@ -74,8 +74,8 @@ is dependent on data from the |AFE| as inputs, it has to be inherited from the
 After the basic structure of the class has been set up, the individual functions
 can be implemented. In this example, a simple localisation algorithm based on a
 geometric model of the head is considered. The parameters that are needed for
-the computation is the distance between the two microphones, the speed of sound
-and the size of one signal block in seconds. These can be specified within the
+the computation are the distance between the two microphones, the speed of sound,
+and the size of one signal block in seconds. These values can be specified within the
 class properties as follows::
 
     properties (SetAccess = private)
@@ -84,8 +84,9 @@ class properties as follows::
         blockSizeSec;   % Size of one audio block in seconds
     end
 
-This parameter can be specified by the user, hence it will be handled as an
-input argument in the class constructor. Additionally, the constructor must
+These parameters can either be specified by the user in the class constructor, or can
+be transferred to the class constructor as input arguments.
+Additionally, the class constructor must
 contain a specification of the parameters that should be used for data
 processing within the |AFE|, to compute the corresponding |ITD| values from the
 available binaural audio data::
@@ -150,7 +151,7 @@ case, using simple geometric mapping from |ITD|\ s to azimuth locations, the
     end
 
 The class destructor and the ``canExecute`` method will be left unchanged in
-this example. An explanation on how these methods work in detail can be found in
+this example. An explanation of how these methods work in detail can be found in
 the :ref:`blackboard architecture <sec-blackboard-architecture>` section. Having
 defined all four methods as described above, the :ref:`knowledge source
 <sec-knowledge-sources>` is now ready to be used within the |blackboard|.
