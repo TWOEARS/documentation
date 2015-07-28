@@ -70,6 +70,30 @@ License
 Usage
 ^^^^^
 
+To use the data base for acoustic event classification, stereo WAV files from the
+following folders are of interest::
+
+    alert/
+    clearthroat/
+    cough/
+    doorslam/
+    drawer/
+    keyboard/
+    keys/
+    knock/
+    laughter/
+    mouse/
+    pageturn/
+    pendrop/
+    phone/
+    printer/
+    speech/
+    switch/
+    void/
+
+In each folder with different recordings of the corresponding class are
+provided.
+
 In the ``scenes/`` folder stereo recordings of the following acoustic scenes are
 provided:
 
@@ -89,28 +113,5 @@ provided:
 Each class contains ten recordings. Each recording is 30 s long. Files are named
 according to the class name, i.e. ``classXX.wav`` where ``XX`` is a two-digit,
 non-consecutive number.
-
-In the ``events_single_sounds/`` folder stereo recordings of the following
-acoustic events are provided:
-
-    | alert
-    | clearthroat
-    | cough
-    | doorslam
-    | drawer
-    | keyboard
-    | keys
-    | knock
-    | laughter
-    | mouse
-    | pageturn
-    | pendrop
-    | phone
-    | printer
-    | speech
-    | switch
-
-Again each class comes with different recordings and the files are named
-according to their class.
 
 .. vim: filetype=rst spell:
