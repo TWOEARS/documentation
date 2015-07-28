@@ -73,7 +73,7 @@ author = 'Two!Ears team'
 # built documents.
 #
 # The short X.Y version.
-version = '1.0'
+version = 'dev'
 # The full version, including alpha/beta/rc tags.
 release = version
 
