@@ -159,4 +159,9 @@ This project has received funding from the European Union's Seventh Framework
 Programme for research, technological development and demonstration under grant
 agreement no 618075.
 
+.. image:: img/eu-flag.gif
+
+.. image:: img/tree.jpg
+    :target: http://cordis.europa.eu/fet-proactive/
+
 .. vim: filetype=rst spell:
