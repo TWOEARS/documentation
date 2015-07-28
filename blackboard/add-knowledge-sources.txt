@@ -84,7 +84,8 @@ class properties as follows::
         blockSizeSec;   % Size of one audio block in seconds
     end
 
-The parameters can be specified by the user (in the class constructor).
+These parameters can either be specified by the user in the class constructor, or can
+be transferred to the class constructor as input arguments.
 Additionally, the class constructor must
 contain a specification of the parameters that should be used for data
 processing within the |AFE|, to compute the corresponding |ITD| values from the
