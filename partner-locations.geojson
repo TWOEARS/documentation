@@ -31,7 +31,7 @@
         "CITY": "Bochum",
         "COUNTRY": "Germany",
         "TELEPHONE": "+49 234 3222496",
-        "WEBURL": "http://www.ika.ruhr-uni-bochum.de/index_en.html" },
+        "WEBURL": "http://www.ruhr-uni-bochum.de/ika/" },
       "geometry": { "type": "Point", "coordinates": [ 7.261832, 51.445743 ] } },
     { "type": "Feature",
       "properties": {
