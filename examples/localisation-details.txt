@@ -106,15 +106,15 @@ look on them. In order to see which are available, run::
 
     Available AFE data:
 
-        'itd'
-        'input'
-        'ic'
-        'ild'
-        'innerhaircell'
-        'gammatone'
-        'time'
-        'crosscorrelation'
-        'head_rotation'
+	  'filterbank'
+	  'innerhaircell'
+	  'crosscorrelation'
+	  'input'
+	  'ild'
+	  'ic'
+	  'itd'
+	  'time'
+	  'head_rotation'
 
 All those cues can be plotted with ``bbs.plotAfeData(cueName)``, for example::
 
