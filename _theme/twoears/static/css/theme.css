@@ -5861,7 +5861,7 @@ footer p {
 
 .rst-versions .rst-current-version .fa-book,
 .rst-versions .rst-current-version .icon-book {
-    float: left
+    float: left;
     padding-top: 2px;
 }
 
