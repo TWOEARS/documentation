@@ -2,14 +2,14 @@
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Two!Ears Auditory Model</span>
-      version: {{ version }}
+      v: {{ version }}
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
       <dl>
         <dt>Switch versions</dt>
         {% for slug, url in versions %}
-          <dd><a href="{{ url }}">{{ slug }}</a></dd>
+        <dd><a href="{{ pathto('index') + url }}">{{ slug }}</a></dd>
         {% endfor %}
       </dl>
       <dl>
