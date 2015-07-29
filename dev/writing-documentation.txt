@@ -128,7 +128,8 @@ documentation:
 
 .. note::
 
-    All the automatic replacement are defined in the file :file:`conf.py`
+    These automatic replacement are defined in the file :file:`conf.py`,
+    acronyms are defined in :file:`acronyms.py`, see :ref:`sec-acronyms`.
 
 Guidelines for reStructuredText files
 -------------------------------------
@@ -297,6 +298,8 @@ accordingly::
 If you do the referencing as shown in the first code listing the
 ``:ref:`label``` will be replaced by the title of the section or ``Fig.`` and
 the number of the figure.
+
+.. _sec-acronyms:
 
 Using acronyms
 ~~~~~~~~~~~~~~
