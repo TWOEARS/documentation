@@ -138,7 +138,12 @@
     </section>
 
   </div>
-  {% include "versions.html" %}
+
+  {% if web %}
+
+    {% include "versions.html" %}
+
+  {% endif %}
 
   {% if not embedded %}
 
