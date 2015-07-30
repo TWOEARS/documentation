@@ -69,7 +69,7 @@ latex:
 latexpdf:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex/$(VERSION)
 	@echo "Running LaTeX files through pdflatex..."
-	$(MAKE) -C $(BUILDDIR)/latex all-pdf
+	$(MAKE) -C $(BUILDDIR)/latex/$(VERSION) all-pdf
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex/$(VERSION)."
 
 latexpdfja:
