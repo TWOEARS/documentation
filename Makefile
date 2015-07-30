@@ -75,7 +75,7 @@ latexpdf:
 latexpdfja:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex/$(VERSION)
 	@echo "Running LaTeX files through platex and dvipdfmx..."
-	$(MAKE) -C $(BUILDDIR)/latex all-pdf-ja
+	$(MAKE) -C $(BUILDDIR)/latex/$(VERSION) all-pdf-ja
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex/$(VERSION)."
 
 man:
