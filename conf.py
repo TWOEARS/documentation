@@ -271,7 +271,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'TwoEars-documentation.tex', u'The Two!Ears Auditory Model Documentation',
+  (master_doc, 'twoears-auditory-model.tex', u'The Two!Ears Auditory Model Documentation',
    u'Two!Ears team', 'manual'),
 ]
 
