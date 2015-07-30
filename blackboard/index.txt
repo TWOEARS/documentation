@@ -4,8 +4,6 @@
 Blackboard system
 =================
 
-This is not up to date, but for testing the following is included:
-
 .. toctree::
     :maxdepth: 2
 
