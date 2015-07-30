@@ -1,4 +1,5 @@
 #!/bin/bash
-VERSION=$(git rev-parse --abbrev-ref HEAD) # get curent branch name
+VERSION="$(git symbolic-ref HEAD 2>/dev/null)" || VERSION="(unnamed branch)"
+VERSION=${VERSION##refs/heads/}
 if [ ${VERSION}=='master' ]; then VERSION=latest; fi
 echo ${VERSION}
