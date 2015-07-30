@@ -300,7 +300,7 @@ With a call to ``getAudioData``, the client requests a block of given size
 :math:`N`, but the function may not be able to return a full block of :math:`N`
 frames. Indeed, the ending point for the desired block may be a frame that is
 not yet published by the server. So, the function returns the number :math:`n`
-of frames it can get (:math:`n ≤ N`). The client can then call the function
+of frames it can get (:math:`n \le N`). The client can then call the function
 again and ask for the remaining frames in a loop until the requested block is
 complete. Here are examples of when this can occur:
 
