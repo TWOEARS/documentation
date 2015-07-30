@@ -73,7 +73,7 @@ if errorlevel 9009 (
 
 
 if "%1" == "html" (
-	%SPHINXBUILD% -b html %ALLSPHINXOPTS% %BUILDDIR%/html
+	%SPHINXBUILD% -b html -A web=0 %ALLSPHINXOPTS% %BUILDDIR%/html
 	if errorlevel 1 exit /b 1
 	echo.
 	echo.Build finished. The HTML pages are in %BUILDDIR%/html.
@@ -81,7 +81,7 @@ if "%1" == "html" (
 )
 
 if "%1" == "dirhtml" (
-	%SPHINXBUILD% -b dirhtml %ALLSPHINXOPTS% %BUILDDIR%/dirhtml
+	%SPHINXBUILD% -b dirhtml -A web=1 %ALLSPHINXOPTS% %BUILDDIR%/dirhtml
 	if errorlevel 1 exit /b 1
 	echo.
 	echo.Build finished. The HTML pages are in %BUILDDIR%/dirhtml.
@@ -89,55 +89,10 @@ if "%1" == "dirhtml" (
 )
 
 if "%1" == "singlehtml" (
-	%SPHINXBUILD% -b singlehtml %ALLSPHINXOPTS% %BUILDDIR%/singlehtml
+	%SPHINXBUILD% -b singlehtml -A web=0 %ALLSPHINXOPTS% %BUILDDIR%/singlehtml
 	if errorlevel 1 exit /b 1
 	echo.
 	echo.Build finished. The HTML pages are in %BUILDDIR%/singlehtml.
-	goto end
-)
-
-if "%1" == "pickle" (
-	%SPHINXBUILD% -b pickle %ALLSPHINXOPTS% %BUILDDIR%/pickle
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished; now you can process the pickle files.
-	goto end
-)
-
-if "%1" == "json" (
-	%SPHINXBUILD% -b json %ALLSPHINXOPTS% %BUILDDIR%/json
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished; now you can process the JSON files.
-	goto end
-)
-
-if "%1" == "htmlhelp" (
-	%SPHINXBUILD% -b htmlhelp %ALLSPHINXOPTS% %BUILDDIR%/htmlhelp
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished; now you can run HTML Help Workshop with the ^
-.hhp project file in %BUILDDIR%/htmlhelp.
-	goto end
-)
-
-if "%1" == "qthelp" (
-	%SPHINXBUILD% -b qthelp %ALLSPHINXOPTS% %BUILDDIR%/qthelp
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished; now you can run "qcollectiongenerator" with the ^
-.qhcp project file in %BUILDDIR%/qthelp, like this:
-	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\test.qhcp
-	echo.To view the help file:
-	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\test.ghc
-	goto end
-)
-
-if "%1" == "devhelp" (
-	%SPHINXBUILD% -b devhelp %ALLSPHINXOPTS% %BUILDDIR%/devhelp
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished.
 	goto end
 )
 
@@ -177,14 +132,6 @@ if "%1" == "latexpdfja" (
 	goto end
 )
 
-if "%1" == "text" (
-	%SPHINXBUILD% -b text %ALLSPHINXOPTS% %BUILDDIR%/text
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished. The text files are in %BUILDDIR%/text.
-	goto end
-)
-
 if "%1" == "man" (
 	%SPHINXBUILD% -b man %ALLSPHINXOPTS% %BUILDDIR%/man
 	if errorlevel 1 exit /b 1
@@ -198,14 +145,6 @@ if "%1" == "texinfo" (
 	if errorlevel 1 exit /b 1
 	echo.
 	echo.Build finished. The Texinfo files are in %BUILDDIR%/texinfo.
-	goto end
-)
-
-if "%1" == "gettext" (
-	%SPHINXBUILD% -b gettext %I18NSPHINXOPTS% %BUILDDIR%/locale
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished. The message catalogs are in %BUILDDIR%/locale.
 	goto end
 )
 
@@ -223,40 +162,6 @@ if "%1" == "linkcheck" (
 	echo.
 	echo.Link check complete; look for any errors in the above output ^
 or in %BUILDDIR%/linkcheck/output.txt.
-	goto end
-)
-
-if "%1" == "doctest" (
-	%SPHINXBUILD% -b doctest %ALLSPHINXOPTS% %BUILDDIR%/doctest
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Testing of doctests in the sources finished, look at the ^
-results in %BUILDDIR%/doctest/output.txt.
-	goto end
-)
-
-if "%1" == "coverage" (
-	%SPHINXBUILD% -b coverage %ALLSPHINXOPTS% %BUILDDIR%/coverage
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Testing of coverage in the sources finished, look at the ^
-results in %BUILDDIR%/coverage/python.txt.
-	goto end
-)
-
-if "%1" == "xml" (
-	%SPHINXBUILD% -b xml %ALLSPHINXOPTS% %BUILDDIR%/xml
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished. The XML files are in %BUILDDIR%/xml.
-	goto end
-)
-
-if "%1" == "pseudoxml" (
-	%SPHINXBUILD% -b pseudoxml %ALLSPHINXOPTS% %BUILDDIR%/pseudoxml
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished. The pseudo-XML files are in %BUILDDIR%/pseudoxml.
 	goto end
 )
 
