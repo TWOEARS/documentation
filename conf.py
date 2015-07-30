@@ -16,6 +16,7 @@ import sys
 import os
 import shlex
 import sphinx_rtd_theme
+import subprocess
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -73,7 +74,7 @@ author = 'Two!Ears team'
 # built documents.
 #
 # The short X.Y version.
-version = 'latest'
+version = subprocess.check_output("./get_version.sh")
 # The full version, including alpha/beta/rc tags.
 release = version
 
