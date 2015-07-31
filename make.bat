@@ -12,6 +12,8 @@ if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%
 )
+set VERSION=
+for /f "delims=" %%a in ('python version.py') do @set VERSION=%%a
 
 if "%1" == "" goto help
 
@@ -73,86 +75,78 @@ if errorlevel 9009 (
 
 
 if "%1" == "html" (
-	%SPHINXBUILD% -b html -A web=0 %ALLSPHINXOPTS% %BUILDDIR%/html
+	%SPHINXBUILD% -b html -A web=0 %ALLSPHINXOPTS% %BUILDDIR%/html/%VERSION%
 	if errorlevel 1 exit /b 1
 	echo.
-	echo.Build finished. The HTML pages are in %BUILDDIR%/html.
+	echo.Build finished. The HTML pages are in %BUILDDIR%/html/%VERSION%.
 	goto end
 )
 
 if "%1" == "dirhtml" (
-	%SPHINXBUILD% -b dirhtml -A web=1 %ALLSPHINXOPTS% %BUILDDIR%/dirhtml
+	%SPHINXBUILD% -b dirhtml -A web=1 %ALLSPHINXOPTS% %BUILDDIR%/dirhtml/%VERSION%
 	if errorlevel 1 exit /b 1
 	echo.
-	echo.Build finished. The HTML pages are in %BUILDDIR%/dirhtml.
+	echo.Build finished. The HTML pages are in %BUILDDIR%/dirhtml/%VERSION%.
 	goto end
 )
 
 if "%1" == "singlehtml" (
-	%SPHINXBUILD% -b singlehtml -A web=0 %ALLSPHINXOPTS% %BUILDDIR%/singlehtml
+	%SPHINXBUILD% -b singlehtml -A web=0 %ALLSPHINXOPTS% %BUILDDIR%/singlehtml/%VERSION%
 	if errorlevel 1 exit /b 1
 	echo.
-	echo.Build finished. The HTML pages are in %BUILDDIR%/singlehtml.
+	echo.Build finished. The HTML pages are in %BUILDDIR%/singlehtml/%VERSION%.
 	goto end
 )
 
 if "%1" == "epub" (
-	%SPHINXBUILD% -b epub %ALLSPHINXOPTS% %BUILDDIR%/epub
+	%SPHINXBUILD% -b epub %ALLSPHINXOPTS% %BUILDDIR%/epub/%VERSION%
 	if errorlevel 1 exit /b 1
 	echo.
-	echo.Build finished. The epub file is in %BUILDDIR%/epub.
+	echo.Build finished. The epub file is in %BUILDDIR%/epub/%VERSION%.
 	goto end
 )
 
 if "%1" == "latex" (
-	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
+	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex/%VERSION%
 	if errorlevel 1 exit /b 1
 	echo.
-	echo.Build finished; the LaTeX files are in %BUILDDIR%/latex.
+	echo.Build finished; the LaTeX files are in %BUILDDIR%/latex/%VERSION%.
 	goto end
 )
 
 if "%1" == "latexpdf" (
-	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
-	cd %BUILDDIR%/latex
+	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex/%VERSION%
+	cd %BUILDDIR%/latex/%VERSION%
 	make all-pdf
 	cd %~dp0
 	echo.
-	echo.Build finished; the PDF files are in %BUILDDIR%/latex.
+	echo.Build finished; the PDF files are in %BUILDDIR%/latex/%VERSION%.
 	goto end
 )
 
 if "%1" == "latexpdfja" (
-	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
-	cd %BUILDDIR%/latex
+	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex/%VERSION%
+	cd %BUILDDIR%/latex/%VERSION%
 	make all-pdf-ja
 	cd %~dp0
 	echo.
-	echo.Build finished; the PDF files are in %BUILDDIR%/latex.
+	echo.Build finished; the PDF files are in %BUILDDIR%/latex/%VERSION%.
 	goto end
 )
 
 if "%1" == "man" (
-	%SPHINXBUILD% -b man %ALLSPHINXOPTS% %BUILDDIR%/man
+	%SPHINXBUILD% -b man %ALLSPHINXOPTS% %BUILDDIR%/man/%VERSION%
 	if errorlevel 1 exit /b 1
 	echo.
-	echo.Build finished. The manual pages are in %BUILDDIR%/man.
-	goto end
-)
-
-if "%1" == "texinfo" (
-	%SPHINXBUILD% -b texinfo %ALLSPHINXOPTS% %BUILDDIR%/texinfo
-	if errorlevel 1 exit /b 1
-	echo.
-	echo.Build finished. The Texinfo files are in %BUILDDIR%/texinfo.
+	echo.Build finished. The manual pages are in %BUILDDIR%/man/%VERSION%.
 	goto end
 )
 
 if "%1" == "changes" (
-	%SPHINXBUILD% -b changes %ALLSPHINXOPTS% %BUILDDIR%/changes
+	%SPHINXBUILD% -b changes %ALLSPHINXOPTS% %BUILDDIR%/changes/%VERSION%
 	if errorlevel 1 exit /b 1
 	echo.
-	echo.The overview file is in %BUILDDIR%/changes.
+	echo.The overview file is in %BUILDDIR%/changes/%VERSION%.
 	goto end
 )
 
@@ -163,6 +157,14 @@ if "%1" == "linkcheck" (
 	echo.Link check complete; look for any errors in the above output ^
 or in %BUILDDIR%/linkcheck/output.txt.
 	goto end
+)
+
+if "%1" == "spelling" (
+	%SPHINXBUILD% -b spelling %ALLSPHINXOPTS% %BUILDDIR%/spelling
+	if errorlevel 1 exit /b 1
+	echo.
+	echo.Check finished. Wrong words can be found in %BUILDDIR%/spelling/output.txt.
+    goto end
 )
 
 :end
