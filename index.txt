@@ -80,6 +80,7 @@ Learn how this happens below:
 * :ref:`sec-blackboard-architecture`
 * :ref:`sec-knowledge-sources`
 * :ref:`sec-blackboard-add-knowledge-source`
+* :ref:`sec-blackboard-training`
 
 .. rubric:: Database
 

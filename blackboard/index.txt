@@ -12,5 +12,6 @@ Blackboard system
     architecture
     knowledge-sources
     add-knowledge-sources
+    training
 
 .. vim: filetype=rst spell:
