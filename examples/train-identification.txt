@@ -17,9 +17,9 @@ To dive into the example, load up Matlab, navigate into the example directory, a
 
 First thing happening in there is the ::
     
-    startTwoEars( 'identTraining_repos.xml' );
+    startTwoEars( 'Config.xml' );
 
-command. Looking into this file, we see ...TODO
+command. Looking into this file, we see exactly one dependency: to execute this example, we need to load the :ref:`sec-idTrainPipeline` module. The loading process then in turn takes care of initialising also the modules that the training pipeline depends on.
 
 The next "paragraph" first creates the basic pipeline object of type :ref:`sec-TwoEarsIdTrainPipe`, and then sets two defining options: The *feature creator* and the *model creator*. ::
 
@@ -30,7 +30,7 @@ The next "paragraph" first creates the basic pipeline object of type :ref:`sec-T
        'cvFolds', 7, ...
        'alpha', 0.99 );
 
-In this case, an L1-regularized sparse logistic regression model will be trained through the use of the :ref:`sec-GlmNetLambdaSelectTrainer`, which is a wrapper for GLMNET (add link here TODO). A pile of auditory features will be used in this model, processed and compiled by the :ref:`sec-FeatureSet1Blockmean` feature creator. Have a look into the respective sections to learn more!
+In this case, an L1-regularized sparse logistic regression model will be trained through the use of the :ref:`sec-GlmNetLambdaSelectTrainer`, which is a wrapper for `GLMNET <http://web.stanford.edu/~hastie/glmnet_matlab/>`_. A pile of auditory features will be used in this model, processed and compiled by the :ref:`sec-FeatureSet1Blockmean` feature creator. Have a look into the respective sections to learn more!
 
 
 
