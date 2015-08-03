@@ -1,0 +1,9 @@
+.. highlight:: Matlab
+
+.. _sec-examples-identification:
+
+Identification of sound types
+=============================
+
+
+.. vim: filetype=rst spell:
