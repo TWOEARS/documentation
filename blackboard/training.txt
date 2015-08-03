@@ -2,17 +2,16 @@
 
 .. _sec-blackboard-training:
 
-Training
-========
+Model training
+==============
 
-.. _sec-localisation-training:
+.. toctree::
+    :maxdepth: 1
 
-Training of the localisation stage
-----------------------------------
+    localisation-training 
+    idTrainPipeline
 
-.. _sec-identification-training:
+    
 
-Training of the identification stage
-------------------------------------
 
 .. vim: filetype=rst spell:
