@@ -1,0 +1,30 @@
+.. highlight:: Matlab
+
+.. _sec-examples-train-identification:
+
+Train sound type identification models
+======================================
+
+Part of the |TwoEarsModel| is the :ref:`sec-identity-knowledge-source` which can be instantiated (multiple times) to identify the type of auditory objects, like "speech", "fire", "knock" etc. Each IdentityKS needs a source type model -- this example shows one possibility to train such a model.
+
+The base folder for this example is :file:`examples/train_identification_model`, with the main example script file being :file:`trainAndTestCleanModel.m`. Other than that and of relevance, there is only the file :file:`identTraining_repos.xml`, which is the |TwoEars| Toolbox dependencies configuration file. Later in the model training process, new directories with names like "Training.2015.08.03.14.57.21.786" will be created by the training pipeline, holding log files of the training, file lists of the used training and testing data, and of course the trained models. These are the models to be used in the IdentityKS, then.
+
+
+Example step-through
+--------------------
+
+To dive into the example, load up Matlab, navigate into the example directory, and open :file:`trainAndTestCleanModel.m`, which contains a function (also usable as a script). Let's have a look before firing it up!
+
+First thing happening in there is the ::
+    
+    startTwoEars( 'identTraining_repos.xml' );
+
+command.
+
+
+
+
+
+
+
+.. vim: filetype=rst spell:

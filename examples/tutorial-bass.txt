@@ -1,4 +1,4 @@
-.. _sec-tutorial-bass:
+.. _sec-examples-tutorial-bass:
 
 Stream binaural signals from |BASS| to Matlab
 =============================================
