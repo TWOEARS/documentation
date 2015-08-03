@@ -305,6 +305,8 @@ following way. Assume we have the repository ``test.git``.
     $ git filter-branch --force --index-filter \
       'git rm -r --cached --ignore-unmatch test1' --prune-empty \
       --tag-name-filter cat -- --all
+    # clean up space
+    $ git gc --aggressive --prune=now
 
 After that you have your first new repository for which you can set up a new
 remote and push it. For the other part of the splitting repeat the above steps
