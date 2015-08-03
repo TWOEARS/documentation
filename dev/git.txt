@@ -281,8 +281,25 @@ In order to update your repository with changes from others you have to run
 Removing commits with large files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you committed and pushed a huge file and want to redo that, have a look at
-`this explanation how to do it <http://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository>`_.
+Use the `BFG Repo-Cleaner`_ to remove large files from your commit history. Just
+download the pre-compiled JAR file and copy it as :file:`bfg` to a folder where
+your system looks for executables. Now let's say you want to clean up the
+repository ``big-repo`` and remove all files larger than 2 MB, first create a
+local copy of it:
+
+.. code-block:: bash
+
+    $ git clone --mirror /path/to/big-repo big-repo-copy
+    $ echo "Remove large files" > banned.txt
+    $ bfg --strip-blobs-bigger-than 2M --replace-text banned.txt repo.git
+    $ cd big-repo-copy
+    $ git reflog expire --expire=now --all && git gc --prune=now --aggressive
+    $ git push
+
+For further infos on this topic have a look at `this discussion
+<http://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository>`_.
+
+.. _BFG REpo-Cleaner: https://rtyley.github.io/bfg-repo-cleaner/
 
 .. _git-splitting:
 
@@ -290,14 +307,37 @@ Split repository
 ~~~~~~~~~~~~~~~~
 
 If you want to split an existing repository into two, you can do it the
-following way. Assume we have the repository ``test.git``.
+following way. Assume we have the repository ``<big-repo>`` and want to extract a
+sub folder ``<name-of-folder>``:
+
+.. code-block:: bash
+
+    # prepare old repo
+    $ cd <big-repo>
+    $ git subtree split -P <name-of-folder> -b <name-of-new-branch>
+    $ cd ..
+    # create new repo
+    $ mkdir <new-repo>
+    $ cd <new-repo>
+    $ git init
+    $ git pull </path/to/big-repo> <name-of-new-branch>
+    # clean up
+    $ rm -rf .git/refs/original/ && \
+      git reflog expire --all && \
+      git gc --aggressive --prune=now
+    $ git reflog expire --all --expire-unreachable=0
+    $ git repack -A -d
+    $ git prune
+
+Alternatively you could delete existing folders in your existing repository in order
+to create a new one out of it:
 
 .. code-block:: bash
 
     # clone the repo
-    $ git clone test.git test
-    $ cd test
-    $ ls test
+    $ git clone <big-repo> tmp.git
+    $ cd tmp.git
+    $ ls
      test1 test2
     # remove original url
     $ git remote rm origin
@@ -306,11 +346,14 @@ following way. Assume we have the repository ``test.git``.
       'git rm -r --cached --ignore-unmatch test1' --prune-empty \
       --tag-name-filter cat -- --all
     # clean up space
-    $ git gc --aggressive --prune=now
+    $ git reflog expire --expire=now --all && git gc --prune=now --aggressive
 
 After that you have your first new repository for which you can set up a new
 remote and push it. For the other part of the splitting repeat the above steps
 for the ``test2`` folder.
+
+For further details have a look at `this discussion
+<http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository/17864475#17864475>`_.
 
 Git under Windows
 -----------------
