@@ -384,7 +384,7 @@ moment we are simply using git, which is no longer correctly working due to the
 large repository size (for example a new cloning of the internal data repository
 is not possible at the moment).
 
-We are trying to find a solution for this at the moment, most likely we will use
-`Git Large File Storage <https://github.com/github/git-lfs>`_.
+We are working on a solution at the moment, and will most likely use
+`Git-Media <https://github.com/TWOEARS/git-media>`_.
 
 .. vim: filetype=rst spell:
