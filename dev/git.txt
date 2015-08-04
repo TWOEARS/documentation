@@ -171,6 +171,23 @@ branch, both locally and the remote one
 The basic concept of the feature branch is described with more examples here:
 https://www.atlassian.com/git/workflows#!workflow-feature-branch
 
+Remote branches
+~~~~~~~~~~~~~~~
+
+In order to get an overview of all your local as well as the remote branches,
+type:
+
+.. code-block:: bash
+
+    $ git branch -a
+
+If someone deleted a remote branch in between it might be necessary that you
+update your list of remote branches first
+
+.. code-block:: bash
+
+    $ git remote update origin --prune
+
 Git advanced commands
 ---------------------
 
