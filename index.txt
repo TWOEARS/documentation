@@ -104,6 +104,9 @@ figures from our publications:
 * :ref:`sec-examples-localisation`
 * :ref:`sec-examples-localisation-details`
 * :ref:`sec-examples-train-localisation`
+* :ref:`sec-examples-train-identification`
+* :ref:`sec-examples-identification`
+* :ref:`sec-examples-tutorial-bass`
 
 .. rubric:: Development
 

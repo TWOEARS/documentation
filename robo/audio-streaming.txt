@@ -217,7 +217,7 @@ of the last streamed frame, noted ``lastFrameIndex``. The data structure of the
 Example of use
 ~~~~~~~~~~~~~~
 
-The tutorial :ref:`sec-tutorial-bass` is an example of use of |BASS|, using the
+The tutorial :ref:`sec-examples-tutorial-bass` is an example of use of |BASS|, using the
 |matlab-genomix| bridge.  It shows how to invoke its services and how to
 retrieve the streamed audio data in Matlab.
 

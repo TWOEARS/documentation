@@ -1,0 +1,40 @@
+.. highlight:: Matlab
+
+.. _sec-examples-train-identification:
+
+Train sound type identification models
+======================================
+
+Part of the |TwoEarsModel| is the :ref:`sec-identity-knowledge-source` which can be instantiated (multiple times) to identify the type of auditory objects, like "speech", "fire", "knock" etc. Each IdentityKS needs a source type model -- this example shows one possibility to train such a model. Have a look at the :ref:`sec-examples-identification` to see how these models are being used in the |TwoEars| |blackboard|!.
+
+The base folder for this example is :file:`examples/train_identification_model`, with the main example script file being :file:`trainAndTestCleanModel.m`. Other than that and of relevance, there is only the file :file:`identTraining_repos.xml`, which is the |TwoEars| Toolbox dependencies configuration file. Later in the model training process, new directories with names like "Training.2015.08.03.14.57.21.786" will be created by the training pipeline, holding log files of the training, file lists of the used training and testing data, and of course the trained models. These are the models to be used in the IdentityKS, then.
+
+
+Example step-through
+--------------------
+
+To dive into the example, load up Matlab, navigate into the example directory, and open :file:`trainAndTestCleanModel.m`, which contains a function (also usable as a script). Let's have a look before firing it up!
+
+First thing happening in there is the ::
+    
+    startTwoEars( 'Config.xml' );
+
+command. Looking into this file, we see exactly one dependency: to execute this example, we need to load the :ref:`sec-idTrainPipeline` module. The loading process then in turn takes care of initialising also the modules that the training pipeline depends on.
+
+The next "paragraph" first creates the basic pipeline object of type :ref:`sec-TwoEarsIdTrainPipe`, and then sets two defining options: The *feature creator* and the *model creator*. ::
+
+   pipe = TwoEarsIdTrainPipe();
+   pipe.featureCreator = featureCreators.FeatureSet1Blockmean();
+   pipe.modelCreator = modelTrainers.GlmNetLambdaSelectTrainer( ...
+       'performanceMeasure', @performanceMeasures.BAC2, ...
+       'cvFolds', 7, ...
+       'alpha', 0.99 );
+
+In this case, an L1-regularized sparse logistic regression model will be trained through the use of the :ref:`sec-GlmNetLambdaSelectTrainer`, which is a wrapper for `GLMNET <http://web.stanford.edu/~hastie/glmnet_matlab/>`_. A pile of auditory features will be used in this model, processed and compiled by the :ref:`sec-FeatureSet1Blockmean` feature creator. Have a look into the respective sections to learn more!
+
+
+
+
+
+
+.. vim: filetype=rst spell:

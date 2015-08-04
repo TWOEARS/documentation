@@ -1,0 +1,10 @@
+
+.. _sec-localisation-training:
+
+Sound localisation training
+===========================
+
+Bla.
+
+
+.. vim: filetype=rst spell:

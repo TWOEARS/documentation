@@ -13,6 +13,8 @@ At the moment the following examples are available:
     localisation
     localisation-details
     train-localisation
+    train-identification
+    identification
     tutorial-bass
 
 This section will expand with every new major feature that will be added to the

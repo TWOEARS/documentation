@@ -444,7 +444,7 @@ The |GenoM3| tools are now installed on your system. If you want to try the
 Matlab bridge, you can follow the official `tutorial using the demo component
 <https://git.openrobots.org/projects/matlab-genomix/gollum/demo>`_. You can also
 follow the instructions below to install :ref:`sec-bass` and later on follow the
-tutorial :ref:`sec-tutorial-bass`.
+tutorial :ref:`sec-examples-tutorial-bass`.
 
 .. note::
 
