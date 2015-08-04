@@ -296,10 +296,11 @@ local copy of it:
     $ git reflog expire --expire=now --all && git gc --prune=now --aggressive
     $ git push
 
-For further infos on this topic have a look at `this discussion
-<http://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository>`_.
+For further infos on this topic have a look at `the discussion on removing large
+files`_.
 
 .. _BFG REpo-Cleaner: https://rtyley.github.io/bfg-repo-cleaner/
+.. _the discussion on removing large files: http://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository
 
 .. _git-splitting:
 
@@ -352,8 +353,10 @@ After that you have your first new repository for which you can set up a new
 remote and push it. For the other part of the splitting repeat the above steps
 for the ``test2`` folder.
 
-For further details have a look at `this discussion
-<http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository/17864475#17864475>`_.
+For further details have a look at `the discussion on how to split
+repositories`_.
+
+.. _the discussion on how to split repositories: http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository/17864475#17864475
 
 Git under Windows
 -----------------
