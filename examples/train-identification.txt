@@ -15,11 +15,19 @@ Example step-through
 
 To dive into the example, load up Matlab, navigate into the example directory, and open :file:`trainAndTestCleanModel.m`, which contains a function (also usable as a script). Let's have a look before firing it up!
 
+
+Dependencies
+~~~~~~~~~~~~
+
 First thing happening in there is the ::
     
     startTwoEars( 'Config.xml' );
 
 command. Looking into this file, we see exactly one dependency: to execute this example, we need to load the :ref:`sec-idTrainPipeline` module. The loading process then in turn takes care of initialising also the modules that the training pipeline depends on.
+
+
+Feature and model creators
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The next "paragraph" first creates the basic pipeline object of type :ref:`sec-TwoEarsIdTrainPipe`, and then sets two defining options: The *feature creator* and the *model creator*. ::
 
@@ -33,7 +41,34 @@ The next "paragraph" first creates the basic pipeline object of type :ref:`sec-T
 In this case, an L1-regularized sparse logistic regression model will be trained through the use of the :ref:`sec-GlmNetLambdaSelectTrainer`, which is a wrapper for `GLMNET <http://web.stanford.edu/~hastie/glmnet_matlab/>`_. A pile of auditory features will be used in this model, processed and compiled by the :ref:`sec-FeatureSet1Blockmean` feature creator. Have a look into the respective sections to learn more!
 
 
+Training and testing sets
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The models will be trained using a particular set of sounds, specified in the :ref:`trainset flist <sec-trainset>`. For this example, the IEEE AASP single event sounds serve as training material. There are sounds for several classes like "laughter", "keys", "speech", etc. If you don't call the `trainAndTestCleanModel` function with a different classname, a model for the "speech" class will be trained (this is specified in the third line). Irregardless of the class the model is trained for, all sounds listed in the flist (`have a look <https://dev.qu.tu-berlin.de/projects/twoears-database/repository/revisions/master/entry/learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist>`_) will be used for training -- but only the ones belonging to the model class will serve as "positive" examples. ::
+
+   pipe.trainset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist';
+   pipe.testset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TestSet_1.flist';
+
+The testset specifies files used for testing the trained model. This is not necessary for the model creation, it only serves as an immediate way of providing feedback about the model performance after training. Of course the testset must only contain files that have not been used for training, to test for generalisation of the model.
+
+
+Scene configuration
+~~~~~~~~~~~~~~~~~~~
+
+A "clean" :ref:`scene configuration <sec-sceneConfiguration>` is used to train this model. That means: the sound sources are positioned at 0° azimuth relative to the head, there is no interfering noise, and no reverb (free-field conditions). Have a look into the :ref:`respective training pipeline documentation part <sec-sceneConfiguration>` to get to know the many possibilities to configure the acoustic training scene. ::
+
+   sc = dataProcs.SceneConfiguration(); % clean
+   pipe.setSceneConfig( [sc] ); 
+
+   
+Running the pipeline
+~~~~~~~~~~~~~~~~~~~~
+
+Bla. Text about what to expect, aborting, restarting and so on.
+
+::
+
+   modelPath = pipe.pipeline.run( {classname}, 0 );
 
 
 
