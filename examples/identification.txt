@@ -45,12 +45,12 @@ Creating a test scene
 - :ref:`IEEE AASP single event sounds <sec-ieee-aasp>`
 
 
-Initialising the |BinSim|
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Initialising the Binaural Simulator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-Building the example |blackboard|
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Building the example Blackboard System
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 Running the simulation
