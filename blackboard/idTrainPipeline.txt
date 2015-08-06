@@ -5,6 +5,22 @@ Sound identification training pipeline
 ======================================
 
 
+Concepts
+--------
+
+
+.. _sec-trainset:
+
+Train- and testsets
+~~~~~~~~~~~~~~~~~~~
+
+
+.. _sec-sceneConfiguration:
+
+Scene configuration
+~~~~~~~~~~~~~~~~~~~
+
+
 .. _sec-trainPipeCore:
 
 Training pipeline core classes
