@@ -5,5 +5,50 @@
 Identification of sound types
 =============================
 
+This example particularly serves to demonstrate two aspects of the |TwoEarsModel|:
+
+* Building a |blackboard| dynamically in code (instead of via xml definition, as demonstrated in the :ref:`sec-examples-localisation` example)
+* Using :ref:`identity knowledge sources <sec-identity-knowledge-source>` with source type models to generate hypotheses about the type of sound objects in an auditory scene.
+
+trained models are in directory, look at :ref:`sec-examples-train-identification` to see how they were created
+
+:file:`identify.m`
+
+
+
+Example step-through
+--------------------
+
+
+Specifying the identification models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Resolving |TwoEars| module dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Creating a test scene
+~~~~~~~~~~~~~~~~~~~~~
+
+- :ref:`IEEE AASP single event sounds <sec-ieee-aasp>`
+
+
+Initialising the |BinSim|
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Building the example |blackboard|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Running the simulation
+~~~~~~~~~~~~~~~~~~~~~~
+
+
+Evaluating the simulation
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 .. vim: filetype=rst spell:
