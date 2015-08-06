@@ -16,13 +16,27 @@ The base folder for this example is :file:`examples/identification`, with the ma
 Example step-through
 --------------------
 
+To dive into the example, load up Matlab, navigate into the example directory, and open :file:`identify.m`, which contains a function (also usable as a script). Let's have a look before firing it up!
+
 
 Specifying the identification models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The function ``identify`` takes a parameter, which shall specify the models to be used for source type identification. However, for this example, you can run without setting this parameter, and let the function ``setDefaultIdModels`` do this for you. ::
+
+   if nargin < 1, idModels = setDefaultIdModels(); end
+
+This function specifies five source type models by giving the directories they are located in and the class they are trained to identify, respectively.
+ 
 
 Resolving |TwoEars| module dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Next, the function makes sure that all modules the example dependens on can be found and get initialised::
+    
+    startTwoEars( 'Config.xml' );
+
+Looking into this file, we see five dependencies: to execute this example, we need to load the |BinSim|, the |AFE|, the |blackboard|, the :ref:`sec-idTrainPipeline` module, and the ``SOFA`` module.
 
 
 Creating a test scene
@@ -42,9 +56,56 @@ Building the example |blackboard|
 Running the simulation
 ~~~~~~~~~~~~~~~~~~~~~~
 
+::
+
+   -------- [Event Fired:] Scheduler -> (AgendaEmpty) -> AuditoryFrontEndKS
+   -------- [Executing KS:] AuditoryFrontEndKS
+   -------- [Event Fired:] AuditoryFrontEndKS -> (KsFiredEvent) -> IdentityKS[clearthroat]
+   -------- [Event Fired:] AuditoryFrontEndKS -> (KsFiredEvent) -> IdentityKS[knock]
+   -------- [Event Fired:] AuditoryFrontEndKS -> (KsFiredEvent) -> IdentityKS[switch]
+   -------- [Event Fired:] AuditoryFrontEndKS -> (KsFiredEvent) -> IdentityKS[keyboard]
+   -------- [Event Fired:] AuditoryFrontEndKS -> (KsFiredEvent) -> IdentityKS[speech]
+   -------- [Executing KS:] IdTruthPlotKS
+   -------- [Executing KS:] IdentityKS[clearthroat]
+   ....Identity Hypothesis: clearthroat with 75% probability.
+   -------- [Event Fired:] IdentityKS[clearthroat] -> (KsFiredEvent) -> IdTruthPlotKS
+   -------- [Executing KS:] IdentityKS[knock]
+   ....Identity Hypothesis: knock with 0% probability.
+   -------- [Event Fired:] IdentityKS[knock] -> (KsFiredEvent) -> IdTruthPlotKS
+   -------- [Executing KS:] IdentityKS[switch]
+   ....Identity Hypothesis: switch with 6% probability.
+   -------- [Event Fired:] IdentityKS[switch] -> (KsFiredEvent) -> IdTruthPlotKS
+   -------- [Executing KS:] IdentityKS[keyboard]
+   ....Identity Hypothesis: keyboard with 0% probability.
+   -------- [Event Fired:] IdentityKS[keyboard] -> (KsFiredEvent) -> IdTruthPlotKS
+   -------- [Executing KS:] IdentityKS[speech]
+   ....Identity Hypothesis: speech with 89% probability.
+   -------- [Event Fired:] IdentityKS[speech] -> (KsFiredEvent) -> IdTruthPlotKS
+
+
+
+.. _fig-identify:
+
+.. figure:: img/identify.png
+    :align: center
+
+    This is the live plot of hypotheses created by the :ref:`identity knowledge sources <sec-identity-knowledge-source>`, in comparison to the "ground truth" (as given by annotated on- and offset times for the source sound files).
+
+
 
 Evaluating the simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+   Evaluate scores...
+   
+   relative error of clearthroat identification model: 0.244339
+   relative error of keyboard identification model: 0.112274
+   relative error of knock identification model: 0.034251
+   relative error of speech identification model: 0.095172
+   relative error of switch identification model: 0.110843
+
 
 
 
