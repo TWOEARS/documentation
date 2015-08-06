@@ -44,7 +44,7 @@ In this case, an L1-regularized sparse logistic regression model will be trained
 Training and testing sets
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The models will be trained using a particular set of sounds, specified in the :ref:`trainset flist <sec-trainset>`. For this example, the IEEE AASP single event sounds serve as training material. There are sounds for several classes like "laughter", "keys", "speech", etc. If you don't call the `trainAndTestCleanModel` function with a different classname, a model for the "speech" class will be trained (this is specified in the third line). Irregardless of the class the model is trained for, all sounds listed in the flist (`have a look <https://dev.qu.tu-berlin.de/projects/twoears-database/repository/revisions/master/entry/learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist>`_) will be used for training -- but only the ones belonging to the model class will serve as "positive" examples. ::
+The models will be trained using a particular set of sounds, specified in the :ref:`trainset flist <sec-trainset>`. For this example, the :ref:`IEEE AASP single event sounds <sec-ieee-aasp>` serve as training material. There are sounds for several classes like "laughter", "keys", "speech", etc. If you don't call the `trainAndTestCleanModel` function with a different classname, a model for the "speech" class will be trained (this is specified in the third line). Irregardless of the class the model is trained for, all sounds listed in the flist (`have a look <https://dev.qu.tu-berlin.de/projects/twoears-database/repository/revisions/master/entry/learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist>`_) will be used for training -- but only the ones belonging to the model class will serve as "positive" examples. ::
 
    pipe.trainset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist';
    pipe.testset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TestSet_1.flist';
@@ -64,12 +64,76 @@ A "clean" :ref:`scene configuration <sec-sceneConfiguration>` is used to train t
 Running the pipeline
 ~~~~~~~~~~~~~~~~~~~~
 
-Bla. Text about what to expect, aborting, restarting and so on.
+After everything is set up, the pipeline has to be initialised and can then be :ref:`run <sec_trainPipeRun>`. ::
 
-::
-
+   pipe.init();
    modelPath = pipe.pipeline.run( {classname}, 0 );
 
+Initialisation can take some time depending on the files for training and testing, and whether they are available through a local copy of the |TwoEars| database, through the download cache of the remote |TwoEars| database, or whether they have to be downloaded from there first. The time needed for actually running the pipeline can vary substantially, depending on
 
+* the total accumulated length of sound files used
+* the scene configuration -- using reverb or noise interference makes the binaural simulation take longer
+* the features having to be extracted by the |AFE|
+* the type of model (training) -- there are big differences here, as the computational effort can be much higher for some models than for others (GLMNET, the one used here, is pretty fast)
+* and whether the files have been processed in this configuration before or not. The pipeline saves intermediate files after each processing stage (binaural simulation, auditory front-end, feature creation) for each sound file and each configuration, and it finds those files later, if a file is to be processed in the same (or partly the same) configuration. This way, a lot of time-consuming preprocessing can be saved. You can try it -- interrupt the preprocessing at any moment by hitting `ctrl+c`, and restart the script. You will see that all processed files/stages won't be done again.
+
+After successful training and testing, you should see something like ::
+
+   Running: MultiConfigurationsEarSignalProc
+   ==========================================
+   .C:\projekte\twoEars\wp1git\tmp\sound_databases\IEEE_AASP\alert\alert11.wav
+   ...
+
+   Running: MultiConfigurationsAFEmodule
+   ==========================================
+   .C:\projekte\twoEars\wp1git\tmp\sound_databases\IEEE_AASP\alert\alert11.wav
+   ...
+
+   Running: MultiConfigurationsFeatureProc
+   ==========================================
+   .C:\projekte\twoEars\wp1git\tmp\sound_databases\IEEE_AASP\alert\alert11.wav
+   ...
+
+   Running: GatherFeaturesProc
+   ==========================================
+   .C:\projekte\twoEars\wp1git\tmp\sound_databases\IEEE_AASP\alert\alert11.wav
+   ...
+
+   ===================================
+   ##   Training model "speech"
+   ===================================
+
+
+   ==  Training model on trainSet...
+
+
+   Run on full trainSet...
+   GlmNet training with alpha=0.990000
+      size(x) = 5040x846
+
+
+   Run cv to determine best lambda...
+   Starting run 1 of CV... GlmNet training with alpha=0.990000
+      size(x) = 4111x846
+
+   Applying model to test set...
+   Done. Performance = 0.842686
+
+   ...
+
+   Calculate Performance for all lambdas...................................................Done
+
+   ==  Testing model on testSet... 
+
+
+
+   ===================================
+   ##   "speech" Performance: 0.942548
+   ===================================
+
+    -- Model is saved at C:\projekte\twoEars\twoears-examples\train_identification_model\Training.2015.08.06.15.44.52.582 -- 
+   >> 
+
+The stated performance is on the test set, and the path afterwards indicates the location of the model on your drive.
 
 .. vim: filetype=rst spell:

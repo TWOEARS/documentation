@@ -21,6 +21,12 @@ Scene configuration
 ~~~~~~~~~~~~~~~~~~~
 
 
+.. _sec_trainPipeRun:
+
+Running the pipeline
+~~~~~~~~~~~~~~~~~~~~
+
+
 .. _sec-trainPipeCore:
 
 Training pipeline core classes
