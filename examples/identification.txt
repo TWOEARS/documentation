@@ -10,7 +10,11 @@ This example particularly serves to demonstrate two aspects of the |TwoEarsModel
 * Building a |blackboard| dynamically in code (instead of via xml definition, as demonstrated in the :ref:`sec-examples-localisation` example)
 * Using :ref:`identity knowledge sources <sec-identity-knowledge-source>` with source type models to generate hypotheses about the type of sound objects in an auditory scene.
 
-The base folder for this example is :file:`examples/identification`, with the main example script file being :file:`identify.m`. Other than that, there is the file :file:`Config.xml`, which is the |TwoEars| Toolbox dependencies configuration file, the file :file:`SceneDescription.xml` which describes the |BinSim| configuration, there are five directories with names like "Training.2015.07.24.00.23.42.772", which hold the used source type models, a sound file list :file:`shortTest.flist`, and subfunctions (:file:`buildIdentificationBBS.m`, :file:`makeTestSignal.m`, :file:`setDefaultIdModels.m`) used in ``identify``. Have a look at look at :ref:`sec-examples-train-identification` to see how the source type models have been created.
+The base folder for this example is :file:`examples/identification`, with the main example script file being :file:`identify.m`. Other than that, there is the file :file:`SceneDescription.xml` which describes the |BinSim| configuration, there are five directories with names like "Training.2015.07.24.00.23.42.772", which hold the used source type models, a sound file list :file:`shortTest.flist`, and subfunctions (:file:`buildIdentificationBBS.m`, :file:`makeTestSignal.m`, :file:`setDefaultIdModels.m`) used in :file:`identify.m`. Have a look at look at :ref:`sec-examples-train-identification` to see how the source type models have been created.
+To see if everything is working, just run ::
+
+    >> identify;
+
 
 
 Example step-through
@@ -29,15 +33,12 @@ The function ``identify`` takes a parameter, which shall specify the models to b
 This function specifies five source type models by giving the directories they are located in and the class they are trained to identify, respectively.
  
 
-Resolving |TwoEars| module dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Starting |TwoEars|
+~~~~~~~~~~~~~~~~~~
 
-Next, the function makes sure that all modules the example dependens on can be found and get initialised::
-    
-    startTwoEars( 'Config.xml' );
+Next, we initialise the |TwoEarsModel|::
 
-Looking into this file, we see five dependencies: to execute this example, we need to load the |BinSim|, the |AFE|, the |blackboard|, the :ref:`sec-idTrainPipeline` module, and the ``SOFA`` module.
-
+    startTwoEars();
 
 Creating a test scene
 ~~~~~~~~~~~~~~~~~~~~~
