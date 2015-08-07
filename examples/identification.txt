@@ -89,7 +89,7 @@ Running the simulation
 .. figure:: img/identify.png
     :align: center
 
-    This is the live plot of hypotheses created by the :ref:`identity knowledge sources <sec-identity-knowledge-source>`, in comparison to the "ground truth" (as given by annotated on- and offset times for the source sound files).
+    This is the live plot of hypotheses created by the identity knowledge sources, in comparison to the "ground truth" (as given by annotated on- and offset times for the source sound files).
 
 
 
