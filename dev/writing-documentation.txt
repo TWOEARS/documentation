@@ -61,7 +61,7 @@ Then, building the HTML is easy; just run:
 
 or directly ``sphinx-build -b html -A web=0 ../_build`` if ``make`` is not
 working for you. The result can be explored under
-:file:`_build/html/index.html`.
+:file:`_build/html/latest/index.html`.
 
 .. note::
 
