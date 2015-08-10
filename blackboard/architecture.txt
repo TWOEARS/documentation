@@ -175,16 +175,10 @@ Several core functionalities are provided through the ``BlackboardSystem``
 class:
 
 * Connecting a |robot| or the |binsim| to the |blackboard|.  The connected robot
-  or simulator must implement the robot interface for delivering audio *ear*
+  or simulator must implement the `robot interface <http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_robot_interface.html>`_ for delivering audio *ear*
   signals and commanding movement and head rotation. The blackboard system and
   all its components including the knowledge sources get access to the audio
   stream and robot actions through this connection (``setRobotConnect`` method).
-
-  .. warning::
-
-    We do not really specify here what the *robot interface* is. Should we add a
-    section for this. If yes, where? Or should we just list here what method the
-    *robot interface* has to implement?
 
 * Setting the type of the module that integrates with the |AFE|, instantiating
   it and connecting it to the |blackboard|. This module is a :ref:`knowledge
