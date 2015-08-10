@@ -75,6 +75,9 @@ functionality for *dynamic* module instantiation, registration and removal. This
 also implies the need for on-the-fly rewiring of the communication links between
 modules.
 
+
+.. _sec-blackboardSystem:
+
 Dynamic system construction
 ---------------------------
 

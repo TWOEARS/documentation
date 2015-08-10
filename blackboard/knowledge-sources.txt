@@ -314,6 +314,15 @@ number of assumed auditory objects in the scene.
 | triggers event         | ``KsFiredEvent``              |
 +------------------------+-------------------------------+
 
+
+.. _sec-idtruthplotks:
+
+Identity Live Debugging knowledge source: ``IdTruthPlotKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TODO
+
+
 Obsolete knowledge sources
 --------------------------
 
