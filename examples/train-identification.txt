@@ -133,7 +133,9 @@ actually running the pipeline can vary substantially, depending on
   any moment by hitting `ctrl+c`, and restart the script. You will see that all
   processed files/stages won't be done again.
 
-After successful training and testing, you should see something like ::
+After successful training and testing, you should see something like
+
+.. code-block:: text
 
    Running: MultiConfigurationsEarSignalProc
    ==========================================
