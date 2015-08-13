@@ -49,7 +49,7 @@ this for you. ::
 
 This function specifies five source type models by giving the directories they
 are located in and the class they are trained to identify, respectively.
- 
+
 
 Starting |TwoEars|
 ~~~~~~~~~~~~~~~~~~
@@ -69,7 +69,7 @@ same trainset), so the models have never "seen" (or better: "heard") these
 actual sounds. The function ``makeTestSignal`` not only compiles the audio, but
 also reads the "ground truth", i.e. the on- and offset times of the respective
 events from the annotation files. The scene is about 45 seconds long. The events
-are concatenated in random order (with 0.5s inbetween two events). 
+are concatenated in random order (with 0.5s inbetween two events).
 
 
 Initialising the Binaural Simulator
@@ -77,16 +77,16 @@ Initialising the Binaural Simulator
 
 The next code paragraph deals with initialisation of the |BinSim|. More
 specific, the acoustic sources are set to an head-relative azimuth of zero
-degrees and three meters distance. Free-field conditions (no reverb) are set
-through absence of a room definition (either in the :file:`SceneDescription.xml`
-or in code). The models have been trained under the same conditions.
-
+degrees and three meters distance. Free-field conditions (no reverberation) are
+set through absence of a room definition (either in the
+:file:`SceneDescription.xml` or in code). The models have been trained under the
+same conditions.
 
 
 Building the example Blackboard System
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The construction of the |blackboard| for this example is done programmatically
+The construction of the |blackboard| for this example is done directly in Matlab
 (versus via xml) in the function ``buildIdentificationBBS``. Let's look into it,
 we first create a new :ref:`BlackboardSystem object <sec-blackboardSystem>`::
 
@@ -97,10 +97,10 @@ the connection to the |BinSim| and the |AFE|::
 
    bbs.setRobotConnect(sim);
    bbs.setDataConnect('AuditoryFrontEndKS');
-   
-Followed by invocation of the :ref:ìdentity knowledge sources
+
+Followed by invocation of the :ref:`identity knowledge sources
 <sec-identity-knowledge-source>` using the function ``createKS`` of the
-BlackboardSystem object, which also takes care to place the |AFE| requests at
+:ref:`sec-blackboard`, which also takes care to place the |AFE| requests at
 the :ref:`AuditoryFrontEndKs <sec-afe-knowledge-source>`. The identity knowledge
 sources need name and location of the source type models they load and represent
 in the system. We set their invocation frequency to 100ms (default value is
@@ -116,12 +116,12 @@ We create one more knowledge source, the :ref:`IdTruthPlotKS
 word in this case, but a handy way to implement a debugging tool for
 live-inspection of the identity information in the blackboard system. It needs
 the ground truth information passed to it::
-   
+
    idCheat = bbs.createKS('IdTruthPlotKS', {labels, onOffsets});
-   
+
 In the last lines dealing with blackboard system construction, we :ref:`connect
 the different modules <sec-dynamic-interactions>`::
-   
+
    bbs.blackboardMonitor.bind({bbs.scheduler}, {bbs.dataConnect}, 'replaceOld', 'AgendaEmpty' );
    bbs.blackboardMonitor.bind({bbs.dataConnect}, idKss, 'replaceOld' );
    bbs.blackboardMonitor.bind(idKss, {idCheat}, 'replaceParallelOld' );
@@ -142,11 +142,13 @@ Running the simulation
 With the blackboard system set up, we can start the simulation, ::
 
    bbs.run();
-   
+
 which will trigger the first fetching of acoustic data by the system, followed
 by processing and triggering subsequent events and knowledge source executions.
 The blackboard system is set up to "verbose" mode, printing the events and
-executions on the matlab console::
+executions on the Matlab console:
+
+.. code-block:: text
 
    -------- [Event Fired:] Scheduler -> (AgendaEmpty) -> AuditoryFrontEndKS
    -------- [Executing KS:] AuditoryFrontEndKS
@@ -201,10 +203,12 @@ Evaluating the simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Finally, ``idScoresRelativeError`` calculates an error rate of the tested models
-for this example::
+for this example:
+
+.. code-block:: text
 
    Evaluate scores...
-   
+
    relative error of clearthroat identification model: 0.244339
    relative error of keyboard identification model: 0.112274
    relative error of knock identification model: 0.034251
