@@ -21,7 +21,7 @@ there are five directories with names like "Training.2015.07.24.00.23.42.772",
 which hold the used source type models, a sound file list
 :file:`shortTest.flist`, and subfunctions (:file:`buildIdentificationBBS.m`,
 :file:`makeTestSignal.m`, :file:`setDefaultIdModels.m`) used in
-:file:`identify.m`. Have a look at look at
+:file:`identify.m`. Have a look at
 :ref:`sec-examples-train-identification` to see how the source type models have
 been created.  To see if everything is working, just run ::
 
