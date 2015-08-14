@@ -3,7 +3,7 @@
 Installation guide
 ==================
 
-To install the |TwoEarsModel| download the |LatestVersion|, unzip it, and
+To install the |TwoEarsModel| download |LatestVersion|, unzip it, and
 store it somewhere on your PC. The download includes only the files needed to
 run it in Matlab. Additional files such as |HRTF| data will be downloaded later
 by the model on-the-fly if needed.
