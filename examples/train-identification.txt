@@ -45,7 +45,7 @@ Feature and model creators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The next code paragraph first creates the basic pipeline object of type
-:ref:`sec-TwoEarsIdTrainPipe`, and then sets two defining options: The *feature
+``TwoEarsIdTrainPipe``, and then sets two defining options: The *feature
 creator* and the *model creator*. ::
 
    pipe = TwoEarsIdTrainPipe();
@@ -56,10 +56,9 @@ creator* and the *model creator*. ::
        'alpha', 0.99 );
 
 In this case, an L1-regularized sparse logistic regression model will be trained
-through the use of the :ref:`sec-GlmNetLambdaSelectTrainer`, which is a wrapper
+through the use of the ``GlmNetLambdaSelectTrainer``, which is a wrapper
 for `GLMNET`_. A pile of auditory features will be used in this model, processed
-and compiled by the :ref:`sec-FeatureSet1Blockmean` feature creator. Have a look
-into the respective sections to learn more!
+and compiled by the ``FeatureSet1Blockmean`` feature creator.
 
 .. _GLMNET: http://web.stanford.edu/~hastie/glmnet_matlab/
 
@@ -94,9 +93,7 @@ Scene configuration
 A "clean" :ref:`scene configuration <sec-sceneConfiguration>` is used to train
 this model. That means: the sound sources are positioned at 0° azimuth relative
 to the head, there is no interfering noise, and no reverberation (free-field
-conditions). Have a look into the :ref:`respective training pipeline
-documentation part <sec-sceneConfiguration>` to get to know the many
-possibilities to configure the acoustic training scene. ::
+conditions). ::
 
    sc = dataProcs.SceneConfiguration(); % clean
    pipe.setSceneConfig( [sc] );
@@ -106,7 +103,7 @@ Running the pipeline
 ~~~~~~~~~~~~~~~~~~~~
 
 After everything is set up, the pipeline has to be initialised and can then be
-:ref:`run <sec_trainPipeRun>`. ::
+run::
 
    pipe.init();
    modelPath = pipe.pipeline.run( {classname}, 0 );
