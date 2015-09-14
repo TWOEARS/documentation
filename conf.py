@@ -242,7 +242,7 @@ rst_epilog = rst_epilog + """
 .. |database| replace:: :ref:`sec-database`
 .. |blackboard| replace:: :ref:`sec-blackboard`
 .. |amtoolbox| replace:: `Auditory Modeling Toolbox`_
-.. |LatestVersion| replace:: `version 1.0`_
+.. |LatestVersion| replace:: `version 1.0.1`_
 .. _Two!Ears mailing list: https://groups.google.com/d/forum/twoears
 .. _Two!Ears: https://github.com/TWOEARS/twoears
 .. _Two!Ears Auditory Model: https://github.com/TWOEARS/twoears
@@ -252,7 +252,7 @@ rst_epilog = rst_epilog + """
 .. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
 .. _Two!Ears Robotic Platform: https://github.com/TWOEARS
 .. _Auditory Modeling Toolbox: http://amtoolbox.sf.net
-.. _version 1.0: http://twoears.aipa.tu-berlin.de/files/TwoEars-1.0.zip
+.. _version 1.0.1: http://twoears.aipa.tu-berlin.de/files/TwoEars-1.0.1.zip
 """
 
 # -- Options for LaTeX output ---------------------------------------------
