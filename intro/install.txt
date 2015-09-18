@@ -28,7 +28,11 @@ following things:
     * **Linux/Mac**: install the packages *make*, *g++ (at least version
       4.7.3)*, *libsndfile1-dev*, *libxml2-dev*, *libfftw3-dev*
     * **Windows**: add ``TwoEarsDir\BinauralSimulator\src\mex\dll`` folder to
-      ``PATH`` environment variable (`HOWTO`_)
+      ``PATH`` environment variable (`HOWTO`_). We have experienced some issues
+      regarding the precompiled *.mex binaries for Windows on some machines. If
+      you get error messages related to the *.mex files, please remove the
+      directory of your PATH again and try to compile the mex binaries by
+      yourself. A tutorial for this is given in :ref:`sec-binsim-install-win64`.
 
 Finally, in order to use the location knowledge source ``LocationKS()``, you
 need to download `GMTK`_ binaries for your operating system:

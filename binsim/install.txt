@@ -63,6 +63,7 @@ Compile MEX Binaries
 
 That's all, now you should be able to :doc:`use the Two!Ears Binaural Simulator <usage>`.
 
+.. _sec-binsim-install-win64:
 
 Windows 7 64bit
 ---------------
