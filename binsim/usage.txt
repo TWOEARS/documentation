@@ -65,7 +65,7 @@ name in Matlab::
         ReverberationMaxOrder: 0
 
 For a more detailed description of each parameter refer to the
-`API documentation on the Two!Ears Binaural Simulator`_. In order to change
+`documentation in the source code`_. In order to change
 various processing parameters of the simulator the build-in set/get
 functionality of Matlab should be used, e.g.
 
@@ -138,7 +138,7 @@ in meter). In order to emit sound from sound sources, audio buffers have to be
 respectively defined containing the sources' audio signals. A single-channel
 |FIFO|-Buffer can be defined by ``simulator.buffer.FIFO(1)``.
 For more details about possible buffer types please refer to the
-`API documentation on buffers`_. To load sound files into the buffers execute
+`documentation in the source code of the buffers`_. To load sound files into the buffers execute
 
 .. code-block:: Matlab
     :linenos:
@@ -150,8 +150,8 @@ For more details about possible buffer types please refer to the
     set(sim.Sources{2}.AudioBuffer, ...
       'File', 'stimuli/anechoic/instruments/anechoic_castanets.wav');
 
-.. _API documentation on the Two!Ears Binaural Simulator: http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_simulator_interface.html
-.. _API documentation on buffers: http://twoears.github.io/binaural-simulator-doc/namespacesimulator_1_1buffer.html
+.. _documentation in the source code : https://github.com/TWOEARS/binaural-simulator/blob/v1.0/src/%2Bsimulator/SimulatorInterface.m
+.. _documentation in the source code of the buffers: https://github.com/TWOEARS/binaural-simulator/tree/v1.0/src/%2Bsimulator/%2Bbuffer
 
 .. _sec-xml-scene-description:
 
