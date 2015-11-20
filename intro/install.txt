@@ -8,10 +8,12 @@ store it somewhere on your PC. The download includes only the files needed to
 run it in Matlab. Additional files such as |HRTF| data will be downloaded later
 by the model on-the-fly if needed.
 
-We have tested the software with Matlab versions 2012b and later. You will also
-need the Signal Processing toolbox. Currently the Statistics toolbox is also
-required for some plotting functions, but we expect to remove this dependency in
-a future release.
+We have tested the software with Matlab versions from 2012b to 2015a. 2015b is
+not working at the moment due to the removal of *wavwrite*. A `HOTFIX`_ has 
+been found and will be part of the next release.
+You will also need the Signal Processing toolbox. Currently the Statistics 
+toolbox is also required for some plotting functions, but we expect to remove
+this dependency in a future release.
 
 When stored on your PC, you should add the main folder to your Matlab path and
 then run the ``startTwoEars`` function, which will add the necessary sub-folders.
@@ -88,5 +90,7 @@ trying one of the :ref:`examples provided <sec-examples-localisation>`:
 .. _GMTK: http://melodi.ee.washington.edu/gmtk/
 
 .. _HOWTO: http://www.computerhope.com/issues/ch000549.htm
+
+.. _HOTFIX: https://github.com/TWOEARS/TwoEars/issues/3
 
 .. vim: filetype=rst spell:
