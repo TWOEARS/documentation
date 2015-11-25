@@ -324,6 +324,36 @@ This is not really a knowledge source in the sense of the word, but rather a way
 | reads data category    | ``identityHypotheses``        |
 +------------------------+-------------------------------+
 
+.. _sec-qoe-klnowledge-sources:
+
+Sound quality related knowledge sources
+---------------------------------------
+
+.. _sec-coloration-knowledge-source:
+
+Coloration knowledge source: ``ColorationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The class ``ColorationKS`` implements the prediction of the perceived change in
+timbre of an auditory event compared to a reference. The reference is nothing
+fixed, but can be learned and is stored inside the blackboard memory. At the
+moment the learning is implemented in a very low level fashion: the first signal
+the |blackboard| is confronted with is learned as the reference and all later
+signals are compared to that reference. The ``colorationHypotheses`` is then a
+value between 0 and 1 -- whereas it is not hard limited and can be larger than 1
+for some conditions. The actual value is calculated using the naturalness model
+from [MooreTan2004]_ which compares the weighted excitation patterns of the
+reference and the test stimulus.
+
++------------------------+-----------------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                 |
++------------------------+-----------------------------------------------------+
+| reads data category    | ``colorationReference``                             |
++------------------------+-----------------------------------------------------+
+| writes data category   | ``colorationHypotheses`` or ``colorationReference`` |
++------------------------+-----------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                    |
++------------------------+-----------------------------------------------------+
 
 
 Obsolete knowledge sources
@@ -345,11 +375,5 @@ Number of sources knowledge source: ``SourceNumberKS``
 
 This knowledge source will generate a hypothesis about the number of sound
 sources present in the auditory scene.
-
-Coloration knowledge source: ``ColorationKS``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This knowledge source will compare to signal representations and state how much
-they differ in sound colour.
 
 .. vim: filetype=rst spell:
