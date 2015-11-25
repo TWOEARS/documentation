@@ -16,6 +16,7 @@ At the moment the following examples are available:
     train-identification
     identification
     tutorial-bass
+    qoe-coloration
 
 This section will expand with every new major feature that will be added to the
 model.
