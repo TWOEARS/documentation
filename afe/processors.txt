@@ -503,7 +503,7 @@ stationary input signals go through logarithmic compression.
     |                | 0.253         |                                        |
     |                | 0.500]``      |                                        |
     +----------------+---------------+----------------------------------------+
-    | ``adpt_model`` | ``'adt_dau'`` | Implementation model ``'adt_dau'``,    |
+    | ``adpt_model`` | ``''(empty)`` | Implementation model ``'adt_dau'``,    |
     |                |               |                                        |
     |                |               | ``'adt_puschel'``, or                  |
     |                |               | ``'adt_breebart'``                     |
@@ -1044,7 +1044,96 @@ indicated by ``NaN``\ 's.
    select reliable pitch estimates (bottom left panel). The final pitch estimate
    is post-processed by a median filter (bottom right panel).
 
+.. _sec-medial-olivo-cochlear-feedback:
+   
+Medial Olivo-Cochlear (MOC) feedback (``mocProc.m``)
+----------------------------------------------------
 
+It has now been a well known fact that in the auditory system, an
+efferent pathway of fibers exists, originating from the auditory neurons
+in the olivary complex to the outer hair cells
+ [Guinan2006]_. This operates as a top-down feedback
+path, as opposed to the bottom-up peripheral signal transmission towards
+the brain, affecting the movement of the basilar membrane in response to
+the input stimulus. The |MOC| processor mimics this feedback, particularly
+originating from the medial part of the olivary complex. In |AFE|, this
+feedback is realised by monitoring the output from the ratemap processor
+which corresponds to the auditory neurons’ firing rate, and by
+controlling accordingly the nonlinear path gain of the |DRNL| processor which
+corresponds to the basilar membrane’s nonlinear operation. This approach
+is based on the work of  [Clark2012]_, except that the
+auditory nerve processing model is simplified as the ratemap processor
+in |AFE|.
+
+The input to the |MOC| processor is the time frame-frequency representation
+from the ratemap processor. This is then converted into an attenuation
+factor per each frequency channel. The constants for this
+rate-to-attenuation conversion are internal parameters of the processor,
+which can be set in accordance with various physiological findings such
+as those of  [Liberman1988]_. The amplitude
+relationship was adopted from the work of
+ [Clark2012]_. The time course and delay of the
+feedback activity, such as in the work
+of [Backus2006]_, can be approximated by adjusting the
+leaky integrator time constant ``rm_decaySec`` and the window step size
+``rm_hSizeSec`` of the ratemap processor.
+
+In addition to this so-called reflexive feedback, realised as a
+closed-loop operation, the reflective feedback is realised by means of
+additional control parameters that can be modified externally in an
+open-loop manner. The two parameters ``moc_mocIpsi`` and
+``moc_mocContra`` are included for this purpose. Depending on
+applications, these two can be accessed and adjusted via the Blackboard
+system, and applied jointly with the reflexive feedback to the nonlinear
+path as the final multiplicative gain factor. :numref:`tab-moc` lists
+the parameters for the processor, including the above-mentioned two. The
+other two parameters ``moc_mocThresholdRatedB`` and
+``moc_mocMaxAttenuationdB`` are specified such that the input level-
+attenuation relationship is fitted best to the data
+of [Liberman1988]_ which is scaled within a range of 0
+to 40 dB by [Clark2012]_.
+
+.. _tab-moc:
+
+.. table:: List of parameters related to the auditory representation
+``’moc’``.
+
++-------------------------------+------------+----------------------------------------------------+
+| Parameter                     | Default    | Description                                        |
++===============================+============+====================================================+
+| ``moc_mocIpsi``               | ``1``      | Ipsilateral MOC feedback factor (0 to 1)           |
++-------------------------------+------------+----------------------------------------------------+
+| ``moc_mocContra``             | ``1``      | Contralateral MOC feedback factor (0 to 1)         |
++-------------------------------+------------+----------------------------------------------------+
+| ``moc_mocThresholdRatedB``    | ``-180``   | Threshold ratemap value for MOC activation in dB   |
++-------------------------------+------------+----------------------------------------------------+
+| ``moc_mocMaxAttenuationdB``   | ``40``     | Maximum possible MOC attenuation in dB             |
++-------------------------------+------------+----------------------------------------------------+
+
+
+:numref:`fig-moc` shows, firstly on the left panel, the
+input-output characteristics of the |MOC| processor, using on-frequency
+stimulation from tones at 520Hz and 3980Hz, same as in the work
+of [Liberman1988]_. As mentioned above, the
+relationship between the input level and the |MOC| attenuation activity
+through the ratemap representation was derived through curve fitting to
+the available data set of [Liberman1988]_, which is
+also shown on the plot. An example of input signal-|DRNL| output pair at 40dB
+input level is shown on the right panel. The feedback applies an
+attenuation at the later part of the tone. These plots can be generated
+by running the script ``DEMO_MOC.m``.
+
+.. _fig-moc:
+
+.. figure:: img/MOC.png
+
+	Left panel: input-output characteristics of the |MOC| processor for
+	on-frequency tone stimulus at 520 and 3980Hz. The data set
+	of [Liberman1988]_, scaled as in the work
+	of [Clark2012]_, is also shown for comparison. Right
+	panel: |DRNL| processor output (bottom) from a 50-ms tone at 40dB SPL and 520Hz
+	(top), with the reflexive feedback operating.
+   
 .. _sec-amplitude-modulation-spectrogram:
 
 Amplitude modulation spectrogram (``modulationProc.m``)
@@ -1372,15 +1461,83 @@ binaural cues might be unreliable due to the impact of the reverberation.
    corresponding |IC| (top right panel). Reverberant speech (bottom left panel)
    and the corresponding |IC| (bottom right panel). 
 
+.. _sec-precedence-effect:
 
+Precedence effect (``precedenceProc.m``)
+----------------------------------------
+
+The precedence effect describes the ability of
+humans to fuse and localize the sound based on the first-arriving parts,
+in the presence of its successive version with a time delay below an
+echo-generating threshold [Wallach1949]_. The effect
+of the later-arriving sound is suppressed by the first part in the
+localization process. The precedence effect processor in |AFE| models this,
+with the strategy based on the work of [Braasch2013]_.
+The processor detects and removes the lag from a binaural input signal
+with a delayed repetition, by means of an autocorrelation mechanism and
+deconvolution. Then it derives the |ITD| and |ILD| based on these lag-removed
+signals.
+
+The input to the precedence effect processor is a binaural
+time-frequency signal chunk from the gammatone filterbank. Then for each
+chunk a pair of |ITD| and |ILD| values is calculated as the output, by integrating
+the |ITD|s and |ILD|s across the frequency channels according to the
+weighted-image model [Stern1988]_, and through
+amplitude-weighted summation. Since these |ITD|/|ILD| calculation methods of the
+precedence effect processor are different from what are used for the |AFE| |ITD| and
+|ILD| processors, the the |AFE| |ITD| and
+|ILD| processors are not connected to the precedence
+effect processor. Instead the steps for the correlation analyses and the
+|ITD|/|ILD| calculation are coded inside the processor as its own specific
+techniques. :numref:`tab-precedence` lists the parameters needed to
+operate the precedence effect processor.
+
+.. _tab-precedence:
+
+.. table:: List of parameters related to the auditory representation
+``’precedence’``.
+
++------------------------+-------------+------------------------------------------------------+
+| Parameter              | Default     | Description                                          |
++========================+=============+======================================================+
+| ``prec_wSizeSec``      | ``20E-3``   | Window duration in s                                 |
++------------------------+-------------+------------------------------------------------------+
+| ``prec_hSizeSec``      | ``10E-3``   | Window step size in s                                |
++------------------------+-------------+------------------------------------------------------+
+| ``prec_maxDelaySec``   | ``10E-3``   | Maximum delay in s for autocorrelation computation   |
++------------------------+-------------+------------------------------------------------------+
+
+:numref:`fig-precedence` shows the output from a demonstration
+script ``DEMO_precedence.m``. The input signal is a 800-Hz wide bandpass
+noise of 400 ms length, centered at 500 Hz, mixed with a reflection that
+has a 2-ms delay, and made binaural with an |ITD| of 0.4 ms and a 0-dB |ILD|.
+During the processing, windowed chunks are used as the input, with the
+length of 20 ms. It can be seen that after some initial confusion, the
+processor estimates the intended |ITD| and |ILD| values as more chunks are analyzed.
+
+.. _fig-precedence:
+
+.. figure:: img/Precedence.png
+
+Left panel: band-pass input noise signal, 400 ms long (only the
+first 50 ms is shown), 800 Hz wide, centered at 500 Hz, mixed with a
+reflection of a 2-ms delay, and made binaural with an of 0.4 ms |ITD| and |ILD|
+of 0 dB. Right panel: estimated |ITD| and |ILD| shown as a function of time frames.
+   
 .. ...::: References :::...
+.. [Backus2006] Backus, B. C. and Guinan, J. J. (2006), “Time-course of the human medial olivocochlear
+reflex,” The Journal of the Acoustical Society of America 119(5 Pt 1), pp. 2889–2904.
 .. [Bacon1989] Bacon, S. P. and Grantham, D. W. (1989), “Modulation masking: Effects of modulation frequency, depths, and phase,” Journal of the Acoustical Society of America 85(6), pp. 2575–2580.
 .. [Bernstein1996] Bernstein, L. R. and Trahiotis, C. (1996), “The normalized correlation: Accounting for binaural detection across center frequency,” Journal of the Acoustical Society of America 100(6), pp. 3774–3784.
 .. [Bernstein1999] Bernstein, L. R., van de Par, S., and Trahiotis, C. (1999), “The normalized interaural correlation: Accounting for NoS thresholds obtained with Gaussian and “low-noise” masking noise,” Journal of the Acoustical Society of America 106(2), pp. 870–876.
+.. [Braasch2013] Braasch, J. (2013), “A precedence effect model to simulate localization dominance using
+an adaptive, stimulus parameter-based inhibition process.” The Journal of the Acoustical
+Society of America 134(1), pp. 420–35.
 .. [Breebart2001] Breebaart, J., van de Par, S., and Kohlrausch, A. (2001), “Binaural processing model based on contralateral inhibition. I. Model structure,” Journal of the Acoustical Society of America 110(2), pp. 1074–1088.
 .. [Bregman1990] Bregman, A. S. (1990), Auditory scene analysis: The perceptual organization of sound, The MIT Press, Cambridge, MA, USA.
 .. [Brown1994] Brown, G. J. and Cooke, M. P. (1994), “Computational auditory scene analysis,” Computer Speech and Language 8(4), pp. 297–336.
 .. [Brown2010] Brown, G. J., Ferry, R. T., and Meddis, R. (2010), “A computer model of auditory efferent suppression: implications for the recognition of speech in noise.” The Journal of the Acoustical Society of America 127(2), pp. 943–54.
+.. [Clark2012] Clark, N. R., Brown, G. J., Jürgens, T., and Meddis, R. (2012), “A frequency-selective feedback model of auditory efferent suppression and its implications for the recognition of speech in noise.” Journal of the Acoustical Society of America 132(3), pp. 1535–1541.
 .. [Cooke2001] Cooke, M., Green, P., Josifovski, L., and Vizinho, A. (2001), “Robust automatic speech recognition with missing and unreliable acoustic data,” Speech Communication 34(3), pp. 267–285.
 .. [Dau1996] Dau, T., Püschel, D., and Kohlrausch, A. (1996), “A quantitative model of the “effective” signal processing in the auditory system. I. Model structure,” Journal of the Acoustical Society of America 99(6), pp. 3615–3622.
 .. [Dau1997a] Dau, T., Püschel, D., and Kohlrausch, A. (1997a), “Modeling auditory processing of amplitude modulation. I. Detection and masking with narrow-band carriers,” Journal of the Acoustical Society of America 102(5), pp. 2892–2905.
@@ -1391,6 +1548,9 @@ binaural cues might be unreliable due to the impact of the reverberation.
 .. [Ferry2007] Ferry, R. T. and Meddis, R. (2007), “A computer model of medial efferent suppression in the mammalian auditory system,” The Journal of the Acoustical Society of America 122(6), pp. 3519.
 .. [Glasberg1990] Glasberg, B. R. and Moore, B. C. J. (1990), “Derivation of auditory filter shapes from notched-noise data,” Hearing Research 47(1-2), pp. 103–138.
 .. [Godde1994] Goode, R. L., Killion, M., Nakamura, K., and Nishihara, S. (1994), “New knowledge about the function of the human middle ear: development of an improved analog model.” The American journal of otology 15(2), pp. 145–154.
+.. [Guinan2006] Guinan, J. J. (2006), “Olivocochlear efferents: anatomy, physiology, function, and the
+measurement of efferent effects in humans.” Ear and hearing 27(6), pp. 589–607, URL
+http://www.ncbi.nlm.nih.gov/pubmed/17086072.
 .. [Houtgast1989] Houtgast, T. (1989), “Frequency selectivity in amplitude-modulation detection,” Journal of the Acoustical Society of America 85(4), pp. 1676–1680.
 .. [Jensen2004] Jensen, K. and Andersen, T. H. (2004), “Real-time beat estimation using feature extraction,” in Computer Music Modeling and Retrieval, edited by U. K. Wiil, Springer, Berlin– Heidelberg, Lecture Notes in Computer Science, pp. 13–22.
 .. [Jepsen2008] Jepsen, M. L., Ewert, S. D., and Dau, T. (2008), “A computational model of human auditory signal processing and perception.” Journal of the Acoustical Society of America 124(1), pp. 422–438.
@@ -1400,6 +1560,9 @@ binaural cues might be unreliable due to the impact of the reverberation.
 .. [Klapuri1999] Klapuri, A. (1999), “Sound onset detection by applying psychoacoustic knowledge,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 3089–3092.
 .. [Kollmeier1994] Kollmeier, B. and Koch, R. (1994), “Speech enhancement based on physiological and psychoacoustical models of modulation perception and binaural interaction,” Journal of the Acoustical Society of America 95(3), pp. 1593–1602.
 .. [Lerch2012] Lerch, A. (2012), An Introduction to Audio Content Analysis: Applications in Signal Processing and Music Informatics, John Wiley & Sons, Hoboken, NJ, USA.
+.. [Liberman1988] Liberman, M. C. (1988), “Response properties of cochlear efferent neurons: monaural
+vs. binaural stimulation and the effects of noise,” Journal of Neurophysiology
+60(5), pp. 1779–1798, URL http://jn.physiology.org/content/60/5/1779.
 .. [Licklider1951] Licklider, J. C. R. (1951), “A duplex theory of pitch perception,” Experientia (4), pp. 128–134.
 .. [Lopez-Poveda2001] Lopez-Poveda, E. A. and Meddis, R. (2001), “A human nonlinear cochlear filterbank,” Journal of the Acoustical Society of America 110(6), pp. 3107–3118.
 .. [May2011] May, T., van de Par, S., and Kohlrausch, A. (2011), “A probabilistic model for robust localization based on a binaural auditory front-end,” IEEE Transactions on Audio, Speech, and Language Processing 19(1), pp. 1–13.
@@ -1423,11 +1586,18 @@ binaural cues might be unreliable due to the impact of the reverberation.
 .. [Smith1977] Smith, R. L. (1977), “Short-term adaptation in single auditory nerve fibers: some poststimulatory effects,” J Neurophysiol 40(5), pp. 1098–1111.
 .. [Smith1983] Smith, R. L., Brachman, M. L., and Goodman, D. a. (1983), “Adaptation in the Auditory Periphery,” Annals of the New York Academy of Sciences 405(1 Cochlear Pros), pp. 79–93.
 .. [Soendergaard2013] Søndergaard, P. L. and Majdak, P. (2013), “The auditory modeling toolbox,” in The Technology of Binaural Listening, edited by J. Blauert, Springer, Heidelberg–New York NY–Dordrecht–London, chap. 2, pp. 33–56.
+.. [Stern1988] Stern, R. M., Zeiberg, A. S., and Trahiotis, C. (1988), “Lateralization of complex binaural
+stimuli: A weighted-image model,” The Journal of the Acoustical Society of America
+84(1), pp. 156–165, URL http://scitation.aip.org/content/asa/journal/jasa/
+84/1/10.1121/1.396982.
 .. [Tchorz2003] Tchorz, J. and Kollmeier, B. (2003), “SNR estimation based on amplitude modulation analysis with applications to noise suppression,” IEEE Transactions on Audio, Speech, and Language Processing 11(3), pp. 184–192.
 .. [Theunissen2001] Theunissen, F. E., David, S. V., Singh, N. C., Hsu, A., Vinje, W. E., and Gallant, J. L. (2001), “Estimating spatio-temporal receptive fields of auditory and visual neurons from their responses to natural stimuli,” Network: Computation in Neural Systems 12, pp. 289–316.
 .. [Tolonen2000] Tolonen, T. and Karjalainen, M. (2000), “A computationally efficient multipitch analysis model,” IEEE Transactions on Audio, Speech, and Language Processing 8(6), pp. 708–716.
 .. [Turgeon2002] Turgeon, M., Bregman, A. S., and Ahad, P. A. (2002), “Rhythmic masking release: Contribution of cues for perceptual organization to the cross-spectral fusion of concurrent narrow-band noises,” Journal of the Acoustical Society of America 111(4), pp. 1819–1831.
 .. [Tzanetakis2002] Tzanetakis, G. and Cook, P. (2002), “Musical genre classification of audio signals,” IEEE Transactions on Audio, Speech, and Language Processing 10(5), pp. 293–302.
+.. [Wallach1949] Wallach, H., Newman, E. B., and Rosenzweig, M. R. (1949), “The Precedence Effect in
+Sound Localization,” The American Journal of Psychology 62(3), pp. 315–336, URL
+http://www.jstor.org/stable/1418275.
 .. [Wang2006] Wang, D. L. and Brown, G. J. (Eds.) (2006), Computational Auditory Scene Analysis: Principles, Algorithms and Applications, Wiley / IEEE Press.
 .. [Young2006] Young, S., Evermann, G., Gales, M., Hain, T., Kershaw, D., Liu, X., Moore, G., Odell, J., Ollason, D., Povey, D., Valtchev, V., and Woodland, P. (2006), The HTK Book (for HTK Version 3.4), Cambridge University Engineering Department, URL http://htk.eng.cam.ac.uk.
 
