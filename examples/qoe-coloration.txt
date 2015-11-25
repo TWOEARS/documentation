@@ -17,7 +17,7 @@ We did different listening tests where we investigated the amount of coloration
 listeners perceive in different Wave Field Synthesis systems with a varying
 number of loudspeakers and the distance between adjacent loudspeakers.
 
-The |TwoEars| model has a `ColorationKS` that is able to predict the amount of
+The |TwoEars| model has a ``ColorationKS`` that is able to predict the amount of
 coloration compared to a reference. The model learns this reference on the fly
 by choosing the first audio input it gets after the start of the |blackboard|.
 
@@ -173,5 +173,15 @@ transfer them to 0..1::
 
     Median of coloration ratings (points) together with confidence intervals and model prediction (line).
     The centimeter values describe the inter-loudspeaker distances for the investigated |WFS| systems.
+
+To see the prediction results for all listening test data, go to the
+``examples/qoe_coloration`` folder.  There you will find the following functions
+that you can run, and that will pop up with a figure showing the results at the
+end::
+
+    colorationWfsCircularCenter
+    colorationWfsCircularOffcenter
+    colorationWfsLinearCenter
+    colorationWfsLinearOffcenter
 
 .. vim: filetype=rst spell:
