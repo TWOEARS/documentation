@@ -6,13 +6,27 @@ Experiment results
 In this part of the database we collect results from psychoacoustic experiments
 run by the different labs involved in |twoears|.
 
+.. _sec-human-label-format:
+
+Human label file format
+-----------------------
+
+.. note::
+
+    Add description of the file format
+
+
+.. _sec-experiments-coloration:
+
 Coloration
 ----------
 
-Coloration of a point source in Wave Field Synthesis
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _sec-2013-05-01_wfs_coloration:
 
-.. _fig-wfs-coloration:
+2013-05-01 Coloration of a point source in Wave Field Synthesis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _fig-2013-05-01_wfs_coloration:
 
 .. figure:: img/wfs_coloration.png
     :align: center
@@ -27,29 +41,56 @@ point source. This was done for different audio material, namely pink noise,
 speech, and music and different listener positions. The results are summarised
 in :numref:`fig-wfs-coloration` and available in the following database files::
 
-    experiments/sound_field_synthesis/coloration/human_label_center_positon_music.csv
-    experiments/sound_field_synthesis/coloration/human_label_center_positon_noise.csv
-    experiments/sound_field_synthesis/coloration/human_label_center_positon_speech.csv
-    experiments/sound_field_synthesis/coloration/human_label_multiple_positions_music.csv
-    experiments/sound_field_synthesis/coloration/human_label_multiple_positions_noise.csv
-    experiments/sound_field_synthesis/coloration/human_label_multiple_positions_speech.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_music.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_noise.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_speech.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_music.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_noise.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_speech.csv
 
 The corresponding stimuli are provided as |BRS| files that can be used together
-with the |BinSim| and the corresponding the corresponding scene description file
+with the |BinSim| and the corresponding scene description file
 :file:`wfs_coloration.xml` to reproduce the exact pink noise signals from the
-test. The available |BRS| files are summarised in the ``*.flist`` files that
-simply provide listings of them.
-
-::
-
-    experiments/sound_field_synthesis/coloration/wfs_coloration.xml
-    experiments/sound_field_synthesis/coloration/center_positon.flist
-    experiments/sound_field_synthesis/coloration/multiple_positions.flist
+test. The path to the |BRS| files is also listed in the first column of the human label files,
+so it can directly extracted from them.
 
 .. [Wierstorf2014a] Wierstorf, H., Hohnerlein, C., Spors, S., Raake, A. (2014), "Coloration in Wave Field Synthesis," 55th International AES Conference, Paper 5-3
 
 
-.. _sec-experiments-sfs-localisation:
+.. _sec-2015-10-01_wfs_coloration:
+
+2015-10-01 Coloration of a point source in Wave Field Synthesis revisited
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The first experiment investigating coloration in |WFS| (see
+:ref:`sec-2013-05-01_wfs_coloration`) had some artefacts in the stimuli for high
+frequencies due to the limitation coming with a finite sampling rate during the
+process of time delaying single signals in |WFS|. This time the experiment was
+repeated using fractional delay filter (add citation). In addition, we added a
+linear loudspeaker array besides the circular one used in the first experiment.
+
+.. _fig-2015-10_01_wfs_coloration:
+
+.. figure:: img/2015-10-01_wfs_coloration.png
+    :align: center
+
+    Median of the rated coloration of a point source synthesized with |WFS|
+    compared to a reference point source. The error bars are showing the
+    confidence intervals.
+
+::
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_noise.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_speech.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_offcenter_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_offcenter_speech.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_noise.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_speech.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_offcenter_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_offcenter_speech.csv
+
+.. _sec-experiments-localisation:
 
 Localisation
 ------------
