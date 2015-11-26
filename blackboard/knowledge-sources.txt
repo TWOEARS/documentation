@@ -324,7 +324,7 @@ This is not really a knowledge source in the sense of the word, but rather a way
 | reads data category    | ``identityHypotheses``        |
 +------------------------+-------------------------------+
 
-.. _sec-qoe-klnowledge-sources:
+.. _sec-qoe-knowledge-sources:
 
 Sound quality related knowledge sources
 ---------------------------------------
