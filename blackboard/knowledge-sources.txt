@@ -376,4 +376,8 @@ Number of sources knowledge source: ``SourceNumberKS``
 This knowledge source will generate a hypothesis about the number of sound
 sources present in the auditory scene.
 
+.. ..:References:..
+
+.. [MooreTan2004] Moore, B. C. J., & Tan, C. (2004). Development and Validation of a Method for Predicting the Perceived Naturalness of Sounds Subjected to Spectral Distortion. JAES, 52(9), 900–14.
+
 .. vim: filetype=rst spell:
