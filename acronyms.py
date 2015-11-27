@@ -33,7 +33,7 @@ rst_epilog = """
 .. |matlab-genomix|  replace:: *matlab-genomix*
 .. |MOC|             replace:: :abbr:`MOC (Medial Olivo-Cochlear)`
 .. |MU|              replace:: :abbr:`MU (Model Units)`
-.. |NFC-HOA|         replace:: :abbr:'NFC-HOA (Near-Field Compensated Higher Order Ambisonics)`
+.. |NFC-HOA|         replace:: :abbr:`NFC-HOA (Near-Field Compensated Higher Order Ambisonics)`
 .. |OOP|             replace:: :abbr:`OOP (Object-Oriented Programming)`
 .. |RMS|             replace:: :abbr:`RMS (Root Mean Square)`
 .. |robotpkg|        replace:: *robotpkg*
