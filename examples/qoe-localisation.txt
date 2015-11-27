@@ -1,0 +1,136 @@
+.. highlight:: Matlab
+
+.. _sec-example-qoe-localisation:
+
+Prediction of localisation in spatial audio systems
+===================================================
+
+As we have seen in the example on :ref:`sec-example-qoe-coloration` |WFS|
+systems introduce errors at higher frequencies in the synthesized sound field
+that are perceivable as coloration compared to a reference sound field, that
+was the goal of the synthesis. Those errors do not exist at lower frequencies,
+which implies that localisation of the synthesised sound source deviates only
+slightly from performance in the reference sound field.
+
+We did a huge set of listening test investigating localisation performance in
+|WFS| and |NFC-HOA| that are presented in ... .
+
+In this example we choose the |WFS| system with a circular loudspeaker array and
+three different number of used loudspeakers synthesising a point source in front
+of the listener. The goal is to predict the perceived directions of that
+synthesised point source with the |TwoEars| model.
+
+Getting the listening test data
+-------------------------------
+
+The experiment provides directly |BRS| files and a xml-file with the settings
+for the |BinSim|. In the following we do an example run for one condition::
+
+    humanLabels = readHumanLabels(['experiments/2013-11-01_sfs_localisation/', ...
+                                   'human_label_localization_wfs_ps_circular.txt']);
+    brsFile = humanLabels{8,1};
+
+If you look at the |BRS| file, you can easily decode the condition::
+
+    >> brsFile
+
+    brsFile =
+
+    experiments/2013-11-01_sfs_localisation/brs/wfs_nls14_X-0.50_Y0.75_src_ps_xs0.00_ys2.50.wav
+
+This means that we had a |WFS| system with a circular loudspeaker array
+consisting of 14 loudspeakers synthesising a point source placed at (0.0, 2.5) m.
+The listener was placed at (-0.50, 0.75) m, which means slightly to the left and
+to the front inside the listening area.
+
+Setting up the Binaural Simulator
+---------------------------------
+
+Now, we start the |BinSim| using the
+provided configuration file of the experiment and make some final adjustments
+like setting the length of the noise stimulus and rotate the head to the front
+as the localisation results will be relative to the head orientation::
+
+    sim = simulator.SimulatorConvexRoom(['experiments/', ...
+       '2013-11-01_sfs_localisation/2013-11-01_sfs_localisation.xml']);
+    sim.Sources{1}.IRDataset = simulator.DirectionalIR(brsFile);
+    sim.LengthOfSimulation = 5;
+    sim.rotateHead(0, 'absolute');
+    sim.Init = true;
+
+Estimating the localisation with the Blackboard
+-----------------------------------------------
+
+For the actual prediction of the perceived direction we use the
+:ref:`ItdLocationKS <sec-itd-localisation-knowledge-source>` and setup the
+|blackboard| for localisation without head rotations, see
+:ref:`sec-examples-localisation` for details::
+
+    bbs = BlackboardSystem(0);
+    bbs.setRobotConnect(sim);
+    bbs.buildFromXml('Blackboard.xml');
+    bbs.run();
+
+Verify the results
+------------------
+
+Now the prediction has finished and we have to inspect the result and compare it
+to the result from the listening test. The prediction is stored inside the
+|blackboard| and can be requested with::
+
+    >> predictedLocations = bbs.blackboard.getData('perceivedLocations')
+
+    predictedLocations =
+
+    1x8 struct array with fields:
+
+        sndTmIdx
+        data
+
+As the ``perceivedLocations`` is a data structure containing the results for
+every time step of the block-based processing, we provide a function that
+evaluates that data and provides us with an average value over time::
+
+    >> predictedAzimuth = evaluateLocalisationResults(predictedLocations)
+
+    predictedAzimuth =
+
+      -12.0000
+
+During the experiment a jitter was applied to the zero degree head orientation of
+the binaural synthesis system in order to have a larger spread of possible
+perceived directions. This jitter is stored as well in the results of the
+listening test and has to be added to the predicted azimuth:: 
+
+    headRotationOffset = humanLabels{8,9};
+    predictedAzimuth = predictedAzimuth + headRotationOffset;
+    perceivedAzimuth = humanLabels{8,4};
+
+After that we can compare the result to the one from the listening test::
+
+    >> fprintf(1, '\nPerceived direction: %.1f deg\nPredicted direction: %.1f\n', ...
+          perceivedAzimuth, predictedAzimuth);
+
+    Perceived direction: -14.5 deg
+    Predicted direction: -14.0
+
+If you would like to do this for all listening positions, you can go to the
+``examples/qoe_localisation`` folder and execute the following command::
+
+    >> qoeLocalisation
+
+This will predict the directions for every listener position and plots the
+results at the end in comparison to the listening test results. Figure
+:numref:`fig-qoe-localisation` shows the result.
+
+.. _fig-qoe-localisation:
+
+.. figure:: img/localisation_wfs_circular.png
+    :align: center
+
+    Localisation results and model predictions. The black symbols indicate
+    the loudspeakers. On every listening position an arrow is pointing into the
+    direction the listener perceived the corresponding auditory event.
+
+
+.. vim: filetype=rst spell:

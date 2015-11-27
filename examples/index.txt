@@ -17,6 +17,7 @@ At the moment the following examples are available:
     identification
     tutorial-bass
     qoe-coloration
+    qoe-localisation
 
 This section will expand with every new major feature that will be added to the
 model.
