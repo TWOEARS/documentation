@@ -355,6 +355,31 @@ reference and the test stimulus.
 | triggers event         | ``KsFiredEvent``                                    |
 +------------------------+-----------------------------------------------------+
 
+.. _sec-itd-localisation-knowledge-source:
+
+Location knowledge source: ``ItdLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As the current implementation of ``LocationKS`` is not able to predict the
+localisation reliable under difficult conditions, we introduced a different
+location knowledge source as an intermediate solution. This ``ItdLocationKS`` is
+optimised for the prediction of predicting the perceived direction of a sound
+source created by a spatial audio system. It uses only |ITD| cues under 1400 Hz
+and utilises a lookup table to match those values to the corresponding angles.
+This implies that the knowledge source is not able to distinguish between front
+and back. Beside the lookup table it uses also an outlier detection in the
+process of integrating the perceived angles over the different frequency
+channels as suggested in [Wierstorf2014]_. The output of the knowledge source is
+a ``locationHypotheses`` identical to the output of the ``LocationKS``.
+
++------------------------+---------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
++------------------------+---------------------------------------+
+| writes data category   | ``locationHypotheses``                |
++------------------------+---------------------------------------+
+| triggers event         | ``KsFiredEvent``                      |
++------------------------+---------------------------------------+
+
 
 Obsolete knowledge sources
 --------------------------
@@ -379,5 +404,7 @@ sources present in the auditory scene.
 .. ..:References:..
 
 .. [MooreTan2004] Moore, B. C. J., & Tan, C. (2004). Development and Validation of a Method for Predicting the Perceived Naturalness of Sounds Subjected to Spectral Distortion. JAES, 52(9), 900–14.
+
+.. [Wierstorf2014] Wierstorf, H. (2014), “Perceptual Assessment of Sound Field Synthesis,” PhD-thesis, TU Berlin
 
 .. vim: filetype=rst spell:
