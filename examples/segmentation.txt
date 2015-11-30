@@ -189,7 +189,7 @@ Finally, the third demo shows the possibilities of priming the ``SegmentationKS`
     prior = [-deg2rad(30); deg2rad(30); 0];
     bbs.blackboard.KSs{2}.setFixedPositions(prior);
 
-It is also possible to exploit this functionality dynamically during runtime by using intermediate results of the ``LocationKS`` knowledge source from the blackboard. Note that angular positions are handled in radians within the ``SegmentationKS`` framework, hence position estimates in degrees must be converted accordingly. A possible result for this demo is shown in Fig. Fig. :numref:`fig-segmentation-priming`.
+It is also possible to exploit this functionality dynamically during runtime by using intermediate results of the ``LocationKS`` knowledge source from the blackboard. Note that angular positions are handled in radians within the ``SegmentationKS`` framework, hence position estimates in degrees must be converted accordingly. A possible result for this demo is shown in Fig. :numref:`fig-segmentation-priming`.
 
 .. _fig-segmentation-priming:
 
