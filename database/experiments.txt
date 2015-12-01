@@ -203,8 +203,8 @@ loudspeaker array in the folder
 Quality ratings
 ---------------
 
-Scene related sound quality
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2014-04-01: Scene related sound quality
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. _fig-quality-scene:
 
@@ -219,8 +219,8 @@ the same acoustic scene with three individual sources, which had different
 degrees of impairments. We provide the ratings of the listeners and the
 WAV-files of the stimuli in the following folders::
 
-    experiments/sound_field_synthesis/scene_quality/stimuli/*
-    experiments/sound_field_synthesis/scene_quality/results/*
+    experiments/2014-04-01_scene_quality/stimuli/*
+    experiments/2014-04-01_scene_quality/results/*
 
 .. [Raake2014] Raake, A., Wierstorf, H., Blauert J. (2014) "A case for TWO!EARS in audio quality assessment", Forum Acusticum
 
