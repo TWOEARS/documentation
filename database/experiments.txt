@@ -126,10 +126,12 @@ with the rating results. The |BRS| files can be used together with the |BinSim|
 on order to have the |TwoEarsModel| in the same situation as the listener
 including its ability to turn the head.
 
+.. _sec-2012-03-01_brs_vs_real_localisation:
+
 2012-03-01: Localisation of a real vs. binaural simulated point source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _fig-localisation-osa:
+.. _fig-2012-03-01_brs_vs_real_localisation:
 
 .. figure:: img/localisation_real_vs_simulated.png
     :align: center
@@ -157,10 +159,12 @@ listener performed during the experiments in the folder
 
 .. [Wierstorf2012] Wierstorf, H., Spors, S., Raake, A. (2012), "Perception and evaluation of sound fields," 59th Open Seminar on Acoustics, p. 263-68
 
+.. _sec-2013-11-01_sfs_localisation:
+
 2013-11-01: Localisation of different source types in sound field synthesis
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _fig-localisation-sfs:
+.. _fig-2013-11-01_sfs_localisation:
 
 .. figure:: img/localisation_sfs.png
     :align: center
@@ -203,10 +207,12 @@ loudspeaker array in the folder
 Quality ratings
 ---------------
 
+.. _sec-2014-04-01_scene_quality:
+
 2014-04-01: Scene related sound quality
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _fig-quality-scene:
+.. _fig-2014-04-01_scene_quality:
 
 .. figure:: img/quality_scene.png
     :align: center
