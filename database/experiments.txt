@@ -47,12 +47,12 @@ Coloration
 
 .. _sec-2013-05-01_wfs_coloration:
 
-2013-05-01 Coloration of a point source in Wave Field Synthesis
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-05-01: Coloration of a point source in Wave Field Synthesis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. _fig-2013-05-01_wfs_coloration:
 
-.. figure:: img/wfs_coloration.png
+.. figure:: img/2013-05-01_wfs_coloration.png
     :align: center
 
     Mean rated coloration of a point source synthesised with |WFS| compared to a
@@ -83,15 +83,15 @@ so it can directly extracted from them.
 
 .. _sec-2015-10-01_wfs_coloration:
 
-2015-10-01 Coloration of a point source in Wave Field Synthesis revisited
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2015-10-01: Coloration of a point source in Wave Field Synthesis revisited
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The first experiment investigating coloration in |WFS| (see
-:ref:`sec-2013-05-01_wfs_coloration`) had some artefacts in the stimuli for high
-frequencies due to the limitation coming with a finite sampling rate during the
-process of time delaying single signals in |WFS|. This time the experiment was
-repeated using fractional delay filter (add citation). In addition, we added a
-linear loudspeaker array besides the circular one used in the first experiment.
+:ref:`The first experiment <sec-2013-05-01_wfs_coloration>` investigating
+coloration in |WFS| had some artefacts in the stimuli for high frequencies due
+to the limitation coming with a finite sampling rate during the process of time
+delaying single signals in |WFS|. This time the experiment was repeated using
+fractional delay filter (add citation). In addition, we added a linear
+loudspeaker array besides the circular one used in the first experiment.
 
 .. _fig-2015-10_01_wfs_coloration:
 
@@ -102,7 +102,8 @@ linear loudspeaker array besides the circular one used in the first experiment.
     compared to a reference point source. The error bars are showing the
     confidence intervals.
 
-::
+The results are available in the following files::
+
     experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_music.csv
     experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_noise.csv
     experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_speech.csv
