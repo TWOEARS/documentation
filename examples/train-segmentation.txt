@@ -5,7 +5,7 @@
 (Re)train the segmentation stage
 ================================
 
-The ``SegmentationKS`` knowledge source of the |TwoEarsModel| depends on a localisation model which is based on support vector machine regression. This regression model has to be trained using a set of |HRTF|\ s. A demo of how a specific instance of the ``SegmentationKS`` can be trained is provided by the script :file:`demo_train_segmentation.m` in the ``examples/segmentation_demo`` folder. This script shows how the ``default`` setting of the ``SegmentationKS`` knowledge source which is used for all demos is generated.
+The ``SegmentationKS`` knowledge source of the |TwoEarsModel| depends on a localisation model which is based on support vector machine regression. This regression model has to be trained using a set of |HRTF|\ s. A demo of how a specific instance of the ``SegmentationKS`` can be trained is provided by the script :file:`demo_train_segmentation.m` in the ``examples/segmentation`` folder. This script shows how the ``default`` setting of the ``SegmentationKS`` knowledge source which is used for all demos is generated.
 
 Before starting with the training of a new model, the configuration of the |BinSim| for which this model should be used has to be specified. This is done by setting up a training scene. In this case, the training scene is specified in the :file:`training_scene.xml` file:
 
