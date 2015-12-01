@@ -13,7 +13,8 @@ which implies that localisation of the synthesised sound source deviates only
 slightly from performance in the reference sound field.
 
 We did a huge set of listening test investigating localisation performance in
-|WFS| and |NFC-HOA| that are presented in ... .
+|WFS| and |NFC-HOA| that are presented in
+:ref:`sec-2013-11-01_sfs_localisation`.
 
 In this example we choose the |WFS| system with a circular loudspeaker array and
 three different number of used loudspeakers synthesising a point source in front
