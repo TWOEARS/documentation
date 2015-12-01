@@ -4,16 +4,40 @@ Experiment results
 ==================
 
 In this part of the database we collect results from psychoacoustic experiments
-run by the different labs involved in |twoears|.
+run by the different labs involved in |twoears|. In addition to the results we
+provide the underlying stimuli in a way that they can directly be fed into the
+|BinSim| and provide the model with exactly the same audio input as the
+listeners experienced during the actual experiments.
 
 .. _sec-human-label-format:
 
 Human label file format
 -----------------------
 
-.. note::
+The test results are called human labels in the following and the average
+results of the single experiments are all stored in the same way in the human
+label file format. This is a simple csv file, which includes the following
+entries::
 
-    Add description of the file format
+    # Description of the results stored in the file
+    # stimuli, rating, 95% confidence interval
+    experiments/link_to/brs_file1.wav, -0.4653, 0.0123
+    experiments/link_to/brs_file2.wav,  0.2738, 0.1548
+    ...
+
+The file starts with a header that uses ``#`` as a comment sign and then
+includes at least three columns. The first one provides a link to the actual
+|BRS| file used in the experiment. The second one the average result from the
+experiment, this could be a mean, a median, or something else, and the third one
+showing the variance of the data, in most of the cases in the form of the
+confidence interval. The files could of course have more columns with additional
+information, like the time the listeners needed to response or if another value
+like the sound pressure level was changed during the experiment it could be
+indicated in a later column.
+
+Besides the human label files, most experiments provide the anonymised results
+from single listeners. The format of those data can vary, but in all cases they
+are provided as plain text or csv files.
 
 
 .. _sec-experiments-coloration:
