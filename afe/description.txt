@@ -738,36 +738,34 @@ Carrying out the processing
 
 As of the current |AFE| implementation, the processing is linear and the
 ``processChunk`` methods of each individual processor are called one after the
-other when asking the manager to start processing (either via its
-``processChunk`` or ``processSignal`` method). The order in which the processors
+other when asking the manager to start processing (via its
+``initiateProcessing`` method). The order in which the processors
 are called is important, as some will take as input what was other's output.
 This order is stored in the property ``Map`` of the manager. ``Map`` is a vector
 of indexes corresponding to the lines in the ``Processors`` cell array property
 of the manager. It is constructed at instantiation of the processors.
 Conceptually, if there are ``N`` instantiated processors, the ``processChunk``
-method of the manager ``mObj`` will call the ``processChunk`` methods of each
+method of the manager ``mObj`` will call the ``initiateProcessing`` methods of each
 processor following this loop:
 
 .. code-block:: Matlab
 
-    for ii = 1 : N
-        % Get index of current processor
-        jj = mObj.Map(ii);
-
-        % Getting input signal handle (for code readability)
-        in = mObj.InputList{jj,1};
-
-        % Perform the processing
-        out = mObj.Processors{jj,1}.processChunk(in.Data('new'));
-
-        % Store the result
-        mObj.OutputList{jj,1}.appendChunk(out);
-    end
+	for ii = 1:n_proc
+		% Get index of current processor
+		jj = mObj.Map(ii);
+		
+		% Perform the processing by calling initiateProcessing
+		mObj.Processors{jj,1}.initiateProcessing;
+		
+		if size(mObj.Processors,2) == 2 && ~isempty(mObj.Processors{jj,2})
+		mObj.Processors{jj,2}.initiateProcessing;
+		end
+	end
 
 .. note::
 
     Note the difference between indexes ``ii`` which relate to the
-    processing order (processing first ``ii=1`` and last ``ii=N``) and
+    processing order (processing first ``ii=1`` and last ``ii=n_proc``) and
     ``jj = mObj.Map(ii)`` which relate the processing order with the actual
     position of the processors in the cell array ``mObj.Processors``.
 

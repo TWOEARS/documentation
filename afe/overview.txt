@@ -71,27 +71,31 @@ a short *nametag*. The command ``requestList`` can be used to get a
 summary of all supported auditory representations::
 
     >> requestList
-    
-    ans = 
 
-        'adaptation'
-        'amsFeatures'
-        'autocorrelation'
-        'crosscorrelation'
-        'filterbank'
-        'gabor'
-        'ic'
-        'ild'
-        'innerhaircell'
-        'itd'
-        'offsetMap'
-        'offsetStrength'
-        'onsetMap'
-        'onsetStrength'
-        'pitch'
-        'ratemap'
-        'spectralFeatures'
-        'time'
+      Request name       Label                            Processor
+      ------------       -----                            -------------------
+      adaptation        Adaptation loop output            adaptationProc
+      amsFeatures       Amplitude modulation spectrogram  modulationProc
+      autocorrelation   Autocorrelation computation       autocorrelationProc
+      crosscorrelation  Crosscorrelation computation      crosscorrelationProc
+      filterbank        DRNL output                       drnlProc
+      filterbank        Gammatone filterbank output       gammatoneProc
+      gabor             Gabor features extraction         gaborProc
+      ic                Inter-aural coherence             icProc
+      ild               Inter-aural level difference      ildProc
+      innerhaircell     Inner hair-cell envelope          ihcProc
+      itd               Inter-aural time difference       itdProc
+      moc               Medial Olivo-Cochlear feedback    mocProc
+      myNewRequest      A description of my new request   templateProc
+      offsetMap         Offset map                        offsetMapProc
+      offsetStrength    Offset strength                   offsetProc
+      onsetMap          Onset map                         onsetMapProc
+      onsetStrength     Onset strength                    onsetProc
+      pitch             Pitch estimation                  pitchProc
+      precedence        Precedence effect                 precedenceProc
+      ratemap           Ratemap extraction                ratemapProc
+      spectralFeatures  Spectral features                 spectralFeaturesProc
+      time              Time domain signal                preProc
 
 A detailed description of the individual processors used to obtain
 these auditory representations will be given in :ref:`sec-afe-processors`.
@@ -252,40 +256,36 @@ command \ ``parameterHelper``::
 
     >> parameterHelper
 
-    Parameter handling in the TWO!EARS Auditory Front-End (AFE)
-    -----------------------------------------------------------
-    The extraction of various auditory representations performed by the TWO!EARS
-    Auditory Front-End software involves many parameters. Each parameter is
-    given a unique name and a default value. When placing a request for TWO!EARS
-    Auditory Front-End processing that uses one or more non-default parameters,
-    a specific structure of non-default parameters needs to be provided as input.
-    Such structure can be generated from genParStruct, using pairs of parameter
-    name and chosen value as inputs.
+    Parameter handling in the TWO!EARS Auditory Front-End
+    -------------------------------------------------
+    The extraction of various auditory representations performed by the TWO!EARS Auditory Front-End software involves many parameters. Each parameter is given a unique name and a default value. When placing a request for TWO!EARS auditory front-end processing that uses one or more non-default parameters, a specific structure of non-default parameters needs to be provided as input. Such structure can be generated from |genParStruct|, using pairs of parameter name and chosen value as inputs.
 
     Parameters names for each processor are listed below:
-        Amplitude modulation
-        Auto-correlation
-        Cross-correlation
-        DRNL filterbank
-        Gabor features extractor
-        Gammatone filterbank
-        IC Extractor
-        ILD Extractor
-        ITD Extractor
-        Inner hair-cell envelope extraction
-        Neural adaptation model
-        Offset detection
-        Offset mapping
-        Onset detection
-        Onset mapping
-        Pitch
-        Pre-processing stage
-        Ratemap
-        Spectral features
-        Plotting parameters
+		Amplitude modulation|
+		Auto-correlation|
+		Cross-correlation|
+		DRNL filterbank|
+		Gabor features extractor|
+		Gammatone filterbank|
+		IC Extractor|
+		ILD Extractor|
+		ITD Extractor|
+		Medial Olivo-Cochlear feedback processor|
+		Inner hair-cell envelope extraction|
+		Neural adaptation model|
+		Offset detection|
+		Offset mapping|
+		Onset detection|
+		Onset mapping|
+		Pitch|
+		Pre-processing stage|
+		Precedence effect|
+		Ratemap|
+		Spectral features|
+		Plotting parameters|
 
 Each element in the list is a hyperlink, which will reveal the list of
-parameters for a given element, e.g. when clicking on ``ILD Extractor``
+parameters for a given element, e.g.,
 
 ::
 
@@ -355,7 +355,7 @@ function ``Processor.getDependencyList(’processorName’)``, e.g.
 
 ::
 
-    >> ProcessorgetDependencyList('ildProc')
+    >> Processor.getDependencyList('ildProc')
 
     ans = 
 
