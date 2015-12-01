@@ -63,7 +63,8 @@ in [Wierstorf2014a]_. In the experiment different |WFS| systems synthesising a
 point source were rated in terms of their perceived coloration compared to real
 point source. This was done for different audio material, namely pink noise,
 speech, and music and different listener positions. The results are summarised
-in :numref:`fig-wfs-coloration` and available in the following database files::
+in :numref:`fig-2013-05-01_wfs_coloration` and available in the following
+database files::
 
     experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_music.csv
     experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_noise.csv
@@ -75,8 +76,8 @@ in :numref:`fig-wfs-coloration` and available in the following database files::
 The corresponding stimuli are provided as |BRS| files that can be used together
 with the |BinSim| and the corresponding scene description file
 :file:`wfs_coloration.xml` to reproduce the exact pink noise signals from the
-test. The path to the |BRS| files is also listed in the first column of the human label files,
-so it can directly extracted from them.
+test. The path to the |BRS| files is also listed in the first column of the
+human label files, so it can directly extracted from them.
 
 .. [Wierstorf2014a] Wierstorf, H., Hohnerlein, C., Spors, S., Raake, A. (2014), "Coloration in Wave Field Synthesis," 55th International AES Conference, Paper 5-3
 
