@@ -118,7 +118,7 @@ After that we can compare the result to the one from the listening test::
 If you would like to do this for all listening positions, you can go to the
 ``examples/qoe_localisation`` folder and execute the following command::
 
-    >> qoeLocalisation
+    >> localisationWfsCircularPointSource
 
 This will predict the directions for every listener position and plots the
 results at the end in comparison to the listening test results. Figure
