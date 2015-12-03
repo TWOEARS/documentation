@@ -26,17 +26,17 @@ When you are planning to use the |BinSim| module you have to prepare the
 following things:
 
     * **Linux/Mac**: install the packages *make*, *g++ (at least version
-      4.7.3)*, *libsndfile1-dev*, *libxml2-dev*, *libfftw3-dev*. Under Linux
-      use your native package manager, e.g. apt-get, aptitude, yum. Under Mac
-      you may use `Homebrew <http://brew.sh/>`_ or 
-      `MacPorts <https://www.macports.org/>`_ to install the packages.       
+      4.7.3)*, *libsndfile1-dev*, *libxml2-dev*, *libfftw3-dev*. Under Linux use
+      your native package manager, e.g. apt-get, aptitude, yum. Under Mac you
+      may use `Homebrew <http://brew.sh/>`_ or `MacPorts
+      <https://www.macports.org/>`_ to install the packages.
     * **Windows**: add ``TwoEarsDir\BinauralSimulator\src\mex\dll`` folder to
-      ``PATH`` environment variable (`HOWTO`_). 
-We have experienced some issues regarding the precompiled *.mex binaries on
-some machines. If you get error messages related to the *.mex files, please
-remove the directory of your PATH again, if you are using Windows. Try to
-compile the mex binaries by yourself using the tutorial given in 
-:ref:`sec-binsim-install`.
+      ``PATH`` environment variable (`HOWTO`_).
+
+We have experienced some issues regarding the precompiled \*.mex binaries on some
+machines. If you get error messages related to the \*.mex files, please remove
+the directory of your PATH again, if you are using Windows. Try to compile the
+mex binaries by yourself using the tutorial given in :ref:`sec-binsim-install`.
 
 Finally, in order to use the location knowledge source ``LocationKS()``, you
 need to download `GMTK`_ binaries for your operating system:
