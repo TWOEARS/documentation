@@ -97,7 +97,7 @@ sources and the listener.
       'Sinks', simulator.AudioSink(2) ...
       );
 
-Sound sources are stored in a cell array. Line 3 defines two point sources,
+Sound sources are stored in a cell array. Line 3 defines two point sources, that
 are created by calling the constructor of the ``simulator.source.Point``-class.
 For the binaural simulation the parameter ``Sinks`` must contain only one object
 of the ``simulator.AudioSink``-class describing the listener (Line 4). The
@@ -138,7 +138,8 @@ in meter). In order to emit sound from sound sources, audio buffers have to be
 respectively defined containing the sources' audio signals. A single-channel
 |FIFO|-Buffer can be defined by ``simulator.buffer.FIFO(1)``.
 For more details about possible buffer types please refer to the
-`documentation in the source code of the buffers`_. To load sound files into the buffers execute
+`documentation in the source code of the buffers`_. To load sound files into the
+buffers execute
 
 .. code-block:: Matlab
     :linenos:
