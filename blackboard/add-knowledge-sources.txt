@@ -146,6 +146,10 @@ case, using simple geometric mapping from |ITD|\ s to azimuth locations, the
         obj.blackboard.addData('locationHypotheses', ...
             locHyp, false, obj.trigger.tmIdx);
 
+        % If desired show some debugging output, if Blackboard is started in
+        % verbose mode with BlackboardSystem(1);
+        bbprintf(obj, '[SimpleLocalisationKS:] Created LocationHypothesis.\n')
+
         % Trigger the event that is KS has been executed
         notify(obj, 'KsFiredEvent', BlackboardEventData(obj.trigger.tmIdx));
     end
