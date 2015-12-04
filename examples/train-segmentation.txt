@@ -1,0 +1,134 @@
+.. highlight:: Matlab
+
+.. _sec-examples-train-segmentation:
+
+(Re)train the segmentation stage
+================================
+
+The ``SegmentationKS`` knowledge source of the |TwoEarsModel| depends on a
+localisation model which is based on support vector machine regression. This
+regression model has to be trained using a set of |HRTF|\ s. A demo of how a
+specific instance of the ``SegmentationKS`` can be trained is provided by the
+script :file:`demo_train_segmentation.m` in the ``examples/segmentation``
+folder. This script shows how the ``default`` setting of the ``SegmentationKS``
+knowledge source which is used for all demos is generated.
+
+Before starting with the training of a new model, the configuration of the
+|BinSim| for which this model should be used has to be specified. This is done
+by setting up a training scene. In this case, the training scene is specified in
+the :file:`training_scene.xml` file:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <scene
+      BlockSize="4096"
+      SampleRate="44100"
+      MaximumDelay="0.0"
+      NumberOfThreads="1"
+      LengthOfSimulation = "5"
+      HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa">
+      <source Radius="3.0"
+              Mute="false"
+              Type="point"
+              Name="SoundSource">
+        <buffer ChannelMapping="1"
+            Type="noise"/>
+      </source>
+      <sink Name="Head"
+            Position="0 0 0"
+            UnitX="1 0 0"
+            UnitZ="0 0 1"/>
+    </scene>
+
+The only parameter that is relevant for the training process is the set of
+|HRTF|\ s, which is taken from the :ref:`sec-database`
+``impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa`` for this demo.
+All other parameters only have to match the |HRTF|\ s specifications. The
+current implementation of the training framework uses white noise as a stimulus
+signal during training.
+
+Besides the scene description file, the only requirement to generate a training
+script is to provide a unique identifier for the ``SegmentationKS`` instance
+that should be trained. In the file :file:`demo_train_segmentation.m` this is
+done via
+
+.. code-block:: Matlab
+    :linenos:
+
+    ksName = 'DemoKS';
+
+Furthermore, some additional parameters that should be used for training can be
+specified directly in the training script. The additional parameters are
+optional and will be initialised by the default |AFE| values if not explicitly
+specified. The possible configuration parameters are provided as an example in
+:file:`demo_train_segmentation.m`:
+
+.. code-block:: Matlab
+    :linenos:
+
+    nChannels = 32;             % Number of filterbank channels
+    winSize = 0.02;             % Size of the processing window in [s]
+    hopSize = 0.01;             % Frame shift in [s]
+    fLow = 80;                  % Lowest filterbank center frequency in [Hz]
+    fHigh = 8000;               % Highest filterbank center frequency in [Hz]
+
+If all of the described prerequisites are met, an instance of the
+``SegmentationKS`` can be created:
+
+.. code-block:: Matlab
+    :linenos:
+
+    segKS = SegmentationKS(ksName, ...
+        'NumChannels', nChannels, ...
+        'WindowSize', winSize, ...
+        'HopSize', hopSize, ...
+        'FLow', fLow, ...
+        'FHigh', fHigh, ...
+        'Verbosity', true);     % Enable status messages during training
+
+This instance can subsequently be used to automatically generate all files
+required for the training process:
+
+.. code-block:: Matlab
+    :linenos:
+
+    xmlSceneDescription = 'training_scene.xml';
+    segKS.generateTrainingData(xmlSceneDescription);
+
+If this is completed, the ``train()`` function can be used to start training of
+the regression models.
+
+.. code-block:: Matlab
+    :linenos:
+
+    segKS.train();
+
+The ``train()`` command will produce an error message if a set of trained models
+already exist for the identifier the ``SegmentationKS`` was instantiated with.
+Overwriting existing models has to be explicitly enforced by calling the
+``train()`` method with a additional ``doOverwrite`` flag which has to be set to
+``true``:
+
+.. code-block:: Matlab
+    :linenos:
+
+    segKS.train(true);
+
+.. note::
+
+    The training process may take up to several hours depending on the available
+    computational ressources. It is generally recommended to set the
+    ``Verbosity`` flag to ``true`` at instantiation, in order to receive
+    important status and progress messages during the training process.
+
+If training is completed, the generated training files are not needed anymore
+and can be deleted if no re-training should be performed. This can be done by
+calling the ``removeTrainingData`` method:
+
+.. code-block:: Matlab
+    :linenos:
+
+    segKS.removeTrainingData();
+
+
