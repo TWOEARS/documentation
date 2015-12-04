@@ -284,6 +284,17 @@ class:
     obj.blackboard.addData( ...
         'identityDecision', maxProbHyp, false, obj.trigger.tmIdx );
 
+Let us assume that we have an instantiation called ``bbs`` of the |blackboard|.
+Now we would like to see the currently available data in its memory. For that
+you can run::
+
+    >> bbs.blackboard.getDataLabels()
+
+or specify explicitly a time for which you would like to see the available
+data::
+
+    >> bbs.blackboard.getDataLabels(bbs.blackboard.currentSoundTimeIdx-1)
+
 Additionally, the blackboard is used as a storage for pointers to signals from
 the |AFE| requested by knowledge sources inheriting from
 ``AuditoryFrontEndDepKS``.  The actual memory in which these signals are stored

@@ -25,7 +25,7 @@ the details after we performed the localisation. So, first run::
 in Matlab. This runs the blackboard and does the localisation, but does not
 print any results, it only returns the blackboard as ``bbs``.  The blackboard
 itself stores lots of data in itself, see :ref:`sec-blackboard-memory` for
-details. To see what is currently available in the data run::
+details. To see what is currently available in the memory run::
 
     >> bbs.blackboard.getDataLabels()
 
