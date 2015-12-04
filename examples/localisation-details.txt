@@ -23,10 +23,21 @@ the details after we performed the localisation. So, first run::
     >> bbs = localise;
 
 in Matlab. This runs the blackboard and does the localisation, but does not
-print any results, it only returns the blackboard as ``bbs``.
-The blackboard itself stores lots of data in itself, see
-:ref:`sec-blackboard-memory` for details. First we ask the blackboard to return
-the localisation data::
+print any results, it only returns the blackboard as ``bbs``.  The blackboard
+itself stores lots of data in itself, see :ref:`sec-blackboard-memory` for
+details. To see what is currently available in the data run::
+
+    >> bbs.blackboard.getDataLabels()
+
+    ans = 
+
+        'confusionHypotheses'
+        'headOrientation'
+        'locationHypotheses'
+        'perceivedLocations'
+
+To analyse the localisation performance of the model we ask the blackboard to
+return the localisation data::
 
     >> perceivedLocations = bbs.blackboard.getData('perceivedLocations')
 
