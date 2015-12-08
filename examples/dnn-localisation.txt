@@ -1,0 +1,238 @@
+.. highlight:: Matlab
+
+.. _sec-examples-dnn-localisation:
+
+DNN-based localisation with and without head rotations
+============================================
+
+The |TwoEarsModel| comes with several knowledge sources that work together to
+estimate the perceived azimuth of a sound source, see
+:ref:`sec-blackboard-localisation` for a summary. The main work is done by the
+``DNNLocationKS`` knowledge source that uses |CCF| and |ILD| cues provided by the
+:ref:`sec-afe` and map the cues to azimuths using deep neural networks. As an output
+it provides a probability distribution of possible directions for the source.
+This will be passed on to the ``ConfusionKS`` knowledge source which looks at
+the probabilities and decides if a clear direction can be extracted from this.
+If not, ``ConfusionSolvingKS`` is called which then triggers ``RotationKS`` to
+rotate the head of the listener (could be in the simulation or of a robot) and
+start the localisation process again.
+
+In this example we will see how to set up the model to perform a localisation
+task and how to switch on or off the possibility of the model to rotate its
+head. This example can be found in the
+``examples/localisation_DNNs`` folder which consists of the
+following files::
+
+    BlackboardNoHeadRotation.xml
+    Blackboard.xml
+    Config.xml
+    localise.m
+    SceneDescription.xml
+
+The first file we look at is ``SceneDescription.xml``, it defines the actual
+acoustic scene in which our virtual head and the sound source will be placed in
+order to simulate binaural signals. It looks like this:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <scene
+        BlockSize="4096"
+        SampleRate="44100"
+        MaximumDelay="0.0"
+        NumberOfThreads="1"
+        LengthOfSimulation = "1"
+        HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa">
+        <source Radius="3.0"
+                Mute="false"
+                Type="point"
+                Name="SoundSource">
+            <buffer ChannelMapping="1"
+                    Type="noise"/>
+        </source>
+        <sink Name="Head"
+            Position="0 0 0"
+            UnitX="1 0 0"
+            UnitZ="0 0 1"/>
+    </scene>
+
+Here, we define basic things like the sampling rate, the length of the stimulus,
+the used |HRTF|, the source material, the
+listener position, and the distance between listener and source. For more
+documentation on specifying an acoustic scene, see
+:ref:`sec-xml-scene-description`.
+
+.. note::
+
+    We don't specify the exact source azimuth here, as we will choose different
+    azimuth values later on and set them on the fly from within Matlab.
+
+The next thing we have to do is to specify of what components or model should
+consists and what it should actually do. This is done by selecting appropriate
+modules for the :ref:`sec-blackboard` stage of the model. This can be configured
+again in a xml file. First we look at the configuration for localisation
+including head movements (:file:`Blackboard.xml`):
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <blackboardsystem>
+
+        <dataConnection Type="AuditoryFrontEndKS">
+            <Param Type="double">16000</Param>
+        </dataConnection>
+
+        <KS Name="loc" Type="DNNLocationKS">
+            <Param Type="int">16</Param>
+        </KS>
+        <KS Name="conf" Type="ConfusionKS"/>
+        <KS Name="confSolv" Type="ConfusionSolvingKS"/>
+        <KS Name="rot" Type="RotationKS">
+            <Param Type="ref">robotConnect</Param>
+        </KS>
+
+        <Connection Mode="replaceOld" Event="AgendaEmpty">
+            <source>scheduler</source>
+            <sink>dataConnect</sink>
+        </Connection>
+        <Connection Mode="replaceOld">
+            <source>dataConnect</source>
+            <sink>loc</sink>
+        </Connection>
+        <Connection Mode="add">
+            <source>loc</source>
+            <sink>conf</sink>
+        </Connection>
+        <Connection Mode="replaceOld" Event="ConfusedLocations">
+            <source>conf</source>
+            <sink>rot</sink>
+        </Connection>
+        <Connection Mode="add" Event="ConfusedLocations">
+            <source>conf</source>
+            <sink>confSolv</sink>
+        </Connection>
+
+    </blackboardsystem>
+
+Here, we use different knowledge sources that work together in order to solve
+the localisation task. We have ``AuditoryFrontEndKS`` for extract auditory cues
+from the ear signals sampled at 16 kHz, ``DNNLocationKS`` with 16 frequency 
+channels, ``ConfusionKS``, ``ConfusionSolvingKS``,
+and ``RotationKS`` for the actual localisation task. The ``Param`` tags are
+parameters we can pass to the knowledge sources. After setting up which
+knowledge sources we will use, we connect them with the ``Connection`` tags.
+For more information on configuring the blackboard see
+:ref:`sec-blackboard-configure`.
+
+In a second configuration file we setting up the same blackboard, but now
+disabling its ability to turn the head (:file:`BlackboardNoHeadRotation.xml`):
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <blackboardsystem>
+
+        <dataConnection Type="AuditoryFrontEndKS"/>
+	<dataConnection Type="AuditoryFrontEndKS">
+            <Param Type="double">16000</Param>
+        </dataConnection>
+
+        <KS Name="loc" Type="DNNLocationKS">
+            <Param Type="int">16</Param>
+        </KS>
+        <KS Name="conf" Type="ConfusionKS">
+            <!-- Disable confusion solving (== no head rotation) -->
+            <Param Type="int">0</Param>
+        </KS>
+
+        <Connection Mode="replaceOld" Event="AgendaEmpty">
+            <source>scheduler</source>
+            <sink>dataConnect</sink>
+        </Connection>
+        <Connection Mode="replaceOld">
+            <source>dataConnect</source>
+            <sink>loc</sink>
+        </Connection>
+        <Connection Mode="add">
+            <source>loc</source>
+            <sink>conf</sink>
+        </Connection>
+    </blackboardsystem>
+
+Now, everything is prepared and we can start Matlab in order to perform the
+localisation. You can just start it and run the following command to see it in
+action, afterwards we will have a look at what happened::
+
+    >> localise
+
+    ------------------------------------------------------------------
+    Source direction        Model w head rot.       Model wo head rot.
+    ------------------------------------------------------------------
+     -90 			  -90 			  -90
+     -80 			  -80 			  -80
+     -70 			  -70 			  -70
+     -60 			  -60 			  -60
+     -50 			  -50 			  -50
+     -40 			  -40 			  -40
+     -30 			  -30 			  -30
+     -20 			  160 			  -20
+     -10 			  -10 			  -10
+       0 			    0 			 -180
+      10 			   10 			  170
+      20 			   20 			   20
+      30 			   30 			   30
+      40 			   40 			   40
+      50 			   50 			   50
+      60 			   60 			   60
+      70 			   70 			   70
+      80 			   80 			   80
+      90 			   90 			   90
+    ------------------------------------------------------------------
+
+As you can see the model with head rotation returned better results than the model
+without head rotation enabled. The reason why we have problems without head
+rotations is that we have trained the model for the full 360 degrees which could
+produce front-back confusion.
+
+Now, we have a look into the details of the ``localise()`` function. We will
+only talk about the parts that are responsible for the task, not for printing
+out the results onto the screen. First we define the source angles we are going
+to synthesise and start the :ref:`sec-binsim`::
+
+    % Different angles the sound source is placed at
+    sourceAngles = -90:10:90;
+
+    % === Initialise binaural simulator
+    sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
+    sim.Verbose = false;
+    sim.Init = true;
+
+After that we have a loop over the different source angles in which we are
+setting the source position in the :ref:`sec-binsim` and run two different
+blackboards after each other, one with, the other one without head rotations::
+
+    for direction = sourceAngles
+
+        sim.Sources{1}.set('Azimuth', direction);
+        sim.rotateHead(0, 'absolute');
+        sim.ReInit = true;
+
+        % LocationKS with head rotation for confusion solving
+        bbs = BlackboardSystem(0);
+        bbs.setRobotConnect(sim);
+        bbs.buildFromXml('Blackboard.xml');
+        bbs.run();
+
+        % Reset binaural simulation
+        sim.rotateHead(0, 'absolute');
+        sim.ReInit = true;
+
+        % LocationKS without head rotation and confusion solving
+        bbs = BlackboardSystem(0);
+        bbs.setRobotConnect(sim);
+        bbs.buildFromXml('BlackboardNoHeadRotation.xml');
+        bbs.run();
+
+    end
+
+.. vim: filetype=rst spell:

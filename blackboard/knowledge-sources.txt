@@ -159,6 +159,35 @@ azimuths: ``Location`` knowledge source, ``Confusion Detection`` knowledge
 source, ``Confusion Solving`` knowledge source, and ``Head Rotation`` knowledge
 source.
 
+.. _sec-dnn-location-knowledge-source:
+
+Location knowledge source: ``DNNLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Class ``DNNLocationKS`` implements knowledge about the statistical relationship
+between spatial cues and azimuth locations using deep neural networks (DNNs). 
+Currently the DNNs are trained on binaural cues from the |AFE| including |CCF| 
+and |ILD| cues, as described in more details in [MaEtAl2015dnn]_.
+
+This knowledge source requires
+signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``
+(Section :ref:`sec-afe-dep-knowledge-source`) and needs to be bound to the
+``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The ``canExecute`` precondition
+checks the energy level of the current signal block and localisation takes place
+only if there is an actual auditory event. After execution, a
+``LocationHypothesis`` containing a probability distribution of azimuth
+locations is placed on the blackboard (category ``locationHypotheses``) and the
+event ``KsFiredEvent`` is notified.
+
+
++------------------------+---------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
++------------------------+---------------------------------------+
+| writes data category   | ``locationHypotheses``                |
++------------------------+---------------------------------------+
+| triggers event         | ``KsFiredEvent``                      |
++------------------------+---------------------------------------+
+
 .. _sec-location-knowledge-source:
 
 Location knowledge source: ``LocationKS``
@@ -403,8 +432,10 @@ sources present in the auditory scene.
 
 .. ..:References:..
 
-.. [MooreTan2004] Moore, B. C. J., & Tan, C. (2004). Development and Validation of a Method for Predicting the Perceived Naturalness of Sounds Subjected to Spectral Distortion. JAES, 52(9), 900–14.
+.. [MaEtAl2015dnn] Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple speakers exploiting deep neural networks and head movements. Proceedings of Interspeech'15, pp.3302-3306, Dresden, Germany
 
-.. [Wierstorf2014] Wierstorf, H. (2014), “Perceptual Assessment of Sound Field Synthesis,” PhD-thesis, TU Berlin
+.. [MooreTan2004] Moore, B. C. J., & Tan, C. (2004) Development and Validation of a Method for Predicting the Perceived Naturalness of Sounds Subjected to Spectral Distortion. JAES, 52(9), 900–14.
+
+.. [Wierstorf2014] Wierstorf, H. (2014) “Perceptual Assessment of Sound Field Synthesis,” PhD-thesis, TU Berlin
 
 .. vim: filetype=rst spell:
