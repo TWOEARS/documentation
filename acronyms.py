@@ -16,6 +16,7 @@ rst_epilog = """
 .. |CASP|            replace:: :abbr:`CASP (Computational Auditory Signalprocessing and Perception)`
 .. |CCF|             replace:: :abbr:`CCF (Cross-Correlation Function)`
 .. |DC|              replace:: :abbr:`DC (Direct Current)`
+.. |DNN|             replace:: :abbr:`DNN (deep neural network)`
 .. |DRNL|            replace:: :abbr:`DRNL (Dual-Resonance Non-Linear)`
 .. |ERB|             replace:: :abbr:`ERB (Equivalent Rectangular Bandwidth)`
 .. |ETSI|            replace:: :abbr:`ETSI (European Telecommunications Standards Institute)`
@@ -24,6 +25,7 @@ rst_epilog = """
 .. |FIR|             replace:: :abbr:`FIR (Finite Impulse Response)`
 .. |GenoM3|          replace:: :abbr:`GenoM3 (Generator of Modules, 3rd version)`
 .. |genomix|         replace:: *genomix*
+.. |GMM|             replace:: :abbr:`GMM (Gaussian mixture models)`
 .. |HRTF|            replace:: :abbr:`HRTF (Head-Related Transfer Function)`
 .. |IC|              replace:: :abbr:`IC (Interaural Coherence)`
 .. |IHC|             replace:: :abbr:`IHC (Inner Hair Cell)`

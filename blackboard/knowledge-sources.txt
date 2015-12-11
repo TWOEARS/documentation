@@ -162,12 +162,12 @@ source.
 .. _sec-dnn-location-knowledge-source:
 
 Location knowledge source: ``DNNLocationKS``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Class ``DNNLocationKS`` implements knowledge about the statistical relationship
-between spatial cues and azimuth locations using deep neural networks (DNNs). 
-Currently the DNNs are trained on binaural cues from the |AFE| including |CCF| 
-and |ILD| cues, as described in more details in [MaEtAl2015dnn]_.
+between spatial cues and azimuth locations using |DNN|\ s.  Currently the |DNN|\
+s are trained on binaural cues from the |AFE| including |CCF| and |ILD| cues, as
+described in more details in [MaEtAl2015dnn]_.
 
 This knowledge source requires
 signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``
@@ -194,9 +194,9 @@ Location knowledge source: ``LocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Class ``LocationKS`` implements knowledge about the statistical relationship
-between spatial cues and azimuth locations. Currently we model the 
-relationship using Gaussian mixture models (GMMs), which are trained on binaural
-cues from the |AFE| including |ITD| and |ILD| cues.
+between spatial cues and azimuth locations. Currently we model the relationship
+using |GMM|\ s, which are trained on binaural cues from the |AFE| including
+|ITD| and |ILD| cues.
 
 This knowledge source requires
 signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``

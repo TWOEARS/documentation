@@ -3,7 +3,7 @@
 .. _sec-examples-dnn-localisation:
 
 DNN-based localisation with and without head rotations
-============================================
+======================================================
 
 The |TwoEarsModel| comes with several knowledge sources that work together to
 estimate the perceived azimuth of a sound source, see
