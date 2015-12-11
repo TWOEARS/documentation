@@ -15,9 +15,9 @@ Simulate two dry sources
 
 In this example, two dry sources will be simulated and the binaural output is
 written to the file :file:`out_two_sources.wav`.  One source is a cello placed
-to the left of the listener and the other source is castanets placed in the
-front of the listener. If you want to test it run the :file:`two_sources.m`
-script.
+at the front left of the listener and the other source is castanets placed at
+the front right of the listener. If you want to test it run the 
+:file:`two_sources.m` script.
 
 .. code-block:: Matlab
     :linenos:
