@@ -235,15 +235,15 @@ there is a confusion. A confusion emerges when there are more valid locations in
 the hypotheses than assumed auditory sources in the scene. In case of a
 confusion, a ``ConfusedLocations`` event is notified and the responsible
 location hypothesis is placed on the blackboard in the ``confusionHypotheses``
-category. Otherwise, a ``PerceivedLocation`` object is added to the blackboard
-``perceivedLocations`` data category, and the standard event is triggered.
+category. Otherwise, a ``PerceivedAzimuth`` object is added to the blackboard
+``perceivedAzimuths`` data category, and the standard event is triggered.
 
 +------------------------+----------------------------------------------------+
 | binds to               | ``LocationKS.KsFiredEvent``                        |
 +------------------------+----------------------------------------------------+
 | reads data category    | ``sourcesAzimuthsDistributionHypotheses``          |
 +------------------------+----------------------------------------------------+
-| writes data category   | ``confusionHyptheses`` or ``perceivedLocations``   |
+| writes data category   | ``confusionHyptheses`` or ``perceivedAzimuths``    |
 +------------------------+----------------------------------------------------+
 | triggers event         | ``ConfusedLocations`` or ``KsFiredEvent``          |
 +------------------------+----------------------------------------------------+
@@ -259,14 +259,14 @@ location hypotheses received after head rotation is completed. The
 ``canExecute`` method will wait for new location hypotheses; when there is one,
 it will check whether the head has been turned, otherwise it will not execute.
 The confusion is then solved by using the old and the new location hypothesis,
-and a ``PerceivedLocation`` object is placed on the blackboard.
+and a ``PerceivedAzimuth`` object is placed on the blackboard.
 
 +------------------------+--------------------------------------------------------------------------------------------+
 | binds to               | ``ConfusionDetectionKS.ConfusedLocations``                                                 |
 +------------------------+--------------------------------------------------------------------------------------------+
 | reads data category    | ``confusionHypotheses``, ``headOrientation`` and ``sourcesAzimuthsDistributionHypotheses`` |
 +------------------------+--------------------------------------------------------------------------------------------+
-| writes data category   | ``perceivedLocations``                                                                     |
+| writes data category   | ``perceivedAzimuths``                                                                      |
 +------------------------+--------------------------------------------------------------------------------------------+
 | triggers event         | ``KsFiredEvent``                                                                           |
 +------------------------+--------------------------------------------------------------------------------------------+

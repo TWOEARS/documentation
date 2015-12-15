@@ -79,20 +79,20 @@ Now the prediction has finished and we have to inspect the result and compare it
 to the result from the listening test. The prediction is stored inside the
 |blackboard| and can be requested with::
 
-    >> predictedLocations = bbs.blackboard.getData('perceivedLocations')
+    >> predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths')
 
-    predictedLocations =
+    predictedAzimuths =
 
     1x8 struct array with fields:
 
         sndTmIdx
         data
 
-As the ``perceivedLocations`` is a data structure containing the results for
+As the ``perceivedAzimuths`` is a data structure containing the results for
 every time step of the block-based processing, we provide a function that
 evaluates that data and provides us with an average value over time::
 
-    >> predictedAzimuth = evaluateLocalisationResults(predictedLocations)
+    >> predictedAzimuth = evaluateLocalisationResults(predictedAzimuths)
 
     predictedAzimuth =
 

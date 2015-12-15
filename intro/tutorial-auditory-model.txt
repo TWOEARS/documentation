@@ -117,14 +117,14 @@ Now the model is finished, but we are of course interested in seeing the results
 What you could do here is the following::
 
     >> sourceAzimuth = 63; % real phyiscal position of the source
-    >> perceivedLocations = bbs.blackboard.getData('perceivedLocations');
-    >> displayLocalisationResults(perceivedLocations, sourceAzimuth);
+    >> perceivedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
+    >> displayLocalisationResults(perceivedAzimuths, sourceAzimuth);
 
     ------------------------------------------------------------------------------------
     Reference target angle:  63 degrees
     ------------------------------------------------------------------------------------
     Localised source angle:
-    BlockTime   PerceivedLocation   (head orient., relative loc.)   Probability
+    BlockTime   PerceivedAzimuth   (head orient., relative loc.)   Probability
     ------------------------------------------------------------------------------------
       0.46       63 degrees     (  0 degrees,     63 degrees)   0.59
       1.02       63 degrees     ( 62 degrees,      1 degrees)   0.92
