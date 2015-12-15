@@ -178,24 +178,24 @@ between spatial cues and azimuth locations using |DNN|\ s.  Currently the |DNN|\
 s are trained on binaural cues from the |AFE| including |CCF| and |ILD| cues, as
 described in more details in [MaEtAl2015dnn]_.
 
-This knowledge source requires
-signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``
-(Section :ref:`sec-afe-dep-knowledge-source`) and needs to be bound to the
-``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The ``canExecute`` precondition
-checks the energy level of the current signal block and localisation takes place
-only if there is an actual auditory event. After execution, a
-``LocationHypothesis`` containing a probability distribution of azimuth
-locations is placed on the blackboard (category ``locationHypotheses``) and the
-event ``KsFiredEvent`` is notified.
+This knowledge source requires signals from the |AFE| and thus inherits from the
+``AuditoryFrontEndDepKS`` (Section :ref:`sec-afe-dep-knowledge-source`) and
+needs to be bound to the ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The
+``canExecute`` precondition checks the energy level of the current signal block
+and localisation takes place only if there is an actual auditory event. After
+execution, a ``SourcesAzimuthsDistributionHypothesis`` containing a probability
+distribution of azimuth locations is placed on the blackboard (category
+``sourcesAzimuthsDistributionHypotheses``) and the event ``KsFiredEvent`` is
+notified.
 
 
-+------------------------+---------------------------------------+
-| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
-+------------------------+---------------------------------------+
-| writes data category   | ``locationHypotheses``                |
-+------------------------+---------------------------------------+
-| triggers event         | ``KsFiredEvent``                      |
-+------------------------+---------------------------------------+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
 
 .. _sec-location-knowledge-source:
 
@@ -207,24 +207,23 @@ between spatial cues and azimuth locations. Currently we model the relationship
 using |GMM|\ s, which are trained on binaural cues from the |AFE| including
 |ITD| and |ILD| cues.
 
-This knowledge source requires
-signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``
-(Section :ref:`sec-afe-dep-knowledge-source`) and needs to be bound to the
-``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The ``canExecute`` precondition
-checks the energy level of the current signal block and localisation takes place
-only if there is an actual auditory event. After execution, a
-``LocationHypothesis`` containing a probability distribution of azimuth
-locations is placed on the blackboard (category ``locationHypotheses``) and the
-event ``KsFiredEvent`` is notified.
+This knowledge source requires signals from the |AFE| and thus inherits from the
+``AuditoryFrontEndDepKS`` (Section :ref:`sec-afe-dep-knowledge-source`) and
+needs to be bound to the ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The
+``canExecute`` precondition checks the energy level of the current signal block
+and localisation takes place only if there is an actual auditory event. After
+execution, a ``SourcesAzimuthsDistributionHypothesis`` containing a probability
+distribution of azimuth locations is placed on the blackboard (category
+``sourcesAzimuthsDistributionHypotheses``) and the event ``KsFiredEvent`` is
+notified.
 
-
-+------------------------+---------------------------------------+
-| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
-+------------------------+---------------------------------------+
-| writes data category   | ``locationHypotheses``                |
-+------------------------+---------------------------------------+
-| triggers event         | ``KsFiredEvent``                      |
-+------------------------+---------------------------------------+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
 
 .. _sec-confusion-knowledge-source:
 
@@ -242,7 +241,7 @@ category. Otherwise, a ``PerceivedLocation`` object is added to the blackboard
 +------------------------+----------------------------------------------------+
 | binds to               | ``LocationKS.KsFiredEvent``                        |
 +------------------------+----------------------------------------------------+
-| reads data category    | ``locationHyptheses``                              |
+| reads data category    | ``sourcesAzimuthsDistributionHypotheses``          |
 +------------------------+----------------------------------------------------+
 | writes data category   | ``confusionHyptheses`` or ``perceivedLocations``   |
 +------------------------+----------------------------------------------------+
@@ -262,15 +261,15 @@ it will check whether the head has been turned, otherwise it will not execute.
 The confusion is then solved by using the old and the new location hypothesis,
 and a ``PerceivedLocation`` object is placed on the blackboard.
 
-+------------------------+---------------------------------------------------------------------------+
-| binds to               | ``ConfusionDetectionKS.ConfusedLocations``                                |
-+------------------------+---------------------------------------------------------------------------+
-| reads data category    | ``confusionHypotheses``, ``headOrientation`` and ``locationHypotheses``   |
-+------------------------+---------------------------------------------------------------------------+
-| writes data category   | ``perceivedLocations``                                                    |
-+------------------------+---------------------------------------------------------------------------+
-| triggers event         | ``KsFiredEvent``                                                          |
-+------------------------+---------------------------------------------------------------------------+
++------------------------+--------------------------------------------------------------------------------------------+
+| binds to               | ``ConfusionDetectionKS.ConfusedLocations``                                                 |
++------------------------+--------------------------------------------------------------------------------------------+
+| reads data category    | ``confusionHypotheses``, ``headOrientation`` and ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+--------------------------------------------------------------------------------------------+
+| writes data category   | ``perceivedLocations``                                                                     |
++------------------------+--------------------------------------------------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                                                           |
++------------------------+--------------------------------------------------------------------------------------------+
 
 .. _sec-rotation-knowledge-source:
 
@@ -417,15 +416,16 @@ This implies that the knowledge source is not able to distinguish between front
 and back. Beside the lookup table it uses also an outlier detection in the
 process of integrating the perceived angles over the different frequency
 channels as suggested in [Wierstorf2014]_. The output of the knowledge source is
-a ``locationHypotheses`` identical to the output of the ``LocationKS``.
+a ``sourcesAzimuthsDistributionHypotheses`` identical to the output of the
+``LocationKS``.
 
-+------------------------+---------------------------------------+
-| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
-+------------------------+---------------------------------------+
-| writes data category   | ``locationHypotheses``                |
-+------------------------+---------------------------------------+
-| triggers event         | ``KsFiredEvent``                      |
-+------------------------+---------------------------------------+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
 
 .. _sec-segKss:
 
@@ -444,14 +444,15 @@ The segmentation knowledge source generates hypotheses about the assignment of
 individual time-frequency units to sound sources present in a scene. This
 assignment is done probabilistically, hence, each time-frequency unit is
 associated with a unique discrete probability distribution. These distributions
-can be interpreted as soft-masks which can be used to generate segmented auditory
-features. Specifically, each auditory feature that can be represented in the
-time-frequency domain can be modified accordingly by a corresponding soft-mask.
-The soft-masks are generated by a probabilistic clustering approach based on a
-mixture of von Mises distributions over estimated angular positions of the sound
-sources. These positions can either be estimated by the ``SegmentationKS``
-itself or provided by a ``LocationHypothesis`` on the blackboard. If not all
-source positions can be reliably estimated by the ``LocationKS``, the remaining
+can be interpreted as soft-masks which can be used to generate segmented
+auditory features. Specifically, each auditory feature that can be represented
+in the time-frequency domain can be modified accordingly by a corresponding
+soft-mask.  The soft-masks are generated by a probabilistic clustering approach
+based on a mixture of von Mises distributions over estimated angular positions
+of the sound sources. These positions can either be estimated by the
+``SegmentationKS`` itself or provided by a
+``SourcesAzimuthsDistributionHypothesis`` on the blackboard. If not all source
+positions can be reliably estimated by the ``LocationKS``, the remaining
 positions are estimated during the segmentation process. All estimated positions
 are subsumed with corresponding circular uncertainties in a
 ``positionHypotheses`` object for each sound source. Additionally, the estimated
@@ -465,7 +466,7 @@ be present in the scene.
 +------------------------+-------------------------------------------------------+
 | binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                   |
 +------------------------+-------------------------------------------------------+
-| reads data category    | ``locationHyptheses``                                 |
+| reads data category    | ``sourcesAzimuthsDistributionHypotheses``             |
 +------------------------+-------------------------------------------------------+
 | writes data category   | ``positionHypotheses`` and ``segmentationHypotheses`` |
 +------------------------+-------------------------------------------------------+

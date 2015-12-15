@@ -33,7 +33,7 @@ details. To see what is currently available in the memory run::
 
         'confusionHypotheses'
         'headOrientation'
-        'locationHypotheses'
+        'sourcesAzimuthsDistributionHypotheses'
         'perceivedLocations'
 
 To analyse the localisation performance of the model we ask the blackboard to

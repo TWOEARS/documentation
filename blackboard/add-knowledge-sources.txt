@@ -142,13 +142,14 @@ case, using simple geometric mapping from |ITD|\ s to azimuth locations, the
         % For simplicity, head orientation is assumed to be fixed to 0°
         % in this case.
         headOrientation = 0;
-        locHyp = LocationHypothesis(headOrientation, azimuth, 1);
-        obj.blackboard.addData('locationHypotheses', ...
-            locHyp, false, obj.trigger.tmIdx);
+        aziHyp = SourcesAzimuthsDistributionHypothesis(headOrientation, azimuth, 1);
+        obj.blackboard.addData('sourcesAzimuthsDistributionHypotheses', ...
+            aziHyp, false, obj.trigger.tmIdx);
 
         % If desired show some debugging output, if Blackboard is started in
         % verbose mode with BlackboardSystem(1);
-        bbprintf(obj, '[SimpleLocalisationKS:] Created LocationHypothesis.\n')
+        bbprintf(obj, ['[SimpleLocalisationKS:] Created ', ...
+                       'SourcesAzimuthsDistributionHypothesis.\n'])
 
         % Trigger the event that is KS has been executed
         notify(obj, 'KsFiredEvent', BlackboardEventData(obj.trigger.tmIdx));
