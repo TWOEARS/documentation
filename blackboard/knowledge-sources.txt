@@ -455,23 +455,23 @@ of the sound sources. These positions can either be estimated by the
 positions can be reliably estimated by the ``LocationKS``, the remaining
 positions are estimated during the segmentation process. All estimated positions
 are subsumed with corresponding circular uncertainties in a
-``positionHypotheses`` object for each sound source. Additionally, the estimated
-soft-masks are stored in a sound source specific ``segmentationHypotheses``
-object. Each ``positionHypotheses`` and ``segmentationHypotheses`` contains a
-unique source identifier tag, enabling other knowledge sources to assign each
-soft-mask with the corresponding source position. The current implementation of
-the ``SegmentationKS`` relies on a pre-defined number of sound sources that will
-be present in the scene.
+``sourceAzimuthHypotheses`` object for each sound source. Additionally, the
+estimated soft-masks are stored in a sound source specific
+``segmentationHypotheses`` object. Each ``sourceAzimuthHypotheses`` and
+``segmentationHypotheses`` contains a unique source identifier tag, enabling
+other knowledge sources to assign each soft-mask with the corresponding source
+position. The current implementation of the ``SegmentationKS`` relies on a
+pre-defined number of sound sources that will be present in the scene.
 
-+------------------------+-------------------------------------------------------+
-| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                   |
-+------------------------+-------------------------------------------------------+
-| reads data category    | ``sourcesAzimuthsDistributionHypotheses``             |
-+------------------------+-------------------------------------------------------+
-| writes data category   | ``positionHypotheses`` and ``segmentationHypotheses`` |
-+------------------------+-------------------------------------------------------+
-| triggers event         | ``KsFiredEvent``                                      |
-+------------------------+-------------------------------------------------------+
++------------------------+------------------------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                        |
++------------------------+------------------------------------------------------------+
+| reads data category    | ``sourcesAzimuthsDistributionHypotheses``                  |
++------------------------+------------------------------------------------------------+
+| writes data category   | ``sourceAzimuthHypotheses`` and ``segmentationHypotheses`` |
++------------------------+------------------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                           |
++------------------------+------------------------------------------------------------+
 
 Obsolete knowledge sources
 --------------------------
