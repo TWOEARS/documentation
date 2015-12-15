@@ -161,10 +161,10 @@ source.
 
 .. _sec-dnn-location-knowledge-source:
 
-Location knowledge source: ``DNNLocationKS``
+Location knowledge source: ``DnnLocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Class ``DNNLocationKS`` implements knowledge about the statistical relationship
+Class ``DnnLocationKS`` implements knowledge about the statistical relationship
 between spatial cues and azimuth locations using |DNN|\ s.  Currently the |DNN|\
 s are trained on binaural cues from the |AFE| including |CCF| and |ILD| cues, as
 described in more details in [MaEtAl2015dnn]_.

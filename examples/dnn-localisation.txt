@@ -8,7 +8,7 @@ DNN-based localisation with and without head rotations
 The |TwoEarsModel| comes with several knowledge sources that work together to
 estimate the perceived azimuth of a sound source, see
 :ref:`sec-blackboard-localisation` for a summary. The main work is done by the
-``DNNLocationKS`` knowledge source that uses |CCF| and |ILD| cues provided by the
+``DnnLocationKS`` knowledge source that uses |CCF| and |ILD| cues provided by the
 :ref:`sec-afe` and map the cues to azimuths using deep neural networks. As an output
 it provides a probability distribution of possible directions for the source.
 This will be passed on to the ``ConfusionKS`` knowledge source which looks at
@@ -82,7 +82,7 @@ including head movements (:file:`Blackboard.xml`):
             <Param Type="double">16000</Param>
         </dataConnection>
 
-        <KS Name="loc" Type="DNNLocationKS">
+        <KS Name="loc" Type="DnnLocationKS">
             <Param Type="int">16</Param>
         </KS>
         <KS Name="conf" Type="ConfusionKS"/>
@@ -116,7 +116,7 @@ including head movements (:file:`Blackboard.xml`):
 
 Here, we use different knowledge sources that work together in order to solve
 the localisation task. We have ``AuditoryFrontEndKS`` for extract auditory cues
-from the ear signals sampled at 16 kHz, ``DNNLocationKS`` with 16 frequency 
+from the ear signals sampled at 16 kHz, ``DnnLocationKS`` with 16 frequency 
 channels, ``ConfusionKS``, ``ConfusionSolvingKS``,
 and ``RotationKS`` for the actual localisation task. The ``Param`` tags are
 parameters we can pass to the knowledge sources. After setting up which
@@ -137,7 +137,7 @@ disabling its ability to turn the head (:file:`BlackboardNoHeadRotation.xml`):
             <Param Type="double">16000</Param>
         </dataConnection>
 
-        <KS Name="loc" Type="DNNLocationKS">
+        <KS Name="loc" Type="DnnLocationKS">
             <Param Type="int">16</Param>
         </KS>
         <KS Name="conf" Type="ConfusionKS">
