@@ -32,7 +32,7 @@ relevant to development of new knowledge sources::
         events
             KsFiredEvent
         methods (Abstract)
-            canExecute() 
+            canExecute()
             execute()
         methods
             focus()
@@ -89,12 +89,15 @@ This knowledge source integrates the |AFE| into the |blackboard|. The |AFE|
 itself is a self-contained module and this section focuses on its integration
 within the framework.
 
-The |AFE| knowledge source is connected to the blackboard and the `robot interface <http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_robot_interface.html>`_ by registering itself in the system via
-``BlackboardSystem.setDataConnect``. Upon construction, the |AFE| ``dataObject``
-and ``managerObject`` are instantiated and connected to the robot interface ear
-signals stream. The maximum invocation frequency of the ``AuditoryFrontEndKS``
-is set to infinity. Execution mainly consists of getting the latest chunk of ear
-signals data, processing it through the |AFE|, and notifying a ``KsFiredEvent``.
+The |AFE| knowledge source is connected to the blackboard and the `robot
+interface
+<http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_robot_interface.html>`_
+by registering itself in the system via ``BlackboardSystem.setDataConnect``.
+Upon construction, the |AFE| ``dataObject`` and ``managerObject`` are
+instantiated and connected to the robot interface ear signals stream. The
+maximum invocation frequency of the ``AuditoryFrontEndKS`` is set to infinity.
+Execution mainly consists of getting the latest chunk of ear signals data,
+processing it through the |AFE|, and notifying a ``KsFiredEvent``.
 
 Other knowledge sources can register requests with the |AFE| indirectly, through
 inheriting from the ``AuditoryFrontEndDepKS`` class (see
@@ -113,9 +116,11 @@ knowledge source added to the blackboard through the ``BlackboardSystem``
 automatically with the |AFE|.
 
 Setting up the requests
-    Inheriting knowledge sources need to put their requests in their call to the super-constructor:
-    ``obj@AuditoryFrontEndDepKS(requests)``, with ``requests`` being a cell array of structures each with fields
-    ``name``, stating the requested signal name, and ``params``, specifying the signal parameters. (Have a look at :ref:`sec-afe-processors`.)
+    Inheriting knowledge sources need to put their requests in their call to the
+    super-constructor: ``obj@AuditoryFrontEndDepKS(requests)``, with
+    ``requests`` being a cell array of structures each with fields ``name``,
+    stating the requested signal name, and ``params``, specifying the signal
+    parameters. (Have a look at :ref:`sec-afe-processors`.)
 
     An example looks like this::
 
@@ -129,25 +134,29 @@ Setting up the requests
       requests{2}.params = genParStruct( ...
          'nChannels', obj.freqChannels ...
          );
-      
-   The ``params`` field always needs to be populated by a call to the ``genParStruct`` method.
+
+    The ``params`` field always needs to be populated by a call to the
+    ``genParStruct`` method.
 
 Accessing signals
     These requested signals can then be accessed by the knowledge source via the
-    inherited ``getAFEdata`` method, which returns a map (with the indexes as in the request structure being the keys) of handles to the actual signals.
-    
+    inherited ``getAFEdata`` method, which returns a map (with the indexes as in
+    the request structure being the keys) of handles to the actual signals.
+
     An example, according to the requests example above, looks like this::
-    
+
        afeData = obj.getAFEdata();
        modSobj = afeData(1);
        rmSobj = afeData(2);
        rmBlock = rmSobj.getSignalBlock(0.5,0);
-    
-    
+
+
 
 A more elaborate description of the request parameter structure and the signal
 objects can be found in the :doc:`help for the Two!Ears Auditory Front-End
-<../afe/index>`. Have a look at the implementation of the `LocationKS <https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/LocationKS.m>`_ to see a real-world example of how to subclass AuditoryFrontEndDepKS.
+<../afe/index>`. Have a look at the implementation of the `LocationKS
+<https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/LocationKS.m>`_
+to see a real-world example of how to subclass ``AuditoryFrontEndDepKS``.
 
 .. _sec-blackboard-localisation:
 
@@ -294,16 +303,19 @@ within the blackboard framework.
 Identity knowledge source: ``IdentityKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Objects of class ``IdentityKS`` implement source type models, by incorporating an
-instance of a model (which has to implement the `models.Base <https://github.com/TWOEARS/TwoEars/blob/master/IdentificationTraining/src/%2Bmodels/Base.m>`_ interface) with knowledge about the
-relationship of auditory cues and certain sound source types. Many Identity
-knowledge sources can be used concurrently; usually, for each sound class to be
-identified, you would instantiate an object of class ``IdentityKS`` with the respective model. The models get loaded from directories you specify upon construction, and should be created with the :ref:`sec-idTrainPipeline`. 
-The model object of ``IdentityKS`` can employ any kind of model, such as a linear support
-vector machine, or a Gaussian mixture model. The ``IdentityKS`` needs access to
-|AFE| signals, thus it is a subclass of ``AuditoryFrontEndDepKS`` (see
-Section :ref:`sec-afe-dep-knowledge-source`). The model object holds the signal
-request structure.
+Objects of class ``IdentityKS`` implement source type models, by incorporating
+an instance of a model (which has to implement the `models.Base
+<https://github.com/TWOEARS/TwoEars/blob/master/IdentificationTraining/src/%2Bmodels/Base.m>`_
+interface) with knowledge about the relationship of auditory cues and certain
+sound source types. Many Identity knowledge sources can be used concurrently;
+usually, for each sound class to be identified, you would instantiate an object
+of class ``IdentityKS`` with the respective model. The models get loaded from
+directories you specify upon construction, and should be created with the
+:ref:`sec-idTrainPipeline`.  The model object of ``IdentityKS`` can employ any
+kind of model, such as a linear support vector machine, or a Gaussian mixture
+model. The ``IdentityKS`` needs access to |AFE| signals, thus it is a subclass
+of ``AuditoryFrontEndDepKS`` (see Section :ref:`sec-afe-dep-knowledge-source`).
+The model object holds the signal request structure.
 
 The knowledge source predicts, based on the incorporated source model, whether
 the currently received auditory stream includes an auditory object of the sound
