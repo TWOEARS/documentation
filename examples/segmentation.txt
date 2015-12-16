@@ -11,7 +11,7 @@ in the time-frequency domain. The segmentation framework relies on a
 probabilistic clustering approach to assign individual time-frequency units to
 sound sources that are present in the scene. This assignment can either be
 computed unsupervised or exploit additional prior knowledge about potential
-source positions provided by the user or e.g. by the ``LocationKS`` knowledge
+source positions provided by the user or e.g. by the ``DnnLocationKS`` knowledge
 source.
 
 .. note::
@@ -267,7 +267,7 @@ positions of the sound sources. In the script
     bbs.blackboard.KSs{2}.setFixedPositions(prior);
 
 It is also possible to exploit this functionality dynamically during runtime by
-using intermediate results of the ``LocationKS`` knowledge source from the
+using intermediate results of the ``DnnLocationKS`` knowledge source from the
 blackboard. Note that angular positions are handled in radians within the
 ``SegmentationKS`` framework, hence position estimates in degrees must be
 converted accordingly. A possible result for this demo is shown in Fig.

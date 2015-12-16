@@ -154,8 +154,8 @@ Accessing signals
 
 A more elaborate description of the request parameter structure and the signal
 objects can be found in the :doc:`help for the Two!Ears Auditory Front-End
-<../afe/index>`. Have a look at the implementation of the `LocationKS
-<https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/LocationKS.m>`_
+<../afe/index>`. Have a look at the implementation of the `GmtkLocationKS
+<https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/GmtkLocationKS.m>`_
 to see a real-world example of how to subclass ``AuditoryFrontEndDepKS``.
 
 .. _sec-blackboard-localisation:
@@ -199,10 +199,10 @@ notified.
 
 .. _sec-location-knowledge-source:
 
-Location knowledge source: ``LocationKS``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location knowledge source: ``GmtkLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Class ``LocationKS`` implements knowledge about the statistical relationship
+Class ``GmtkLocationKS`` implements knowledge about the statistical relationship
 between spatial cues and azimuth locations. Currently we model the relationship
 using |GMM|\ s, which are trained on binaural cues from the |AFE| including
 |ITD| and |ILD| cues.
@@ -239,7 +239,7 @@ category. Otherwise, a ``PerceivedAzimuth`` object is added to the blackboard
 ``perceivedAzimuths`` data category, and the standard event is triggered.
 
 +------------------------+----------------------------------------------------+
-| binds to               | ``LocationKS.KsFiredEvent``                        |
+| binds to               | ``GmtkLocationKS.KsFiredEvent``                    |
 +------------------------+----------------------------------------------------+
 | reads data category    | ``sourcesAzimuthsDistributionHypotheses``          |
 +------------------------+----------------------------------------------------+
@@ -406,18 +406,18 @@ reference and the test stimulus.
 Location knowledge source: ``ItdLocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As the current implementation of ``LocationKS`` is not able to predict the
-localisation reliable under difficult conditions, we introduced a different
-location knowledge source as an intermediate solution. This ``ItdLocationKS`` is
-optimised for the prediction of predicting the perceived direction of a sound
-source created by a spatial audio system. It uses only |ITD| cues under 1400 Hz
-and utilises a lookup table to match those values to the corresponding angles.
-This implies that the knowledge source is not able to distinguish between front
-and back. Beside the lookup table it uses also an outlier detection in the
-process of integrating the perceived angles over the different frequency
-channels as suggested in [Wierstorf2014]_. The output of the knowledge source is
-a ``sourcesAzimuthsDistributionHypotheses`` identical to the output of the
-``LocationKS``.
+As the current implementation of ``GmtkLocationKS`` and ``DnnLocationKS`` are
+not able to predict the localisation reliable under difficult conditions, we
+introduced a different location knowledge source as an intermediate solution.
+This ``ItdLocationKS`` is optimised for the prediction of predicting the
+perceived direction of a sound source created by a spatial audio system. It uses
+only |ITD| cues under 1400 Hz and utilises a lookup table to match those values
+to the corresponding angles.  This implies that the knowledge source is not able
+to distinguish between front and back. Beside the lookup table it uses also an
+outlier detection in the process of integrating the perceived angles over the
+different frequency channels as suggested in [Wierstorf2014]_. The output of the
+knowledge source is a ``sourcesAzimuthsDistributionHypotheses`` identical to the
+output of the ``GmtkLocationKS`` or ``DnnLocationKS``.
 
 +------------------------+-------------------------------------------+
 | binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
@@ -452,7 +452,7 @@ based on a mixture of von Mises distributions over estimated angular positions
 of the sound sources. These positions can either be estimated by the
 ``SegmentationKS`` itself or provided by a
 ``SourcesAzimuthsDistributionHypothesis`` on the blackboard. If not all source
-positions can be reliably estimated by the ``LocationKS``, the remaining
+positions can be reliably estimated by the ``DnnLocationKS``, the remaining
 positions are estimated during the segmentation process. All estimated positions
 are subsumed with corresponding circular uncertainties in a
 ``sourceAzimuthHypotheses`` object for each sound source. Additionally, the

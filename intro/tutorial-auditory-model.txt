@@ -52,7 +52,7 @@ file is called :file:`blackboard.xml` and can be found in the
 
         <dataConnection Type="AuditoryFrontEndKS"/>
 
-        <KS Name="loc" Type="LocationKS">
+        <KS Name="loc" Type="GmtkLocationKS">
             <Param Type="char">default</Param>
         </KS>
         <KS Name="conf" Type="ConfusionKS"/>
@@ -90,9 +90,9 @@ auditory cues which are extracted by the |afe|. There exists a special knowledge
 source to get the data into the blackboard, which is handled in line 4.
 After that in lines 6-13 four other knowledge sources are included for our actual
 localisation task. Some of them come with parameters like ``default`` for the
-``LocationKS`` which defines the learned localisation mapping of binaural cues
+``GmtkLocationKS`` which defines the learned localisation mapping of binaural cues
 to a perceived direction. The other knowledge sources should then interpret the
-probability distribution data from ``LocationKS`` and see if they are able to
+probability distribution data from ``GmtkLocationKS`` and see if they are able to
 estimate a single location from it. If not, ``ConfusionSolvingKS`` decides to
 turn the head of the listener in order to get a better estimation.
 In order to allow for the communication between the knowledge sources all the

@@ -7,8 +7,8 @@
 
 In the localisation stage of the |TwoEarsModel| the
 :ref:`sec-location-knowledge-source` is involved which has a learned lookup
-table for |ITD|\ s and |ILD|\ s. For the ``default`` setting of ``LocationKS``
-this was trained with the
+table for |ITD|\ s and |ILD|\ s. For the ``default`` setting of
+``GmtkLocationKS`` this was trained with the
 :file:`impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa` from the
 database convolved with white noise.  The training was done for a resolution of
 1°. This examples shows you how you can retrain the model for other |HRTF|\ s,
@@ -23,7 +23,7 @@ following files::
     SceneDescriptionQU.xml
     train.m
 
-Before starting with the training of ``LocationKS`` we have to define the
+Before starting with the training of ``GmtkLocationKS`` we have to define the
 binaural signals that should be used during training. As we would like to train
 on the :ref:`MIT KEMAR HRTFs <sec-hrtf-mit-kemar>` we do the definition in the
 ``SceneDescriptionMIT.xml`` file, which looks like this:
@@ -59,17 +59,17 @@ noise with the ``Type="noise"`` option and a length of 30 s with by
 ``LengthOfSimulation = "30"``. For more details on how to configure the binaural
 simulator or how to include WAV-files as audio material see
 :ref:`sec-xml-scene-description`.  After setting up the audio scene we can train
-the ``LocationKS`` knowledge source with the following command::
+the ``GmtkLocationKS`` knowledge source with the following command::
 
     >> train('mit', 'SceneDescriptionMIT.xml', 5);
 
-This will create the folder ``learned_models/LocationKS/mit`` where the result
+This will create the folder ``learned_models/GmtkLocationKS/mit`` where the result
 is stored. In this case we trained for an angular resolution of 5°.  For looking
 into the details how the training is working, we look at the single steps that
 are performed by the ``train()`` function::
 
-    % Create a LocationKS in training mode
-    loc = LocationKS('mit', 5, true);
+    % Create a GmtkLocationKS in training mode
+    loc = GmtkLocationKS('mit', 5, true);
     % Generate binaural signals and extract ITD, ILD for learning.
     loc.generateTrainingData('SceneDescriptionMIT.xml');
     % Train model and remove tmp data afterwards
@@ -77,14 +77,14 @@ are performed by the ``train()`` function::
     loc.removeTrainingData();
 
 Now we would like to compare the localisation results of the ``default`` and the
-``mit`` ``LocationKS``. For both cases we have to configure a blackboard which
+``mit`` ``GmtkLocationKS``. For both cases we have to configure a blackboard which
 is done inside :file:`BlackboardQU.xml` and :file:`BlackboardMIT.xml`. On
 details how to configure the blackboard see :ref:`sec-blackboard-configure`. The
 important parts in our case are:
 
 .. code-block:: xml
 
-    <KS Name="loc" Type="LocationKS">
+    <KS Name="loc" Type="GmtkLocationKS">
         <Param Type="char">default</Param>
     </KS>
 
@@ -92,7 +92,7 @@ inside :file:`BlackboardQU.xml` and:
 
 .. code-block:: xml
 
-    <KS Name="loc" Type="LocationKS">
+    <KS Name="loc" Type="GmtkLocationKS">
         <Param Type="char">mit</Param>
     </KS>
 
