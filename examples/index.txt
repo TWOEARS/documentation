@@ -10,8 +10,8 @@ At the moment the following examples are available:
 .. toctree::
     :maxdepth: 1
 
-    dnn-localisation
     localisation
+    dnn-localisation
     localisation-details
     train-localisation
     train-identification
