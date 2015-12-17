@@ -121,11 +121,11 @@ it, read on:
 .. rubric:: License
 
 If not otherwise stated inside single files the |TwoEarsModel| is licensed
-under `GNU General Public License, version 2`_, and its parts available in the
+under `GNU General Public License, version 3`_, and its parts available in the
 ``RoboticPlatform`` and the ``Tools`` folder are licensed under `The BSD
 2-Clause License`_.
 
-.. _GNU General Public License, version 2: http://www.gnu.org/licenses/gpl-2.0.html
+.. _GNU General Public License, version 3: http://www.gnu.org/licenses/gpl-3.0.html
 .. _The BSD 2-Clause License: http://opensource.org/licenses/BSD-2-Clause
 
 .. rubric:: Acknowledgement
