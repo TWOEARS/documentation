@@ -92,7 +92,7 @@ First you have to ensure some prerequisites:
 Compile MEX Binaries
 ~~~~~~~~~~~~~~~~~~~~
 
-* edit ``SSR_DIR/mex/win64/Makefile`` and set the ``MatlabROOT`` to the location of your systems Matlab
+* edit ``SSR_DIR/mex/Makefile`` and set the ``MatlabROOT`` to the location of your systems Matlab
 * edit or create ``MSYS_DIR\etc\fstab`` and add mounts for ``MINGW_DIR`` and ``SSR_DIR``
   ::
 
@@ -103,7 +103,7 @@ Compile MEX Binaries
 * switch to directory and compile sources
   ::
 
-      cd /ssr/mex/win64
+      cd /ssr/mex/
       make
 
 * open Matlab and add ``SSR_DIR/mex/`` to Matlab-path using ``pathtool`` or ``addpath``
