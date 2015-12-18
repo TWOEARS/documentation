@@ -32,7 +32,7 @@ relevant to development of new knowledge sources::
         events
             KsFiredEvent
         methods (Abstract)
-            canExecute() 
+            canExecute()
             execute()
         methods
             focus()
@@ -89,12 +89,15 @@ This knowledge source integrates the |AFE| into the |blackboard|. The |AFE|
 itself is a self-contained module and this section focuses on its integration
 within the framework.
 
-The |AFE| knowledge source is connected to the blackboard and the `robot interface <http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_robot_interface.html>`_ by registering itself in the system via
-``BlackboardSystem.setDataConnect``. Upon construction, the |AFE| ``dataObject``
-and ``managerObject`` are instantiated and connected to the robot interface ear
-signals stream. The maximum invocation frequency of the ``AuditoryFrontEndKS``
-is set to infinity. Execution mainly consists of getting the latest chunk of ear
-signals data, processing it through the |AFE|, and notifying a ``KsFiredEvent``.
+The |AFE| knowledge source is connected to the blackboard and the `robot
+interface
+<http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_robot_interface.html>`_
+by registering itself in the system via ``BlackboardSystem.setDataConnect``.
+Upon construction, the |AFE| ``dataObject`` and ``managerObject`` are
+instantiated and connected to the robot interface ear signals stream. The
+maximum invocation frequency of the ``AuditoryFrontEndKS`` is set to infinity.
+Execution mainly consists of getting the latest chunk of ear signals data,
+processing it through the |AFE|, and notifying a ``KsFiredEvent``.
 
 Other knowledge sources can register requests with the |AFE| indirectly, through
 inheriting from the ``AuditoryFrontEndDepKS`` class (see
@@ -113,9 +116,11 @@ knowledge source added to the blackboard through the ``BlackboardSystem``
 automatically with the |AFE|.
 
 Setting up the requests
-    Inheriting knowledge sources need to put their requests in their call to the super-constructor:
-    ``obj@AuditoryFrontEndDepKS(requests)``, with ``requests`` being a cell array of structures each with fields
-    ``name``, stating the requested signal name, and ``params``, specifying the signal parameters. (Have a look at :ref:`sec-afe-processors`.)
+    Inheriting knowledge sources need to put their requests in their call to the
+    super-constructor: ``obj@AuditoryFrontEndDepKS(requests)``, with
+    ``requests`` being a cell array of structures each with fields ``name``,
+    stating the requested signal name, and ``params``, specifying the signal
+    parameters. (Have a look at :ref:`sec-afe-processors`.)
 
     An example looks like this::
 
@@ -129,25 +134,29 @@ Setting up the requests
       requests{2}.params = genParStruct( ...
          'nChannels', obj.freqChannels ...
          );
-      
-   The ``params`` field always needs to be populated by a call to the ``genParStruct`` method.
+
+    The ``params`` field always needs to be populated by a call to the
+    ``genParStruct`` method.
 
 Accessing signals
     These requested signals can then be accessed by the knowledge source via the
-    inherited ``getAFEdata`` method, which returns a map (with the indexes as in the request structure being the keys) of handles to the actual signals.
-    
+    inherited ``getAFEdata`` method, which returns a map (with the indexes as in
+    the request structure being the keys) of handles to the actual signals.
+
     An example, according to the requests example above, looks like this::
-    
+
        afeData = obj.getAFEdata();
        modSobj = afeData(1);
        rmSobj = afeData(2);
        rmBlock = rmSobj.getSignalBlock(0.5,0);
-    
-    
+
+
 
 A more elaborate description of the request parameter structure and the signal
 objects can be found in the :doc:`help for the Two!Ears Auditory Front-End
-<../afe/index>`. Have a look at the implementation of the `LocationKS <https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/LocationKS.m>`_ to see a real-world example of how to subclass AuditoryFrontEndDepKS.
+<../afe/index>`. Have a look at the implementation of the `GmtkLocationKS
+<https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/GmtkLocationKS.m>`_
+to see a real-world example of how to subclass ``AuditoryFrontEndDepKS``.
 
 .. _sec-blackboard-localisation:
 
@@ -159,34 +168,62 @@ azimuths: ``Location`` knowledge source, ``Confusion Detection`` knowledge
 source, ``Confusion Solving`` knowledge source, and ``Head Rotation`` knowledge
 source.
 
+.. _sec-dnn-location-knowledge-source:
+
+Location knowledge source: ``DnnLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Class ``DnnLocationKS`` implements knowledge about the statistical relationship
+between spatial cues and azimuth locations using |DNN|\ s.  Currently the |DNN|\
+s are trained on binaural cues from the |AFE| including |CCF| and |ILD| cues, as
+described in more details in [MaEtAl2015dnn]_.
+
+This knowledge source requires signals from the |AFE| and thus inherits from the
+``AuditoryFrontEndDepKS`` (Section :ref:`sec-afe-dep-knowledge-source`) and
+needs to be bound to the ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The
+``canExecute`` precondition checks the energy level of the current signal block
+and localisation takes place only if there is an actual auditory event. After
+execution, a ``SourcesAzimuthsDistributionHypothesis`` containing a probability
+distribution of azimuth locations is placed on the blackboard (category
+``sourcesAzimuthsDistributionHypotheses``) and the event ``KsFiredEvent`` is
+notified.
+
+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
+
 .. _sec-location-knowledge-source:
 
-Location knowledge source: ``LocationKS``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location knowledge source: ``GmtkLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Class ``LocationKS`` implements knowledge about the statistical relationship
-between spatial cues and azimuth locations. Currently we model the 
-relationship using Gaussian mixture models (GMMs), which are trained on binaural
-cues from the |AFE| including |ITD| and |ILD| cues.
+Class ``GmtkLocationKS`` implements knowledge about the statistical relationship
+between spatial cues and azimuth locations. Currently we model the relationship
+using |GMM|\ s, which are trained on binaural cues from the |AFE| including
+|ITD| and |ILD| cues.
 
-This knowledge source requires
-signals from the |AFE| and thus inherits from the ``AuditoryFrontEndDepKS``
-(Section :ref:`sec-afe-dep-knowledge-source`) and needs to be bound to the
-``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The ``canExecute`` precondition
-checks the energy level of the current signal block and localisation takes place
-only if there is an actual auditory event. After execution, a
-``LocationHypothesis`` containing a probability distribution of azimuth
-locations is placed on the blackboard (category ``locationHypotheses``) and the
-event ``KsFiredEvent`` is notified.
+This knowledge source requires signals from the |AFE| and thus inherits from the
+``AuditoryFrontEndDepKS`` (Section :ref:`sec-afe-dep-knowledge-source`) and
+needs to be bound to the ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The
+``canExecute`` precondition checks the energy level of the current signal block
+and localisation takes place only if there is an actual auditory event. After
+execution, a ``SourcesAzimuthsDistributionHypothesis`` containing a probability
+distribution of azimuth locations is placed on the blackboard (category
+``sourcesAzimuthsDistributionHypotheses``) and the event ``KsFiredEvent`` is
+notified.
 
-
-+------------------------+---------------------------------------+
-| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
-+------------------------+---------------------------------------+
-| writes data category   | ``locationHypotheses``                |
-+------------------------+---------------------------------------+
-| triggers event         | ``KsFiredEvent``                      |
-+------------------------+---------------------------------------+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
 
 .. _sec-confusion-knowledge-source:
 
@@ -198,15 +235,15 @@ there is a confusion. A confusion emerges when there are more valid locations in
 the hypotheses than assumed auditory sources in the scene. In case of a
 confusion, a ``ConfusedLocations`` event is notified and the responsible
 location hypothesis is placed on the blackboard in the ``confusionHypotheses``
-category. Otherwise, a ``PerceivedLocation`` object is added to the blackboard
-``perceivedLocations`` data category, and the standard event is triggered.
+category. Otherwise, a ``PerceivedAzimuth`` object is added to the blackboard
+``perceivedAzimuths`` data category, and the standard event is triggered.
 
 +------------------------+----------------------------------------------------+
-| binds to               | ``LocationKS.KsFiredEvent``                        |
+| binds to               | ``GmtkLocationKS.KsFiredEvent``                    |
 +------------------------+----------------------------------------------------+
-| reads data category    | ``locationHyptheses``                              |
+| reads data category    | ``sourcesAzimuthsDistributionHypotheses``          |
 +------------------------+----------------------------------------------------+
-| writes data category   | ``confusionHyptheses`` or ``perceivedLocations``   |
+| writes data category   | ``confusionHyptheses`` or ``perceivedAzimuths``    |
 +------------------------+----------------------------------------------------+
 | triggers event         | ``ConfusedLocations`` or ``KsFiredEvent``          |
 +------------------------+----------------------------------------------------+
@@ -222,17 +259,17 @@ location hypotheses received after head rotation is completed. The
 ``canExecute`` method will wait for new location hypotheses; when there is one,
 it will check whether the head has been turned, otherwise it will not execute.
 The confusion is then solved by using the old and the new location hypothesis,
-and a ``PerceivedLocation`` object is placed on the blackboard.
+and a ``PerceivedAzimuth`` object is placed on the blackboard.
 
-+------------------------+---------------------------------------------------------------------------+
-| binds to               | ``ConfusionDetectionKS.ConfusedLocations``                                |
-+------------------------+---------------------------------------------------------------------------+
-| reads data category    | ``confusionHypotheses``, ``headOrientation`` and ``locationHypotheses``   |
-+------------------------+---------------------------------------------------------------------------+
-| writes data category   | ``perceivedLocations``                                                    |
-+------------------------+---------------------------------------------------------------------------+
-| triggers event         | ``KsFiredEvent``                                                          |
-+------------------------+---------------------------------------------------------------------------+
++------------------------+--------------------------------------------------------------------------------------------+
+| binds to               | ``ConfusionDetectionKS.ConfusedLocations``                                                 |
++------------------------+--------------------------------------------------------------------------------------------+
+| reads data category    | ``confusionHypotheses``, ``headOrientation`` and ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+--------------------------------------------------------------------------------------------+
+| writes data category   | ``perceivedAzimuths``                                                                      |
++------------------------+--------------------------------------------------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                                                           |
++------------------------+--------------------------------------------------------------------------------------------+
 
 .. _sec-rotation-knowledge-source:
 
@@ -265,16 +302,19 @@ within the blackboard framework.
 Identity knowledge source: ``IdentityKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Objects of class ``IdentityKS`` implement source type models, by incorporating an
-instance of a model (which has to implement the `models.Base <https://github.com/TWOEARS/TwoEars/blob/master/IdentificationTraining/src/%2Bmodels/Base.m>`_ interface) with knowledge about the
-relationship of auditory cues and certain sound source types. Many Identity
-knowledge sources can be used concurrently; usually, for each sound class to be
-identified, you would instantiate an object of class ``IdentityKS`` with the respective model. The models get loaded from directories you specify upon construction, and should be created with the :ref:`sec-idTrainPipeline`. 
-The model object of ``IdentityKS`` can employ any kind of model, such as a linear support
-vector machine, or a Gaussian mixture model. The ``IdentityKS`` needs access to
-|AFE| signals, thus it is a subclass of ``AuditoryFrontEndDepKS`` (see
-Section :ref:`sec-afe-dep-knowledge-source`). The model object holds the signal
-request structure.
+Objects of class ``IdentityKS`` implement source type models, by incorporating
+an instance of a model (which has to implement the `models.Base
+<https://github.com/TWOEARS/TwoEars/blob/master/IdentificationTraining/src/%2Bmodels/Base.m>`_
+interface) with knowledge about the relationship of auditory cues and certain
+sound source types. Many Identity knowledge sources can be used concurrently;
+usually, for each sound class to be identified, you would instantiate an object
+of class ``IdentityKS`` with the respective model. The models get loaded from
+directories you specify upon construction, and should be created with the
+:ref:`sec-idTrainPipeline`.  The model object of ``IdentityKS`` can employ any
+kind of model, such as a linear support vector machine, or a Gaussian mixture
+model. The ``IdentityKS`` needs access to |AFE| signals, thus it is a subclass
+of ``AuditoryFrontEndDepKS`` (see Section :ref:`sec-afe-dep-knowledge-source`).
+The model object holds the signal request structure.
 
 The knowledge source predicts, based on the incorporated source model, whether
 the currently received auditory stream includes an auditory object of the sound
@@ -366,25 +406,26 @@ reference and the test stimulus.
 Location knowledge source: ``ItdLocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As the current implementation of ``LocationKS`` is not able to predict the
-localisation reliable under difficult conditions, we introduced a different
-location knowledge source as an intermediate solution. This ``ItdLocationKS`` is
-optimised for the prediction of predicting the perceived direction of a sound
-source created by a spatial audio system. It uses only |ITD| cues under 1400 Hz
-and utilises a lookup table to match those values to the corresponding angles.
-This implies that the knowledge source is not able to distinguish between front
-and back. Beside the lookup table it uses also an outlier detection in the
-process of integrating the perceived angles over the different frequency
-channels as suggested in [Wierstorf2014]_. The output of the knowledge source is
-a ``locationHypotheses`` identical to the output of the ``LocationKS``.
+As the current implementation of ``GmtkLocationKS`` and ``DnnLocationKS`` are
+not able to predict the localisation reliable under difficult conditions, we
+introduced a different location knowledge source as an intermediate solution.
+This ``ItdLocationKS`` is optimised for the prediction of predicting the
+perceived direction of a sound source created by a spatial audio system. It uses
+only |ITD| cues under 1400 Hz and utilises a lookup table to match those values
+to the corresponding angles.  This implies that the knowledge source is not able
+to distinguish between front and back. Beside the lookup table it uses also an
+outlier detection in the process of integrating the perceived angles over the
+different frequency channels as suggested in [Wierstorf2014]_. The output of the
+knowledge source is a ``sourcesAzimuthsDistributionHypotheses`` identical to the
+output of the ``GmtkLocationKS`` or ``DnnLocationKS``.
 
-+------------------------+---------------------------------------+
-| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``   |
-+------------------------+---------------------------------------+
-| writes data category   | ``locationHypotheses``                |
-+------------------------+---------------------------------------+
-| triggers event         | ``KsFiredEvent``                      |
-+------------------------+---------------------------------------+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
 
 .. _sec-segKss:
 
@@ -403,33 +444,34 @@ The segmentation knowledge source generates hypotheses about the assignment of
 individual time-frequency units to sound sources present in a scene. This
 assignment is done probabilistically, hence, each time-frequency unit is
 associated with a unique discrete probability distribution. These distributions
-can be interpreted as soft-masks which can be used to generate segmented auditory
-features. Specifically, each auditory feature that can be represented in the
-time-frequency domain can be modified accordingly by a corresponding soft-mask.
-The soft-masks are generated by a probabilistic clustering approach based on a
-mixture of von Mises distributions over estimated angular positions of the sound
-sources. These positions can either be estimated by the ``SegmentationKS``
-itself or provided by a ``LocationHypothesis`` on the blackboard. If not all
-source positions can be reliably estimated by the ``LocationKS``, the remaining
+can be interpreted as soft-masks which can be used to generate segmented
+auditory features. Specifically, each auditory feature that can be represented
+in the time-frequency domain can be modified accordingly by a corresponding
+soft-mask.  The soft-masks are generated by a probabilistic clustering approach
+based on a mixture of von Mises distributions over estimated angular positions
+of the sound sources. These positions can either be estimated by the
+``SegmentationKS`` itself or provided by a
+``SourcesAzimuthsDistributionHypothesis`` on the blackboard. If not all source
+positions can be reliably estimated by the ``DnnLocationKS``, the remaining
 positions are estimated during the segmentation process. All estimated positions
 are subsumed with corresponding circular uncertainties in a
-``positionHypotheses`` object for each sound source. Additionally, the estimated
-soft-masks are stored in a sound source specific ``segmentationHypotheses``
-object. Each ``positionHypotheses`` and ``segmentationHypotheses`` contains a
-unique source identifier tag, enabling other knowledge sources to assign each
-soft-mask with the corresponding source position. The current implementation of
-the ``SegmentationKS`` relies on a pre-defined number of sound sources that will
-be present in the scene.
+``sourceAzimuthHypotheses`` object for each sound source. Additionally, the
+estimated soft-masks are stored in a sound source specific
+``segmentationHypotheses`` object. Each ``sourceAzimuthHypotheses`` and
+``segmentationHypotheses`` contains a unique source identifier tag, enabling
+other knowledge sources to assign each soft-mask with the corresponding source
+position. The current implementation of the ``SegmentationKS`` relies on a
+pre-defined number of sound sources that will be present in the scene.
 
-+------------------------+-------------------------------------------------------+
-| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                   |
-+------------------------+-------------------------------------------------------+
-| reads data category    | ``locationHyptheses``                                 |
-+------------------------+-------------------------------------------------------+
-| writes data category   | ``positionHypotheses`` and ``segmentationHypotheses`` |
-+------------------------+-------------------------------------------------------+
-| triggers event         | ``KsFiredEvent``                                      |
-+------------------------+-------------------------------------------------------+
++------------------------+------------------------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                        |
++------------------------+------------------------------------------------------------+
+| reads data category    | ``sourcesAzimuthsDistributionHypotheses``                  |
++------------------------+------------------------------------------------------------+
+| writes data category   | ``sourceAzimuthHypotheses`` and ``segmentationHypotheses`` |
++------------------------+------------------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                           |
++------------------------+------------------------------------------------------------+
 
 Obsolete knowledge sources
 --------------------------
@@ -453,8 +495,10 @@ sources present in the auditory scene.
 
 .. ..:References:..
 
-.. [MooreTan2004] Moore, B. C. J., & Tan, C. (2004). Development and Validation of a Method for Predicting the Perceived Naturalness of Sounds Subjected to Spectral Distortion. JAES, 52(9), 900–14.
+.. [MaEtAl2015dnn] Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple speakers exploiting deep neural networks and head movements. Proceedings of Interspeech'15, pp.3302-3306, Dresden, Germany
 
-.. [Wierstorf2014] Wierstorf, H. (2014), “Perceptual Assessment of Sound Field Synthesis,” PhD-thesis, TU Berlin
+.. [MooreTan2004] Moore, B. C. J., & Tan, C. (2004) Development and Validation of a Method for Predicting the Perceived Naturalness of Sounds Subjected to Spectral Distortion. JAES, 52(9), 900–14.
+
+.. [Wierstorf2014] Wierstorf, H. (2014) “Perceptual Assessment of Sound Field Synthesis,” PhD-thesis, TU Berlin
 
 .. vim: filetype=rst spell:

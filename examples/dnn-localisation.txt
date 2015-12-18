@@ -1,0 +1,195 @@
+.. highlight:: Matlab
+
+.. _sec-examples-dnn-localisation:
+
+DNN-based localisation under reverberant conditions
+===================================================
+
+The |TwoEarsModel| comes with several knowledge sources that work together to
+estimate the perceived azimuth of a sound source, see
+:ref:`sec-blackboard-localisation` for a summary. One stage of this process is
+the mapping of the extracted features like |ITD|\ s and |ILD|\ s to the
+perceived azimuth angle. This mapping is highly influenced by the environment.
+For example, if you are in a room the |ITD| values will look quite different
+than in the case of an anechoic chamber. That is the reason why we have
+different knowledge sources that do this mapping: ``DnnLocationKS``,
+``GmtkLocationKS``, and ``ItdLocationKS``. ``ItdLocationKS`` utilises a simple
+lookup table for the mapping works well in the case of
+:ref:`sec-example-qoe-localisation`. ``GmtkLocationKS`` is at the moment trained
+only for anechoic condition. In this example we have a look at ``DnnLocationKS``
+which was trained with a multi-conditional training approach to work under
+reverberant conditions [MaEtAl2015dnn]_.  Beside this, ``DnnLocationKS`` works
+in the same way as ``GmtkLocationKS`` and connects with ``ConfusionKS``,
+``ConfusionSolvingKS``, and ``RotationKS`` to solve front-back confusions.
+
+In this example we will have a look at localisation in a larger room, namely the
+|BRIR| data set measured in :ref:`sec-brir-qu-auditorium3`, which provides six
+different loudspeaker positions as possible sound sources.  All files can be
+found in the ``examples/localisation_DNNs`` folder which consists of the
+following files::
+
+    BlackboardDnnNoHeadRotation.xml
+    BlackboardDnn.xml
+    BlackboardGmtkNoHeadRotation.xml
+    BlackboardGmtk.xml
+    estimateAzimuth.m
+    localise.m
+    resetBinauralSimulator.m
+    setupBinauralSimulator.m
+
+The setup is very similar to :ref:`sec-examples-localisation` with a few
+exceptions. First, the setup of the |BinSim| is different as we use |BRIR|\ s
+instead of |HRTF|\ s, and have one impulse response set for every sound source.
+The initial configuration of the |BinSim| is provided by the
+``setupBinauralSimulator`` function::
+
+    sim = simulator.SimulatorConvexRoom();
+    set(sim, ...
+        'BlockSize',            4096, ...
+        'SampleRate',           44100, ...
+        'NumberOfThreads',      1, ...
+        'LengthOfSimulation',   1, ...
+        'Renderer',             @ssr_brs, ...
+        'Verbose',              false, ...
+        'Sources',              {simulator.source.Point()}, ...
+        'Sinks',                simulator.AudioSink(2) ...
+        );
+    set(sim.Sinks, ...
+        'Name',                 'Head', ...
+        'Position',             [ 0.00  0.00  0.00]' ...
+        );
+    set(sim.Sources{1}, ...
+        'AudioBuffer',          simulator.buffer.Ring(1) ...
+        );
+    set(sim.Sources{1}.AudioBuffer, ...
+        'File', 'sound_databases/grid_subset/s1/bbaf2n.wav' ...
+        );
+
+Here, we configure it to use the ``@ssr_brs`` renderer which is needed for
+|BRIR|\ s, define the speech signal to use, but don't provide a |BRIR| yet as
+this will be done on the fly later on.
+
+We have four different configuration files for setting up the |Blackboard|. One
+important step for the ``DnnLocationKS`` is to define a resampling as it is
+trained for 16000 Hz at the moment. As an example, we list the file
+:file:`BlackboardDnn.xml``:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <blackboardsystem>
+
+        <dataConnection Type="AuditoryFrontEndKS">
+           <Param Type="double">16000</Param>
+        </dataConnection>
+
+        <KS Name="loc" Type="DnnLocationKS">
+            <Param Type="int">16</Param>
+        </KS>
+        <KS Name="conf" Type="ConfusionKS"/>
+        <KS Name="confSolv" Type="ConfusionSolvingKS"/>
+        <KS Name="rot" Type="RotationKS">
+            <Param Type="ref">robotConnect</Param>
+        </KS>
+
+        <Connection Mode="replaceOld" Event="AgendaEmpty">
+            <source>scheduler</source>
+            <sink>dataConnect</sink>
+        </Connection>
+        <Connection Mode="replaceOld">
+            <source>dataConnect</source>
+            <sink>loc</sink>
+        </Connection>
+        <Connection Mode="add">
+            <source>loc</source>
+            <sink>conf</sink>
+        </Connection>
+        <Connection Mode="replaceOld" Event="ConfusedLocations">
+            <source>conf</source>
+            <sink>rot</sink>
+        </Connection>
+        <Connection Mode="add" Event="ConfusedLocations">
+            <source>conf</source>
+            <sink>confSolv</sink>
+        </Connection>
+
+    </blackboardsystem>
+
+Here, we use different knowledge sources that work together in order to solve
+the localisation task. We have ``AuditoryFrontEndKS`` for extract auditory cues
+from the ear signals sampled at 16 kHz, ``DnnLocationKS`` with 16 frequency
+channels, ``ConfusionKS``, ``ConfusionSolvingKS``, and ``RotationKS`` for the
+actual localisation task. The ``Param`` tags are parameters we can pass to the
+knowledge sources. After setting up which knowledge sources we will use, we
+connect them with the ``Connection`` tags.  For more information on configuring
+the blackboard see :ref:`sec-blackboard-configure`.
+
+In the other blackboard configuration files we set up a blackboard for the case
+of ``DnnLocationKS`` without confusion solving by head rotation and the same by
+using ``GmtkLocationKS`` which is trained only for anechoic conditions.
+
+Now, everything is prepared and we can start Matlab in order to perform the
+localisation. You can just start it and run the following command to see it in
+action, afterwards we will have a look at what happened::
+
+    >> localise
+
+    ------------------------------------------------------------------------------------------------------------------------------------
+    Source direction   DnnLocationKS w head rot.   DnnLocationKS wo head rot.   GmtkLocationKS w head rot.   GmtkLocationKS wo head rot.
+    ------------------------------------------------------------------------------------------------------------------------------------
+            0                -5                       -180                        -179                         126
+          -52               -60                        -55                        -179                        -111
+         -131              -135                       -135                         126                         126
+            0                 0                       -180                         126                         126
+           30                25                         25                         122                         122
+          -30               -30                        -30                        -179                        -116
+    ------------------------------------------------------------------------------------------------------------------------------------
+
+As you can see the model with head rotation returned better results than the
+model without head rotation enabled. And ``DnnLocationKS`` provides better
+results as ``GmtkLocationKS``.
+
+Now, we have a look into the details of the ``localise()`` function. We will
+only talk about the parts that are responsible for the task, not for printing
+out the results onto the screen. First, we define the sources we are going to
+synthesise and start the :ref:`sec-binsim`::
+
+    brirs = { ...
+        'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa'; ...
+        'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa'; ...
+        'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa'; ...
+        'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa'; ...
+        'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa'; ...
+        'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa'; ...
+        };
+    headOrientation = 90; % towards y-axis (facing src1)
+    sourceAngles = [90, 38.5, -41.4, 90, 120, 60] - headOrientation; % phi = atan2d(ys,xs)
+
+After that we have a loop over the different sources in which we are loading the
+corresponding |BRIR| into the |BinSim| and run the |Blackboard| inside the
+``estimateAzimuth`` function::
+
+    for ii = 1:length(sourceAngles)
+        direction = sourceAngles(ii);
+        sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
+        sim.rotateHead(headOrientation, 'absolute');
+        sim.Init = true;
+        % DnnLocationKS w head rot.
+        phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');
+        resetBinauralSimulator(sim, headOrientation);
+        % DnnLocationKS wo head rot.
+        phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');
+        resetBinauralSimulator(sim, headOrientation);
+        % GmtkLocationKS w head rot.
+        phi3 = estimateAzimuth(sim, 'BlackboardGmtk.xml');
+        resetBinauralSimulator(sim, headOrientation);
+        % GmtkLocationKS wo head rot.
+        phi4 = estimateAzimuth(sim, 'BlackboardGmtkNoHeadRotation.xml');
+        sim.ShutDown = true;
+    end
+
+As we run four different blackboards after each other, we have to reinitialise the |BinSim| every time.
+
+.. [MaEtAl2015dnn] Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple speakers exploiting deep neural networks and head movements. Proceedings of Interspeech'15, pp.3302-3306, Dresden, Germany
+
+.. vim: filetype=rst spell:

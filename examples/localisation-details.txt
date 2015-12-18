@@ -33,15 +33,15 @@ details. To see what is currently available in the memory run::
 
         'confusionHypotheses'
         'headOrientation'
-        'locationHypotheses'
-        'perceivedLocations'
+        'sourcesAzimuthsDistributionHypotheses'
+        'perceivedAzimuths'
 
 To analyse the localisation performance of the model we ask the blackboard to
 return the localisation data::
 
-    >> perceivedLocations = bbs.blackboard.getData('perceivedLocations')
+    >> perceivedAzimuths = bbs.blackboard.getData('perceivedAzimuths')
 
-    perceivedLocations =
+    perceivedAzimuths =
 
     1x8 struct array with fields:
 
@@ -52,10 +52,10 @@ It returns a relatively complicated struct that comes with time stamps
 ``sndTmIdx`` and the corresponding ``data`` which again is a struct containing
 different things, here is the output for one time stamp::
 
-    >> perceivedLocations(8).data
+    >> perceivedAzimuths(8).data
     ans =
 
-      PerceivedLocation with properties:
+      PerceivedAzimuth with properties:
 
       location: 238
       headOrientation: 122
@@ -66,7 +66,7 @@ But don't worry there is an easy way to get an overview of the results. First,
 we are only interested in the summary of the localisation result::
 
     >> sourceAzimuth = 0; % the actual source position
-    >> [loc, locError] = evaluateLocalisationResults(perceivedLocations, sourceAzimuth)
+    >> [loc, locError] = evaluateLocalisationResults(perceivedAzimuths, sourceAzimuth)
 
     loc =
 
@@ -81,13 +81,13 @@ As you can see the source was localised at 0° meaning that the localisation
 error is also 0°. After that we would like to have a more detailed view on what
 happened during the localisation::
 
-    >> displayLocalisationResults(perceivedLocations, sourceAzimuth)
+    >> displayLocalisationResults(perceivedAzimuths, sourceAzimuth)
 
     ------------------------------------------------------------------------------------
     Reference target angle:   0 degrees
     ------------------------------------------------------------------------------------
     Localised source angle:
-    BlockTime  PerceivedLocation    (head orient., relative loc.)   Probability
+    BlockTime  PerceivedAzimuth    (head orient., relative loc.)   Probability
     ------------------------------------------------------------------------------------
     0.09        0 degrees           (  0 degrees,      0 degrees)   0.57
     0.65        0 degrees           (181 degrees,    179 degrees)   0.98
