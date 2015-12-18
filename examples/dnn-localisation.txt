@@ -30,8 +30,6 @@ following files::
 
     BlackboardDnnNoHeadRotation.xml
     BlackboardDnn.xml
-    BlackboardGmtkNoHeadRotation.xml
-    BlackboardGmtk.xml
     estimateAzimuth.m
     localise.m
     resetBinauralSimulator.m
@@ -125,8 +123,7 @@ connect them with the ``Connection`` tags.  For more information on configuring
 the blackboard see :ref:`sec-blackboard-configure`.
 
 In the other blackboard configuration files we set up a blackboard for the case
-of ``DnnLocationKS`` without confusion solving by head rotation and the same by
-using ``GmtkLocationKS`` which is trained only for anechoic conditions.
+of ``DnnLocationKS`` without confusion solving by head rotation.
 
 Now, everything is prepared and we can start Matlab in order to perform the
 localisation. You can just start it and run the following command to see it in
@@ -134,20 +131,19 @@ action, afterwards we will have a look at what happened::
 
     >> localise
 
-    ------------------------------------------------------------------------------------------------------------------------------------
-    Source direction   DnnLocationKS w head rot.   DnnLocationKS wo head rot.   GmtkLocationKS w head rot.   GmtkLocationKS wo head rot.
-    ------------------------------------------------------------------------------------------------------------------------------------
-            0                -5                       -180                        -179                         126
-          -52               -60                        -55                        -179                        -111
-         -131              -135                       -135                         126                         126
-            0                 0                       -180                         126                         126
-           30                25                         25                         122                         122
-          -30               -30                        -30                        -179                        -116
-    ------------------------------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------
+    Source direction   DnnLocationKS w head rot.   DnnLocationKS wo head rot.
+    -------------------------------------------------------------------------
+            0                -5                       -180
+          -52               -60                        -55
+         -131              -135                       -135
+            0                 0                       -180
+           30                25                         25
+          -30               -30                        -30
+    ------------------------------------------------------------------------
 
 As you can see the model with head rotation returned better results than the
-model without head rotation enabled. And ``DnnLocationKS`` provides better
-results as ``GmtkLocationKS``.
+model without head rotation enabled.
 
 Now, we have a look into the details of the ``localise()`` function. We will
 only talk about the parts that are responsible for the task, not for printing
@@ -179,16 +175,10 @@ corresponding |BRIR| into the |BinSim| and run the |Blackboard| inside the
         resetBinauralSimulator(sim, headOrientation);
         % DnnLocationKS wo head rot.
         phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');
-        resetBinauralSimulator(sim, headOrientation);
-        % GmtkLocationKS w head rot.
-        phi3 = estimateAzimuth(sim, 'BlackboardGmtk.xml');
-        resetBinauralSimulator(sim, headOrientation);
-        % GmtkLocationKS wo head rot.
-        phi4 = estimateAzimuth(sim, 'BlackboardGmtkNoHeadRotation.xml');
         sim.ShutDown = true;
     end
 
-As we run four different blackboards after each other, we have to reinitialise the |BinSim| every time.
+As we run four different blackboards after each other, we have to reinitialise the |BinSim| in between.
 
 .. [MaEtAl2015dnn] Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple speakers exploiting deep neural networks and head movements. Proceedings of Interspeech'15, pp.3302-3306, Dresden, Germany
 
