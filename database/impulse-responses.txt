@@ -151,6 +151,92 @@ for documentation on the measurements.
 Reverberant measurements (|BRIR|\ s)
 ------------------------------------
 
+.. _sec-brir-twoears-adream:
+
+Two!Ears, CNRS Toulouse, Adream-building
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note::
+
+    The impulse responses are only available in the [internal repository] at the
+    moment. They will be published at the 140th AES in Paris.
+
+The Adream-building at the University Toulouse is a robot-lab space, it has a
+size of ... and contains four small rooms without concrete windows, doors, and
+ceilings.
+
+.. Add a picture.
+
+The measurement consist of two parts. One part contains |BRIR|\ s with head
+rotations from -80° to 80° in 2° steps, as from the listeners perspective.
+Those measurements were done at four different listener positions and consisted
+each time of four different loudspeakers.
+
+::
+
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
+
+Get information about the data. Note, that all angles are specified in world
+coordinates, where 0° is always located parallel to the ``x``-axis.
+
+.. code-block:: Matlab
+
+    >> hrtf = SOFAload('TWOEARS_KEMAR_ADREAM_pos1.sofa', 'nodata');
+    >> % Get 0° look direction of listener
+    >> SOFAconvertCoordinates(hrtf.ListenerView(40,:), ...
+                              hrtf.ListenerView_Type, 'spherical')
+
+    ans =
+
+     -105.7541         0    1.0000
+
+    >> % Get min and max head orientation
+    >> SOFAconvertCoordinates(hrtf.ListenerView(1,:), hrtf.ListenerView_Type,
+    'spherical')
+
+    ans =
+
+      176.2459         0    1.0000
+
+    >> SOFAconvertCoordinates(hrtf.ListenerView(end,:), hrtf.ListenerView_Type,
+    'spherical')
+
+    ans =
+
+      -27.7541         0    1.0000
+
+    >> % Get loudspeaker position
+    >> hrtf.EmitterPosition 
+
+    ans =
+
+        2.5500    7.4700    1.0200
+       -3.6600    7.1500    1.0900
+       -3.3000    5.0900    1.0800
+       -1.4400    2.9800    0.3100
+
+    >> % Get relative direction of second loudspeaker from listeners' view
+    >> loudspeakerDirection = SOFAconvertCoordinates( ...
+        hrtf.EmitterPosition(2,:)-hrtf.ListenerPosition, ...
+        'cartesian', 'spherical');
+    >> listenerView = SOFAconvertCoordinates(hrtf.ListenerView(40,:), ...
+        hrtf.ListenerView_Type, 'spherical');
+    >> loudspeakerDirection - listenerView
+
+    ans =
+
+      -50.5197   -3.1852    5.8391
+
+
+
+::
+
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_trajectory.sofa
+
+
 .. _sec-brir-qu-auditorium3:
 
 TU Berlin, Telefunken-building, room Auditorium 3
