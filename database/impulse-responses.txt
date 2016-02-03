@@ -163,14 +163,33 @@ Two!Ears, CNRS Toulouse, Adream-building
 
 The Adream-building at the University Toulouse is a robot-lab space, it has a
 size of ... and contains four small rooms without concrete windows, doors, and
-ceilings.
+ceilings. :numref:`fig-adream-building` provides a look from above on the part
+where the measurements took place.
 
-.. Add a picture.
+.. _fig-adream-building:
 
-The measurement consist of two parts. One part contains |BRIR|\ s with head
-rotations from -80° to 80° in 2° steps, as from the listeners perspective.
+.. figure:: img/brir_twoears_adream_lab.jpg
+    :align: center
+
+    Lab space in the Adream building, look from above.
+
+
+**Fix listener positions with head movements**
+
+The measurement consists of two parts. The first part contains |BRIR|\ s with head
+rotations from -78° to 78° in 2° steps, as from the listeners perspective.
 Those measurements were done at four different listener positions and consisted
-each time of four different loudspeakers.
+each time of four different loudspeakers. :numref:`fig-adream-pos-setup`
+summarizes the setup with the actual loudspeaker and dummy head positions and
+orientations.
+
+.. _fig-adream-pos-setup:
+
+.. figure:: img/brir_twoears_adream_pos_setup.png
+    :align: center
+
+    Setup of the measurements. For details see the :download:`PDF version
+    <pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
 
 ::
 
@@ -179,8 +198,9 @@ each time of four different loudspeakers.
     impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
     impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
 
-Get information about the data. Note, that all angles are specified in world
-coordinates, where 0° is always located parallel to the ``x``-axis.
+To get more information about the data in Matlab, you can try the following.
+Note also, that all angles are specified in world coordinates, where 0° is
+always located parallel to the ``x``-axis.
 
 .. code-block:: Matlab
 
@@ -194,22 +214,22 @@ coordinates, where 0° is always located parallel to the ``x``-axis.
      -105.7541         0    1.0000
 
     >> % Get min and max head orientation
-    >> SOFAconvertCoordinates(hrtf.ListenerView(1,:), hrtf.ListenerView_Type,
-    'spherical')
+    >> SOFAconvertCoordinates(hrtf.ListenerView(1,:), ...
+        hrtf.ListenerView_Type, 'spherical')
 
     ans =
 
       176.2459         0    1.0000
 
-    >> SOFAconvertCoordinates(hrtf.ListenerView(end,:), hrtf.ListenerView_Type,
-    'spherical')
+    >> SOFAconvertCoordinates(hrtf.ListenerView(end,:), ...
+        hrtf.ListenerView_Type, 'spherical')
 
     ans =
 
       -27.7541         0    1.0000
 
     >> % Get loudspeaker position
-    >> hrtf.EmitterPosition 
+    >> hrtf.EmitterPosition
 
     ans =
 
@@ -231,13 +251,29 @@ coordinates, where 0° is always located parallel to the ``x``-axis.
       -50.5197   -3.1852    5.8391
 
 
+**Moving listener without head rotations**
+
+The second part of the measurement consists of a trajectory of 20 listener
+positions at which |BRIR|\ s were measured. This measurement includes only a
+fixed head orientation of 0°, but the same 4 loudspeaker positions as the first
+one.  :numref:`fig-adream-trajectory-setup` summarizes the setup with the actual
+loudspeaker and dummy head positions and orientations.
+
+.. _fig-adream-trajectory-setup:
+
+.. figure:: img/brir_twoears_adream_trajectory_setup.png
+    :align: center
+
+    Setup of the measurements. For details see the :download:`PDF version
+    <pdf/brir_twoears_adream_trajectory_setup.pdf>` of this figure.
 
 ::
 
     impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_trajectory.sofa
 
-Get information about the data. Note, that all angles are specified in world
-coordinates, where 0° is always located parallel to the ``x``-axis.
+Again, to get more information about the data in Matlab, you can try the
+following.  Note also, that all angles are specified in world coordinates, where
+0° is always located parallel to the ``x``-axis.
 
 .. code-block:: Matlab
 
@@ -259,7 +295,7 @@ coordinates, where 0° is always located parallel to the ``x``-axis.
         'cartesian', 'spherical');
     >> listenerView = SOFAconvertCoordinates(hrtf.ListenerView, ...
         hrtf.ListenerView_Type, 'spherical');
-	>> wrapTo180(loudspeakerDirection - listenerView)
+    >> wrapTo180(loudspeakerDirection - listenerView)
 
 	ans =
 
