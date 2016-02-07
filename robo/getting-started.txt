@@ -309,10 +309,15 @@ folder:
     echo >> ~/.bashrc
     echo '# ROBOTPKG' >> ~/.bashrc
     echo 'export ROBOTPKG_BASE=$HOME/openrobots' >> ~/.bashrc
-    echo 'export PATH=$PATH:$ROBOTPKG_BASE/bin:$ROBOTPKG_BASE/sbin' >> ~/.bashrc
-    echo 'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$ROBOTPKG_BASE/lib/pkgconfig' >> ~/.bashrc
-    echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROBOTPKG_BASE/src/ros-nodes:$ROBOTPKG_BASE/share' >> ~/.bashrc
-    echo 'export PYTHONPATH=$PYTHONPATH:$ROBOTPKG_BASE/lib/python2.7/site-packages:$ROBOTPKG_BASE/lib/python3.2/site-packages' >> ~/.bashrc
+    echo 'export PATH=$PATH:$ROBOTPKG_BASE/bin:$ROBOTPKG_BASE/sbin' \
+         >> ~/.bashrc
+    echo 'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:\
+         $ROBOTPKG_BASE/lib/pkgconfig' >> ~/.bashrc
+    echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:\
+         $ROBOTPKG_BASE/src/ros-nodes:$ROBOTPKG_BASE/share' >> ~/.bashrc
+    echo 'export PYTHONPATH=$PYTHONPATH:\
+         $ROBOTPKG_BASE/lib/python2.7/site-packages:\
+         $ROBOTPKG_BASE/lib/python3.2/site-packages' >> ~/.bashrc
     echo '# ROBOTPKG END' >> ~/.bashrc
     source ~/.bashrc
 
@@ -395,7 +400,8 @@ Install packages for |GenoM3|
     .. code-block:: bash
 
         # 1. Add options to the package
-        echo 'PKG_OPTIONS.demo-genom3+= codels ros-server ros-client-ros ros-client-c' >> ~/openrobots/etc/robotpkg.conf
+        echo 'PKG_OPTIONS.demo-genom3+= codels ros-server ros-client-ros ros-client-c'\
+              >> ~/openrobots/etc/robotpkg.conf
         # or better, edit the file manually and add the line near the beginning
 
         # 2. Change to the package's directory
@@ -471,7 +477,7 @@ the component with the ``.gen`` extension (something like
     genom3 skeleton -i component.gen
     ./bootstrap.sh
     mkdir build && cd build
-    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
+    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/c
     make install
 
 Example: installing the |BASS| component
@@ -489,7 +495,7 @@ gives:
     genom3 skeleton -i bass.gen
     ./bootstrap.sh
     mkdir build && cd build
-    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/ros,ros/client/c
+    ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/c
     make install
 
 .. vim: filetype=rst spell:

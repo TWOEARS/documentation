@@ -100,7 +100,7 @@ address of the |BASS| host and override the default value with:
 
 .. code-block:: matlab
 
-    >> client = genomix.client('xxx.xxx.xxx.xxx:8080') % write the IP address of the BASS host
+    >> client = genomix.client('xxx.xxx.xxx.xxx:8080') % write the IP address of BASS host
 
 Then, load |BASS|:
 
