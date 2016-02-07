@@ -383,7 +383,7 @@ packages. Here, we expose you the guidelines to follow for each package.
 Install packages for |GenoM3|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* Install the package ``demo-genom3`` from ``robotpkg/wip/demo-genom3`` with
+* Install the package ``demo-genom3`` from ``robotpkg/doc/demo-genom3`` with
   options ``codels ros-server ros-client-ros ros-client-c``.
 
     This package will install the *demo* component. It is a sample component
