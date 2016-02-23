@@ -124,7 +124,7 @@ push branch`` and you will find the following command
 
 .. code-block:: bash
 
-    $ git push -u origin circular_room
+    $ git push --set-upstream origin circular_room
 
 And if you are another person and want to contribute to that branch, you can get
 it from the remote with
@@ -134,35 +134,23 @@ it from the remote with
     $ git checkout -b circular_room origin/circular_room
 
 After finishing your development and testing of the new feature it's time to
-integrate the branch back into master. Before doing this it is a good idea to
-first include the latest changes of master into your branch, which you also
-should do from time to time via
+integrate the branch back into master. In a development team this should not be
+done directly by the user who did the changes, but it should be given to a
+review process first. This is easily handled at github by using `pull requests
+<https://help.github.com/articles/using-pull-requests/>`_.
+If you have pushed the branch to github you can create a pull request from that
+branch where you state what are the goals of your changes. You can also assign a
+person for reviewing the pull request. If you don't know which is the best
+person, this will be handled by the maintainer of the corresponding repository.
+
+After the pull request has been integrated into the master branch the feature
+branch of the pull request will be deleted on github. This will not
+automatically delete your local copy of that branch, so you have to do it
+yourself:
 
 .. code-block:: bash
 
-    $ git merge master
-
-.. note::
-
-    Note, that this command assumes that you are currently in your branch.
-
-Now go back to your master branch and insert the new feature there
-
-.. code-block:: bash
-
-    $ git checkout master
-    $ git merge circular_room
-
-After adding the feature to the master branch you can delete your feature
-branch, both locally and the remote one
-
-.. code-block:: bash
-
-    $ git push origin --delete circular_room      # delete remote branch
-    $ git branch -D circular_room                 # delete local branch
-
-The basic concept of the feature branch is described with more examples here:
-https://www.atlassian.com/git/workflows#!workflow-feature-branch
+    $ git branch -d circular_room
 
 Remote branches
 ~~~~~~~~~~~~~~~
