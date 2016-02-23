@@ -26,24 +26,17 @@ If you prefer to learn it interactively you might want to try out this
 Getting a remote repository to your computer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following will create the directory ``twoears`` on your local computer including all
-the code from the |TwoEars| `main repository`_:
+The following will create the directory ``twoears-wp1`` on your local computer including all
+the code from the |TwoEars| `binaural simulator repository`_:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/TWOEARS/TwoEars.git twoears
+    $ git clone https://github.com/TWOEARS/binaural-simulator.git twoears-wp1
 
-.. note::
+See the guide on how to :ref:`sec-install-development-system` for further
+information on how to make changes to the |TwoEarsModel|.
 
-    If you are a member of |TwoEars| you should always clone from the internal
-    repositories and mirror it on github. This would mean to clone the `main
-    repository`_ with the following command:
-
-    .. code-block:: bash
-
-        $ git clone https://dev.qu.tu-berlin.de/git/twoears-main twoears
-
-.. _main repository: https://github.com/TWOEARS/TwoEars
+.. _binaural simulator repository: https://github.com/TWOEARS/binaural-simulator
 
 Adding/changing files
 ~~~~~~~~~~~~~~~~~~~~~
