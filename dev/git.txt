@@ -359,6 +359,6 @@ but requires a special software running on the server.
 In order to avoid this we use a solution that only needs special software on the
 client side, see `Git-Media <https://github.com/TWOEARS/git-media>`_. This you
 need in order to work with our `internal database
-<https://dev.qu.tu-berlin.de/projects/twoears-database-internal>'_.
+<https://dev.qu.tu-berlin.de/projects/twoears-database-internal>`_.
 
 .. vim: filetype=rst spell:
