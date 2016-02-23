@@ -10,12 +10,6 @@ The development of the |TwoEarsModel| happens independently for its different
 :ref:`modules <sec-modules>`. All of them are hosted as git repositories on
 github. For an overview go to https://github.com/TWOEARS.
 
-.. note::
-
-    Internally the |TwoEars| development happens at https://dev.qu.tu-berlin.de.
-    The repositories on github are mirrors of our internal ones, excluding
-    code or data that cannot be made public.
-
 In order to get started you should :ref:`familarize yourself with git <sec-git>`
 and then start to clone the repository you would like to change the code.  First
 you have to start with getting the `main repository`_ as all other modules need
@@ -24,6 +18,12 @@ this as a basis:
 .. code-block:: bash
 
     $ git clone https://github.com/TWOEARS/main.git
+
+.. warning::
+
+    At github you will also find a repository that is used for the official
+    releases of the model (https://github.com/TWOEARS/TwoEars). Please **don't**
+    use this for development.
 
 Working on the whole Two!Ears model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,14 +45,14 @@ modules that are part of the |TwoEarsModel|:
         <TwoEarsPart              startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
     </requirements>
 
-So first clone of off the necessary repositories:
+First clone all necessary repositories:
 
 .. code-block:: bash
 
     $ mkdir git
     $ mkdir git/twoears/
     $ cd git/twoears
-    $ git clone https://github.com/TWOEARS/main.git
+    $ git clone https://github.com/TWOEARS/main.git # if not already done
     $ git clone https://github.com/TWOEARS/binaural-simulator.git
     $ git clone https://github.com/TWOEARS/SOFA.git
     $ git clone https://github.com/TWOEARS/auditory-front-end.git
@@ -61,7 +61,7 @@ So first clone of off the necessary repositories:
 Then you have to define the paths of the single modules. In the `main
 repository`_ copy the file :file:`TwoEarsPaths_Example.xml` to
 :file:`TwoEarsPaths.xml` and adjust it to the used paths, in our case the
-default settings, which is:
+default settings:
 
 .. code-block:: xml
 
@@ -80,7 +80,7 @@ default settings, which is:
     </repoPaths>
 
 After that you can simply run the following command in the folder of the `main
-repository`_ in order to work with the model:
+repository`_ in order to work with the whole model:
 
 .. code-block:: Matlab
 
@@ -172,8 +172,18 @@ testing your code are also using the master branch and not another one.
     have to add git to your system paths, see for example `this tutorial
     <http://blog.countableset.ch/2012/06/07/adding-git-to-windows-7-path/>`_.
 
-Another feature of the ``startTwoEars`` script is the setting ``sub-all``
-instead of ``sub`` which will include the specified path, as ``sub`` will do,
-but also all of its sub-folders.
+The ``startup`` entries are functions that are looked for in the Matlab path and
+executed by ``startTwoEars``. If you want to include not only a folder, but also
+all of it sub-folders to the path you can replace ``sub`` by ``sub-all``.
+
+Adding your changes
+-------------------
+
+If you did some modifications to the code from a repository and you would like to
+add your changes you should always push them as a new branch and create a pull
+request in order to notify others about your changes and their goal.
+See the `help on pull requests
+<https://help.github.com/articles/using-pull-requests/>`_ for an introduction on
+how to do this.
 
 .. vim: filetype=rst spell:
