@@ -218,55 +218,6 @@ like.
 
 Your credentials are going to be saved during the next access.
 
-
-Publishing our code at github
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-We have a |TwoEars| page at github: https://github.com/TWOEARS
-There we publish our final software and data. Of course you maybe want not
-publish all the code you have at the moment, but only parts of it. This can be
-done by creating a branch that includes all things you would like to publish and
-then setting this branch up to track the github remote master branch. This can
-be done with the following commands, for the data repository:
-
-.. code-block:: bash
-
-    $ git remote add github git@github.com:TWOEARS/data.git
-    $ git fetch github
-    $ git checkout -b public --track github/master
-
-.. note::
-
-    Note, that you need to register at github and added to the
-    TWOEARS group if you like to publish the code yourself. Otherwise you can
-    create `pull requests`_.
-
-If you decide at one point that you want add the directory ``folder1`` from master
-branch to the public branch you can do it by checking out the public branch and
-running the following command
-
-.. code-block:: bash
-
-    $ git checkout master -- folder1
-
-If you want to just mirror all your changes you do on the master branch at
-https://dev.qu.tu-berlin.de you can add the following entry to the
-:file:`.git/config` file in the repository.
-
-::
-
-    [alias]
-        push-all = !git push origin master && git push github master
-
-Now you can use the following command to push your changes of the master branch
-directly to https://dev.qu.tu-berlin.de and https://github.com:
-
-.. code-block:: bash
-
-    $ git push-all
-
-.. _pull requests: https://help.github.com/articles/using-pull-requests/
-
 Working together with a svn repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
