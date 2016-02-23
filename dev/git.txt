@@ -350,12 +350,15 @@ Git under Windows
 Git with large binary files
 ---------------------------
 
-This topic is important for our databases, the public and the internal. At the
-moment we are simply using git, which is no longer correctly working due to the
-large repository size (for example a new cloning of the internal data repository
-is not possible at the moment).
+Git was not developed for tracking and storing large binary files. With `Git
+Large File Storage <https://git-lfs.github.com/>`_ there exists a solution
+directly using github for handling large files, but its free version is
+limited to a certain amount of data. It can also be used with our own servers,
+but requires a special software running on the server.
 
-We are working on a solution at the moment, and will most likely use
-`Git-Media <https://github.com/TWOEARS/git-media>`_.
+In order to avoid this we use a solution that only needs special software on the
+client side, see `Git-Media <https://github.com/TWOEARS/git-media>`_. This you
+need in order to work with our `internal database
+<https://dev.qu.tu-berlin.de/projects/twoears-database-internal>'_.
 
 .. vim: filetype=rst spell:
