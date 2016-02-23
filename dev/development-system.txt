@@ -186,4 +186,7 @@ See the `help on pull requests
 <https://help.github.com/articles/using-pull-requests/>`_ for an introduction on
 how to do this.
 
+For a more detailed discussion on how to use git to incorporate your changes,
+have a look at the next section :ref:`sec-git`.
+
 .. vim: filetype=rst spell:
