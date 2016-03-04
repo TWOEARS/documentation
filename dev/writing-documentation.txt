@@ -128,8 +128,10 @@ documentation:
 
 .. note::
 
-    These automatic replacement are defined in the file :file:`conf.py`,
-    acronyms are defined in :file:`acronyms.py`, see :ref:`sec-acronyms`.
+    These automatic replacement are defined in the file :file:`replacements.py`,
+    which also involves things lile ``|DnnLocationKS|``. Common links are
+    defined in :file:`links.py`, acronyms are defined in :file:`acronyms.py`,
+    see :ref:`sec-acronyms`.
 
 Guidelines for reStructuredText files
 -------------------------------------
