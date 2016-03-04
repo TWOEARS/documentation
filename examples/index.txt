@@ -11,9 +11,9 @@ At the moment the following examples are available:
     :maxdepth: 1
 
     localisation
-    dnn-localisation
     localisation-details
-    train-localisation
+    dnn-localisation
+    gmm-localisation
     train-identification
     identification
     segmentation
