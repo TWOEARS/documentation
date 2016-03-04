@@ -144,7 +144,7 @@ will produce a result similar to Fig. :numref:`fig-segmentation-clean`.
    The figure shows all three soft masks and location estimates for the speech
    sources that are simulated in this demo. Note that the estimated positions do
    not necessarily match the true positions (-30°, 0° and 30°) due to the
-   limited localisation capabilities of the |SegmentationKS| knowledge source.
+   limited localisation capabilities of the SegmentationKS knowledge source.
    This problem can be circumvented by exploiting prior knowledge about the
    source positions (see below).
 
