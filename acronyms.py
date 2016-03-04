@@ -1,6 +1,6 @@
 # This file defines all acronyms used in the documentation, see
 # http://twoears.aipa.tu-berlin.de/doc/dev/writing-documentation.html#using-acronyms
-rst_epilog = """
+acronyms = """
 .. |ACF|             replace:: :abbr:`ACF (Auto-Correlation Function)`
 .. |AGC|             replace:: :abbr:`AGC (Automatic Gain Control)`
 .. |ALSA|            replace:: :abbr:`ALSA (Advanced Linux Sound Architecture)`

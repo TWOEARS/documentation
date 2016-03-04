@@ -23,7 +23,13 @@ import sphinx_rtd_theme
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('.'))
 
-from acronyms import rst_epilog # This includes things like |HRTF| etc.
+# Handling of abbreviations and replacements
+from acronyms import acronyms # This includes things like |HRTF| etc.
+from replacements import replacements # This includes |TwoEarsModel| etc.
+from links import links # This includes url links
+rst_epilog = acronyms + replacements + links # Apply those to every page
+
+# Get model version
 import version
 
 # -- General configuration ------------------------------------------------
@@ -231,30 +237,6 @@ html_show_sphinx = False
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'TwoEars-doc'
-
-# Appended to every page
-rst_epilog = rst_epilog + """
-.. |TwoearsMailingList| replace:: `Two!Ears mailing list`_
-.. |TwoEars| replace:: Two!Ears
-.. |TwoEarsModel| replace:: :ref:`Two!Ears Auditory Model <index>`
-.. |AFE| replace:: :ref:`sec-afe`
-.. |BinSim| replace:: :ref:`sec-binsim`
-.. |robot| replace:: :ref:`sec-robot`
-.. |database| replace:: :ref:`sec-database`
-.. |blackboard| replace:: :ref:`sec-blackboard`
-.. |amtoolbox| replace:: `Auditory Modeling Toolbox`_
-.. |LatestVersion| replace:: `the latest version`_
-.. _Two!Ears mailing list: https://groups.google.com/d/forum/twoears
-.. _Two!Ears: https://github.com/TWOEARS/twoears
-.. _Two!Ears Auditory Model: https://github.com/TWOEARS/twoears
-.. _Two!Ears Binaural Simulator: https://github.com/TWOEARS/binaural-simulator
-.. _Two!Ears Auditory Front-End: https://github.com/TWOEARS/auditory-front-end
-.. _Two!Ears Blackboard System: https://github.com/TWOEARS/blackboard-system
-.. _Two!Ears Database: https://dev.qu.tu-berlin.de/projects/twoears-database
-.. _Two!Ears Robotic Platform: https://github.com/TWOEARS
-.. _Auditory Modeling Toolbox: http://amtoolbox.sf.net
-.. _the latest version: https://github.com/TWOEARS/TwoEars/archive/master.zip
-"""
 
 # -- Options for LaTeX output ---------------------------------------------
 
