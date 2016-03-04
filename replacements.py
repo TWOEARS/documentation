@@ -19,4 +19,5 @@ replacements = """
 .. |IdentityKS|             replace:: :ref:`IdentityKS <sec-identity-knowledge-source>`
 .. |ItdLocationKS|          replace:: :ref:`ItdLocationKS <sec-itd-localisation-knowledge-source>`
 .. |RotationKS|             replace:: :ref:`RotationKS <sec-rotation-knowledge-source>`
+.. |SegmentationKS|         replace:: :ref:`SegmentationKS <sec-segmentation-knowledge-source>`
 """
