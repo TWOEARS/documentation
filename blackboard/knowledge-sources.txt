@@ -197,7 +197,7 @@ notified.
 | triggers event         | ``KsFiredEvent``                          |
 +------------------------+-------------------------------------------+
 
-.. _sec-location-knowledge-source:
+.. _sec-gmm-location-knowledge-source:
 
 Location knowledge source: ``GmmLocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

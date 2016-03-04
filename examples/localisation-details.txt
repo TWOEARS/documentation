@@ -8,9 +8,10 @@ Localisation - looking at the results in detail
 As seen in the :ref:`previous example <sec-examples-localisation>` localisation
 is performed inside the blackboard by :ref:`different localisation knowledge
 sources <sec-blackboard-localisation>`. In this example we will perform a single
-localisation of a anechoic white noise signal coming from 0°. The example
-can be found in the ``examples/localisation_look_at_details`` folder which
-consists of the following files::
+localisation of a anechoic white noise signal coming from 0° using
+:ref:`GmmLocationKS <sec-gmm-location-knowledge-source>`. The example can be
+found in the ``examples/localisation_look_at_details`` folder which consists of
+the following files::
 
     Blackboard.xml
     localise.m
