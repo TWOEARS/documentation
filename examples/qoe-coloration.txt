@@ -17,7 +17,7 @@ We did different listening tests where we investigated the amount of coloration
 listeners perceive in different Wave Field Synthesis systems with a varying
 number of loudspeakers and the distance between adjacent loudspeakers.
 
-The |TwoEars| model has a ``ColorationKS`` that is able to predict the amount of
+The |TwoEars| model has a |ColorationKS| that is able to predict the amount of
 coloration compared to a reference. The model learns this reference on the fly
 by choosing the first audio input it gets after the start of the |blackboard|.
 
@@ -106,7 +106,7 @@ Estimating the coloration with the Blackboard
 ---------------------------------------------
 
 Now the audio part is prepared and we only have to setup the |blackboard| and
-estimate a coloration value for every condition with the ``ColorationKS``::
+estimate a coloration value for every condition with the |ColorationKS|::
 
 
     % === Estimate reference

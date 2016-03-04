@@ -12,15 +12,15 @@ the mapping of the extracted features like |ITD|\ s and |ILD|\ s to the
 perceived azimuth angle. This mapping is highly influenced by the environment.
 For example, if you are in a room the |ITD| values will look quite different
 than in the case of an anechoic chamber. That is the reason why we have
-different knowledge sources that do this mapping: ``DnnLocationKS``,
-``GmtkLocationKS``, and ``ItdLocationKS``. ``ItdLocationKS`` utilises a simple
+different knowledge sources that do this mapping: |DnnLocationKS|,
+|GmmLocationKS|, and |ItdLocationKS|. |ItdLocationKS| utilises a simple
 lookup table for the mapping works well in the case of
-:ref:`sec-example-qoe-localisation`. ``GmtkLocationKS`` is at the moment trained
-only for anechoic condition. In this example we have a look at ``DnnLocationKS``
+:ref:`sec-example-qoe-localisation`. |GmmLocationKS| is at the moment trained
+only for anechoic condition. In this example we have a look at |DnnLocationKS|
 which was trained with a multi-conditional training approach to work under
-reverberant conditions [MaEtAl2015dnn]_.  Beside this, ``DnnLocationKS`` works
-in the same way as ``GmtkLocationKS`` and connects with ``ConfusionKS``,
-``ConfusionSolvingKS``, and ``RotationKS`` to solve front-back confusions.
+reverberant conditions [MaEtAl2015dnn]_.  Beside this, |DnnLocationKS| works
+in the same way as |GmmLocationKS| and connects with |ConfusionKS|,
+|ConfusionSolvingKS|, and |RotationKS| to solve front-back confusions.
 
 In this example we will have a look at localisation in a larger room, namely the
 |BRIR| data set measured in :ref:`sec-brir-qu-auditorium3`, which provides six
@@ -68,7 +68,7 @@ Here, we configure it to use the ``@ssr_brs`` renderer which is needed for
 this will be done on the fly later on.
 
 We have four different configuration files for setting up the |Blackboard|. One
-important step for the ``DnnLocationKS`` is to define a resampling as it is
+important step for the |DnnLocationKS| is to define a resampling as it is
 trained for 16000 Hz at the moment. As an example, we list the file
 :file:`BlackboardDnn.xml``:
 
@@ -114,16 +114,16 @@ trained for 16000 Hz at the moment. As an example, we list the file
     </blackboardsystem>
 
 Here, we use different knowledge sources that work together in order to solve
-the localisation task. We have ``AuditoryFrontEndKS`` for extract auditory cues
-from the ear signals sampled at 16 kHz, ``DnnLocationKS`` with 16 frequency
-channels, ``ConfusionKS``, ``ConfusionSolvingKS``, and ``RotationKS`` for the
+the localisation task. We have |AuditoryFrontEndKS| for extract auditory cues
+from the ear signals sampled at 16 kHz, |DnnLocationKS| with 16 frequency
+channels, |ConfusionKS|, |ConfusionSolvingKS|, and |RotationKS| for the
 actual localisation task. The ``Param`` tags are parameters we can pass to the
 knowledge sources. After setting up which knowledge sources we will use, we
 connect them with the ``Connection`` tags.  For more information on configuring
 the blackboard see :ref:`sec-blackboard-configure`.
 
 In the other blackboard configuration files we set up a blackboard for the case
-of ``DnnLocationKS`` without confusion solving by head rotation.
+of |DnnLocationKS| without confusion solving by head rotation.
 
 Now, everything is prepared and we can start Matlab in order to perform the
 localisation. You can just start it and run the following command to see it in
