@@ -15,7 +15,7 @@ than in the case of an anechoic chamber. That is the reason why we have
 different knowledge sources that do this mapping: |DnnLocationKS|,
 |GmmLocationKS|, and |ItdLocationKS|. |ItdLocationKS| utilises a simple
 lookup table for the mapping works well in the case of
-:ref:`sec-example-qoe-localisation`. |GmtkLocationKS| is at the moment trained
+:ref:`sec-example-qoe-localisation`. |GmmLocationKS| is at the moment trained
 only for anechoic condition. In this example we have a look at |GmmLocationKS|
 which was trained with a multi-conditional training approach to work under
 reverberant conditions [MaEtAl2015dnn]_.  Beside this, |GmmLocationKS| works
