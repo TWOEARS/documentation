@@ -131,7 +131,7 @@ the different modules <sec-dynamic-interactions>`::
   acoustic data is fetched whenever no more knowledge source needs to be
   processed
 * The identity knowledge sources get bound to the ``dataConnect`` (which we have
-  instantiated to be the ``AuditoryFrontEndKS`` before)
+  instantiated to be the |AuditoryFrontEndKS| before)
 * The ``IdTruthPlotKS`` gets bound to the identity knowledge sources, which
   produce the identity hypotheses.
 

@@ -5,12 +5,12 @@
 (Re)train the segmentation stage
 ================================
 
-The ``SegmentationKS`` knowledge source of the |TwoEarsModel| depends on a
+The |SegmentationKS| knowledge source of the |TwoEarsModel| depends on a
 localisation model which is based on support vector machine regression. This
 regression model has to be trained using a set of |HRTF|\ s. A demo of how a
-specific instance of the ``SegmentationKS`` can be trained is provided by the
+specific instance of the |SegmentationKS| can be trained is provided by the
 script :file:`demo_train_segmentation.m` in the ``examples/segmentation``
-folder. This script shows how the ``default`` setting of the ``SegmentationKS``
+folder. This script shows how the ``default`` setting of the |SegmentationKS|
 knowledge source which is used for all demos is generated.
 
 Before starting with the training of a new model, the configuration of the
@@ -49,7 +49,7 @@ current implementation of the training framework uses white noise as a stimulus
 signal during training.
 
 Besides the scene description file, the only requirement to generate a training
-script is to provide a unique identifier for the ``SegmentationKS`` instance
+script is to provide a unique identifier for the |SegmentationKS| instance
 that should be trained. In the file :file:`demo_train_segmentation.m` this is
 done via
 
@@ -74,7 +74,7 @@ specified. The possible configuration parameters are provided as an example in
     fHigh = 8000;               % Highest filterbank center frequency in [Hz]
 
 If all of the described prerequisites are met, an instance of the
-``SegmentationKS`` can be created:
+|SegmentationKS| can be created:
 
 .. code-block:: Matlab
     :linenos:
@@ -105,7 +105,7 @@ the regression models.
     segKS.train();
 
 The ``train()`` command will produce an error message if a set of trained models
-already exist for the identifier the ``SegmentationKS`` was instantiated with.
+already exist for the identifier the |SegmentationKS| was instantiated with.
 Overwriting existing models has to be explicitly enforced by calling the
 ``train()`` method with a additional ``doOverwrite`` flag which has to be set to
 ``true``:

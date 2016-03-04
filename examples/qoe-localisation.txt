@@ -62,10 +62,9 @@ as the localisation results will be relative to the head orientation::
 Estimating the localisation with the Blackboard
 -----------------------------------------------
 
-For the actual prediction of the perceived direction we use the
-:ref:`ItdLocationKS <sec-itd-localisation-knowledge-source>` and setup the
-|blackboard| for localisation without head rotations, see
-:ref:`sec-examples-localisation` for details::
+For the actual prediction of the perceived direction we use the |ItdLocationKS|
+knowledge source and setup the |blackboard| for localisation without head
+rotations, see :ref:`sec-examples-localisation` for details::
 
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);

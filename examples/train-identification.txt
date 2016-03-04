@@ -7,7 +7,7 @@ Train sound type identification models
 
 Part of the |TwoEarsModel| is the :ref:`sec-identity-knowledge-source` which can
 be instantiated (multiple times) to identify the type of auditory objects, like
-"speech", "fire", "knock" etc. Each IdentityKS needs a source type model -- this
+"speech", "fire", "knock" etc. Each |IdentityKS| needs a source type model -- this
 example shows one possibility to train such a model. Have a look at the
 :ref:`sec-examples-identification` to see how these models are being used in the
 |blackboard|.
@@ -18,7 +18,7 @@ the model training process, new directories with names like
 ``Training.2015.08.03.14.57.21.786`` will be created by the training pipeline,
 holding log files of the training, file lists of the used training and testing
 data, and of course the trained models. These are the models to be used in the
-IdentityKS, then. To see if everything is working, just run ::
+|IdentityKS|, then. To see if everything is working, just run ::
 
     >> trainAndTestCleanModel;
 

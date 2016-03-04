@@ -8,9 +8,10 @@ Localisation - looking at the results in detail
 As seen in the :ref:`previous example <sec-examples-localisation>` localisation
 is performed inside the blackboard by :ref:`different localisation knowledge
 sources <sec-blackboard-localisation>`. In this example we will perform a single
-localisation of a anechoic white noise signal coming from 0°. The example
-can be found in the ``examples/localisation_look_at_details`` folder which
-consists of the following files::
+localisation of a anechoic white noise signal coming from 0° using
+:ref:`GmmLocationKS <sec-gmm-location-knowledge-source>`. The example can be
+found in the ``examples/localisation_look_at_details`` folder which consists of
+the following files::
 
     Blackboard.xml
     localise.m
@@ -43,7 +44,7 @@ return the localisation data::
 
     perceivedAzimuths =
 
-    1x8 struct array with fields:
+    1x9 struct array with fields:
 
         sndTmIdx
         data
@@ -52,15 +53,16 @@ It returns a relatively complicated struct that comes with time stamps
 ``sndTmIdx`` and the corresponding ``data`` which again is a struct containing
 different things, here is the output for one time stamp::
 
-    >> perceivedAzimuths(8).data
-    ans =
+    >> perceivedAzimuths(9).data
+
+    ans = 
 
       PerceivedAzimuth with properties:
 
-      location: 238
-      headOrientation: 122
-      relativeLocation: 0
-      score: 0.5530
+                azimuth: 20
+        headOrientation: 340
+        relativeAzimuth: 0
+                  score: 0.7028
 
 But don't worry there is an easy way to get an overview of the results. First,
 we are only interested in the summary of the localisation result::
@@ -87,16 +89,17 @@ happened during the localisation::
     Reference target angle:   0 degrees
     ------------------------------------------------------------------------------------
     Localised source angle:
-    BlockTime  PerceivedAzimuth    (head orient., relative loc.)   Probability
+    BlockTime   PerceivedAzimuth    (head orient., relative azimuth)    Probability
     ------------------------------------------------------------------------------------
-    0.09        0 degrees           (  0 degrees,      0 degrees)   0.57
-    0.65        0 degrees           (181 degrees,    179 degrees)   0.98
-    1.21        0 degrees           (181 degrees,    179 degrees)   0.56
-    1.76        0 degrees           (  0 degrees,      0 degrees)   0.88
-    2.32        0 degrees           (  0 degrees,      0 degrees)   0.96
-    2.88        0 degrees           (  0 degrees,      0 degrees)   0.48
-    3.44        0 degrees           (122 degrees,    238 degrees)   0.81
-    3.99        0 degrees           (122 degrees,    238 degrees)   0.55
+      0.56        0 degrees     (  0 degrees,      0 degrees)   1.00
+      1.02        0 degrees     (  0 degrees,      0 degrees)   0.65
+      1.58        0 degrees     ( 20 degrees,    340 degrees)   0.56
+      2.04        0 degrees     (  0 degrees,      0 degrees)   0.61
+      2.51        0 degrees     ( 20 degrees,    340 degrees)   0.50
+      3.07        0 degrees     (  0 degrees,      0 degrees)   0.69
+      3.53        0 degrees     ( 20 degrees,    340 degrees)   0.73
+      4.09        0 degrees     (  0 degrees,      0 degrees)   0.62
+      4.55        0 degrees     (340 degrees,     20 degrees)   0.70
     ------------------------------------------------------------------------------------
     Mean localisation error: 0
     ------------------------------------------------------------------------------------
@@ -113,19 +116,18 @@ localise the blackboard uses different cues - like |ITD|\ s and |ILD|\ s - that
 are provided by the :ref:`sec-afe`. It might be of interest to have a detailed
 look on them. In order to see which are available, run::
 
-    >> bbs.listAfeData
+    >>  bbs.listAfeData
 
     Available AFE data:
 
-	  'filterbank'
-	  'innerhaircell'
-	  'crosscorrelation'
-	  'input'
-	  'ild'
-	  'ic'
-	  'itd'
-	  'time'
-	  'head_rotation'
+      'filterbank'
+      'time'
+      'input'
+      'itd'
+      'innerhaircell'
+      'ild'
+      'crosscorrelation'
+      'head_rotation'
 
 All those cues can be plotted with ``bbs.plotAfeData(cueName)``, for example::
 

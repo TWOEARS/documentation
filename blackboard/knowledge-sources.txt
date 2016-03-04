@@ -154,8 +154,8 @@ Accessing signals
 
 A more elaborate description of the request parameter structure and the signal
 objects can be found in the :doc:`help for the Two!Ears Auditory Front-End
-<../afe/index>`. Have a look at the implementation of the `GmtkLocationKS
-<https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/GmtkLocationKS.m>`_
+<../afe/index>`. Have a look at the implementation of the `GmmLocationKS
+<https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/GmmLocationKS.m>`_
 to see a real-world example of how to subclass ``AuditoryFrontEndDepKS``.
 
 .. _sec-blackboard-localisation:
@@ -197,12 +197,12 @@ notified.
 | triggers event         | ``KsFiredEvent``                          |
 +------------------------+-------------------------------------------+
 
-.. _sec-location-knowledge-source:
+.. _sec-gmm-location-knowledge-source:
 
-Location knowledge source: ``GmtkLocationKS``
+Location knowledge source: ``GmmLocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Class ``GmtkLocationKS`` implements knowledge about the statistical relationship
+Class ``GmmLocationKS`` implements knowledge about the statistical relationship
 between spatial cues and azimuth locations. Currently we model the relationship
 using |GMM|\ s, which are trained on binaural cues from the |AFE| including
 |ITD| and |ILD| cues.
@@ -239,7 +239,7 @@ category. Otherwise, a ``PerceivedAzimuth`` object is added to the blackboard
 ``perceivedAzimuths`` data category, and the standard event is triggered.
 
 +------------------------+----------------------------------------------------+
-| binds to               | ``GmtkLocationKS.KsFiredEvent``                    |
+| binds to               | ``{Gmm|Dnn}LocationKS.KsFiredEvent``               |
 +------------------------+----------------------------------------------------+
 | reads data category    | ``sourcesAzimuthsDistributionHypotheses``          |
 +------------------------+----------------------------------------------------+
@@ -406,7 +406,7 @@ reference and the test stimulus.
 Location knowledge source: ``ItdLocationKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As the current implementation of ``GmtkLocationKS`` and ``DnnLocationKS`` are
+As the current implementation of ``GmmLocationKS`` and ``DnnLocationKS`` are
 not able to predict the localisation reliable under difficult conditions, we
 introduced a different location knowledge source as an intermediate solution.
 This ``ItdLocationKS`` is optimised for the prediction of predicting the
@@ -417,7 +417,7 @@ to distinguish between front and back. Beside the lookup table it uses also an
 outlier detection in the process of integrating the perceived angles over the
 different frequency channels as suggested in [Wierstorf2014]_. The output of the
 knowledge source is a ``sourcesAzimuthsDistributionHypotheses`` identical to the
-output of the ``GmtkLocationKS`` or ``DnnLocationKS``.
+output of the ``GmmLocationKS`` or ``DnnLocationKS``.
 
 +------------------------+-------------------------------------------+
 | binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
