@@ -11,6 +11,7 @@ replacements = """
 .. |LatestVersion|          replace:: `the latest version`_
 .. |AuditoryFrontEndKS|     replace:: :ref:`AuditoryFrontEndKS <sec-afe-knowledge-source>`
 .. |AuditoryFrontEndDepKS|  replace:: :ref:`AuditoryFrontEndDepKS <sec-afe-dep-knowledge-source>`
+.. |ColorationKS|           replace:: :ref:`ColorationKS <sec-coloration-knowledge-source>`
 .. |ConfusionKS|            replace:: :ref:`ConfusionKS <sec-confusion-knowledge-source>`
 .. |ConfusionSolvingKS|     replace:: :ref:`ConfusionSolvingKS <sec-confusion-solving-knowledge-source>`
 .. |DnnLocationKS|          replace:: :ref:`DnnLocationKS <sec-dnn-location-knowledge-source>`
