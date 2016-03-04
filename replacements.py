@@ -16,5 +16,6 @@ replacements = """
 .. |DnnLocationKS|          replace:: :ref:`DnnLocationKS <sec-dnn-location-knowledge-source>`
 .. |GmmLocationKS|          replace:: :ref:`GmmLocationsKS <sec-gmm-location-knowledge-source>`
 .. |IdentityKS|             replace:: :ref:`IdentityKS <sec-identity-knowledge-source>`
+.. |ItdLocationKS|          replace:: :ref:`ItdLocationKS <sec-itd-localisation-knowledge-source>`
 .. |RotationKS|             replace:: :ref:`RotationKS <sec-rotation-knowledge-source>`
 """
