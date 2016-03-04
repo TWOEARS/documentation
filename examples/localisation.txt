@@ -8,14 +8,14 @@ Localisation with and without head rotations
 The |TwoEarsModel| comes with several knowledge sources that work together to
 estimate the perceived azimuth of a sound source, see
 :ref:`sec-blackboard-localisation` for a summary. The main work is done by the
-``GmtkLocationKS`` knowledge source that uses |ITD| and |ILD| cues provided by the
+|GmmLocationKS| knowledge source that uses |ITD| and |ILD| cues provided by the
 :ref:`sec-afe` and compares them with learned cues to azimuth maps. As an output
 it provides a probability distribution of possible directions for the source.
-This will be passed on to the ``ConfusionKS`` knowledge source which looks at
-the probabilities and decides if a clear direction can be extracted from this.
-If not, ``ConfusionSolvingKS`` is called which then triggers ``RotationKS`` to
-rotate the head of the listener (could be in the simulation or of a robot) and
-start the localisation process again.
+This will be passed on to the |ConfusionKS| knowledge source which looks at the
+probabilities and decides if a clear direction can be extracted from this.  If
+not, |ConfusionSolvingKS| is called which then triggers |RotationKS| to rotate
+the head of the listener (could be in the simulation or of a robot) and start
+the localisation process again.
 
 In this example we will see how to set up the model to perform a localisation
 task and how to switch on or off the possibility of the model to rotate its
@@ -79,9 +79,7 @@ including head movements (:file:`Blackboard.xml`):
 
         <dataConnection Type="AuditoryFrontEndKS"/>
 
-        <KS Name="loc" Type="GmtkLocationKS">
-            <Param Type="char">default</Param>
-        </KS>
+        <KS Name="loc" Type="GmmLocationKS"/>
         <KS Name="conf" Type="ConfusionKS"/>
         <KS Name="confSolv" Type="ConfusionSolvingKS"/>
         <KS Name="rot" Type="RotationKS">
@@ -112,9 +110,9 @@ including head movements (:file:`Blackboard.xml`):
     </blackboardsystem>
 
 Here, we use different knowledge sources that work together in order to solve
-the localisation task. We have ``AuditoryFrontEndKS`` for extract auditory cues
-from the ear signals, ``GmtkLocationKS``, ``ConfusionKS``, ``ConfusionSolvingKS``,
-and ``RotationKS`` for the actual localisation task. The ``Param`` tags are
+the localisation task. We have |AuditoryFrontEndKS| for extract auditory cues
+from the ear signals, |GmmLocationKS|, |ConfusionKS|, |ConfusionSolvingKS|,
+and |RotationKS| for the actual localisation task. The ``Param`` tags are
 parameters we can pass to the knowledge sources. After setting up which
 knowledge sources we will use, we connect them with the ``Connection`` tags.
 For more information on configuring the blackboard see
@@ -130,9 +128,7 @@ disabling its ability to turn the head (:file:`BlackboardNoHeadRotation.xml`):
 
         <dataConnection Type="AuditoryFrontEndKS"/>
 
-        <KS Name="loc" Type="GmtkLocationKS">
-            <Param Type="char">default</Param>
-        </KS>
+        <KS Name="loc" Type="GmmLocationKS"/>
         <KS Name="conf" Type="ConfusionKS">
             <!-- Disable confusion solving (== no head rotation) -->
             <Param Type="int">0</Param>
@@ -156,16 +152,16 @@ Now, everything is prepared and we can start Matlab in order to perform the
 localisation. You can just start it and run the following command to see it in
 action, afterwards we will have a look at what happened::
 
-    >> localise
+	>> localise
 
-    ------------------------------------------------------------------
-    Source direction        Model w head rot.       Model wo head rot.
-    ------------------------------------------------------------------
-       0                        1                     176
-      33                       34                      33
-      76                       75                      72
-    -121                     -119                    -111
-    ------------------------------------------------------------------
+	------------------------------------------------------------------
+	Source direction        Model w head rot.       Model wo head rot.
+	------------------------------------------------------------------
+	   0 			    0 			    0
+	  33 			   35 			   35
+	  76 			   70 			   70
+	-121 			 -120 			  -55
+	------------------------------------------------------------------
 
 As you can see the model with head rotation returned better results as the model
 without head rotation enabled. The reason why we have problems without head
@@ -196,7 +192,7 @@ blackboards after each other, one with, the other one without head rotations::
         sim.rotateHead(0, 'absolute');
         sim.ReInit = true;
 
-        % GmtkLocationKS with head rotation for confusion solving
+        % GmmLocationKS with head rotation for confusion solving
         bbs = BlackboardSystem(0);
         bbs.setRobotConnect(sim);
         bbs.buildFromXml('Blackboard.xml');
@@ -206,7 +202,7 @@ blackboards after each other, one with, the other one without head rotations::
         sim.rotateHead(0, 'absolute');
         sim.ReInit = true;
 
-        % GmtkLocationKS without head rotation and confusion solving
+        % GmmLocationKS without head rotation and confusion solving
         bbs = BlackboardSystem(0);
         bbs.setRobotConnect(sim);
         bbs.buildFromXml('BlackboardNoHeadRotation.xml');
