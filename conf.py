@@ -81,7 +81,7 @@ version = version.get_version()
 # The full version, including alpha/beta/rc tags.
 release = version
 
-html_context = {'versions': [('1.0', '1.0/'), ('1.1', '1.1/'), ('latest', 'latest/')],
+html_context = {'versions': [('1.0', '1.0/'), ('1.1', '1.1/'), ('1.2', '1.2/'), ('latest', 'latest/')],
                 'downloads': [('PDF', '/twoears-auditory-model.pdf')],
                 'home_url': 'http://twoears.aipa.tu-berlin.de/doc/'}
 
