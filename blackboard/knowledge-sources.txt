@@ -370,7 +370,7 @@ actual hypotheses created by the identity knowledge sources. :ref:`This figure
 | reads data category    | ``identityHypotheses``        |
 +------------------------+-------------------------------+
 
-.. _sec-identity-decision-knowledge-source:
+.. _sec-segmentation-identity-knowledge-source:
 
 Segment Identity knowledge source: ``SegmentIdentityKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
