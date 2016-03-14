@@ -373,7 +373,7 @@ actual hypotheses created by the identity knowledge sources. :ref:`This figure
 .. _sec-segmentation-identity-knowledge-source:
 
 Segment Identity knowledge source: ``SegmentIdentityKS``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The segment identity knowledge source checks new segmentation hypotheses
 and assigns an identity to each. This is performed by appliying the mask
