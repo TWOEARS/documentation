@@ -375,11 +375,11 @@ actual hypotheses created by the identity knowledge sources. :ref:`This figure
 Segment Identity knowledge source: ``SegmentIdentityKS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The segment identity knowledge source checks new segmentation hypotheses
-and assigns an identity to each. This is performed by appliying the mask
-estimated by the SegmentationKS for the individual before performing
-inference on the source's identity. ``identityHypotheses`` are triggered
-for each source in the ``segmentationHypotheses``
+The segment identity knowledge source checks new segmentation hypotheses and
+assigns an identity to each. This is performed by applying the mask estimated by
+the |SegmentationKS| before performing inference on the source's identity.
+``identityHypotheses`` are triggered for each source in the
+``segmentationHypotheses``
 
 +------------------------+-----------------------------------+
 | binds to               | ``SegmentationKS.KsFiredEvent``   |
