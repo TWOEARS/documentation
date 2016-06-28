@@ -62,9 +62,10 @@ as the localisation results will be relative to the head orientation::
 Estimating the localisation with the Blackboard
 -----------------------------------------------
 
-For the actual prediction of the perceived direction we use the |ItdLocationKS|
-knowledge source and setup the |blackboard| for localisation without head
-rotations, see :ref:`sec-examples-localisation` for details::
+For the actual prediction of the perceived direction we use the |DnnLocationKS|
+knowledge source, limit its upper frequency range to 1400 Hz, and setup the
+|blackboard| for localisation without head rotations, see
+:ref:`sec-examples-localisation` for details::
 
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);
@@ -95,7 +96,7 @@ evaluates that data and provides us with an average value over time::
 
     predictedAzimuth =
 
-      -12.0000
+      -14.8087
 
 During the experiment a jitter was applied to the zero degree head orientation of
 the binaural synthesis system in order to have a larger spread of possible
@@ -108,11 +109,12 @@ listening test and has to be added to the predicted azimuth::
 
 After that we can compare the result to the one from the listening test::
 
-    >> fprintf(1, '\nPerceived direction: %.1f deg\nPredicted direction: %.1f\n', ...
-          perceivedAzimuth, predictedAzimuth);
+    >> fprintf(1, ['\nPerceived direction: %.1f deg\n', ...
+                   'Predicted direction: %.1f deg\n'], ...
+               perceivedAzimuth, predictedAzimuth);
 
     Perceived direction: -14.5 deg
-    Predicted direction: -14.0
+    Predicted direction: -16.8 deg
 
 If you would like to do this for all listening positions, you can go to the
 ``examples/qoe_localisation`` folder and execute the following command::
