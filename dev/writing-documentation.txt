@@ -20,7 +20,7 @@ Getting the raw documentation
 -----------------------------
 
 Though Two!Ears' documentation is intended to be read as HTML or PDF at
-http://twoears.eu/doc/, we edit it as a collection of text files for maximum
+http://docs.twoears.eu, we edit it as a collection of text files for maximum
 flexibility. These files live in the 
 `Two!Ears documentation repository <https://github.com/TWOEARS/documentation>`_.
 
@@ -57,17 +57,18 @@ Then, building the HTML is easy; just run:
 
 .. code-block:: bash
 
-    make html
+    make html-preview
 
-or directly ``sphinx-build -b html -A web=0 ../_build`` if ``make`` is not
-working for you. The result can be explored under
-:file:`_build/html/latest/index.html`.
+or directly ``sphinx-build -b html -d _build/doctrees . _build/html-preview`` if
+``make`` is not working for you. The result can be explored under
+:file:`_build/html-preview/index.html`.
 
 .. note::
 
     To generate the version presented on the `official Two!Ears documentation site
-    <http://twoears.aipa.tu-berlin.de/doc/>`_ you have to run ``make dirhtml``
-    for every available release tag of the documentation.
+    <http://docs.twoears.eu>`_ you have to run ``make html``. As the
+    documentation is hosted and automatically build by `Read the Docs`_ you
+    don't need to do this.
 
 To get started contributing, you'll want to read the `reStructuredText
 Primer`_. After that, you'll want to read about the `Sphinx-specific markup`_
@@ -80,6 +81,7 @@ A very detailed documentation is provided at the `Sphinx/Rest Memo site`_.
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 .. _Sphinx-specific markup: http://sphinx-doc.org/markup/index.html
 .. _Sphinx/Rest Memo site: http://rest-sphinx-memo.readthedocs.org/en/latest/index.html
+.. _Read the Docs: https://readthedocs.org
 
 Converting existing documentation
 ---------------------------------
@@ -325,30 +327,5 @@ Our policy for new features is:
     repository should be always corresponding to the actual code/data that is
     present in the master branches of the single module repositories.
 
-
-.. _documentation-spelling-check:
-
-Spelling check
---------------
-
-Before you commit your docs, it's a good idea to run the spelling checker.
-You'll need to install a couple packages first:
-
-* `pyenchant <https://pypi.python.org/pypi/pyenchant/>`_ (which requires
-  `enchant <http://www.abisource.com/projects/enchant/>`_)
-
-* `sphinxcontrib-spelling
-  <https://pypi.python.org/pypi/sphinxcontrib-spelling/>`_
-
-Then from the ``doc`` directory, run ``make spelling``. Wrong words (if any)
-along with the file and line number where they occur will be saved to
-:file:`_build/spelling/output.txt`.
-
-If you encounter false-positives (error output that actually is correct), do
-one of the following:
-
-* Find synonyms that the spell checker recognises.
-* If, and only if, you are sure the word you are using is correct - add it
-  to :file:`doc/spelling_wordlist` (please keep the list in alphabetical order).
 
 .. vim: filetype=rst spell:
