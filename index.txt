@@ -126,7 +126,7 @@ under `GNU General Public License, version 3`_, and its parts available in the
 2-Clause License`_.
 
 .. _GNU General Public License, version 3: http://www.gnu.org/licenses/gpl-3.0.html
-.. _The BSD 2-Clause License: http://opensource.org/licenses/BSD-2-Clause
+.. _The BSD 2-Clause License: http://twoears.github.io/bsd-2-clause-license
 
 .. rubric:: Acknowledgement
 
