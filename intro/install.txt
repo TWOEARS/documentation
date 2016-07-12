@@ -43,7 +43,7 @@ trying one of the :ref:`examples provided <sec-examples-localisation>`:
 
 .. code-block:: Matlab
 
-        >> cd Examples/localisation_w_and_wo_head_movements
+        >> cd examples/localisation_w_and_wo_head_movements
         >> localise;
 
 .. _official download site: http://twoears.eu/download
