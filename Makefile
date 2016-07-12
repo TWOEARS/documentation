@@ -31,7 +31,6 @@ help:
 	@echo "  latex        to make LaTeX files, you can set PAPER=a4 or PAPER=letter"
 	@echo "  latexpdf     to make LaTeX files and run them through pdflatex"
 	@echo "  linkcheck    to check all external links for integrity"
-	@echo "  spelling     to run a spell check on your docs"
 
 clean:
 	rm -rf $(BUILDDIR)/*
@@ -74,9 +73,3 @@ linkcheck:
 	@echo
 	@echo "Link check complete; look for any errors in the above output " \
 	      "or in $(BUILDDIR)/linkcheck/output.txt."
-
-spelling:
-	$(SPHINXBUILD) -b spelling $(ALLSPHINXOPTS) $(BUILDDIR)/spelling
-	@echo
-	@echo "Check finished. Wrong words can be found in " \
-		"$(BUILDDIR)/spelling/output.txt."
