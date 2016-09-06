@@ -405,7 +405,7 @@ Install packages for |GenoM3|
         # or better, edit the file manually and add the line near the beginning
 
         # 2. Change to the package's directory
-        cd ~/robotpkg/wip/demo-genom3
+        cd ~/robotpkg/doc/demo-genom3
 
         # 3. Install missing system dependencies
         make show-depends
@@ -424,7 +424,7 @@ Install packages for |GenoM3|
     |genomix| and |rosix| are HTTP servers providing an interface for some
     clients to control |GenoM3| components and generic |ROS| nodes respectively.
 
-* Then, install the packages ``tcl-genomix`` from ``robotpkg/wip/tcl-genomix``
+* Then, install the packages ``tcl-genomix`` from ``robotpkg/supervision/tcl-genomix``
   and ``matlab-genomix`` from ``robotpkg/supervision/matlab-genomix``.
 
     These are clients of |genomix| and |rosix| servers. The |tcl-genomix| client
@@ -504,3 +504,9 @@ gives:
    mode: rst
    fill-column: 80
    End:
+
+.. note::
+
+    You might need additional ALSA libraries, like ``libasound-dev``, to install the 
+    |BASS| component (commonly with ``apt-get`` under Ubuntu).
+     
