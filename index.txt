@@ -156,7 +156,7 @@ Sascha Spors (URO),
 Jalil Taghia (TUB),
 Ivo Trowitzsch (TUB),
 Thomas Walther (RUB),
-Hagen Wierstorf (TUB),
+Hagen Wierstorf (TUIl),
 Fiete Winter (URO).
 
 This project has received funding from the European Union's Seventh Framework
