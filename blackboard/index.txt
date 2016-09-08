@@ -13,6 +13,4 @@ Blackboard system
     knowledge-sources
     add-knowledge-sources
     
-    training
-
 .. vim: filetype=rst spell:
