@@ -254,7 +254,7 @@ and average results, the |BRS| files for a binaural simulation of the
 loudspeaker array (the experiment itself was performed using a real loudspeaker
 array, but for modelling purposes the binaural simulation is of interest) and
 the driving signals of the single loudspeakers as WAV-files
-`doi:10.14279/depositonce-5173 <http://dx.doi.org/10.14279/depositonce-5173>`_::
+`[doi:10.14279/depositonce-5173] <http://dx.doi.org/10.14279/depositonce-5173>`_::
 
     experiments/2015-11-01_wfs_stereo_comparison/brs/*
     experiments/2015-11-01_wfs_stereo_comparison/results/*
