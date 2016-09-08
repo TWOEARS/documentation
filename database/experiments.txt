@@ -253,7 +253,8 @@ best out of every system, see [Hold2016a]_ for details. We provide the single
 and average results, the |BRS| files for a binaural simulation of the
 loudspeaker array (the experiment itself was performed using a real loudspeaker
 array, but for modelling purposes the binaural simulation is of interest) and
-the driving signals of the single loudspeakers as WAV-files::
+the driving signals of the single loudspeakers as WAV-files
+`doi:10.14279/depositonce-5173 <http://dx.doi.org/10.14279/depositonce-5173>`_::
 
     experiments/2015-11-01_wfs_stereo_comparison/brs/*
     experiments/2015-11-01_wfs_stereo_comparison/results/*
@@ -275,7 +276,7 @@ the driving signals of the single loudspeakers as WAV-files::
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-stereo.wav
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-surround.wav
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-wfs.wav
-    
+
 .. [Hold2016a] Hold, C., Wierstorf, H., Raake, A. (2016), "The Difference Between Stereophony and Wave Field Synthesis in the Context of Popular Music," 140th AES Convention, Paper 9533
 
 .. vim: filetype=rst spell:
