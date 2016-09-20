@@ -1,0 +1,184 @@
+.. _sec-impulse-responses-usage:
+
+Usage of impulse responses
+--------------------------
+
+As described in :ref:`sec-database-usage` there are several ways to get the data
+downloaded to your PC.
+
+
+.. _sec-hrtf-usage:
+
+Usage of |HRTF|\ s
+~~~~~~~~~~~~~~~~~~
+
+Let us now assume that you want to have a cello sound
+convolved with an |HRTF| in order to perceive it from the right side::
+
+    sigfile = xml.dbGetFile('stimuli/anechoic/instruments/anechoic_cello.wav');
+    sig = wavread(sigfile);
+    hrtffile = xml.dbGetFile('impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa');
+    % Load your impulse response into a struct
+    hrtf = SOFAload(hrtffile);
+    % Display some information about the impulse response
+    SOFAinfo(hrtf);
+    % Plot a figure with the measurement setup
+    SOFAplotGeometry(hrtf);
+    % Have a look at the size of the data
+    size(hrtf.Data.IR)
+    % Get information about the measurement setup
+    hrtf.ListenerPosition       % position of dummy head
+    hrtf.SourcePosition         % position of loudspeaker
+    % Head orientation of the dummy head + coordinate system and units
+    hrtf.ListenerView
+    hrtf.ListenerView_Type
+    hrtf.ListenerView_Units
+    % Calculate the source position from a listener point of view
+    apparentSourceVector = SOFAcalculateAPV(hrtf);
+    % Listen to the HRTF with azimuth of -90°
+    apparentSourceVector(91, 1)
+    SOFAplotGeometry(hrtf, 91);
+    soundOutput = [conv(squeeze(hrtf.Data.IR(91, 1, :)), sig) ...
+                   conv(squeeze(hrtf.Data.IR(91, 2, :)), sig)];
+    sound(soundOutput, hrtf.Data.SamplingRate);
+
+You could do the same by not using the SOFA API directly, but by using only
+functions from the |BinSim|::
+
+    % Load HRTF data set
+    hrtf = simulator.DirectionalIR( ...
+        xml.dbGetFile('impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa'));
+    % Get a the HRTF for an azimuth of 80° (this is to the left of you)
+    impulseResponse = hrtf.getImpulseResponses(80);
+    figure;
+    plot(impulseResponse.left(1:400), '-b');
+    hold on;
+    plot(impulseResponse.right(1:400), '-r');
+    % Listen to the output signal
+    outputSignal = [conv(impulseResponse.left, sig) ...
+                    conv(impulseResponse.right, sig)];
+    sound(outputSignal, hrtf.SampleRate);
+
+
+.. _sec-brir-usage:
+
+Usage of |BRIR|\ s
+~~~~~~~~~~~~~~~~~~
+
+The following will use |BRIR|\ s measured by the :ref:`Two!Ears KEMAR in the Adream
+building <sec-brir-twoears-adream>`. They contain several listening positions
+and loudspeakers.
+
+**Fix listener with head movements**
+
+We first start with a measurement done at one position
+including several head orientations and four different loudspeakers.
+
+To get more information about the data in Matlab, you can try the following.
+Note also, that all angles are specified in world coordinates, where 0° is
+always located parallel to the ``x``-axis.
+
+.. code-block:: Matlab
+
+    >> hrtf = SOFAload('TWOEARS_KEMAR_ADREAM_pos1.sofa', 'nodata');
+    >> % Get 0° look direction of listener
+    >> SOFAconvertCoordinates(hrtf.ListenerView(40,:), ...
+                              hrtf.ListenerView_Type, 'spherical')
+
+    ans =
+
+     -105.7541         0    1.0000
+
+    >> % Get min and max head orientation
+    >> SOFAconvertCoordinates(hrtf.ListenerView(1,:), ...
+        hrtf.ListenerView_Type, 'spherical')
+
+    ans =
+
+      176.2459         0    1.0000
+
+    >> SOFAconvertCoordinates(hrtf.ListenerView(end,:), ...
+        hrtf.ListenerView_Type, 'spherical')
+
+    ans =
+
+      -27.7541         0    1.0000
+
+    >> % Get loudspeaker position
+    >> hrtf.EmitterPosition
+
+    ans =
+
+        2.5500    7.4700    1.0200
+       -3.6600    7.1500    1.0900
+       -3.3000    5.0900    1.0800
+       -1.4400    2.9800    0.3100
+
+    >> % Get relative direction of second loudspeaker from listeners' view
+    >> loudspeakerDirection = SOFAconvertCoordinates( ...
+        hrtf.EmitterPosition(2,:)-hrtf.ListenerPosition, ...
+        'cartesian', 'spherical');
+    >> listenerView = SOFAconvertCoordinates(hrtf.ListenerView(40,:), ...
+        hrtf.ListenerView_Type, 'spherical');
+    >> loudspeakerDirection - listenerView
+
+    ans =
+
+      -50.5197   -3.1852    5.8391
+
+
+**Moving listener without head rotations**
+
+The second part of the measurement consists of a trajectory of 20 listener
+positions at which |BRIR|\ s were measured. This measurement includes only a
+fixed head orientation of 0°, but the same 4 loudspeaker positions as the first
+one.
+
+Again, to get more information about the data in Matlab, you can try the
+following.  Note also, that all angles are specified in world coordinates, where
+0° is always located parallel to the ``x``-axis.
+
+.. code-block:: Matlab
+
+    >> hrtf = SOFAload('TWOEARS_KEMAR_ADREAM_trajectory.sofa', 'nodata');
+    >> % Get number of listener positions
+    >> size(hrtf.ListenerPosition, 1)
+
+    ans =
+
+        20
+
+    >> % Plot the trajectory
+    >> figure; plot(hrtf.ListenerPosition(:,1), hrtf.ListenerPosition(:,2), 'x')
+    >> axis square
+    >> axis([-5.25 4.25 -1 11.25])
+    >> % Get the direction of the third loudspeaker from a listeners' view
+    >> loudspeakerDirection = SOFAconvertCoordinates( ...
+        repmat(hrtf.EmitterPosition(3,:),[20 1])-hrtf.ListenerPosition, ...
+        'cartesian', 'spherical');
+    >> listenerView = SOFAconvertCoordinates(hrtf.ListenerView, ...
+        hrtf.ListenerView_Type, 'spherical');
+    >> wrapTo180(loudspeakerDirection - listenerView)
+
+	ans =
+
+	  -37.2047   -3.2396    6.4321
+	  -37.7142   -3.2855    6.3284
+	  -39.4842   -3.4401    5.9994
+	  -41.9584   -3.7243    5.5815
+	  -43.7411   -3.8833    5.3198
+	  -45.1726   -4.0115    5.1267
+	  -46.7272   -4.1598    4.9251
+	  -48.5749   -4.3518    4.7064
+	  -50.6048   -4.5234    4.4802
+	  -52.7507   -4.7302    4.2677
+	  -54.6393   -4.8501    4.1118
+	  -57.2112   -5.0477    3.9111
+	  -59.6051   -5.2142    3.7414
+	  -62.2329   -5.4230    3.5689
+	  -65.6560   -5.7044    3.3784
+	  -68.7011   -5.9200    3.2496
+	  -87.0739   -6.1044    3.1724
+	  -96.2958   -6.0686    3.2225
+	 -105.3502   -5.8268    3.3804
+	 -109.6098   -5.7063    3.4695

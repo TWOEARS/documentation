@@ -19,7 +19,7 @@ If not otherwise stated all available data is provided under `CC BY-SA 3.0`_.
 
     usage
     experiments
-    impulse-responses
+    impulse-responses/index
     sound-databases
     stimuli
 

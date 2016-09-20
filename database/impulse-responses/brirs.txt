@@ -1,0 +1,132 @@
+.. _sec-brirs:
+
+Reverberant measurements (|BRIR|\ s)
+------------------------------------
+
+.. _sec-brir-twoears-adream:
+
+Two!Ears, CNRS Toulouse, Adream-building
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Adream-building at the University Toulouse is a robot-lab space consisting
+of a large hall that contains four small rooms without concrete windows, doors,
+and ceilings. :numref:`fig-adream-building` provides a look from above on the
+part where the measurements took place.
+
+.. _fig-adream-building:
+
+.. figure:: ../img/brir_twoears_adream_lab.jpg
+    :align: center
+
+    Lab space in the Adream building, look from above.
+
+
+**Fix listener positions with head movements**
+
+The measurement consists of two parts. The first part contains |BRIR|\ s with
+head rotations from -78° to 78° in 2° steps, as from the listeners perspective.
+Those measurements were done at four different listener positions and consisted
+each time of four different loudspeakers. :numref:`fig-adream-pos-setup`
+summarizes the setup with the actual loudspeaker and dummy head positions and
+orientations.
+
+.. _fig-adream-pos-setup:
+
+.. figure:: ../img/brir_twoears_adream_pos_setup.png
+    :align: center
+
+    Setup of the measurements. For details see the :download:`PDF version
+    <pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
+
+::
+
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
+
+**Moving listener without head rotations**
+
+The second part of the measurement consists of a trajectory of 20 listener
+positions at which |BRIR|\ s were measured. This measurement includes only a
+fixed head orientation of 0°, but the same 4 loudspeaker positions as the first
+one.  :numref:`fig-adream-trajectory-setup` summarizes the setup with the actual
+loudspeaker and dummy head positions and orientations.
+
+.. _fig-adream-trajectory-setup:
+
+.. figure:: ../img/brir_twoears_adream_trajectory_setup.png
+    :align: center
+
+    Setup of the measurements. For details see the :download:`PDF version
+    <pdf/brir_twoears_adream_trajectory_setup.pdf>` of this figure.
+
+::
+
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_trajectory.sofa
+
+
+.. _sec-brir-qu-auditorium3:
+
+TU Berlin, Telefunken-building, room Auditorium 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
+
+.. figure:: ../img/brir_qu_auditorium3.jpg
+    :align: center
+
+The |BRIR|\ s are measured for three different sources and with a resolution of
+1° and head movement from -90° to 90°.  The measurement was done in two parts,
+which are shown in the following two figures. The measurement equipment was the
+same as described in [Wierstorf2011]_.
+
+.. figure:: ../img/brir_qu_auditorium3_setup1.png
+    :align: center
+
+    Room sketch of the setup. The green crosses are the positions of the three
+    loudspeakers *src1*, *src2*, *src3*.
+
+.. figure:: ../img/brir_qu_auditorium3_setup2.png
+    :align: center
+
+    Room sketch of the setup. The green crosses are the positions of the three
+    loudspeakers that correspond to *src4*, *src5*, *src6* in the |BRIR| file
+    names.
+
+.. _sec-brir-qu-spirit:
+
+TU Berlin, Telefunken-building, room Spirit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
+
+.. figure:: ../img/brir_qu_spirit.jpg
+    :align: center
+
+    Photo of the room *Spirit* at the Telefunken-building at TU Berlin.
+
+The |BRIR|\ s are measured for three different sources and with a resolution of
+1° and head movement from -90° to 90°.  Note, that the photo of the room was not
+taken for the actual measurement setup.  The measurement equipment was the same
+as described in [Wierstorf2011]_.
+
+.. figure:: ../img/brir_qu_spirit_setup.png
+    :align: center
+
+    Room sketch of the setup. The green crosses are the positions of the three
+    loudspeakers starting with *src1* on the left side.
+
+
+.. vim: filetype=rst spell:
