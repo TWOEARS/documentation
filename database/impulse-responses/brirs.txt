@@ -36,7 +36,7 @@ orientations.
     :align: center
 
     Setup of the measurements. For details see the :download:`PDF version
-    <pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
+    <../pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
 
 ::
 
@@ -59,7 +59,7 @@ loudspeaker and dummy head positions and orientations.
     :align: center
 
     Setup of the measurements. For details see the :download:`PDF version
-    <pdf/brir_twoears_adream_trajectory_setup.pdf>` of this figure.
+    <../pdf/brir_twoears_adream_trajectory_setup.pdf>` of this figure.
 
 ::
 
