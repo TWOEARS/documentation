@@ -21,7 +21,7 @@ Before downloading a file from the remote database ``db.getFile`` first looks
 if you have a file on your computer in the exact relative position as specified,
 in this case ``./stimuli/anechoic/instruments/anechoic_cello.wav``, then it will
 look if you have a local copy of the database on your PC. The position of that
-database can be specified or seen by the ``xm.dbPath`` function. After that it
+database can be specified or seen by the ``db.path`` function. After that it
 looks inside the temporary cache for the file and only then downloads it.
 
 In the daily use of the |TwoEarsModel| you might even never directly use the
