@@ -14,15 +14,27 @@ have to download any files yourself as this is automatically performed by the
     sig = wavread(filename);
 
 All the data that is automatically downloaded is cached inside a temporary
-folder. You can get the position of this folder by executing ``db.tmp`` and
+folder. You can get the position of this folder by executing ``db.tmp()`` and
 change it with ``db.tmp('/path/to/tmp')``. If
-you would like to clear the temporary folder you can execute ``db.clearTmp``.
-Before downloading a file from the remote database ``db.getFile`` first looks
+you would like to clear the temporary folder you can execute ``db.clearTmp()``.
+Before downloading a file from the remote database ``db.getFile()`` first looks
 if you have a file on your computer in the exact relative position as specified,
 in this case ``./stimuli/anechoic/instruments/anechoic_cello.wav``, then it will
 look if you have a local copy of the database on your PC. The position of that
 database can be specified or seen by the ``db.path`` function. After that it
 looks inside the temporary cache for the file and only then downloads it.
+
+If you want to get an overview what files are present in database, you may copy
+the output of ``db.url()`` and paste it into your web browser. As a second, 
+more Linux-like alternative you may call ``db.listDir('')`` in order to display
+the content of the database's root directory. For other directories call e.g.
+``db.listDir('this/is/a/directory')``. Listing the content of sub-directories
+can be done by providing a second boolean argument, i.e. 
+``db.listDir('this/is/a/directory', 1)``. For convenience, you can also download
+the content for a whole directory with e.g. 
+``db.getDir('this/is/a/directory', 1)`` with second parameter, again, specifying
+if you want to download the content of potential sub-directories. However,
+take care, since you might request a lot of files.
 
 In the daily use of the |TwoEarsModel| you might even never directly use the
 ``db.getFile()`` function as you specify files to use most likely inside a
