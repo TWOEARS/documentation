@@ -43,7 +43,7 @@ loudspeaker array, and music as source material.
 First, we will get the source signal and the listening test results and
 corresponding |BRS| files::
 
-    sourceMaterial = audioread(xml.dbGetFile('stimuli/anechoic/aipa/music1_48k.wav'));
+    sourceMaterial = audioread(db.getFile('stimuli/anechoic/aipa/music1_48k.wav'));
     humanLabels = readHumanLabels(['experiments/2015-10-01_wfs_coloration/', ...
                     'human_label_coloration_wfs_circular_offcenter_music.csv']);
 

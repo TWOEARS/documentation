@@ -8,16 +8,16 @@ Usage
 As explained in the :ref:`sec-tutorial-database` tutorial the database is
 located at https://dev.qu.tu-berlin.de/projects/twoears-database, but you don't
 have to download any files yourself as this is automatically performed by the
-|BinSim| or by explicitly calling ``xml.dbGetFile()``, for example::
+|BinSim| or by explicitly calling ``db.getFile()``, for example::
 
-    filename = xml.dbGetFile('stimuli/anechoic/instruments/anechoic_cello.wav');
+    filename = db.getFile('stimuli/anechoic/instruments/anechoic_cello.wav');
     sig = wavread(filename);
 
 All the data that is automatically downloaded is cached inside a temporary
-folder. You can get the position of this folder by executing ``xml.dbTmp`` and
-change it with ``xml.dbTmp('/path/to/tmp')``. If
-you would like to clear the temporary folder you can execute ``xml.dbClearTmp``.
-Before downloading a file from the remote database ``xml.dbGetFile`` first looks
+folder. You can get the position of this folder by executing ``db.tmp`` and
+change it with ``db.tmp('/path/to/tmp')``. If
+you would like to clear the temporary folder you can execute ``db.clearTmp``.
+Before downloading a file from the remote database ``db.getFile`` first looks
 if you have a file on your computer in the exact relative position as specified,
 in this case ``./stimuli/anechoic/instruments/anechoic_cello.wav``, then it will
 look if you have a local copy of the database on your PC. The position of that
@@ -25,7 +25,7 @@ database can be specified or seen by the ``xm.dbPath`` function. After that it
 looks inside the temporary cache for the file and only then downloads it.
 
 In the daily use of the |TwoEarsModel| you might even never directly use the
-``xml.dbGetFile()`` function as you specify files to use most likely inside a
+``db.getFile()`` function as you specify files to use most likely inside a
 scene description file, see :ref:`sec-xml-scene-description`.  For example, in
 order to use the same |HRTF| from above you have to add the following address to
 your scene configuration:
@@ -34,7 +34,7 @@ your scene configuration:
 
     <scene HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa">
 
-The |BinSim| will then automatically call the ``xml.dbGetFile()`` function in
+The |BinSim| will then automatically call the ``db.getFile()`` function in
 order to get the desired |HRTF|.
 
 To see further examples, you might want to look at

@@ -15,11 +15,11 @@ For example, you could browse the database and get any file you want by
 specifying its relative position inside the database. The next command will
 download a WAV-file for you which you can then use inside Matlab::
 
-    >> filename = xml.dbGetFile('stimuli/anechoic/instruments/anechoic_cello.wav');
+    >> filename = db.getFile('stimuli/anechoic/instruments/anechoic_cello.wav');
     >> sig = wavread(filename);
 
 In addition, as we have seen in the :ref:`sec-tutorial-acoustic-scene` tutorial
-you normally never directly use the ``xml.dbGetFile()`` function, but ask for
+you normally never directly use the ``db.getFile()`` function, but ask for
 database files inside a scene description file. For example, in order to use a
 |HRTF| from the :ref:`sec-hrtf-qu-kemar` you have to add the following address
 to your scene configuration:
@@ -28,7 +28,7 @@ to your scene configuration:
 
     <scene HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa">
 
-The |BinSim| will then automatically call the ``xml.dbGetFile()`` function in
+The |BinSim| will then automatically call the ``db.getFile()`` function in
 order to get the desired |HRTF|.
 
 For more advanced usages of the database, have a look at
