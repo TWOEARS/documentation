@@ -82,4 +82,16 @@ your scene configuration:
 The |BinSim| will then automatically call the ``db.getFile()`` function in
 order to get the desired |HRTF|.
 
+If you want to get an overwiew what files are present in database, you may copy
+the output of ``db.url()`` and paste it into your web browser. As a second, 
+more Linux-like alternative you may call ``db.listDir('')`` in order to display
+the content of the database's root directory. For other directories call e.g.
+``db.listDir('this/is/a/directory')``. Listing the content of sub-directories
+can be done by providing a second boolean argument, i.e. 
+``db.listDir('this/is/a/directory', 1)``. For convenience, you can also download
+the content for a whole directory with e.g. 
+``db.getDir('this/is/a/directory', 1)`` with second parameter, again, specifying
+if you want to download the content of potential sub-directories. However,
+take care, since you might request a lot of files.
+
 .. vim: filetype=rst spell:
