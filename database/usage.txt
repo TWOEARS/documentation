@@ -6,68 +6,35 @@ Usage
 =====
 
 As explained in the :ref:`sec-tutorial-database` tutorial the database is
-located at https://dev.qu.tu-berlin.de/projects/twoears-database, but you don't have to download any files
-yourself as this is automatically performed by the |BinSim| or by explicitly
-calling ``db.getFile()``, for example::
+located at https://dev.qu.tu-berlin.de/projects/twoears-database, but you don't
+have to download any files yourself as this is automatically performed by the
+|BinSim| or by explicitly calling ``db.getFile()``, for example::
 
     filename = db.getFile('stimuli/anechoic/instruments/anechoic_cello.wav');
     sig = wavread(filename);
 
 All the data that is automatically downloaded is cached inside a temporary
-folder. You can get the position of this folder by executing ``db.tmp`` and
+folder. You can get the position of this folder by executing ``db.tmp()`` and
 change it with ``db.tmp('/path/to/tmp')``. If
-you would like to clear the temporary folder you can execute ``db.clearTmp``.
-Before downloading a file from the remote database ``db.getFile`` first looks
+you would like to clear the temporary folder you can execute ``db.clearTmp()``.
+Before downloading a file from the remote database ``db.getFile()`` first looks
 if you have a file on your computer in the exact relative position as specified,
 in this case ``./stimuli/anechoic/instruments/anechoic_cello.wav``, then it will
 look if you have a local copy of the database on your PC. The position of that
 database can be specified or seen by the ``db.path`` function. After that it
 looks inside the temporary cache for the file and only then downloads it.
 
-Let us now assume that you want to have an |HRTF| in addition to our WAV-file
-and you want to convolve the |HRTF| with ``sig`` from above::
-
-    hrtffile = db.getFile('impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa');
-    % load your impulse response into a struct
-    hrtf = SOFAload(hrtffile);
-    % display some information about the impulse response
-    SOFAinfo(hrtf);
-    % plot a figure with the measurement setup
-    SOFAplotGeometry(hrtf);
-    % have a look at the size of the data
-    size(hrtf.Data.IR)
-    % get information about the measurement setup
-    hrtf.ListenerPosition       % position of dummy head
-    hrtf.SourcePosition         % position of loudspeaker
-    % head orientation of the dummy head + coordinate system and units
-    hrtf.ListenerView
-    hrtf.ListenerView_Type
-    hrtf.ListenerView_Units
-    % calculate the source position from a listener point of view
-    apparentSourceVector = SOFAcalculateAPV(hrtf);
-    % listen to the HRTF with azimuth of -90°
-    apparentSourceVector(91, 1)
-    SOFAplotGeometry(hrtf, 91);
-    soundOutput = [conv(squeeze(hrtf.Data.IR(91, 1, :)), sig) ...
-                   conv(squeeze(hrtf.Data.IR(91, 2, :)), sig)];
-    sound(soundOutput, hrtf.Data.SamplingRate);
-
-You could do the same by not using the SOFA API directly, but by using only
-functions from the |BinSim|::
-
-    % Load HRTF data set
-    hrtf = simulator.DirectionalIR( ...
-        db.getFile('impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa'));
-    % Get a the HRTF for an azimuth of 80° (this is to the left of you)
-    impulseResponse = hrtf.getImpulseResponses(80);
-    figure;
-    plot(impulseResponse.left(1:400), '-b');
-    hold on;
-    plot(impulseResponse.right(1:400), '-r');
-    % Listen to the output signal
-    outputSignal = [conv(impulseResponse.left, sig) ...
-                    conv(impulseResponse.right, sig)];
-    sound(outputSignal, hrtf.SampleRate);
+If you want to get an overview what files are present in database, you may copy
+the output of ``db.url()`` and paste it into your web browser. As a second, 
+more Linux-like alternative you may call ``db.listDir('')`` in order to display
+the content of the database's root directory. For other directories call e.g.
+``db.listDir('this/is/a/directory')``. Listing the content of sub-directories
+can be done by providing a second boolean argument, i.e. 
+``db.listDir('this/is/a/directory', 1)``. For convenience, you can also download
+the content for a whole directory with e.g. 
+``db.getDir('this/is/a/directory', 1)`` with second parameter, again, specifying
+if you want to download the content of potential sub-directories. However,
+take care, since you might request a lot of files.
 
 In the daily use of the |TwoEarsModel| you might even never directly use the
 ``db.getFile()`` function as you specify files to use most likely inside a
@@ -82,16 +49,7 @@ your scene configuration:
 The |BinSim| will then automatically call the ``db.getFile()`` function in
 order to get the desired |HRTF|.
 
-If you want to get an overwiew what files are present in database, you may copy
-the output of ``db.url()`` and paste it into your web browser. As a second, 
-more Linux-like alternative you may call ``db.listDir('')`` in order to display
-the content of the database's root directory. For other directories call e.g.
-``db.listDir('this/is/a/directory')``. Listing the content of sub-directories
-can be done by providing a second boolean argument, i.e. 
-``db.listDir('this/is/a/directory', 1)``. For convenience, you can also download
-the content for a whole directory with e.g. 
-``db.getDir('this/is/a/directory', 1)`` with second parameter, again, specifying
-if you want to download the content of potential sub-directories. However,
-take care, since you might request a lot of files.
+To see further examples, you might want to look at
+:ref:`sec-impulse-responses-usage`.
 
 .. vim: filetype=rst spell:
