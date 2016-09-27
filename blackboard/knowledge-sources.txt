@@ -494,14 +494,6 @@ pre-defined number of sound sources that will be present in the scene.
 | triggers event         | ``KsFiredEvent``                                           |
 +------------------------+------------------------------------------------------------+
 
-Obsolete knowledge sources
---------------------------
-
-Acoustic cues knowledge source: ``AcousticCuesKS``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This knowledge source is obsolete and will be removed in a later release.
-
 Upcoming knowledge sources
 --------------------------
 
