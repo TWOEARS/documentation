@@ -33,8 +33,8 @@ browse the following sections to find out how:
 
 .. _pull requests: https://help.github.com/articles/using-pull-requests/
 .. _ticket tracker: https://github.com/TWOEARS/TwoEars/issues
-.. _open bugs: https://github.com/issues?utf8=✓&q=is%3Aopen+is%3Aissue+user%3ATWOEARS+
-.. _open pull requests: https://github.com/issues?utf8=✓&q=is%3Aopen+is%3Apr+user%3ATWOEARS+
-.. _both of them: https://github.com/issues?utf8=✓&q=is%3Aopen+user%3ATWOEARS+
+.. _open bugs: https://github.com/issues?q=is%3Aopen+is%3Aissue+user%3ATWOEARS+
+.. _open pull requests: https://github.com/issues?q=is%3Aopen+is%3Apr+user%3ATWOEARS+
+.. _both of them: https://github.com/issues?q=is%3Aopen+user%3ATWOEARS+
 
 .. vim: filetype=rst spell:
