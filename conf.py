@@ -237,13 +237,17 @@ htmlhelp_basename = 'TwoEars-doc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '12pt',
+
+'maketitle' : '',
+'tableofcontents' : '',
+'fncychap' : '',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': '\usepackage[scaled=.7]{beramono}',
 
 # Latex figure (float) alignment
 #'figure_align': 'htbp',
@@ -253,8 +257,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'twoears-auditory-model.tex', u'The Two!Ears Auditory Model Documentation',
-   u'Two!Ears team', 'manual'),
+  ('database/index', 'twoears-auditory-model.tex', u'The Two!Ears Auditory Model Documentation',
+   u'Two!Ears team', 'article'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
