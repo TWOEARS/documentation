@@ -1,0 +1,37 @@
+.. _sec-afe-new-signal:
+
+Implement a new signal type
+---------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |AFE| supports already a wide range of signal types:
+
+* ``TimeDomainSignal``: used for single-dimensional signal 
+* ``TimeFrequencySignal``: used for two-dimension signals (time and frequency)
+* ``CorrelationSignal``: used for three-dimension signals (time, frequency and 
+  lags)
+* ``ModulationSignal``: used for three-dimension signals (time, audio frequency 
+  and modulation frequency). 
+* ``FeatureSignal``: used for a labelled collection of time-domain signals
+* ``BinaryMask``: used for two-dimensional (time and frequency) binary signals 
+  (0 or 1).
+
+If your new processor generates a new type of signal that is not currently
+supported, you might have to add your own implementation of a new signal. This
+tutorial will not go in details on how to implement new signal types. However,
+the following aspects should be considered:
+
+* Your signal class should inherit the parent ``Signal`` class.
+* It should implement the abstract ``plot`` method. If there is no practical 
+  way of plotting your signal, this method could be left empty.
+* Its constructor should take as argument a handle to your new processor (that 
+  generates this signal as output), a buffer size in seconds, and a vector of 
+  size across the other dimensions (``[size_dim2, size_dim3,...]``). If more 
+  arguments are needed (as is the case for ``FeatureSignal``), then this 
+  signature can be changed, but the ``instantiateOutput`` of your processor 
+  should also be :ref:`overridden<sec_afe-instantiate-output>`.
+
+.. vim: filetype=rst spell:

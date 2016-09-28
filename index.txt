@@ -65,7 +65,7 @@ see:
 
 * :ref:`Introduction <sec-afe>`
 * :ref:`sec-afe-overview`
-* :ref:`sec-technical-description`
+* :ref:`sec-afe-technical-description`
 * :ref:`sec-afe-processors`
 * :ref:`sec-afe-add-processor`
 

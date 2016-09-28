@@ -1,0 +1,39 @@
+.. _sec-afe-processors:
+
+Available processors
+====================
+
+.. toctree::
+    :maxdepth: 1
+
+    pre-processing
+    auditory-filter-bank
+    inner-hair-cell.txt
+    adaptation
+    auto-correlation
+    rate-map
+    spectral-features
+    onset-strength
+    offset-strength
+    binary-onset-and-offset-maps
+    pitch
+    medial-olivo-cochlear-feedback
+    amplitude-modulation-spectrogram
+    spectro-temporal-modulation-spectrogram
+    cross-correlation
+    interaural-time-differences
+    interaural-level-differences
+    interaural-coherence
+    precedence-effect
+
+This section presents a detailed description of all processors that are
+currently supported by the |AFE| framework. Each processor can be controlled by
+a set of parameters, which will be explained and all default settings will be
+listed. Finally, a demonstration will be given, showing the functionality of
+each processor. The corresponding Matlab files are contained in the |AFE| folder
+``/test`` and can be used to reproduce the individual plots. A full list of
+available processors can be displayed by using the command ``requestList``. An
+overview of the commands for instantiating processors is given in 
+:ref:`sec-computation-of-an-auditory-representation`.
+
+.. vim: filetype=rst spell:

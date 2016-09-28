@@ -1,0 +1,30 @@
+.. _sec-afe-final-testing:
+
+Recommendations for final testing
+---------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Now the implementation of your new processor should be finalised, and it is
+important to test it thoroughly. Below are some recommendations with regard to
+testing:
+
+* Make sure that all aspects of your implementation work. Test for mono as well 
+  as stereo input signals, vary your processor parameters and check that the 
+  change is reflected accordingly in the output.
+* If you have based your implementation on another existing implementation 
+  (even better, one that is documented in the literature), then compare your new 
+  implementation with the reference implementation and control that both 
+  provide the same output up to a reasonable error. A reasonable error, for a 
+  processor that does not involve stochastic processes should be around 
+  quantisation error, assuming that your new implementation is exactly as the 
+  reference.
+* Test the online capability of your processor (i.e., maintaining the 
+  continuity of its output) by processing a whole signal and the same signal 
+  cut into chunks. Both runs should provide the same output (up to a 
+  "reasonable error"). You can use the test script ``test_onlineVSoffline`` to 
+  perform that task.
+
+.. vim: filetype=rst spell:

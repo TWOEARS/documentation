@@ -1,0 +1,69 @@
+.. _sec-precedence-effect:
+
+Precedence effect (``precedenceProc.m``)
+----------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The precedence effect describes the ability of humans to fuse and localize the
+sound based on the first-arriving parts, in the presence of its successive
+version with a time delay below an echo-generating threshold [Wallach1949]_. The
+effect of the later-arriving sound is suppressed by the first part in the
+localization process. The precedence effect processor in |AFE| models this, with
+the strategy based on the work of [Braasch2013]_.  The processor detects and
+removes the lag from a binaural input signal with a delayed repetition, by means
+of an autocorrelation mechanism and deconvolution. Then it derives the |ITD| and
+|ILD| based on these lag-removed signals.
+
+The input to the precedence effect processor is a binaural time-frequency signal
+chunk from the gammatone filterbank. Then for each chunk a pair of |ITD| and
+|ILD| values is calculated as the output, by integrating the |ITD|\s and |ILD|\s
+across the frequency channels according to the weighted-image model
+[Stern1988]_, and through amplitude-weighted summation. Since these |ITD|/|ILD|
+calculation methods of the precedence effect processor are different from what
+are used for the |AFE| |ITD| and |ILD| processors, the |AFE| |ITD| and |ILD|
+processors are not connected to the precedence effect processor. Instead the
+steps for the correlation analyses and the |ITD|/|ILD| calculation are coded
+inside the processor as its own specific techniques. :numref:`tab-precedence`
+lists the parameters needed to operate the precedence effect processor.
+
+.. _tab-precedence:
+
+.. table:: List of parameters related to the auditory representation
+    ``’precedence’``.
+
+    +------------------------+-------------+------------------------------------------------------+
+    | Parameter              | Default     | Description                                          |
+    +========================+=============+======================================================+
+    | ``prec_wSizeSec``      | ``20E-3``   | Window duration in s                                 |
+    +------------------------+-------------+------------------------------------------------------+
+    | ``prec_hSizeSec``      | ``10E-3``   | Window step size in s                                |
+    +------------------------+-------------+------------------------------------------------------+
+    | ``prec_maxDelaySec``   | ``10E-3``   | Maximum delay in s for autocorrelation computation   |
+    +------------------------+-------------+------------------------------------------------------+
+
+:numref:`fig-precedence` shows the output from a demonstration script
+``DEMO_precedence.m``. The input signal is a 800-Hz wide bandpass noise of 400
+ms length, centered at 500 Hz, mixed with a reflection that has a 2 ms delay,
+and made binaural with an |ITD| of 0.4 ms and a 0-dB |ILD|.  During the
+processing, windowed chunks are used as the input, with the length of 20 ms. It
+can be seen that after some initial confusion, the processor estimates the
+intended |ITD| and |ILD| values as more chunks are analyzed.
+
+.. _fig-precedence:
+
+.. figure:: ../img/Precedence.png
+
+    Left panel: band-pass input noise signal, 400 ms long (only the first 50 ms
+    is shown), 800 Hz wide, centered at 500 Hz, mixed with a reflection of a
+    2-ms delay, and made binaural with an of 0.4 ms |ITD| and |ILD| of 0 dB.
+    Right panel: estimated |ITD| and |ILD| shown as a function of time frames.
+   
+.. ...::: References :::...
+.. [Braasch2013] Braasch, J. (2013), “A precedence effect model to simulate localization dominance using an adaptive, stimulus parameter-based inhibition process.” The Journal of the Acoustical Society of America 134(1), pp. 420–35.
+.. [Stern1988] Stern, R. M., Zeiberg, A. S., and Trahiotis, C. (1988), “Lateralization of complex binaural stimuli: A weighted-image model,” The Journal of the Acoustical Society of America 84(1), pp. 156–165, http://scitation.aip.org/content/asa/journal/jasa/84/1/10.1121/1.396982.
+.. [Wallach1949] Wallach, H., Newman, E. B., and Rosenzweig, M. R. (1949), “The Precedence Effect in Sound Localization,” The American Journal of Psychology 62(3), pp. 315–336, http://www.jstor.org/stable/1418275.
+
+.. vim: filetype=rst spell:

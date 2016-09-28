@@ -1,0 +1,278 @@
+.. _sec-afe-data-handling:
+
+Data handling
+-------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+.. _sec-afe-circular-buffer:
+
+Circular buffer
+~~~~~~~~~~~~~~~
+
+Memory pre-allocation of large arrays in Matlab is well known to be a critical
+operation for optimising computation time. The |AFE|, particularly in an online
+scenario, will be confronted with this problem. For each new chunk of the input
+signal, chunks of output are computed for each internal representation and are
+appended to the already existing output.  Computation time will be strongly
+affected if the arrays containing the data are not initialised appropriately
+(i.e., the memory it occupies is pre-allocated) to fit the input signal
+duration.
+
+The issue in a real-time scenario is that the signal duration is unknown. To
+overcome this problem, data for each signal is stored in a buffer of fixed
+duration which is itself pre-allocated. Buffers are updated following a |FIFO|
+rule: once the buffer is full, the oldest samples in the buffer are overwritten
+by the new signal samples.
+
+The ``circVBuf`` class
+^^^^^^^^^^^^^^^^^^^^^^
+
+A conceptual way of implementing a |FIFO| rule is to use circular (or ring)
+buffers. The inconvenience of a traditional linear buffer is that once it is
+full and new input overwrites old samples (i.e., it is in its “steady-state”),
+reading the data from it implies reaching the end of the buffer and continuing
+reading from its beginning. The data read will be in two fragments, because of
+the linear buffer having a physical beginning and end which do not match to the
+oldest and newest data samples. This is eliminated in circular buffers which do
+not have a beginning or end, and a contiguous segment is always obtained upon
+reading. Circular buffers were implemented for the |AFE| based on the
+third-party class provided by [Goebbert2014]_, which has been slightly modified
+to account for multi-dimensional data (instead of vector-only).
+
+
+Circular buffer interface
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``circVBuf`` class provides a buffer that is conceptually circular, in the
+sense that it allows continuous reading of the data. However in practice it
+still stores data in a linear array in Matlab (the size of which is, however,
+twice the size of the actual data). Accessing stored data requires knowledge
+about this class and can be tedious to a naive user. To eliminate confusion and
+make the buffer transparent to the user, the interface
+``circVBuffArrayInterface`` was implemented, with the aim of allowing the buffer
+to use most basic array operations.
+
+Given a circular buffer ``circBuffer``, the interface is obtained by
+
+::
+
+    buffer = circVBufArrayInterface(circBuffer)
+
+It will allow the following operations:
+
+-  ``buffer(n1:n2)`` returns stored data between positions ``n1`` and
+   ``n2``, where position ``1`` is the oldest sample in the buffer (but
+   not necessarily the first one in the actual array storing data, due
+   to circularity). For multiple dimensions, these indices always refer
+   to the first dimension. To return stored data up to the most recent
+   sample, use ``buffer(n1:end)``.
+
+-  ``buffer(:)`` returns all data stored in the buffer (ignoring “empty”
+   sections of the buffer, if said buffer was never filled).
+
+-  ``buffer(’new’)`` returns the latest chunk of data that was added to
+   the buffer.
+
+-  ``length(buffer)`` returns the effective (i.e., ignoring empty
+   sections) buffer length across its first dimension.
+
+-  ``size(buffer)`` returns the effective size of the buffer (including
+   other dimensions).
+
+-  ``numel(buffer)`` returns the total number of elements stored
+   (calculated as product of the effective dimensions).
+
+-  ``isempty(buffer)`` returns ``true`` when no data is stored,
+   ``false`` otherwise.
+
+This provides an array behaviour to the buffers, simplifying greatly
+their use.
+
+.. note::
+
+    Note that the only limitation is the need of the column
+    operator ``:`` to access all data, as in ``buffer(:)``. Without it,
+    ``buffer`` will return a handle to the ``circVBufArrayInterface``
+    object.
+
+Signal objects
+~~~~~~~~~~~~~~
+
+Signals are implemented as objects in the |AFE|. To avoid code repetition and
+make better use of object-oriented concepts, signals are grouped according to
+their dimensions, as they then share the same properties. The following classes
+are implemented:
+
+-  ``TimeDomainSignal`` for one-dimensional (time) signals.
+
+-  ``TimeFrequencySignal`` which stores two-dimensional signals where
+   the first dimension relates to time (but can be, e.g., a frame index)
+   and the second to the frequency channel. These signals include as an
+   additional property a vector of channel centre frequencies ``cfHz``.
+   Signals of such form are obtained from requesting, for example,
+   ``’filterbank’``, ``’innerhaircell’``,\ ``’ild’``,... In addition, 
+   time-frequency signals containing binary data (used e.g., in onset or offset 
+   mapping) have their own ``BinaryMask`` signal class.
+
+-  ``CorrelationSignal`` for three-dimensional signals where the third
+   dimension is a lag position. These include also the ``cfHz`` property
+   as well as a vector of lags (``lags``).
+
+-  ``ModulationSignal`` for three-dimensional signals where the third
+   dimension is a modulation frequency. These include ``cfHz`` and
+   ``modCfHz`` (vector of centre modulation frequencies) as properties.
+
+-  ``FeatureSignal`` used to store a collection of time-domain signals,
+   each associated to a specific name. Each feature is a single vector,
+   and all of them are arranged as columns of a same matrix. Hence they
+   include an ordered list of features names ``fList`` that labels each
+   column.
+
+All these classes inherit the parent ``Signal`` class. Hence they all
+share the following common “read-only” properties:
+
+-  ``Label``, which is a “formal” description of the signal, e.g.,
+   ``’Inner hair-cell envelope’``, used for example when plotting the
+   signal.
+
+-  ``Name``, which is a name tag unique to each signal type, e.g.,
+   ``’innerhaircell’``. This name corresponds to the name used for a
+   request to the manager.
+
+-  ``Dimensions``, which describes in a short string how dimensions are
+   arranged in the signal, e.g., ``’nSamples x nFilters’``
+
+-  ``FsHz``, the sampling frequency of this specific signal. If the signal is
+   framed or down-sampled (e.g., like a rate-map or an |ILD|) this value will be
+   different from the input signal's sampling frequency.
+
+-  ``Channel``, which states ``’left’``, ``’right’`` or ``’mono’``,
+   depending on which channel from the input signal this signal was
+   derived.
+
+-  ``Data``, an interface object (``circVBufArrayInterface`` described
+   earlier) to the circular buffer containing all data. The actual
+   buffer, ``Buf`` is a ``circVBuf`` object and a protected property of
+   the signal (not visible to the user).
+
+The ``Signal`` class defines the following methods that are then shared
+among children objects:
+
+-  A super constructor, which sets up the internal buffer according to
+   the signal dimensions. Each children signal class is calling this
+   super constructor before populating its other properties.
+
+-  An ``appendChunk`` method used to fill the internal buffer.
+
+-  A ``setData`` method used for initialising the internal buffer given
+   some data.
+
+-  A ``clearData`` method for re-initialisation.
+
+-  The ``getSignalBlock`` method returning a segment of data of chosen
+   duration, starting from the newest elements.
+
+-  The ``findProcessor`` method which, given a handle to a manager
+   object, will retrieve which processor has computed this specific
+   signal (by comparing it with the ``Output`` property of each
+   processor, described in :ref:`sec-processors-general`).
+
+-  A ``getParameters`` method which, given a handle to a manager object,
+   will retrieve the list of parameters used in the processing to obtain
+   that signal.
+
+In addition, the ``Signal`` class defines an abstract ``plot`` method,
+which each children should implement. This cannot be defined in the
+parent class as the plotting routines will be drastically different
+depending on children signal dimensions. Children classes therefore
+only implement their own constructor (which still calls the
+super-constructor) and their respective plotting routines.
+
+Data objects
+~~~~~~~~~~~~
+
+Description
+^^^^^^^^^^^
+
+Many signal objects are instantiated by the |AFE| (one per representation
+involved and per channel). To organise and keep track of them, they are
+collected in a ``dataObject`` class. This class inherits the ``dynamicprops``
+Matlab class (itself inheriting the ``handle``) class.  This allows to
+dynamically define properties of the class.
+
+This way, each signal involved in a given session of the |AFE| will be grouped
+according to its class in a distinct property of the ``dataObject``, with name
+given by the signal ``signal.Name`` unique name tag. Extra properties of the
+data object include:
+
+-  ``bufferSize_s`` which is the common duration of all ``circVBuf``
+   objects in the signals.
+
+-  A flag ``isStereo``, which if true will indicate to the data object
+   that all signals come as pairs of left/right channels.
+
+Data objects are constructed by providing an input signal (which can be empty in
+online scenarios), a mandatory sampling frequency in Hz, a global buffer size
+(10 s by default), and the number of channels of the input (1 or 2). This number
+of channel is not necessary if an input signal is used as argument in the
+constructor but needs to be provided otherwise.
+
+The ``dataObject`` definition includes the following, self-explanatory methods:
+
+-  ``addSignal(signalToAdd)``
+
+-  ``clearData``
+
+-  ``getParameterSummary`` returning a list of all parameters used for
+   the computation of all included signal (given a handle to the
+   corresponding manager).
+
+-  ``play``, provided for user convenience.
+
+Signal organisation
+^^^^^^^^^^^^^^^^^^^
+
+As mentioned before, data objects store signal objects. Each class of signal
+occupies a property in the data object named after the signal ``.Name``
+property. Multiple signals of the same class will be stored as a cell array in
+that property. In the cell array, the first column is always for the left
+channel (or mono signal), and the second column for the right channel. If
+multiple signals of the same type are present (e.g., if the user requested the
+same representation twice but with a change of parameters), then the
+corresponding signals are stored in different lines of the array. For instance,
+for a session where the user requested the inner hair-cell envelope twice, with
+the second request changing only the way of extracting the envelope (i.e., the
+parameter ``’ihc_method’``), the following data object is created:
+
+::
+
+    >> dataObj
+
+    dataObj = 
+
+      dataObject with properties:
+
+         bufferSize_s: 10
+             isStereo: 1
+                 time: {[1x1 TimeDomainSignal]  [1x1 TimeDomainSignal]}
+                input: {[1x1 TimeDomainSignal]  [1x1 TimeDomainSignal]}
+            gammatone: {[1x1 TimeFrequencySignal]  [1x1 TimeFrequencySignal]}
+        innerhaircell: {2x2 cell}
+
+Each signal-related field except ``innerhaircell`` is a cell array of a single
+line (one signal), and two columns (for left and right channel).  Because the
+second request from the user included only a change in parameter for the inner
+hair-cell computation, the same initial ``gammatone`` signal is used for both,
+but there are two output ``innerhaircell`` signals (hence a cell array of two
+lines) for each channel (hence two columns).
+
+In that case, to distinguish between the two signals and know which one was
+computed with which set of parameter, one can call the signal’s
+``getParameters`` method. Given a handle to the manager object, it will return a
+list of all parameters used to obtain that signal (including parameters used in
+intermediate processing steps).
+
+.. vim: filetype=rst spell:

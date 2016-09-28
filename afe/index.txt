@@ -4,6 +4,14 @@
 Auditory front-end
 ==================
 
+.. toctree::
+    :maxdepth: 1
+
+    overview/index
+    technical-description/index
+    available-processors/index
+    add-processor/index
+
 The goal of the Two!Ears project is to develop an intelligent, active
 computational model of auditory perception and experience in a
 multi-modal context. The |AFE| 
@@ -32,25 +40,23 @@ components unchanged, allowing for a systematic comparison of
 alternative processors. Finally, the framework supports online
 processing of the two-channel ear signals.
 
-To get in touch with the |AFE|,
-requests auditory cues or even write your own auditory processor
-read on:
-
-.. toctree::
-    :maxdepth: 1
-
-    overview
-    description
-    processors
-    add-processor
-
 Credits
 =======
 
 The |AFE| is developed by Remi Decorsière and Tobias May from DTU,
 and the rest of the `Two!Ears team`_.
 
-.. _Two!Ears team: http://twoears.aipa.tu-berlin.de/consortium
+The |AFE| includes the following contributions from publicly
+available Matlab toolboxes or classes:
 
+-  |amtoolbox|
+
+-  `LTFAT <http://ltfat.sourceforge.net/>`_
+
+-  `Voicebox <http://www.ee.ic.ac.uk/hp/staff/dmb/voicebox/voicebox.html>`_
+
+-  `circVBuf <http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf>`_
+
+.. _Two!Ears team: http://twoears.aipa.tu-berlin.de/consortium
 
 .. vim: filetype=rst spell:

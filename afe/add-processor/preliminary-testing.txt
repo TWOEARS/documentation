@@ -1,0 +1,103 @@
+.. _sec-afe-preliminary-testing:
+
+Preliminary testing
+-------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+At this stage of the implementation, your processor should be correctly
+instantiated and recognised by the framework. In some cases (e.g., your
+processor is a simple single input / single output processor), it might even be
+correctly integrated and routed to other processors. In any case, now is a good
+time to take a break from writing code and do some preliminary testing. We will
+go through a few example tests you can run, describe which problems could arise
+and suggest how to solve them. Try to run these tests in the order they are
+listed below, as this will help troubleshooting. They should run as expected
+before you go further in your implementation.
+
+.. note::   
+  You will not be able to instantiate your processor before you have written a 
+  concrete implementation to ``Processor`` abstract methods. To carry out the 
+  tests below, just write empty ``processChunk`` and ``reset`` methods. In this 
+  way, Matlab will not complain about trying to instantiate a class that 
+  contains abstract methods. The actual implementation of these methods will be 
+  described in later sections.
+
+
+Default instantiation
+~~~~~~~~~~~~~~~~~~~~~
+
+As mentioned when 
+:ref:`implementing the constructor<sec-afe-processor-constructor>`, you should 
+be able to get a valid instance of your processor by calling its constructor 
+without any input arguments::
+
+  >> p = myNewProcessor
+
+If this line returns an error, then you have to revise your implementation of
+the :ref:`constructor<sec-afe-processor-constructor>`. The error message should
+indicate where the problem is located, so that you can easily correct it. If
+your processor cannot be instantiated with no arguments, then it will not be
+listed as a valid processor.
+
+If on the other hand this line executed without error, then there are two things
+you should control:
+
+1. The line above (if not ended by a semicolon) should display the visible, 
+   public properties of the processor. Check that this list corresponds to the 
+   properties you defined in your implementation. The property values should be 
+   the default values you have defined in your ``getParameterInfo`` :ref:`static 
+   method<sec-afe-static-methods>`. If a property is missing, then you forgot to 
+   list it in the beginning of your class definition (or you defined it as 
+   ``Hidden`` or ``Private``). If a value is incorrect, or empty, then it is a 
+   mistake in your ``getParameterInfo`` method. In addition, the ``Type`` 
+   property should refer to the ``name`` field returned by ``getProcessorInfo`` 
+   static method.
+#. Inspect the external parameters of the processor by typing ``p.parameters``. 
+   This should return a list of all external parameters. Control that all 
+   parameters are there and that their default value is correct.
+
+To test that your external properties are indeed dependent, you can change the
+value of one or more of them directly in your ``parameter`` processor property
+and see if that change is reflected in the dependent property. For example if
+you type::
+
+  p.parameters.map('xx_par1') = someRandomValue
+
+then this should be reflected in the property associated with that parameter.
+
+.. note::
+  
+  The input and output frequency properties of your processor, ``FsHzIn`` and
+  ``FsHzOut`` are probably incorrect, but that is normal as you did not specify
+  the sampling frequency when calling the constructor with no arguments.
+
+Is it a valid processor?
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+To test whether your processor is recognised as a valid processor, run the
+``requestList`` script. The signal request name corresponding to your  processor
+should appear in the list (i.e., the name defined in
+``getProcessorInfo.requestName``). If not (and the previous test did work), then
+maybe your class definition file is not located in the correct folder. Move it
+to the ``src/Processors`` folder. Another possibility is that you made your
+processor hidden (which should not happen if you followed these instructions).
+Setting explicitly  the ``bHidden`` property of your processor to ``1`` will
+hide it from the framework. This is used in order to allow "sub-processors" in
+the framework, but it is probably not the case for you here so you should not
+enable this option.
+
+
+Are parameters correctly described?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your processor is properly recognised, then you can call the
+``parameterHelper`` script from the command window. There you should see a new
+category corresponding to your processor. Clicking on it will display a list of
+user-controllable parameters for your processor, as well as their descriptions.
+Feel free to adjust your ``getParameterInfo`` static method to have a more
+suitable description.
+
+.. vim: filetype=rst spell:

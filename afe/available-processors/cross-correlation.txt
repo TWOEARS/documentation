@@ -1,0 +1,57 @@
+.. _sec-cross-correlation:
+
+Cross-correlation (``crosscorrelationProc.m``)
+----------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |IHC| representations of the left and the right ear signals is used to
+compute the normalised |CCF| in the |FFT| domain for short time frames of
+``cc_wSizeSec`` duration with a step size of ``cc_hSizeSec``. The |CCF| is
+normalised by the auto-correlation sequence at lag zero. This normalised |CCF|
+is then evaluated for time lags within ``cc_maxDelaySec`` (e.g., [-1 ms, 1 ms])
+and is thus a three-dimensional function of time frame, frequency channel and
+lag time. An overview of all |CCF| parameters is given in
+:numref:`tab-crosscorrelation`. Note that the choice of these parameters will
+influence the computation of the |ITD| and the |IC| processors, which are
+described in :ref:`sec-interaural-time-differences` and
+:ref:`sec-interaural-coherence`, respectively.
+
+.. _tab-crosscorrelation:
+
+.. table:: List of parameters related to ``'crosscorrelation'``.
+
+    +--------------------+------------+----------------------------------+
+    | Parameter          | Default    | Description                      |
+    +====================+============+==================================+
+    | ``cc_wname``       | ``'hann'`` | Window type                      |
+    +--------------------+------------+----------------------------------+
+    | ``cc_wSizeSec``    | ``0.02``   | Window duration in s             |
+    +--------------------+------------+----------------------------------+
+    | ``cc_hSizeSec``    | ``0.01``   | Window step size in s            |
+    +--------------------+------------+----------------------------------+
+    | ``cc_maxDelaySec`` | ``0.0011`` | Maximum delay in s considered in |
+    |                    |            | |CCF| computation                |
+    +--------------------+------------+----------------------------------+
+
+The script ``DEMO_Crosscorrelation.m`` demonstrates the functionality of the
+|CCF| function and the resulting plots are shown in :numref:`fig-ccf`.  The left
+panel shows the ear signals for a speech source that is located closer to the
+right ear. As result, the left ear signal is smaller in amplitude and is delayed
+in comparison to the right ear signal.  The corresponding |CCF| is shown in the
+right panel for 32 auditory channels, where peaks are centred around positive
+time lags, indicating that the source is closer to the right ear. This is even
+more evident by looking at the |SCCF|, as shown in the bottom right panel.
+
+.. _fig-ccf:
+
+.. figure:: ../img/CCF.png
+
+   Left and right ear signals shown for one time frame of 20 ms duration (left
+   panel) and the corresponding |CCF| (right panel). The |SCCF| summarises the
+   |CCF| across all auditory channels (bottom right panel). 
+
+
+.. vim: filetype=rst spell:

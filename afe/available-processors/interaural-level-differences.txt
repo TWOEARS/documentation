@@ -1,0 +1,48 @@
+.. _sec-interaural-level-differences:
+
+Interaural level differences (``ildProc.m``)
+--------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |ILD| is estimated for individual frequency channels by comparing the
+frame-based energy of the left and the right-ear |IHC| representations.  The
+temporal resolution can be controlled by the frame size ``ild_wSizeSec`` and the
+step size ``ild_hSizeSec``. Moreover, the window shape can be adjusted by the
+parameter ``ild_wname``. The resulting |ILD| is expressed in dB and negative
+values indicate a sound source positioned at the left-hand side, whereas a
+positive |ILD| corresponds to a source located at the right-hand side. A full
+list of parameters is shown in :numref:`tab-ild`.
+
+.. _tab-ild:
+
+.. table:: List of parameters related to ``'ild'``.
+
+    +------------------+------------+-----------------------+
+    | Parameter        | Default    | Description           |
+    +==================+============+=======================+
+    | ``ild_wSizeSec`` | ``20E-3``  | Window duration in s  |
+    +------------------+------------+-----------------------+
+    | ``ild_hSizeSec`` | ``10E-3``  | Window step size in s |
+    +------------------+------------+-----------------------+
+    | ``ild_wname``    | ``'hann'`` | Window name           |
+    +------------------+------------+-----------------------+
+
+The |ILD| processor is demonstrated by the script ``DEMO_ILD.m`` and the
+resulting plots are presented in :numref:`fig-ild`. The ear signals are shown
+for a speech source that is more closely located to the right ear (left panel).
+The corresponding |ILD| estimates are presented for individual |TF| units.  It
+is apparent that the change considerably as a function of the centre frequency.
+Whereas hardly any |ILD|\ s are observed for low frequencies, a strong influence
+can be seen at higher frequencies where |ILD|\ s can be as high as 30 dB.
+
+.. _fig-ild:
+
+.. figure:: ../img/ILD.png
+
+   Binaural speech signal (left panel) and the estimated |ILD| in dB shown as a
+   function of time frames and frequency channels. 
+
+.. vim: filetype=rst spell:

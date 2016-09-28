@@ -1,0 +1,45 @@
+.. _sec-afe-add-processor:
+
+Add your own processors
+=======================
+
+To write the class definition for a new processor such that it will be 
+recognised and properly integrated, one has to follow these steps:
+
+.. toctree::
+    :maxdepth: 1
+
+    getting-started
+    implement-static-methods
+    implement-parameter-getter
+    implement-processor-constructor
+    preliminary-testing
+    implement-core-method
+    override-parent-methods
+    allow-alternative-processing-options
+    implement-new-signal-type
+    recommendations-for-testing
+
+The |AFE| framework has been designed in such a way that it can be easily
+upgraded. To add a new processor, write its class definition in a new ``.m``
+file and add it to the ``/src/Processors`` folder. If correctly written, the
+processor should be automatically detected by the framework and be ready to use.
+This section documents in details how to correctly write the class definition
+of a new processor. It is highly recommended to look into the definition of
+existing processors to get a grasp of how classes are defined and written in
+Matlab. In the following, we will sometimes refer to a particular existing
+processor to illustrate some aspects of the implementation.
+
+.. note::
+    
+    - The following descriptions are exhaustive, and adding a processor to the
+      framework is actually easier than the length of this page suggests!
+    - This tutorial is written assuming limited knowledge about object- oriented
+      programming using Matlab. Hence most |OOP| concepts involved are briefly
+      explained.
+    - You can base your implementation on the available ``templateProc.m`` file
+      which contains a pre-populated list of properties and methods. Simply 
+      copy the file, rename it to your processor name, and follow the 
+      instructions.
+
+.. vim: filetype=rst spell:
