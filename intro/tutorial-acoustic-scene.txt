@@ -92,7 +92,7 @@ data. Matlab can replay this signal via::
 
 The data can also be stored in a file using::
 
-    >> sim.Sinks.saveFile('binaural_renderer.wav',sim.SampleRate);
+    >> audiowrite('binaural_renderer.wav', signal, sim.SampleRate);
 
 To finish the simulation and clean up temporary files, type::
 
