@@ -5,6 +5,10 @@
 Identification of sound types
 =============================
 
+.. contents::
+    :depth: 1
+    :local:
+
 This example particularly serves to demonstrate two aspects of the
 |TwoEarsModel|:
 

@@ -5,6 +5,10 @@
 Segmentation with and without priming
 =====================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 The |blackboard| of the |TwoEarsModel| is equipped with a |SegmentationKS|
 knowledge source which is capable of generating soft-masks for auditory features
 in the time-frequency domain. The segmentation framework relies on a

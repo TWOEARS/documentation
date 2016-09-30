@@ -5,6 +5,10 @@
 GMM-based localisation under reverberant conditions
 ===================================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 The |TwoEarsModel| comes with several knowledge sources that work together to
 estimate the perceived azimuth of a sound source, see
 :ref:`sec-blackboard-localisation` for a summary. One stage of this process is

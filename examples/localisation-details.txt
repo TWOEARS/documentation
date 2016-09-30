@@ -5,6 +5,10 @@
 Localisation - looking at the results in detail
 ===============================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 As seen in the :ref:`previous example <sec-examples-localisation>` localisation
 is performed inside the blackboard by :ref:`different localisation knowledge
 sources <sec-blackboard-localisation>`. In this example we will perform a single
