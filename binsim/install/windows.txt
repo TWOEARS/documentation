@@ -1,0 +1,52 @@
+.. _sec-binsim-win64:
+
+Windows 7 64bit
+---------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Prerequisites
+~~~~~~~~~~~~~
+
+First you have to ensure some prerequisites:
+
+* get SoundScape Renderer (location will be denoted as ``SSR_DIR``)
+  ::
+
+      git clone https://github.com/TWOEARS/twoears-ssr.git SSR_DIR
+      git checkout origin/win64 -b win64
+
+* add ``SSR_DIR\3rdparty\win64\bin`` to ``PATH`` environment variable (`HOWTO`_)
+
+* get `MinGW 64bit`_, location will be denoted as ``MINGW_DIR``
+* get `MSYS`_, location will be denoted as ``MSYS_DIR``
+
+
+.. _HOWTO: http://www.computerhope.com/issues/ch000549.htm
+.. _MinGW 64bit: http://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.8.2/threads-win32/seh/x86_64-4.8.2-release-win32-seh-rt_v3-rev4.7z/download
+.. _MSYS: http://sourceforge.net/projects/mingw-w64/files/External%20binary%20packages%20%28Win64%20hosted%29/MSYS%20%2832-bit%29/MSYS-20111123.zip/download
+
+Compile MEX Binaries
+~~~~~~~~~~~~~~~~~~~~
+
+* edit ``SSR_DIR/mex/Makefile`` and set the ``MatlabROOT`` to the location of your systems Matlab
+* edit or create ``MSYS_DIR\etc\fstab`` and add mounts for ``MINGW_DIR`` and ``SSR_DIR``
+  ::
+
+      MINGW_DIR    /mingw
+      SSR_DIR      /ssr
+
+* start the shell by executing ``MSYS_DIR/msys.bat``
+* switch to directory and compile sources
+  ::
+
+      cd /ssr/mex/
+      make
+
+* open Matlab and add ``SSR_DIR/mex/`` to Matlab-path using ``pathtool`` or ``addpath``
+
+That's all, now you should be able to :ref:`use the Two!Ears Binaural Simulator <sec-binsim-usage>`.
+
+.. vim: filetype=rst spell:

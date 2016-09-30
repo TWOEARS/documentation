@@ -1,0 +1,21 @@
+.. _sec-binsim-examples:
+
+Examples
+========
+
+.. toctree::
+    :maxdepth: 1
+
+    two-dry-sources
+    moving-source
+    rooms-image-sources
+    rooms-brirs
+
+These examples are use cases of the |BinSim|. They apply the configuration
+directly in Matlab. For larger setups it might be easier to use the
+:ref:`sec-xml-scene-description`, which will also be used in the overall
+:ref:`sec-examples` where the complete model is demonstrated. If you want to
+execute or modify them have a look into the ``examples/`` folder of the
+|BinSim|.
+
+.. vim: filetype=rst spell:

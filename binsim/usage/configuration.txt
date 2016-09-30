@@ -1,18 +1,11 @@
-.. _sec-binsim-usage:
-
-Usage
-=====
-
-This instruction guides you in detail on how to use the |BinSim|, for a brief
-guide have a look at the tutorial :ref:`sec-tutorial-acoustic-scene`. For
-instructions on how to use the whole |TwoEarsModel| have a look at the provided
-:ref:`sec-examples`.
-
-In the following it is assumed that you have started the |TwoEarsModel| already
-via the :code:`startTwoEars()` command, see also the :ref:`sec-install`.
+.. _sec-binsim-configuration:
 
 Configuration
 -------------
+
+.. contents::
+    :depth: 1
+    :local:
 
 There are basically two ways for controlling and configuring the |BinSim|.
 In both cases you will need audio files to create your acoustic scenes with it.
@@ -202,74 +195,5 @@ The content of :file:`test_binaural.xml` is shown below.
             UnitZ="0 0 1"
             Name="Head"/>
     </scene>
-
-Simulate Ear-Signals
---------------------
-
-After setting up all parameters the simulator object is ready to simulate ear
-signals according to the defined acoustic scene. In order to load all parameters
-into the simulation kernel execute
-
-.. code-block:: Matlab
-
-    >> sim.set('Init',true);
-
-Note, that all the processing parameters and objects' initial positions have to
-be defined **before** initialisation in order to initialise the simulation properly.
-After the simulator has been initialised it is not possible to re-assign any
-property of the simulator object. Hence the number of acoustic sources cannot be
-changed within one simulation run. However, modifying e.g. the position of a
-scene object is possible. The following loop calculates the ear signals until
-the acoustic scene is finished.
-
-.. code-block:: Matlab
-    :linenos:
-
-    while ~sim.isFinished()
-      sim.set('Refresh',true);  % refresh all objects
-      sim.set('Process',true);
-    end
-
-The function ``sim.isFinished()`` yields true if the buffers of all sound
-sources are empty or if ``sim.LengthOfSimulation`` has been reached. Note, that
-the simulator is a block-wise processor: Each call of line 3 generates a block
-of ear signals whose length is defined by ``sim.BlockSize``. Between two
-processing steps, the properties of scene objects may be manipulated, e.g. the
-position of a scene object is changed. If necessary, call line 2 once before
-processing a new block in order to send any modification to the simulation
-kernel. The ear signals are stored in the |FIFO| buffer of the ``sim.Sinks``
-object.
-
-.. code-block:: Matlab
-    :linenos:
-
-    % read whole data from buffer
-    data = sim.Sinks.getData();
-    % save date into file
-    sim.Sinks.saveFile('out_binaural.wav',sim.SampleRate);
-
-In order to access or store the data line 2 or 4 may be used respectively. To
-finish the simulation shut down and clean up the simulator by calling:
-
-.. code-block:: Matlab
-
-    >> sim.set('ShutDown',true);
-
-The simulator reverts to an uninitialised state, where the manipulation of every
-parameter is possible, again. This is necessary, if you want to start a new
-simulation with complete different parameters like e.g. different number of
-sound sources. If you want to start a new simulation with same parameters as
-before a kind of a weak shut down should do the job:
-
-.. code-block:: Matlab
-
-    >> sim.set('ReInit',true);
-
-Again, objects' initial positions have to be defined **before** re-initialisation
-in order to initialise the simulation properly. The simulator however remains in
-an initialised state.
-
-To get more hands on the |BinSim| have a look at its
-:ref:`sec-binsim-examples` page.
 
 .. vim: filetype=rst spell:
