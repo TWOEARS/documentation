@@ -1,0 +1,90 @@
+.. _sec-robot-genom3:
+
+|GenoM3|, a tool to develop robotic components
+----------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The process of developing robotic components can significantly be improved by
+the mean of a tool called |GenoM3|. As a result of two decades of research on
+real time architectures for autonomous systems [Alami1998]_ [Mallet2010]_,
+|GenoM3| brings valuable attributes to robotic components:
+
+* **Middleware independence**
+
+    Components developed with |GenoM3| are middleware independent, *i.e.* they
+    are not tied to a specific middleware and can be compiled for different
+    middlewares without changing their source code.
+
+    This is achieved through the notion of *templates*: a |GenoM3| template is a
+    set of instructions which, when applied to the component's source files,
+    automatically generates the code related to middleware communication. A
+    clear separation of concerns between the algorithmic core and the middleware
+    is thus conducted, helping towards the good design of robotic components.
+
+    |ROS| appears among the middlewares supported by |GenoM3|. When using |ROS|
+    templates to compile a |GenoM3| component, the resulting program is a
+    genuine |ROS| node. Only the development process differs from what could be
+    done by writing a |ROS| node without the |GenoM3| tool.
+
+* **Model-driven design**
+
+    |GenoM3| emphasises the clear definition of robotic components by adopting a
+    model-driven approach. A |GenoM3| component is first defined by a
+    description file, called the **dotgen** file, with the ``.gen``
+    extension. This file gathers in a single place all the definitions related
+    to the component's interface, needed by a user to interact with it.
+
+    Each |GenoM3| component has its own dotgen file, mainly including the
+    definition of its **services** and its data flows by the mean of **ports**
+    (either from the component to the outside, or the other way round). Each
+    service is defined by a name and a list of input and output parameters with
+    their related data type. Each port is defined by a name, a direction (either
+    in or out), and a data type for the data elements it uses. The dotgen file
+    often include in-line documentation to help the understanding of the
+    component's features (for instance, the role of a given service parameter).
+
+    On the basis of the model specified in the dotgen file, |GenoM3|
+    automatically generates real time code as well as skeletons of functions run
+    by the services. So, the developer just has to fill these functions, called
+    **codels** (for code element) with its algorithms. The corresponding
+    algorithmic core is written in separate C or C++ source files or libraries.
+
+* **Powerful framework**
+
+    |GenoM3| facilitates the development of essential features for robotic
+    components, such as:
+
+    * the definition of finite state automata with an optional clock,
+    * clean interruption mechanisms,
+    * efficient error handling.
+
+If you decide to be a user of |GenoM3| components, the tutorial `GenoM3 through
+an example
+<https://git.openrobots.org/projects/genom3/wiki/Genom3tutorialdemo-genom3>`_
+will help you to learn how to read dotgen files. For a developer of |GenoM3|
+components, the `documentation
+<https://git.openrobots.org/projects/genom3/gollum/index>`_ defines the whole
+grammar for writing dotgen files, and how dotgen specifications are mapped into
+C or C++ codels.
+
+.. note::
+
+    |GenoM3| components are often called **modules** (hence the name *Generator
+    of Modules*). The words *module* and *component* refer to the same entity:
+    an independent program that can run on a host machine where the robotic
+    software architecture is distributed.
+
+.. [Alami1998]
+    R. Alami, R. Chatila, S. Fleury, M. Ghallab, and F. Ingrand. An
+    Architecture for Autonomy. In *Int. Jour. on Robotics Research 17*, pages
+    315–337, 1998.
+
+.. [Mallet2010]
+    A. Mallet, C. Pasteur, M. Herrb, S. Lemaignan, and F. Ingrand. GenoM3:
+    Building Middleware-independent Robotic Components. In *IEEE Int. Conf. on
+    Robotics and Automation*, Anchorage (Alaska), 2010.
+
+.. vim: filetype=rst spell:
