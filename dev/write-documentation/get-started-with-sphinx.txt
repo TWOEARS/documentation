@@ -1,0 +1,57 @@
+.. _sec-get-started-with-sphinx:
+
+Get started with Sphinx
+-----------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Two!Ears' documentation uses the Sphinx_ documentation system, which in turn
+is based on docutils_. The basic idea is that lightly-formatted plain-text
+documentation is transformed into HTML, PDF, and any other output format.
+
+To actually build the documentation locally, you'll currently need to install
+Sphinx -- ``pip install Sphinx`` or ``sudo apt-get install python-sphinx`` should
+do the trick.
+Under Windows you first have to install python, which should also install pip
+and you can install Sphinx then also via pip. Otherwise have a look at the
+`official installation guide`_.
+
+.. caution::
+
+    We need sphinx version 1.3 or later in order to use the setting of line
+    number start value for code blocks. It could be that you have to use pip to
+    get this version.
+
+Then, building the HTML is easy; just run:
+
+.. code-block:: bash
+
+    make html-preview
+
+or directly ``sphinx-build -b html -d _build/doctrees . _build/html-preview`` if
+``make`` is not working for you. The result can be explored under
+:file:`_build/html-preview/index.html`.
+
+.. note::
+
+    To generate the version presented on the `official Two!Ears documentation site
+    <http://docs.twoears.eu>`_ you have to run ``make html``. As the
+    documentation is hosted and automatically build by `Read the Docs`_ you
+    don't need to do this.
+
+To get started contributing, you'll want to read the `reStructuredText
+Primer`_. After that, you'll want to read about the `Sphinx-specific markup`_
+that's used to manage meta data, indexing, and cross-references.
+A very detailed documentation is provided at the `Sphinx/Rest Memo site`_.
+
+.. _official installation guide: http://sphinx-doc.org/latest/install.html#windows-install-python-and-sphinx
+.. _Sphinx: http://sphinx-doc.org/
+.. _docutils: http://docutils.sourceforge.net/
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+.. _Sphinx-specific markup: http://sphinx-doc.org/markup/index.html
+.. _Sphinx/Rest Memo site: http://rest-sphinx-memo.readthedocs.org/en/latest/index.html
+.. _Read the Docs: https://readthedocs.org
+
+.. vim: filetype=rst spell:

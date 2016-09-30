@@ -1,10 +1,11 @@
-.. _sec-install-development-system:
+.. _sec-get-the-code:
 
-Installation of the development version
-=======================================
+Get the code
+------------
 
-Getting the code
-----------------
+.. contents::
+    :depth: 1
+    :local:
 
 The development of the |TwoEarsModel| happens independently for its different
 :ref:`modules <sec-modules>`. All of them are hosted as git repositories on
@@ -25,8 +26,8 @@ this as a basis:
     releases of the model (https://github.com/TWOEARS/TwoEars). Please **don't**
     use this for development.
 
-Working on the whole Two!Ears model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Work with the whole Two!Ears model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let us now assume you want to take part in the development of the complete
 |TwoEarsModel|. What you have to do then is the following. In the `main
@@ -86,8 +87,8 @@ repository`_ in order to work with the whole model:
 
     >> startTwoEars;
 
-Working on a single module
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Work with a single module
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you would like to work only on a single module you need only to get its
 repository as well as all its dependencies. If you not sure what are the
@@ -130,63 +131,5 @@ order to test it::
 .. _main repository: https://github.com/TWOEARS/main
 .. _sofa repository: https://github.com/TWOEARS/SOFA
 .. _binaural-simulator repository: https://github.com/TWOEARS/binaural-simulator
-
-.. _sec-dev-setting-up-whole-model:
-
-Setting up dependencies on particular branches
-----------------------------------------------
-
-Git allows to ease software development by using :ref:`branches
-<sec-git-branches>`. During the development of the whole model it could happen
-that you have dependencies to particular branches of other modules. You can
-specify those dependencies also in the XML configuration files, for example:
-
-.. code-block:: xml
-
-    <?xml version="1.0" encoding="utf-8"?>
-    <!-- Configure which parts of the Two!Ears model should be started -->
-
-    <requirements>
-        <TwoEarsPart branch="master"
-                     sub="src"
-                     startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
-        <TwoEarsPart branch="feature1"
-                     sub="API_MO"
-                     startup="SOFAstart">sofa</TwoEarsPart>
-        <TwoEarsPart branch="feature1"
-                     startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
-        <TwoEarsPart branch="master"
-                     startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
-    </requirements>
-
-The ``startTwoEars`` function will then check if you have all the modules
-checked out at the correct branches. Of course you have to have git installed in
-order to use this feature.  Even if you are using only the master branches you
-are encouraged to use the ``branch`` setting as it ensures that other people
-testing your code are also using the master branch and not another one.
-
-.. note::
-
-    Under Windows it is most likely that Matlab complains that git cannot be
-    found in the system path, when executing ``startTwoEars``. To fix this you
-    have to add git to your system paths, see for example `this tutorial
-    <http://blog.countableset.ch/2012/06/07/adding-git-to-windows-7-path/>`_.
-
-The ``startup`` entries are functions that are looked for in the Matlab path and
-executed by ``startTwoEars``. If you want to include not only a folder, but also
-all of it sub-folders to the path you can replace ``sub`` by ``sub-all``.
-
-Adding your changes
--------------------
-
-If you did some modifications to the code from a repository and you would like to
-add your changes you should always push them as a new branch and create a pull
-request in order to notify others about your changes and their goal.
-See the `help on pull requests
-<https://help.github.com/articles/using-pull-requests/>`_ for an introduction on
-how to do this.
-
-For a more detailed discussion on how to use git to incorporate your changes,
-have a look at the next section :ref:`sec-git`.
 
 .. vim: filetype=rst spell:

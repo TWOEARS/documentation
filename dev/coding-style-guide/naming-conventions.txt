@@ -1,0 +1,149 @@
+.. _sec-coding-style-guide-conventions:
+
+Naming Conventions
+------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+
+General
+~~~~~~~
+
+Avoid abbreviations of names if they are not common to the whole community as it
+is the case with ``fs``.
+
+::
+
+    % do not write
+    sigProc
+    % do write instead
+    signalProcessing
+
+Abbreviations that are normally given in uppercase like ``ILD`` should be changed
+in the following way::
+
+    % variables
+    ildLimit
+    enhancedIldLimit
+    % objects
+    IldLimit
+
+Variables
+~~~~~~~~~
+
+Variables should start with a lower case letter and use upper case letters for
+every starting word.
+
+::
+
+    signal
+    inputSignal
+    auditoryFrontEndCues
+
+Use the prefix ``b`` for Boolean variables and avoid negative names.
+
+::
+
+    bRemove
+    % do not write
+    bNotRealiable
+    % do write instead
+    ~bRealiable
+
+Use the prefix ``n`` for indicating the number of objects and ``i`` as an iterator
+prefix.
+
+::
+
+    for iFile = 1:nFiles
+        destroyFile(Files{iFile});
+    end
+
+For loops over matrices in mathematics single letters like ``i`` or ``j`` are used.
+Avoid those in Matlab, because they could be the imaginary unit. A common
+solution is to use ``ii``, ``jj``, ``kk``, ``nn`` as indices.
+
+::
+
+    savedPoints = zeros(size(pointMatrix));
+    for ii = 1:size(pointMatrix, 1)
+        for jj = 1:size(pointMatrix, 2)
+            savedPoints(ii, jj) = getPoint(pointMatrix(ii, jj));
+        end
+    end
+
+Note, if you don't have to use the indices for different things in the loop the
+above statement can be better written as
+
+::
+
+    savedPoints = zeros(size(pointMatrix);
+    for ii = 1:numel(pointMatrix)
+        savedPoints(ii) = pointMatrix(ii);
+    end
+
+If you want to access column vectors stored in a matrix, like the left and right
+ear canal you could also use the following syntax
+
+::
+
+    for singleChannel = binauralSignal
+        printRmsDb(singleChannel)
+    end
+
+
+Constants
+~~~~~~~~~
+
+If you have constants in your function that can not be changed, you should write
+them completely uppercase.
+
+::
+
+    TRESHOLD = 3.2;
+
+For usage of constants in classes, see also the `Matlab documentation on
+properties (Constant)`_
+
+.. _Matlab documentation on properties (Constant): http://www.mathworks.de/de/help/matlab/matlab_oop/properties-with-constant-values.html
+
+
+Functions
+~~~~~~~~~
+
+For functions the naming convention is exactly the same as for variables.
+
+::
+
+    limit()
+    limitSignal()
+    disableAuditoryFrontEnd()
+
+For finding the correct name for a function the following points should be
+considered:
+
+* function names should include a verb
+* name a function with a single output based on that output,
+  ``confidenceInterval``
+* name a function with no output after what they do, ``plotSignal``
+* use the prefix ``is`` for Boolean functions, ``isFinished``
+* avoid unintentional shadowing, e.g. use ``convolution`` not ``conv``
+
+Try to avoid the creation of functions consisting out of hundreds of lines. In
+Matlab the most common approach is to create functions that do one thing.
+
+
+Classes/Objects
+~~~~~~~~~~~~~~~
+
+Like functions, but always start with a uppercase letter.
+
+::
+
+    Signals
+    BlackboardSystem
+    AuditoryFrontEnd
+
+.. vim: filetype=rst spell:

@@ -1,0 +1,14 @@
+.. _sec-git:
+
+Development using git
+=====================
+
+.. toctree::
+    :maxdepth: 1
+
+    git-for-beginners
+    git-advanced-commands
+    git-under-windows
+    git-with-large-binary-files
+
+.. vim: filetype=rst spell:

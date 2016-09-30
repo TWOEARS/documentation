@@ -1,0 +1,16 @@
+.. _sec-dev-add-your-changes:
+
+Add your changes
+----------------
+
+If you did some modifications to the code from a repository and you would like to
+add your changes you should always push them as a new branch and create a pull
+request in order to notify others about your changes and their goal.
+See the `help on pull requests
+<https://help.github.com/articles/using-pull-requests/>`_ for an introduction on
+how to do this.
+
+For a more detailed discussion on how to use git to incorporate your changes,
+have a look at the next section :ref:`sec-git`.
+
+.. vim: filetype=rst spell:

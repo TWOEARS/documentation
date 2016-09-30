@@ -1,0 +1,17 @@
+.. _sec-convert-existing-documentation:
+
+Convert existing documentation
+------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+If you have existing documentation in LaTeX you can convert it to restructured
+text with pandoc:
+
+.. code-block:: bash
+
+    pandoc -f latex -t rst -o outfile.txt infile.tex
+
+.. vim: filetype=rst spell:

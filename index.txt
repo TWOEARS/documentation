@@ -115,7 +115,7 @@ it, read on:
 
 * :ref:`How to get involved <sec-dev>`
 * :ref:`sec-coding-style-guide`
-* :ref:`Writing this documentation <sec-writing-documentation>`
+* :ref:`Writing this documentation <sec-write-documentation>`
 * :ref:`sec-git`
 
 .. rubric:: License
