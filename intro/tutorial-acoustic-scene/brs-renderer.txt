@@ -1,0 +1,64 @@
+.. _sec-brs-renderer:
+
+Binaural room scanning renderer
+-------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+In the second example the |BRS| renderer will use |BRIR| recordings to simulate a
+source placed within a (reverberant) room. Again, the scene is defined via an
+XML-file, this time named :file:`brs_renderer.xml`:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <scene
+      Renderer="ssr_brs"
+      BlockSize="4096"
+      SampleRate="44100"
+      LengthOfSimulation="5.0">
+      <source Type="point"
+              Name="SoundSource"
+              IRs="impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa">
+        <buffer ChannelMapping="1"
+            Type="noise"/>
+      </source>
+      <sink Name="Head"
+            Position="0 0 0"
+            UnitX="0 1 0"
+            UnitZ="0 0 1"/>
+    </scene>
+
+The renderer type is set to ``ssr_brs`` and the |BRIR| is specified within the
+``<source>`` section. A source position is no longer required, as it is inherently
+given by the
+corresponding |BRIR| measurement.
+Note that the KEMAR dummy head was *looking* towards the y-axis during the |BRIR|
+measurement.  In the scene description, the ``UnitX`` vector defines the looking
+direction of the virtual head; thus ``UnitX`` becomes ``[0 1 0]``.
+The audio material used is synthesised by the simulator's built-in white noise
+generator. That way, an infinitely long signal is generated, and the
+``LengthOfSimulation``
+property has to be specified.
+The following commands allow to listen to the final simulation; the perceptual
+impression should correspond to a noise source placed in a larger room to the
+front-right of the listener::
+
+    >> sim = simulator.SimulatorConvexRoom('brs_renderer.xml',1);
+    >> signal = sim.getSignal();
+    >> sound(signal, sim.SampleRate);
+
+Here, the ``sim.set('Init', true)`` line has been omitted; the ``1`` used in
+simulator initialisation serves the same purpose.
+
+If you are looking for complex acoustic scenes (e.g., moving around in a room or
+simulating moving sources), please have a look at the :ref:`sec-binsim-examples`
+section of the :ref:`sec-binsim`.
+
+.. ...::: References :::...
+.. [Horbach1999] Horbach, U., Karamustafaoglu, A., Pellegrini, R., Mackensen, P., Theile, G. (1999), “Design and Applications of a Data-based Auralization System for Surround Sound,” 106th AES Convention, Paper 4976
+.. [Wierstorf2014] Wierstorf, H. (2014), “Perceptual Assessment of Sound Field Synthesis,” PhD-thesis, TU Berlin
+
+.. vim: filetype=rst spell:

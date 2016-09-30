@@ -1,0 +1,48 @@
+.. highlight:: matlab
+
+.. _sec-tutorial-acoustic-scene:
+
+Set up an acoustic scene
+========================
+
+.. toctree::
+    :maxdepth: 1
+
+    binaural-renderer
+    brs-renderer
+
+Contemporary auditory models generally work in a feed-forward manner:
+pre-recorded or pre-generated signals are simply fed into the model and the
+model calculates and returns the results.
+
+The |TwoEarsModel| behaves quite different in that respect - our framework
+allows to actively explore the provided acoustic scene: the model's feedback
+mechanisms could, for instance, initiate a turn of the audio capture unit (dummy
+head) in order to disambiguate complex input and to arrive at a more precise
+scenario analysis.  Such active exploration can be achieved, on the one hand, in
+the real world by using a dummy head in order to record binaural ear signals on
+the fly. Those dummy head should have a moveable head and will be mounted on a
+robotic platform to allow for translatory movements. For an introduction to
+that, see :ref:`sec-tutorial-robot`.  On the other hand, this task can be
+addressed in a virtual way, setting up a simulated acoustic scene in the
+|BinSim|.  Below, we focus on the latter method.
+
+There are two ways how the |BinSim| creates the ear signals. One is to specify
+the entire acoustic scene using meta-data, pass appropriate |HRTF|\ s to the
+simulator, and, with that, render the scenario using the simulator's
+:ref:`sec-binaural-renderer` component. The other way is to use a mixture of
+meta-data and pre-recorded scene details that could be represented by |BRIR| or
+|BRS| files [Horbach1999]_.  The :ref:`sec-brs-renderer` can use this
+information (|BRIR|\ s) to represent sources placed in a room. Stepping further,
+|BRS| files enable the simulation of complex scenarios with loudspeaker arrays
+driven by spatial audio reproduction techniques. With this method the complete
+synthesised sound field of those reproduction methods could be investigated by
+binaural synthesis without the need of setting up all the required loudspeakers.
+
+.. note::
+
+    These files can also be used in perceptual experiments with dynamic binaural
+    synthesis (see for example [Wierstorf2014]_); here, our model could help to
+    predict the experimental outcome.
+
+.. vim: filetype=rst spell:
