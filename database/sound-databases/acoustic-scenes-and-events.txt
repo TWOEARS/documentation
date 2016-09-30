@@ -1,57 +1,11 @@
-.. _sec-sound-databases:
-
-Sound databases
-===============
-
-This is a collection of different sound databases. A sound database can be
-anything that comes as a collection of related sound files like a speech corpus.
-
-Speech databases
-----------------
-
-.. _sec-grid-corpus:
-
-GRID corpus
-~~~~~~~~~~~
-
-GRID is a large multi-talker audiovisual sentence corpus to support joint
-computational-behavioural studies in speech perception. In brief, the corpus
-consists of high-quality audio and video (facial) recordings of 1000 sentences
-spoken by each of 34 talkers (18 male, 16 female). Sentences are of the form::
-
-    put red at G9 now
-
-The database provided here is a subset of the original database containing 360
-randomly selected sentences for each speaker. More details about GRID can be
-found on the `GRID website`_ or in the corresponding `GRID paper`_.
-
-.. _GRID website: http://spandh.dcs.shef.ac.uk/gridcorpus/
-.. _GRID paper: http://dx.doi.org/10.1121/1.2229005
-
-License
-^^^^^^^
-
-The GRID corpus, together with transcriptions, is freely available for research
-use.
-
-Usage
-^^^^^
-
-Each speaker comes with separate folder containing 360 sentences::
-
-    sound_databases/grid_subset/s1/bbaf2n.wav
-    ...
-    sound_databases/grid_subset/s1/swwv9a.wav
-    sound_databases/grid_subset/s2/bbaf1n.wav
-    ...
-    sound_databases/grid_subset/s34/swws3n.wav
-
-All available files are listed in::
-
-    sound_databases/grid_subset/flist.txt
+.. _sec-acoustic-scenes-and-events:
 
 Acoustic scenes and events
 --------------------------
+
+.. contents::
+    :depth: 1
+    :local:
 
 .. _sec-ieee-aasp:
 

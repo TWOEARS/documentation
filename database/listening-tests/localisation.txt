@@ -1,0 +1,91 @@
+.. _sec-experiments-localisation:
+
+Localisation
+------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+For the following localisation experiments we provide again |BRS| files together
+with the rating results. The |BRS| files can be used together with the |BinSim|
+on order to have the |TwoEarsModel| in the same situation as the listener
+including its ability to turn the head.
+
+.. _sec-2012-03-01_brs_vs_real_localisation:
+
+2012-03-01: Localisation of a real vs. binaural simulated point source
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _fig-2012-03-01_brs_vs_real_localisation:
+
+.. figure:: ../img/localisation_real_vs_simulated.png
+    :align: center
+
+    The mean over all subjects together with the 95% confidence interval is
+    shown. In grey, the individual subjects’ results are presented. In graph A,
+    the signed error of the localization of the eleven speakers is shown. In
+    graph B, the mean standard deviation for the localization task is depicted.
+    The top row represents the condition with the real loudspeakers, the middle
+    row the room |HRTF|\ s (|BRIR|\ s), and the bottom row the anechoic |HRTF|\ s.
+    Figure from [Wierstorf2012].
+
+
+In this experiment the localisation of a real point source realised by a
+loudspeaker was compared to the localisation of a binaural simulation of the
+same source using |HRTF|\ s or |BRIR|\ s. The results are published in
+[Wierstorf2012]_. The mean localisation results are stored in the corresponding human label file
+which comes together with the |BRS| files::
+
+    experiments/2012-03-01_brs_vs_real_localisation/human_label_localisation_real_vs_simulated_loudspeaker.csv
+
+In addition, we provide the trajectory of the actual head movements, each
+listener performed during the experiments in the folder
+``experiments/2012-03-01_brs_vs_real_localisation/head_movements_real_vs_simulated_loudspeaker/``.
+
+.. [Wierstorf2012] Wierstorf, H., Spors, S., Raake, A. (2012), "Perception and evaluation of sound fields," 59th Open Seminar on Acoustics, p. 263-68
+
+.. _sec-2013-11-01_sfs_localisation:
+
+2013-11-01: Localisation of different source types in sound field synthesis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _fig-2013-11-01_sfs_localisation:
+
+.. figure:: ../img/localisation_sfs.png
+    :align: center
+
+    Average localization results. The black symbols indicate loudspeakers, the
+    grey ones the synthesised source. At every listening position, an arrow is
+    pointing into the direction from which the listeners perceived the
+    corresponding auditory event. The color of the arrow displays the absolute
+    localization error, which is also summarised as an average beside the arrows
+    for every row of positions. The average confidence interval for all
+    localization results is 2.3°. Listening conditions which resulted in
+    listeners saying that they perceived two sources are highlighted with a
+    small 2 written below the position. Figure from [Wierstorf2014b].
+
+In this experiment listeners localised different synthesised sources using
+different sound field synthesis methods and loudspeaker setups. The experiment
+is described in [Wierstorf2014b]_. Here, we are providing the |BRS| files that
+were used for binaural simulations of the different systems and listener
+positions during the experiment and the corresponding rating results of the
+listeners.
+
+::
+
+    experiments/2013-11-01_sfs_localisation/human_label_localization_wfs_ps_circular.txt
+    experiments/2013-11-01_sfs_localisation/human_label_localization_wfs_ps_linear.txt
+    experiments/2013-11-01_sfs_localisation/human_label_localization_wfs_pw_circular.txt
+    experiments/2013-11-01_sfs_localisation/human_label_localization_wfs_fs_circular.txt
+    experiments/2013-11-01_sfs_localisation/human_label_localization_nfchoa_ps_circular.txt
+    experiments/2013-11-01_sfs_localisation/human_label_localization_nfchoa_pw_circular.txt
+
+In addition, we provide the trajectory of the actual head movements, each
+listener performed during the localisation experiment with the linear
+loudspeaker array in the folder
+``experiments/2013-11-01_sfs_localisation/head_movements_wfs_ps_linear/``.
+
+.. [Wierstorf2014b] Wierstorf, H. (2014), "Perceptual Assessment of Sound Field Synthesis," PhD-thesis, TU Berlin
+
+.. vim: filetype=rst spell:

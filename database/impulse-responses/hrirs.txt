@@ -3,6 +3,10 @@
 Anechoic measurements (|HRTF|\ s)
 ---------------------------------
 
+.. contents::
+    :depth: 1
+    :local:
+
 .. _sec-hrtf-qu-kemar:
 
 Anechoic |HRTF|\ s from the KEMAR manikin with different distances
@@ -103,3 +107,5 @@ for documentation on the measurements.
 
 .. [Xie2013a] Xie, B. (2013), "Head-related transfer function and virtual auditory display," J Ross Publishing
 .. [Xie2013b] Xie, B. et al. (2013), "Report on Research Projects on Head-Related Transfer Functions and Virtual Auditory Displays in China," Journal of the Audio Engineering Society (61) 5, pages 314-26
+
+.. vim: filetype=rst spell:

@@ -90,7 +90,7 @@ data:
 
 * :ref:`Overview <sec-database>`
 * :ref:`sec-database-usage`
-* :ref:`sec-experiments`
+* :ref:`sec-listening-tests`
 * :ref:`sec-impulse-responses`
 * :ref:`sec-sound-databases`
 * :ref:`sec-database-stimuli`
