@@ -179,6 +179,4 @@ corresponding |BRIR| into the |BinSim| and run the |Blackboard| inside the
 
 As we run four different blackboards after each other, we have to reinitialise the |BinSim| in between.
 
-.. [MaEtAl2015dnn] Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple speakers exploiting deep neural networks and head movements. Proceedings of Interspeech'15, pp.3302-3306, Dresden, Germany
-
 .. vim: filetype=rst spell:

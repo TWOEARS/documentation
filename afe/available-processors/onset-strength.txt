@@ -48,7 +48,6 @@ of an auditory event.
    onset strength in decibel (right panel).
 
 .. ...::: References :::...
-.. [Bregman1990] Bregman, A. S. (1990), Auditory scene analysis: The perceptual organization of sound, The MIT Press, Cambridge, MA, USA.
 .. [Klapuri1999] Klapuri, A. (1999), “Sound onset detection by applying psychoacoustic knowledge,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 3089–3092.
 
 .. vim: filetype=rst spell:

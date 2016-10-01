@@ -133,12 +133,9 @@ script ``DEMO_Adaptation.m``.
    ``adpt_model=’adt_dau’`` (right panel). 
   
 .. ...::: References :::...
-.. [Dau1996] Dau, T., Püschel, D., and Kohlrausch, A. (1996), “A quantitative model of the “effective” signal processing in the auditory system. I. Model structure,” Journal of the Acoustical Society of America 99(6), pp. 3615–3622.
 .. [Dau1997a] Dau, T., Püschel, D., and Kohlrausch, A. (1997a), “Modeling auditory processing of amplitude modulation. I. Detection and masking with narrow-band carriers,” Journal of the Acoustical Society of America 102(5), pp. 2892–2905.
-.. [Jepsen2008] Jepsen, M. L., Ewert, S. D., and Dau, T. (2008), “A computational model of human auditory signal processing and perception.” Journal of the Acoustical Society of America 124(1), pp. 422–438.
 .. [Pueschel1988] Püschel, D. (1988), “Prinzipien der zeitlichen Analyse beim Hören,” Ph.D. thesis, University of Göttingen.
 .. [Smith1977] Smith, R. L. (1977), “Short-term adaptation in single auditory nerve fibers: some poststimulatory effects,” J Neurophysiol 40(5), pp. 1098–1111.
 .. [Smith1983] Smith, R. L., Brachman, M. L., and Goodman, D. a. (1983), “Adaptation in the Auditory Periphery,” Annals of the New York Academy of Sciences 405(1 Cochlear Pros), pp. 79–93.
-.. [Soendergaard2013] Søndergaard, P. L. and Majdak, P. (2013), “The auditory modeling toolbox,” in The Technology of Binaural Listening, edited by J. Blauert, Springer, Heidelberg–New York NY–Dordrecht–London, chap. 2, pp. 33–56.
 
 .. vim: filetype=rst spell:

@@ -61,6 +61,5 @@ retained at higher frequencies.
 .. [Breebart2001] Breebaart, J., van de Par, S., and Kohlrausch, A. (2001), “Binaural processing model based on contralateral inhibition. I. Model structure,” Journal of the Acoustical Society of America 110(2), pp. 1074–1088.
 .. [Dau1996] Dau, T., Püschel, D., and Kohlrausch, A. (1996), “A quantitative model of the “effective” signal processing in the auditory system. I. Model structure,” Journal of the Acoustical Society of America 99(6), pp. 3615–3622.
 .. [Joergensen2011] Jørgensen, S. and Dau, T. (2011), “Predicting speech intelligibility based on the signal-to-noise envelope power ratio after modulation-frequency selective processing,” Journal of the Acoustical Society of America 130(3), pp. 1475–1487.
-.. [Soendergaard2013] Søndergaard, P. L. and Majdak, P. (2013), “The auditory modeling toolbox,” in The Technology of Binaural Listening, edited by J. Blauert, Springer, Heidelberg–New York NY–Dordrecht–London, chap. 2, pp. 33–56.
 
 .. vim: filetype=rst spell:

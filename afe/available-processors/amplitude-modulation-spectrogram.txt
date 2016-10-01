@@ -134,11 +134,9 @@ with the activity reflected in the |IHC| representation.
   
 .. ...::: References :::...
 .. [Bacon1989] Bacon, S. P. and Grantham, D. W. (1989), “Modulation masking: Effects of modulation frequency, depths, and phase,” Journal of the Acoustical Society of America 85(6), pp. 2575–2580.
-.. [Dau1997a] Dau, T., Püschel, D., and Kohlrausch, A. (1997a), “Modeling auditory processing of amplitude modulation. I. Detection and masking with narrow-band carriers,” Journal of the Acoustical Society of America 102(5), pp. 2892–2905.
 .. [Dau1997b] Dau, T., Püschel, D., and Kohlrausch, A. (1997b), “Modeling auditory processing of amplitude modulation. II. Spectral and temporal integration,” Journal of the Acoustical Society of America 102(5), pp. 2906–2919.
 .. [Ewert2000] Ewert, S. D. and Dau, T. (2000), “Characterizing frequency selectivity for envelope fluctuations,” Journal of the Acoustical Society of America 108(3), pp. 1181–1196.
 .. [Houtgast1989] Houtgast, T. (1989), “Frequency selectivity in amplitude-modulation detection,” Journal of the Acoustical Society of America 85(4), pp. 1676–1680.
-.. [Joergensen2011] Jørgensen, S. and Dau, T. (2011), “Predicting speech intelligibility based on the signal-to-noise envelope power ratio after modulation-frequency selective processing,” Journal of the Acoustical Society of America 130(3), pp. 1475–1487.
 .. [Joergensen2013] Jørgensen, S., Ewert, S. D., and Dau, T. (2013), “A multi-resolution envelope-power based model for speech intelligibility,” Journal of the Acoustical Society of America 134(1), pp. 1–11.
 .. [Kim2009] Kim, G., Lu, Y., Hu, Y., and Loizou, P. C. (2009), “An algorithm that improves speech intelligibility in noise for normal-hearing listeners,” Journal of the Acoustical Society of America 126(3), pp. 1486–1494.
 .. [Kollmeier1994] Kollmeier, B. and Koch, R. (1994), “Speech enhancement based on physiological and psychoacoustical models of modulation perception and binaural interaction,” Journal of the Acoustical Society of America 95(3), pp. 1593–1602.
@@ -146,6 +144,5 @@ with the activity reflected in the |IHC| representation.
 .. [May2014a] May, T. and Dau, T. (2014), “Requirements for the evaluation of computational speech segregation systems,” Journal of the Acoustical Society of America 136(6), pp. EL398– EL404.
 .. [May2014b] May, T. and Gerkmann, T. (2014), “Generalization of supervised learning for binary mask estimation,” in International Workshop on Acoustic Signal Enhancement, Antibes, France.
 .. [May2014c] May, T. and Dau, T. (2014), “Computational speech segregation based on an auditory-inspired modulation analysis,” Journal of the Acoustical Society of America 136(6), pp. 3350-3359.
-.. [Tchorz2003] Tchorz, J. and Kollmeier, B. (2003), “SNR estimation based on amplitude modulation analysis with applications to noise suppression,” IEEE Transactions on Audio, Speech, and Language Processing 11(3), pp. 184–192.
 
 .. vim: filetype=rst spell:

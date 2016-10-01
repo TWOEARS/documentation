@@ -64,8 +64,4 @@ output of the ``GmmLocationKS`` or ``DnnLocationKS``.
     Predicting the Perceived Naturalness of Sounds Subjected to Spectral
     Distortion. JAES, 52(9), 900–14.
 
-.. [Wierstorf2014]
-    Wierstorf, H. (2014) “Perceptual Assessment of Sound Field Synthesis,”
-    PhD-thesis, TU Berlin
-
 .. vim: filetype=rst spell:
