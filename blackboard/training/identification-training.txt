@@ -1,9 +1,11 @@
-
-.. _sec-idTrainPipeline:
+.. _sec-identification-training:
 
 Sound identification training pipeline
 ======================================
 
+.. contents::
+    :depth: 1
+    :local:
 
 Concepts
 --------

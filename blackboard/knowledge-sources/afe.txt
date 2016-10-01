@@ -1,0 +1,29 @@
+.. _sec-afe-knowledge-source:
+
+Auditory front-end knowledge source: ``AuditoryFrontEndKS``
+-----------------------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+This knowledge source integrates the |AFE| into the |blackboard|. The |AFE|
+itself is a self-contained module and this section focuses on its integration
+within the framework.
+
+The |AFE| knowledge source is connected to the blackboard and the `robot
+interface
+<http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_robot_interface.html>`_
+by registering itself in the system via ``BlackboardSystem.setDataConnect``.
+Upon construction, the |AFE| ``dataObject`` and ``managerObject`` are
+instantiated and connected to the robot interface ear signals stream. The
+maximum invocation frequency of the ``AuditoryFrontEndKS`` is set to infinity.
+Execution mainly consists of getting the latest chunk of ear signals data,
+processing it through the |AFE|, and notifying a ``KsFiredEvent``.
+
+Other knowledge sources can register requests with the |AFE| indirectly, through
+inheriting from the ``AuditoryFrontEndDepKS`` class (see
+Section :ref:`sec-afe-dep-knowledge-source`, and binding to it's
+``KsFiredEvent``.
+
+.. vim: filetype=rst spell:

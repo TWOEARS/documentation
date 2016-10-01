@@ -92,7 +92,7 @@ Building the example Blackboard System
 
 The construction of the |blackboard| for this example is done directly in Matlab
 (versus via xml) in the function ``buildIdentificationBBS``. Let's look into it,
-we first create a new :ref:`BlackboardSystem object <sec-blackboardSystem>`::
+we first create a new :ref:`BlackboardSystem object <sec-blackboard-execute>`::
 
    bbs = BlackboardSystem(1);
 

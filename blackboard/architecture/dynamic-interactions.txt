@@ -1,0 +1,85 @@
+.. _sec-dynamic-interactions:
+
+Dynamic blackboard interactions
+-------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Knowledge sources can communicate information through the flexible blackboard
+storage. However, adding data to the blackboard does not trigger other knowledge
+sources to be executed. Such interaction – triggering knowledge source execution
+– is done through an event system.  Specifically, knowledge sources do not
+actually trigger execution of other knowledge sources (since they are decoupled
+and have no “knowledge” of each other), but knowledge sources *make a request to
+be triggered* upon the firing of particular *events*.
+
+Each knowledge source has a standard event it can trigger, ``KsFiredEvent``,
+inherited from ``AbstractKS``. Beyond that, every knowledge source class is free
+to define as many additional events as reasonable for its task. Knowledge
+sources cause the events themselves through a call to ``notify`` as in the
+following example, in which the knowledge source induces an event and attaches a
+``BlackboardEventData`` object holding the time that it was triggered::
+
+    notify( 'KsFiredEvent', BlackboardEventData(obj.trigger.tmIdx) );
+
+The blackboard system a priori is totally ignorant of which events exist (clear
+responsibilities principle, open to extension). It also does not monitor any
+events by default, until knowledge sources request to be triggered by an event.
+This request is done through the method ``bind`` provided by the
+``BlackboardMonitor`` class, whose interface is (partially) listed in the
+following excerpt::
+
+    class BlackboardMonitor
+        properties
+            pastAgenda;
+            executing;
+            agenda;
+        methods
+            BlackboardMonitor()
+            bind( sources, sinks, addMode, eventName )
+
+The ``bind`` method connects the ``sinks`` knowledge sources to event
+``eventName`` (optional, defaults to ``KsFiredEvent``) caused by the ``sources``
+knowledge sources. ``addMode`` specifies how the ``BlackboardMonitor`` shall
+handle adding the triggered knowledge sources into the agenda. It understands
+the following modes, illustrated in :numref:`fig-blackboard-event-system`:
+
+``add``
+    Add the triggered knowledge source to the end of the agenda, regardless of
+    whether or not there is already a (not yet executed) knowledge source
+    instantiation of this sink in the agenda from a former triggering.
+
+``replaceOld``
+    Replace old knowledge source instantiations of this sink in the agenda with
+    the new one. Only instantiations of the sink triggered by the same source
+    and same event are replaced. This is an important mode for knowledge sources
+    where processing current data is more important than processing all data.
+
+``replaceParallel``
+    Replace knowledge source instantiations of this sink from the same time
+    point of parallel sources in the agenda with the new one.  Only
+    instantiations of the sink triggered at the same time and by the same event
+    are replaced. This mode avoids sinks being unnecessarily executed several
+    times with the same information.
+
+``replaceParallelOld``
+    Replace old or current knowledge source instantiations of this sink
+    triggered by parallel sources in the agenda with the new one. Only
+    instantiations of the sink triggered by the same event are replaced.  This
+    mode is a combination of the ``replaceOld`` and ``replaceParallel`` modes.
+
+It should be noted that the ``addMode`` only affects triggered knowledge source
+instantiations in the *agenda*, i.e. those that are not executed yet. As soon as
+a knowledge source is executed, it is removed from the agenda (first in
+``executing``, afterwards in ``pastAgenda``).
+
+.. _fig-blackboard-event-system:
+
+.. figure:: ../img/blackboard-event-system.png
+
+   The different possibilities of event binding between knowledge
+   sources with the blackboard system.
+
+.. vim: filetype=rst spell:

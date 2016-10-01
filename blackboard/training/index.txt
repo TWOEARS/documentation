@@ -9,9 +9,6 @@ Model training
     :maxdepth: 1
 
     localisation-training 
-    idTrainPipeline
-
-    
-
+    identification-training
 
 .. vim: filetype=rst spell:

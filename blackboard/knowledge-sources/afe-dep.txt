@@ -1,0 +1,59 @@
+.. _sec-afe-dep-knowledge-source:
+
+Auditory signal dependent knowledge source superclass: ``AuditoryFrontEndDepKS``
+--------------------------------------------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Whenever a knowledge source needs signals, cues or features from the auditory
+front-end, it should subclass from the ``AuditoryFrontEndDepKS`` class. Any
+knowledge source added to the blackboard through the ``BlackboardSystem``
+``addKS`` or ``createKS`` methods, register these requests
+automatically with the |AFE|.
+
+Setting up the requests
+    Inheriting knowledge sources need to put their requests in their call to the
+    super-constructor: ``obj@AuditoryFrontEndDepKS(requests)``, with
+    ``requests`` being a cell array of structures each with fields ``name``,
+    stating the requested signal name, and ``params``, specifying the signal
+    parameters. (Have a look at :ref:`sec-afe-processors`.)
+
+    An example looks like this::
+
+      requests{1}.name = 'modulation';
+      requests{1}.params = genParStruct( ...
+         'nChannels', obj.amFreqChannels, ...
+         'am_type', 'filter', ...
+         'am_nFilters', obj.amChannels ...
+         );
+      requests{2}.name = 'ratemap_magnitude';
+      requests{2}.params = genParStruct( ...
+         'nChannels', obj.freqChannels ...
+         );
+
+    The ``params`` field always needs to be populated by a call to the
+    ``genParStruct`` method.
+
+Accessing signals
+    These requested signals can then be accessed by the knowledge source via the
+    inherited ``getAFEdata`` method, which returns a map (with the indexes as in
+    the request structure being the keys) of handles to the actual signals.
+
+    An example, according to the requests example above, looks like this::
+
+       afeData = obj.getAFEdata();
+       modSobj = afeData(1);
+       rmSobj = afeData(2);
+       rmBlock = rmSobj.getSignalBlock(0.5,0);
+
+
+
+A more elaborate description of the request parameter structure and the signal
+objects can be found in the :ref:`help for the Two!Ears Auditory Front-End
+<sec-afe>`. Have a look at the implementation of the `GmmLocationKS
+<https://github.com/TWOEARS/TwoEars/blob/master/BlackboardSystem/src/knowledge_sources/GmmLocationKS.m>`_
+to see a real-world example of how to subclass ``AuditoryFrontEndDepKS``.
+
+.. vim: filetype=rst spell:

@@ -1,0 +1,141 @@
+.. _sec-blackboard-localisation:
+
+Localisation knowledge sources
+------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Four knowledge sources work together to generate hypotheses of sound source
+azimuths: ``Location`` knowledge source, ``Confusion Detection`` knowledge
+source, ``Confusion Solving`` knowledge source, and ``Head Rotation`` knowledge
+source.
+
+.. _sec-dnn-location-knowledge-source:
+
+Location knowledge source: ``DnnLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Class ``DnnLocationKS`` implements knowledge about the statistical relationship
+between spatial cues and azimuth locations using |DNN|\ s.  Currently the |DNN|\
+s are trained on binaural cues from the |AFE| including |CCF| and |ILD| cues, as
+described in more details in [MaEtAl2015dnn]_.
+
+This knowledge source requires signals from the |AFE| and thus inherits from the
+``AuditoryFrontEndDepKS`` (Section :ref:`sec-afe-dep-knowledge-source`) and
+needs to be bound to the ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The
+``canExecute`` precondition checks the energy level of the current signal block
+and localisation takes place only if there is an actual auditory event. After
+execution, a ``SourcesAzimuthsDistributionHypothesis`` containing a probability
+distribution of azimuth locations is placed on the blackboard (category
+``sourcesAzimuthsDistributionHypotheses``) and the event ``KsFiredEvent`` is
+notified.
+
+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
+
+.. _sec-gmm-location-knowledge-source:
+
+Location knowledge source: ``GmmLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Class ``GmmLocationKS`` implements knowledge about the statistical relationship
+between spatial cues and azimuth locations. Currently we model the relationship
+using |GMM|\ s, which are trained on binaural cues from the |AFE| including
+|ITD| and |ILD| cues.
+
+This knowledge source requires signals from the |AFE| and thus inherits from the
+``AuditoryFrontEndDepKS`` (Section :ref:`sec-afe-dep-knowledge-source`) and
+needs to be bound to the ``AuditoryFrontEndKS``\ ’s ``KsFiredEvent``.  The
+``canExecute`` precondition checks the energy level of the current signal block
+and localisation takes place only if there is an actual auditory event. After
+execution, a ``SourcesAzimuthsDistributionHypothesis`` containing a probability
+distribution of azimuth locations is placed on the blackboard (category
+``sourcesAzimuthsDistributionHypotheses``) and the event ``KsFiredEvent`` is
+notified.
+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
+
+.. _sec-confusion-knowledge-source:
+
+Confusion detection knowledge source: ``ConfusionKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``ConfusionKS`` checks new location hypotheses and decides whether
+there is a confusion. A confusion emerges when there are more valid locations in
+the hypotheses than assumed auditory sources in the scene. In case of a
+confusion, a ``ConfusedLocations`` event is notified and the responsible
+location hypothesis is placed on the blackboard in the ``confusionHypotheses``
+category. Otherwise, a ``PerceivedAzimuth`` object is added to the blackboard
+``perceivedAzimuths`` data category, and the standard event is triggered.
+
++------------------------+----------------------------------------------------+
+| binds to               | ``{Gmm|Dnn}LocationKS.KsFiredEvent``               |
++------------------------+----------------------------------------------------+
+| reads data category    | ``sourcesAzimuthsDistributionHypotheses``          |
++------------------------+----------------------------------------------------+
+| writes data category   | ``confusionHyptheses`` or ``perceivedAzimuths``    |
++------------------------+----------------------------------------------------+
+| triggers event         | ``ConfusedLocations`` or ``KsFiredEvent``          |
++------------------------+----------------------------------------------------+
+
+.. _sec-confusion-solving-knowledge-source:
+
+Confusion solving knowledge source: ``ConfusionSolvingKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``ConfusionSolvingKS`` solves localisation confusions by predicting the
+location probability distribution after head rotation, and comparing it with new
+location hypotheses received after head rotation is completed. The
+``canExecute`` method will wait for new location hypotheses; when there is one,
+it will check whether the head has been turned, otherwise it will not execute.
+The confusion is then solved by using the old and the new location hypothesis,
+and a ``PerceivedAzimuth`` object is placed on the blackboard.
+
++------------------------+--------------------------------------------------------------------------------------------+
+| binds to               | ``ConfusionDetectionKS.ConfusedLocations``                                                 |
++------------------------+--------------------------------------------------------------------------------------------+
+| reads data category    | ``confusionHypotheses``, ``headOrientation`` and ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+--------------------------------------------------------------------------------------------+
+| writes data category   | ``perceivedAzimuths``                                                                      |
++------------------------+--------------------------------------------------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                                                           |
++------------------------+--------------------------------------------------------------------------------------------+
+
+.. _sec-rotation-knowledge-source:
+
+Head rotation knowledge source: ``RotationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``RotationKS`` has knowledge on how to move the robotic head in order to
+solve confusions in source localisation. If there is no other head rotation
+already scheduled, the knowledge source uses the ``robot`` interface to turn the
+head.
+
++------------------------+------------------------------------------------+
+| binds to               | ``ConfusionKS.ConfusedLocations``              |
++------------------------+------------------------------------------------+
+| reads data category    | ``confusionHypotheses``, ``headOrientation``   |
++------------------------+------------------------------------------------+
+| writes data category   | ``headOrientation``                            |
++------------------------+------------------------------------------------+
+
+.. [MaEtAl2015dnn]
+    Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple
+    speakers exploiting deep neural networks and head movements. Proceedings of
+    Interspeech'15, pp.3302-3306, Dresden, Germany
+
+.. vim: filetype=rst spell:

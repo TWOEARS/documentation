@@ -1,0 +1,25 @@
+.. highlight:: Matlab
+
+.. _sec-blackboard-add-knowledge-source:
+
+Add your own knowledge sources
+==============================
+
+.. toctree::
+    :maxdepth: 1
+
+    example
+
+If you want to add some new functionality to the |TwoEarsModel| the best way to
+do this is to add a :ref:`knowledge source <sec-knowledge-sources>`. This
+implies of course that the auditory cues or data that your new knowledge source
+will need is already available. To check this first, have a look at all the
+:ref:`available processors <sec-afe-processors>` of the |AFE|. If the cues you
+need are not provided then read on :ref:`how to add them
+<sec-afe-add-processor>`. Otherwise you can go on and create your own knowledge
+source. For understanding the full potential that is available with knowledge
+sources like dynamic data initialisation of other knowledge sources or data
+requests you should familiarise yourself first with the :ref:`blackboard
+architecture <sec-blackboard-architecture>`.
+
+.. vim: filetype=rst spell:

@@ -12,10 +12,14 @@ Acoustic scenes and events
 IEEE AASP Challenge on Detection and Classification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This data set includes stereo recordings of acoustic environmental scenes as well as isolated events (of an office environment). It can
-be used for classification tasks of acoustic scenes and events.
+This data set includes stereo recordings of acoustic environmental scenes as
+well as isolated events (of an office environment). It can be used for
+classification tasks of acoustic scenes and events.
 
-We have put the isolated sounds into a folder structure processable for the :ref:`sec-idTrainPipeline`, removed the printer class, as it was not very suited for the training, and added a "void" class with different kinds of noise (to be used as negative examples during training).
+We have put the isolated sounds into a folder structure processable for the
+:ref:`sec-identification-training`, removed the printer class, as it was not
+very suited for the training, and added a "void" class with different kinds of
+noise (to be used as negative examples during training).
 
 
 License

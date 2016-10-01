@@ -1,10 +1,12 @@
-
 .. _sec-localisation-training:
 
 Sound localisation training
 ===========================
 
-Bla.
+.. contents::
+    :depth: 1
+    :local:
 
+Bla.
 
 .. vim: filetype=rst spell:
