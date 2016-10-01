@@ -48,6 +48,10 @@ of an auditory event.
    onset strength in decibel (right panel).
 
 .. ...::: References :::...
-.. [Klapuri1999] Klapuri, A. (1999), “Sound onset detection by applying psychoacoustic knowledge,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 3089–3092.
+
+.. [Klapuri1999]
+    Klapuri, A. (1999), “Sound onset detection by applying psychoacoustic
+    knowledge,” in Proceedings of the IEEE International Conference on
+    Acoustics, Speech and Signal Processing (ICASSP), pp. 3089–3092.
 
 .. vim: filetype=rst spell:

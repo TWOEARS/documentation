@@ -129,11 +129,39 @@ combination with the corresponding rate-map representation.
 .. _sec-chap4.8:
   
 .. ...::: References :::...
-.. [Jensen2004] Jensen, K. and Andersen, T. H. (2004), “Real-time beat estimation using feature extraction,” in Computer Music Modeling and Retrieval, edited by U. K. Wiil, Springer, Berlin– Heidelberg, Lecture Notes in Computer Science, pp. 13–22.
-.. [Lerch2012] Lerch, A. (2012), An Introduction to Audio Content Analysis: Applications in Signal Processing and Music Informatics, John Wiley & Sons, Hoboken, NJ, USA.
-.. [Misra2004] Misra, H., Ikbal, S., Bourlard, H., and Hermansky, H. (2004), “Spectral entropy based feature for robust ASR,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 193–196.
-.. [Peeters2011] Peeters, G., Giordano, B. L., Susini, P., Misdariis, N., and McAdams, S. (2011), “The timbre toolbox: Extracting audio descriptors from musical signals.” Journal of the Acoustical Society of America 130(5), pp. 2902–2916.
-.. [Scheirer1997] Scheirer, E. and Slaney, M. (1997), “Construction and evaluation of a robust multifeature speech/music discriminator,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 1331–1334.
-.. [Tzanetakis2002] Tzanetakis, G. and Cook, P. (2002), “Musical genre classification of audio signals,” IEEE Transactions on Audio, Speech, and Language Processing 10(5), pp. 293–302.
+
+.. [Jensen2004]
+    Jensen, K. and Andersen, T. H. (2004), “Real-time beat estimation using
+    feature extraction,” in Computer Music Modeling and Retrieval, edited by U.
+    K. Wiil, Springer, Berlin– Heidelberg, Lecture Notes in Computer Science,
+    pp. 13–22.
+
+.. [Lerch2012]
+    Lerch, A. (2012), An Introduction to Audio Content Analysis: Applications in
+    Signal Processing and Music Informatics, John Wiley & Sons, Hoboken, NJ,
+    USA.
+
+.. [Misra2004]
+    Misra, H., Ikbal, S., Bourlard, H., and Hermansky, H. (2004), “Spectral
+    entropy based feature for robust ASR,” in Proceedings of the IEEE
+    International Conference on Acoustics, Speech and Signal Processing
+    (ICASSP), pp. 193–196.
+
+.. [Peeters2011]
+    Peeters, G., Giordano, B. L., Susini, P., Misdariis, N., and McAdams, S.
+    (2011), “The timbre toolbox: Extracting audio descriptors from musical
+    signals.” Journal of the Acoustical Society of America 130(5), pp.
+    2902–2916.
+
+.. [Scheirer1997]
+    Scheirer, E. and Slaney, M. (1997), “Construction and evaluation of a robust
+    multifeature speech/music discriminator,” in Proceedings of the IEEE
+    International Conference on Acoustics, Speech and Signal Processing
+    (ICASSP), pp. 1331–1334.
+
+.. [Tzanetakis2002]
+    Tzanetakis, G. and Cook, P. (2002), “Musical genre classification of audio
+    signals,” IEEE Transactions on Audio, Speech, and Language Processing 10(5),
+    pp. 293–302.
 
 .. vim: filetype=rst spell:

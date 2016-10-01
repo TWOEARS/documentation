@@ -43,7 +43,9 @@ In addition, we provide the trajectory of the actual head movements, each
 listener performed during the experiments in the folder
 ``experiments/2012-03-01_brs_vs_real_localisation/head_movements_real_vs_simulated_loudspeaker/``.
 
-.. [Wierstorf2012] Wierstorf, H., Spors, S., Raake, A. (2012), "Perception and evaluation of sound fields," 59th Open Seminar on Acoustics, p. 263-68
+.. [Wierstorf2012]
+    Wierstorf, H., Spors, S., Raake, A. (2012), "Perception and evaluation of
+    sound fields," 59th Open Seminar on Acoustics, p. 263-68
 
 .. _sec-2013-11-01_sfs_localisation:
 
@@ -86,6 +88,8 @@ listener performed during the localisation experiment with the linear
 loudspeaker array in the folder
 ``experiments/2013-11-01_sfs_localisation/head_movements_wfs_ps_linear/``.
 
-.. [Wierstorf2014b] Wierstorf, H. (2014), "Perceptual Assessment of Sound Field Synthesis," PhD-thesis, TU Berlin
+.. [Wierstorf2014b]
+    Wierstorf, H. (2014), "Perceptual Assessment of Sound Field Synthesis,"
+    PhD-thesis, TU Berlin
 
 .. vim: filetype=rst spell:

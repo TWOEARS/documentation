@@ -164,8 +164,21 @@ from [Jepsen2008]_ can be used for the processing, by specifying the model
 respectively.
 
 .. ...::: References :::...
-.. [Godde1994] Goode, R. L., Killion, M., Nakamura, K., and Nishihara, S. (1994), “New knowledge about the function of the human middle ear: development of an improved analog model.” The American journal of otology 15(2), pp. 145–154.
-.. [Tchorz2003] Tchorz, J. and Kollmeier, B. (2003), “SNR estimation based on amplitude modulation analysis with applications to noise suppression,” IEEE Transactions on Audio, Speech, and Language Processing 11(3), pp. 184–192.
-.. [Young2006] Young, S., Evermann, G., Gales, M., Hain, T., Kershaw, D., Liu, X., Moore, G., Odell, J., Ollason, D., Povey, D., Valtchev, V., and Woodland, P. (2006), The HTK Book (for HTK Version 3.4), Cambridge University Engineering Department, http://htk.eng.cam.ac.uk.
+
+.. [Godde1994]
+    Goode, R. L., Killion, M., Nakamura, K., and Nishihara, S. (1994), “New
+    knowledge about the function of the human middle ear: development of an
+    improved analog model.” The American journal of otology 15(2), pp. 145–154.
+
+.. [Tchorz2003]
+    Tchorz, J. and Kollmeier, B. (2003), “SNR estimation based on amplitude
+    modulation analysis with applications to noise suppression,” IEEE
+    Transactions on Audio, Speech, and Language Processing 11(3), pp. 184–192.
+
+.. [Young2006]
+    Young, S., Evermann, G., Gales, M., Hain, T., Kershaw, D., Liu, X., Moore,
+    G., Odell, J., Ollason, D., Povey, D., Valtchev, V., and Woodland, P.
+    (2006), The HTK Book (for HTK Version 3.4), Cambridge University Engineering
+    Department, http://htk.eng.cam.ac.uk.
 
 .. vim: filetype=rst spell:

@@ -226,11 +226,34 @@ of the nonlinear model responding to input level changes as described earlier.
    compressive nature to input level variations.
   
 .. ...::: References :::...
-.. [Brown2010] Brown, G. J., Ferry, R. T., and Meddis, R. (2010), “A computer model of auditory efferent suppression: implications for the recognition of speech in noise.” The Journal of the Acoustical Society of America 127(2), pp. 943–54.
-.. [Ferry2007] Ferry, R. T. and Meddis, R. (2007), “A computer model of medial efferent suppression in the mammalian auditory system,” The Journal of the Acoustical Society of America 122(6), pp. 3519.
-.. [Glasberg1990] Glasberg, B. R. and Moore, B. C. J. (1990), “Derivation of auditory filter shapes from notched-noise data,” Hearing Research 47(1-2), pp. 103–138.
-.. [Jepsen2008] Jepsen, M. L., Ewert, S. D., and Dau, T. (2008), “A computational model of human auditory signal processing and perception.” Journal of the Acoustical Society of America 124(1), pp. 422–438.
-.. [Lopez-Poveda2001] Lopez-Poveda, E. A. and Meddis, R. (2001), “A human nonlinear cochlear filterbank,” Journal of the Acoustical Society of America 110(6), pp. 3107–3118.
-.. [Soendergaard2013] Søndergaard, P. L. and Majdak, P. (2013), “The auditory modeling toolbox,” in The Technology of Binaural Listening, edited by J. Blauert, Springer, Heidelberg–New York NY–Dordrecht–London, chap. 2, pp. 33–56.
+
+.. [Brown2010] 
+    Brown, G. J., Ferry, R. T., and Meddis, R. (2010), “A computer model of
+    auditory efferent suppression: implications for the recognition of speech in
+    noise.” The Journal of the Acoustical Society of America 127(2), pp. 943–54.
+
+.. [Ferry2007]
+    Ferry, R. T. and Meddis, R. (2007), “A computer model of medial efferent
+    suppression in the mammalian auditory system,” The Journal of the Acoustical
+    Society of America 122(6), pp. 3519.
+
+.. [Glasberg1990]
+    Glasberg, B. R. and Moore, B. C. J. (1990), “Derivation of auditory filter
+    shapes from notched-noise data,” Hearing Research 47(1-2), pp. 103–138.
+
+.. [Jepsen2008]
+    Jepsen, M. L., Ewert, S. D., and Dau, T. (2008), “A computational model of
+    human auditory signal processing and perception.” Journal of the Acoustical
+    Society of America 124(1), pp. 422–438.
+
+.. [Lopez-Poveda2001]
+    Lopez-Poveda, E. A. and Meddis, R. (2001), “A human nonlinear cochlear
+    filterbank,” Journal of the Acoustical Society of America 110(6), pp.
+    3107–3118.
+
+.. [Soendergaard2013]
+    Søndergaard, P. L. and Majdak, P. (2013), “The auditory modeling toolbox,”
+    in The Technology of Binaural Listening, edited by J. Blauert, Springer,
+    Heidelberg–New York NY–Dordrecht–London, chap. 2, pp. 33–56.
 
 .. vim: filetype=rst spell:

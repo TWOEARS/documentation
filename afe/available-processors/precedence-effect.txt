@@ -62,8 +62,21 @@ intended |ITD| and |ILD| values as more chunks are analyzed.
     Right panel: estimated |ITD| and |ILD| shown as a function of time frames.
    
 .. ...::: References :::...
-.. [Braasch2013] Braasch, J. (2013), “A precedence effect model to simulate localization dominance using an adaptive, stimulus parameter-based inhibition process.” The Journal of the Acoustical Society of America 134(1), pp. 420–35.
-.. [Stern1988] Stern, R. M., Zeiberg, A. S., and Trahiotis, C. (1988), “Lateralization of complex binaural stimuli: A weighted-image model,” The Journal of the Acoustical Society of America 84(1), pp. 156–165, http://scitation.aip.org/content/asa/journal/jasa/84/1/10.1121/1.396982.
-.. [Wallach1949] Wallach, H., Newman, E. B., and Rosenzweig, M. R. (1949), “The Precedence Effect in Sound Localization,” The American Journal of Psychology 62(3), pp. 315–336, http://www.jstor.org/stable/1418275.
+
+.. [Braasch2013]
+    Braasch, J. (2013), “A precedence effect model to simulate localization
+    dominance using an adaptive, stimulus parameter-based inhibition process.”
+    The Journal of the Acoustical Society of America 134(1), pp. 420–35.
+
+.. [Stern1988]
+    Stern, R. M., Zeiberg, A. S., and Trahiotis, C. (1988), “Lateralization of
+    complex binaural stimuli: A weighted-image model,” The Journal of the
+    Acoustical Society of America 84(1), pp. 156–165,
+    http://scitation.aip.org/content/asa/journal/jasa/84/1/10.1121/1.396982.
+
+.. [Wallach1949]
+    Wallach, H., Newman, E. B., and Rosenzweig, M. R. (1949), “The Precedence
+    Effect in Sound Localization,” The American Journal of Psychology 62(3), pp.
+    315–336, http://www.jstor.org/stable/1418275.
 
 .. vim: filetype=rst spell:

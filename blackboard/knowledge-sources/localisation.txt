@@ -133,6 +133,8 @@ head.
 | writes data category   | ``headOrientation``                            |
 +------------------------+------------------------------------------------+
 
+.. ...::: References :::...
+
 .. [MaEtAl2015dnn]
     Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple
     speakers exploiting deep neural networks and head movements. Proceedings of

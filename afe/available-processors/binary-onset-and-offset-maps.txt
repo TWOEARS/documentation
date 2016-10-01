@@ -72,6 +72,11 @@ and the end of individual auditory events.
    to retain the most salient onset and offset events.
 
 .. ...::: References :::...
-.. [Turgeon2002] Turgeon, M., Bregman, A. S., and Ahad, P. A. (2002), “Rhythmic masking release: Contribution of cues for perceptual organization to the cross-spectral fusion of concurrent narrow-band noises,” Journal of the Acoustical Society of America 111(4), pp. 1819–1831.
+
+.. [Turgeon2002]
+    Turgeon, M., Bregman, A. S., and Ahad, P. A. (2002), “Rhythmic masking
+    release: Contribution of cues for perceptual organization to the
+    cross-spectral fusion of concurrent narrow-band noises,” Journal of the
+    Acoustical Society of America 111(4), pp. 1819–1831.
 
 .. vim: filetype=rst spell:

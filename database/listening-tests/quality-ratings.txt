@@ -28,7 +28,9 @@ WAV-files of the stimuli in the following folders::
     experiments/2014-04-01_scene_quality/stimuli/*
     experiments/2014-04-01_scene_quality/results/*
 
-.. [Raake2014] Raake, A., Wierstorf, H., Blauert J. (2014), "A case for TWO!EARS in audio quality assessment," Forum Acusticum
+.. [Raake2014]
+    Raake, A., Wierstorf, H., Blauert J. (2014), "A case for TWO!EARS in audio
+    quality assessment," Forum Acusticum
 
 .. _sec-2015-11-01_wfs_stereo_comparison:
 
@@ -77,6 +79,9 @@ the driving signals of the single loudspeakers as WAV-files
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-surround.wav
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-wfs.wav
 
-.. [Hold2016a] Hold, C., Wierstorf, H., Raake, A. (2016), "The Difference Between Stereophony and Wave Field Synthesis in the Context of Popular Music," 140th AES Convention, Paper 9533
+.. [Hold2016a]
+    Hold, C., Wierstorf, H., Raake, A. (2016), "The Difference Between
+    Stereophony and Wave Field Synthesis in the Context of Popular Music," 140th
+    AES Convention, Paper 9533
 
 .. vim: filetype=rst spell:

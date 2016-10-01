@@ -37,6 +37,10 @@ binaural cues might be unreliable due to the impact of the reverberation.
    and the corresponding |IC| (bottom right panel). 
 
 .. ...::: References :::...
-.. [Faller2004] Faller, C. and Merimaa, J. (2004), “Source localization in complex listening situations: Selection of binaural cues based on interaural coherence,” Journal of the Acoustical Society of America 116(5), pp. 3075–3089.
+
+.. [Faller2004]
+    Faller, C. and Merimaa, J. (2004), “Source localization in complex listening
+    situations: Selection of binaural cues based on interaural coherence,”
+    Journal of the Acoustical Society of America 116(5), pp. 3075–3089.
 
 .. vim: filetype=rst spell:

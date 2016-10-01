@@ -107,7 +107,8 @@ them completely uppercase.
 For usage of constants in classes, see also the `Matlab documentation on
 properties (Constant)`_
 
-.. _Matlab documentation on properties (Constant): http://www.mathworks.de/de/help/matlab/matlab_oop/properties-with-constant-values.html
+.. _Matlab documentation on properties (Constant):
+    http://www.mathworks.de/de/help/matlab/matlab_oop/properties-with-constant-values.html
 
 
 Functions

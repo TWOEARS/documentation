@@ -58,7 +58,14 @@ simulating moving sources), please have a look at the :ref:`sec-binsim-examples`
 section of the :ref:`sec-binsim`.
 
 .. ...::: References :::...
-.. [Horbach1999] Horbach, U., Karamustafaoglu, A., Pellegrini, R., Mackensen, P., Theile, G. (1999), “Design and Applications of a Data-based Auralization System for Surround Sound,” 106th AES Convention, Paper 4976
-.. [Wierstorf2014] Wierstorf, H. (2014), “Perceptual Assessment of Sound Field Synthesis,” PhD-thesis, TU Berlin
+
+.. [Horbach1999]
+    Horbach, U., Karamustafaoglu, A., Pellegrini, R., Mackensen, P., Theile, G.
+    (1999), “Design and Applications of a Data-based Auralization System for
+    Surround Sound,” 106th AES Convention, Paper 4976
+
+.. [Wierstorf2014]
+    Wierstorf, H. (2014), “Perceptual Assessment of Sound Field Synthesis,”
+    PhD-thesis, TU Berlin
 
 .. vim: filetype=rst spell:

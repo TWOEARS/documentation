@@ -49,9 +49,27 @@ captured. This aspect might be particularly relevant for the task of |ASR|.
    output of the Gabor feature processor (right panel).
 
 .. ...::: References :::...
-.. [ETSIES] ETSI ES 201 108 v1.1.3 (2003), “Speech processing, transmission and quality aspects (STQ); distributed speech recognition; front-end feature extraction algorithm; compression algorithms,” http://www.etsi.org.
-.. [Qiu2003] Qiu, A., Schreiner, C. E., and Escabì, M. A. (2003), “Gabor analysis of auditory midbrain receptive fields: Spectro-temporal and binaural composition.” Journal of Neurophysiology 90(1), pp. 456–476.
-.. [Schaedler2012] Schädler, M. R., Meyer, B. T., and Kollmeier, B. (2012), “Spectro-temporal modulation subspace-spanning filter bank features for robust automatic speech recognition,” Journal of the Acoustical Society of America 131(5), pp. 4134–4151.
-.. [Theunissen2001] Theunissen, F. E., David, S. V., Singh, N. C., Hsu, A., Vinje, W. E., and Gallant, J. L. (2001), “Estimating spatio-temporal receptive fields of auditory and visual neurons from their responses to natural stimuli,” Network: Computation in Neural Systems 12, pp. 289–316.
+
+.. [ETSIES]
+    ETSI ES 201 108 v1.1.3 (2003), “Speech processing, transmission and quality
+    aspects (STQ); distributed speech recognition; front-end feature extraction
+    algorithm; compression algorithms,” http://www.etsi.org.
+
+.. [Qiu2003]
+    Qiu, A., Schreiner, C. E., and Escabì, M. A. (2003), “Gabor analysis of
+    auditory midbrain receptive fields: Spectro-temporal and binaural
+    composition.” Journal of Neurophysiology 90(1), pp. 456–476.
+
+.. [Schaedler2012]
+    Schädler, M. R., Meyer, B. T., and Kollmeier, B. (2012), “Spectro-temporal
+    modulation subspace-spanning filter bank features for robust automatic
+    speech recognition,” Journal of the Acoustical Society of America 131(5),
+    pp. 4134–4151.
+
+.. [Theunissen2001]
+    Theunissen, F. E., David, S. V., Singh, N. C., Hsu, A., Vinje, W. E., and
+    Gallant, J. L. (2001), “Estimating spatio-temporal receptive fields of
+    auditory and visual neurons from their responses to natural stimuli,”
+    Network: Computation in Neural Systems 12, pp. 289–316.
 
 .. vim: filetype=rst spell:

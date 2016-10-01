@@ -190,6 +190,12 @@ processor following this loop:
     ``jj = mObj.Map(ii)`` which relate the processing order with the actual
     position of the processors in the cell array ``mObj.Processors``.
 
-.. [Goebbert2014] Göbbert, J. H. (2014), "Circular double buffered vector buffer (``circVBuf.m``)," *Matlab file exchange:* http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf, accessed: 2014-10-30.
+.. ...::: References :::...
+
+.. [Goebbert2014]
+    Göbbert, J. H. (2014), "Circular double buffered vector buffer
+    (``circVBuf.m``)," *Matlab file exchange:*
+    http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf,
+    accessed: 2014-10-30.
 
 .. vim: filetype=rst spell:

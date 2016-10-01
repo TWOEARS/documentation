@@ -31,7 +31,16 @@ ears is in the range of 0.5 ms for the majority of |TF| units.
    function of time frames and frequency channels.
   
 .. ...::: References :::...
-.. [May2011] May, T., van de Par, S., and Kohlrausch, A. (2011), “A probabilistic model for robust localization based on a binaural auditory front-end,” IEEE Transactions on Audio, Speech, and Language Processing 19(1), pp. 1–13.
-.. [May2013b] May, T., van de Par, S., and Kohlrausch, A. (2013), “Binaural Localization and Detection of Speakers in Complex Acoustic Scenes,” in The technology of binaural listening, edited by J. Blauert, Springer, Berlin–Heidelberg–New York NY, chap. 15, pp. 397–425.
+
+.. [May2011]
+    May, T., van de Par, S., and Kohlrausch, A. (2011), “A probabilistic model
+    for robust localization based on a binaural auditory front-end,” IEEE
+    Transactions on Audio, Speech, and Language Processing 19(1), pp. 1–13.
+
+.. [May2013b]
+    May, T., van de Par, S., and Kohlrausch, A. (2013), “Binaural Localization
+    and Detection of Speakers in Complex Acoustic Scenes,” in The technology of
+    binaural listening, edited by J. Blauert, Springer, Berlin–Heidelberg–New
+    York NY, chap. 15, pp. 397–425.
 
 .. vim: filetype=rst spell:

@@ -135,4 +135,4 @@ calling the ``removeTrainingData`` method:
 
     segKS.removeTrainingData();
 
-
+.. vim: filetype=rst spell:

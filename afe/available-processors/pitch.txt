@@ -62,8 +62,19 @@ indicated by ``NaN``\ 's.
    is post-processed by a median filter (bottom right panel).
 
 .. ...::: References :::...
-.. [Meddis1997] Meddis, R. and O’Mard, L. (1997), “A unitary model of pitch perception,” Journal of the Acoustical Society of America 102(3), pp. 1811–1820.
-.. [Meddis2001] Meddis, R., O’Mard, L. P., and Lopez-Poveda, E. A. (2001), “A computational algorithm for computing nonlinear auditory frequency selectivity,” Journal of the Acoustical Society of America 109(6), pp. 2852–2861.
-.. [Slaney1990] Slaney, M. and Lyon, R. F. (1990), “A perceptual pitch detector,” in Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 357–360.
+
+.. [Meddis1997]
+    Meddis, R. and O’Mard, L. (1997), “A unitary model of pitch perception,”
+    Journal of the Acoustical Society of America 102(3), pp. 1811–1820.
+
+.. [Meddis2001]
+    Meddis, R., O’Mard, L. P., and Lopez-Poveda, E. A. (2001), “A computational
+    algorithm for computing nonlinear auditory frequency selectivity,” Journal
+    of the Acoustical Society of America 109(6), pp. 2852–2861.
+
+.. [Slaney1990]
+    Slaney, M. and Lyon, R. F. (1990), “A perceptual pitch detector,” in
+    Proceedings of the IEEE International Conference on Acoustics, Speech and
+    Signal Processing (ICASSP), pp. 357–360.
 
 .. vim: filetype=rst spell:

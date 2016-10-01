@@ -59,6 +59,8 @@ output of the ``GmmLocationKS`` or ``DnnLocationKS``.
 | triggers event         | ``KsFiredEvent``                          |
 +------------------------+-------------------------------------------+
 
+.. ...::: References :::...
+
 .. [MooreTan2004]
     Moore, B. C. J., & Tan, C. (2004) Development and Validation of a Method for
     Predicting the Perceived Naturalness of Sounds Subjected to Spectral
