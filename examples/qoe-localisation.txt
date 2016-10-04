@@ -5,6 +5,10 @@
 Prediction of localisation in spatial audio systems
 ===================================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 As we have seen in the example on :ref:`sec-example-qoe-coloration` |WFS|
 systems introduce errors at higher frequencies in the synthesized sound field
 that are perceivable as coloration compared to a reference sound field, that

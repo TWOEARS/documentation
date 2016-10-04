@@ -1,0 +1,64 @@
+.. _sec-binaural-renderer:
+
+Binaural renderer
+-----------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+In the first example, a KEMAR |HRTF| data set is used together with a sound
+stimulus (cello) as static source to the left of the listener. Such an anechoic
+scene can be defined via the following XML-file. The file is called
+:file:`binaural_renderer.xml` and can be found in the
+`Examples/first_steps/setting_up_an_acoustic_scene` folder:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <scene
+      Renderer="ssr_binaural"
+      BlockSize="4096"
+      SampleRate="44100"
+      HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa">
+      <source Name="Cello"
+              Type="point"
+              Position="1 2 1.75">
+        <buffer ChannelMapping="1"
+                Type="fifo"
+                File="stimuli/anechoic/instruments/anechoic_cello.wav"/>
+      </source>
+      <sink Name="Head"
+            Position="0 0 1.75"
+            UnitX="1 0 0"
+            UnitZ="0 0 1"/>
+    </scene>
+
+The file specifies the renderer type to be used, the simulator's processing
+block size (the |TwoEarsModel| works in a completely block based manner), the
+|HRTF| data set to be loaded from the |database|, the audio material provided,
+and the positions of the sources (here: cello) / sinks (here: KEMAR dummy head).
+
+With that, the scene is defined. To test the correctness of the scene
+description, without having to invoke the full Two!Ears model framework, the
+binaural simulation can be run in a standalone version using the following
+statements::
+
+    >> sim = simulator.SimulatorConvexRoom('binaural_renderer.xml');
+    >> sim.set('Init',true);
+    >> signal = sim.getSignal();
+
+This yields a variable named ``signal`` which stores the simulated binaural audio
+data. Matlab can replay this signal via::
+
+    >> sound(signal,sim.SampleRate);
+
+The data can also be stored in a file using::
+
+    >> audiowrite('binaural_renderer.wav', signal, sim.SampleRate);
+
+To finish the simulation and clean up temporary files, type::
+
+    >> sim.set('ShutDown',true);
+
+.. vim: filetype=rst spell:

@@ -4,6 +4,13 @@
 Binaural simulator
 ==================
 
+.. toctree::
+    :maxdepth: 1
+
+    usage/index
+    examples/index
+    install/index
+
 The |BinSim| enables the creation of binaural audio signals for different
 situations. This is done via the usage of |HRTF|\ s or |BRIR|\ s, which are
 provided in the |database|. All the needed data will be downloaded on demand
@@ -19,13 +26,6 @@ during the installation, don't hesitate to write a mail to the
 |TwoearsMailingList|.
 
 .. _SoundScape Renderer: http://spatialaudio.net/ssr/
-
-.. toctree::
-    :maxdepth: 2
-
-    usage
-    examples
-    install
 
 
 Credits

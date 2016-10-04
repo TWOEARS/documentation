@@ -1,0 +1,147 @@
+.. _sec-blackboard-construction:
+
+Dynamic system construction
+---------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+To ensure an easy-to-use system, we implemented as the main class a wrapper that
+integrates the different main components, and hides their connections where
+possible. This main class is called **BlackboardSystem**, since the blackboard
+is the central component of our platform. This is an excerpt of its definition:
+
+::
+
+    class BlackboardSystem
+        properties
+            blackboard;
+            blackboardMonitor;
+            scheduler;
+            robotConnect;
+            dataConnect;
+        methods
+            BlackboardSystem()
+            setRobotConnect( robotConnect )
+            setDataConnect( connectorClassName )
+            buildFromXml( xmlName )
+            addKS( ks )
+            createKS( ksClassName, ksConstructArgs )
+            numKSs()
+            run()
+
+The *engine* of our system is distributed across the ``BlackboardSystem``,
+``Blackboard``, ``BlackboardMonitor`` and ``Scheduler`` classes, with the
+``BlackboardSystem`` class holding instances of the latter three. These four
+classes each have genuine responsibilities: the ``BlackboardSystem`` integrates
+the framework parts, responsible for constructing and setting up the system. The
+blackboard is the central storage of *functional* data and knowledge sources. It
+holds a data map that saves arbitrary knowledge source data along time, together
+with methods to add and recall data from within knowledge source code.
+Additionally, the knowledge sources themselves are put into blackboard storage
+by the ``BlackboardSystem``.
+
+The ``BlackboardMonitor`` is responsible for creating bindings on demand between
+knowledge sources, by instantiating event listeners. It keeps track of these
+bindings and maintains the agenda of knowledge sources.  The ``Scheduler`` is
+the executive component of the system. While the ``BlackboardMonitor`` keeps
+control of the knowledge sources in the agenda, the ``Scheduler`` decides about
+the order of those knowledge sources to be executed. It does that based on the
+attentional priorities of the knowledge sources.
+:numref:`fig-blackboard-system-class-diagram` shows the system class diagram.
+
+.. _fig-blackboard-system-class-diagram:
+
+.. figure:: ../img/blackboard-system-class-diagram.png
+
+   Class diagram of the whole blackboard system. The ``BlackboardSystem``
+   class is the integrative system component holding the other modules
+   and giving access to system functionality.
+
+An example of an XML-configured blackboard system is shown below. Two identity
+knowledge sources are connected to the |AFE|, and triggering an identity
+decision knowledge source.
+
+.. code-block:: xml
+
+    <blackboardsystem>
+        <dataConnection Type="AuditoryFrontEndKS"/>
+
+        <KS Name="baby" Type="IdentityKS">
+            <Param Type="char">baby</Param>
+            <Param Type="char">6687829ce1a73694a1ce41c7c01dec1b</Param>
+        </KS>
+        <KS Name="femaleSpeech" Type="IdentityKS">
+            <Param Type="char">femaleSpeech</Param>
+            <Param Type="char">6687829ce1a73694a1ce41c7c01dec1b</Param>
+        </KS>
+        <KS Name="idDec" Type="IdDecisionKS">
+            <Param Type="int">0</Param>
+            <Param Type="int">1</Param>
+        </KS>
+
+        <Connection Mode="replaceOld" Event="AgendaEmpty">
+            <source>scheduler</source>
+            <sink>dataConnect</sink>
+        </Connection>
+        <Connection Mode="replaceOld">
+            <source>dataConnect</source>
+            <sink>baby</sink>
+            <sink>femaleSpeech</sink>
+        </Connection>
+        <Connection Mode="replaceParallel">
+            <source>baby</source>
+            <source>femaleSpeech</source>
+            <sink>idDec</sink>
+        </Connection>
+    </blackboardsystem>
+
+Several core functionalities are provided through the ``BlackboardSystem``
+class:
+
+* Connecting a |robot| or the |binsim| to the |blackboard|.  The connected robot
+  or simulator must implement the `robot interface
+  <http://twoears.github.io/binaural-simulator-doc/classsimulator_1_1_robot_interface.html>`_
+  for delivering audio *ear* signals and commanding movement and head rotation.
+  The blackboard system and all its components including the knowledge sources
+  get access to the audio stream and robot actions through this connection
+  (``setRobotConnect`` method).
+
+* Setting the type of the module that integrates with the |AFE|, instantiating
+  it and connecting it to the |blackboard|. This module is a :ref:`knowledge
+  source itself <sec-afe-knowledge-source>`, responsible for processing the ear
+  signals into cues (such as interaural time differences) needed by other
+  knowledge sources. The |AFE| itself is connected to the |robot| or the
+  |BinSim| in order to obtain the ear signals.  (``setDataConnect`` method).
+
+* Instantiating and adding knowledge sources. These knowledge sources must
+  inherit from ``AbstractKS`` (see :ref:`abstract knowledge source
+  <sec-abstract-knowledge-source>`) or ``AuditoryFrontEndDepKS`` (see
+  Section :ref:`sec-afe-dep-knowledge-source`) to be able to be interfaced and
+  run by the system. Knowledge sources that inherit from
+  ``AuditoryFrontEndDepKS`` automatically get connected with the |AFE| by the
+  system in order to place their signal/cue requests.
+
+  Adding and instantiating knowledge sources can take place both before or
+  *while* running the system; it can be done from outside the system *or from
+  inside knowledge sources*. This enables the development of top-down
+  controlling knowledge sources from higher cognitive experts running in the
+  system (``addKS`` or ``createKS`` method).
+
+* The start-up configuration of the system can completely be defined by an XML
+  file; the system is then constructed before running by loading this file. Of
+  course this configuration can be changed dynamically while executing the
+  system. The XML description needs at least a ``dataConnection`` node
+  specifying the type of the |AFE| module; then, it can also contain ``KS``
+  nodes with parameters to construct knowledge sources, and ``Connection`` nodes
+  that specify event bindings between knowledge sources. See the code listing
+  from above for an example (``buildFromXml`` method).
+
+* Starting the execution of the system. This triggers the blackboard system to
+  request data from the robot/binaural simulator connection, and subsequent
+  action by the |AFE| and all knowledge sources that are connected. The system
+  will not stop execution before the |robot| or the |BinSim| sends an ending
+  signal (``run`` method).
+
+.. vim: filetype=rst spell:

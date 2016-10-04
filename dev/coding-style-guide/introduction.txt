@@ -1,0 +1,23 @@
+.. _sec-coding-style-guide-intro:
+
+Introduction
+------------
+
+This document gives coding conventions for Matlab code as part of the Two!Ears
+Auditory Model.
+
+Code is read much more often than it is written. The guidelines provided here
+are intended to improve the **readability** of code and make it **consistent** across
+the whole Two!Ears Auditory Model. Both points are, besides a good documentation, also
+a big part of the impression our software gives to other users.
+
+These guidelines are introduced at a stage where we have already written code
+and you are of course not forced to rewrite the existing code. For your existing
+code the following points should be considered:
+
+* Make sure your old code includes a function/class header for documentation
+* If you have to read code that you have not written yourself and which does not
+  comply to the guidelines presented here, you could create an issue if you are
+  not able to understand the code
+
+.. vim: filetype=rst spell:

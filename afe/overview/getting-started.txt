@@ -1,0 +1,75 @@
+.. _sec-afe-getting-started:
+
+Getting started
+---------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |AFE| was developed entirely using Matlab version 8.3.0.532
+(R2014a). It was tested for backward compatibility down to Matlab
+version 8.0.0.783 (R2012b). The source code, test and demo scripts are
+all available from the public repository at
+https://github.com/TWOEARS/auditory-front-end.
+
+All files are divided in three folders, ``/doc``, ``/src`` and ``/test``
+containing respectively the documentation of the framework, the source code, and
+various test scripts. Once Matlab opened, the source code (and if needed the
+other folders) should be added to the Matlab path. This can be done by executing
+the script ``startAuditoryFrontEnd`` in the main folder::
+
+    >> startAuditoryFrontEnd
+
+As will be seen in the following subsection, the framework is
+request-based: the user places one or more requests, and then informs
+the framework that it should perform the processing. Each request
+corresponds to a given auditory representation, which is associated with
+a short *nametag*. The command ``requestList`` can be used to get a
+summary of all supported auditory representations::
+
+    >> requestList
+
+      Request name       Label                            Processor
+      ------------       -----                            -------------------
+      adaptation        Adaptation loop output            adaptationProc
+      amsFeatures       Amplitude modulation spectrogram  modulationProc
+      autocorrelation   Autocorrelation computation       autocorrelationProc
+      crosscorrelation  Crosscorrelation computation      crosscorrelationProc
+      filterbank        DRNL output                       drnlProc
+      filterbank        Gammatone filterbank output       gammatoneProc
+      gabor             Gabor features extraction         gaborProc
+      ic                Inter-aural coherence             icProc
+      ild               Inter-aural level difference      ildProc
+      innerhaircell     Inner hair-cell envelope          ihcProc
+      itd               Inter-aural time difference       itdProc
+      moc               Medial Olivo-Cochlear feedback    mocProc
+      myNewRequest      A description of my new request   templateProc
+      offsetMap         Offset map                        offsetMapProc
+      offsetStrength    Offset strength                   offsetProc
+      onsetMap          Onset map                         onsetMapProc
+      onsetStrength     Onset strength                    onsetProc
+      pitch             Pitch estimation                  pitchProc
+      precedence        Precedence effect                 precedenceProc
+      ratemap           Ratemap extraction                ratemapProc
+      spectralFeatures  Spectral features                 spectralFeaturesProc
+      time              Time domain signal                preProc
+
+A detailed description of the individual processors used to obtain
+these auditory representations will be given in :ref:`sec-afe-processors`.
+
+The implementation of the |AFE| is object-oriented, and two objects are needed
+to extract any representation:
+
+-  A *data* object, in which the input signal, the requested
+   representation, and also the dependent representations that were
+   computed in the process are all stored.
+
+-  A *manager* object which takes care of creating the necessary
+   processors as well as managing the processing.
+
+In the following sections, examples of increasing complexity are given
+to demonstrate how to create these two objects, and which
+functionalities they offer.
+
+.. vim: filetype=rst spell:

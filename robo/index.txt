@@ -5,10 +5,11 @@ Robotic platform
 ================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
-    getting-started
-    audio-streaming
+    getting-started/index
+    robo-software/index
+    audio-streaming/index
 
 .. vim: filetype=rst spell:
 .. emacs:

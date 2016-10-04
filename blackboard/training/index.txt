@@ -1,0 +1,14 @@
+.. highlight:: Matlab
+
+.. _sec-blackboard-training:
+
+Model training
+==============
+
+.. toctree::
+    :maxdepth: 1
+
+    localisation-training 
+    identification-training
+
+.. vim: filetype=rst spell:

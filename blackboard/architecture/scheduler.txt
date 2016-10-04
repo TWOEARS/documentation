@@ -1,0 +1,55 @@
+.. _sec-scheduler:
+
+Scheduler
+---------
+
+The scheduler is the component of the blackboard system that actually executes
+the knowledge sources – but first, it *schedules* them, that is, it decides the
+order in which knowledge sources waiting in the agenda get executed. This order
+is rescheduled after every execution of a knowledge source, since the conditions
+determining the order may have changed, or new knowledge sources may be present
+in the agenda that are more urgent.
+
+The following factors influence the order of execution of knowledge sources:
+
+* Knowledge sources have a property called *attentional priority*.  Knowledge
+  sources with higher priority get executed before knowledge sources with lower
+  priority. This priority can be set by the knowledge source itself, by other
+  knowledge sources or from outside the system. The ``BlackboardMonitor``
+  provides a method for setting focus on a knowledge source (increasing its
+  priority), along with the option to propagate this higher priority down along
+  the dependency chain of this knowledge source. The dependency chain is
+  determined by the event bindings.
+
+* Knowledge sources must implement a method ``canExecute``, that returns whether
+  or not the knowledge source can execute at this moment, and which is called by
+  the scheduler if the knowledge source is first on the scheduling list. If it
+  cannot execute, the knowledge source can decide whether to remain in the
+  agenda or be removed from it.
+
+* Knowledge sources define a maximum invocation frequency, that cannot be
+  exceeded. It is a *maximum* frequency, because knowledge sources get not
+  necessarily executed periodically, since they are triggered by events, but not
+  by timers. The scheduler checks whether the last execution time was long
+  enough ago before considering the knowledge source for execution. Until then,
+  it remains in the agenda.
+
+This listing shows the relevant parts of the interface with respect to
+influencing the scheduling::
+
+    class BlackboardMonitor
+        methods
+            focusOn( ks, propagateDown )
+            resetFocus()
+
+    class AbstractKS
+        properties
+            invocationMaxFrequency_Hz;
+        methods (Abstract)
+            canExecute() 
+            execute()
+        methods
+            focus()
+            unfocus()
+
+.. vim: filetype=rst spell:

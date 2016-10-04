@@ -2,8 +2,8 @@
 
 .. _sec-tutorial-database:
 
-Working with the database
-=========================
+Work with the database
+======================
 
 The database is located at the following address:
 https://dev.qu.tu-berlin.de/projects/twoears-database, where you can browse the

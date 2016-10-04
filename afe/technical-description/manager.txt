@@ -1,0 +1,201 @@
+.. _sec-afe-manager:
+
+Manager
+-------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The ``manager`` class is fundamental in the |AFE|. It is responsible for, from a
+user request, instantiating the correct processors and signal objects, and
+linking these signals as inputs/outputs of each processor. In a standard session
+of the |AFE|, only a single instance of this class is created. It is with this
+object that the user interacts.
+
+Processors and signals instantiation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Single request
+^^^^^^^^^^^^^^
+
+A standard call to the manager constructor, i.e., with no other argument than a
+handle to an already created data object ``dataObj`` will produce an “empty”
+manager:
+
+::
+
+    >> mObj = manager(dataObj)
+
+    mObj = 
+
+    manager with properties:
+
+        Processors: []
+         InputList: []
+        OutputList: []
+               Map: []
+              Data: [1x1 dataObject]
+
+Empty properties include a list of processors, of input signals, output signals,
+and a mapping vector that provides a processing order. The ``Data`` property is
+simply a handle to the ``dataObj`` object provided for convenience.
+
+Populating these properties is made via the ``addProcessor`` method already
+described in :ref:`sec-computation-of-an-auditory-representation`. From a given
+request and an empty manager, instantiating the adequate processors and signals
+is done following these steps:
+
+#. Get the list of signals needed to compute the user request, using the
+   ``getDependencies`` function.
+
+#. Flip this list around such as to have the list starting with
+   ``’time’``, and ending up with the requested signal. The list then
+   provides the needed signals in the order they should be computed.
+
+#. Loop over the elements of the list. For each signal on the list:
+
+   #. Instantiate a corresponding processor (two if stereo signal)
+
+   #. Instantiate the signal that will contain the output of the
+      processor (two if stereo)
+
+   #. Add the signal(s) to ``dataObj``
+
+   #. A handle to the output signal of the previous processor on the
+      list is stored as the current processor's input (in
+      ``mObj.InputList`` as well as in the processor's ``Input``
+      property). If it is the first element of the list, this will link
+      to the original time domain signal.
+
+   #. A handle to the newly instantiated signal is stored similarly as
+      output. This handle is stored further for the next element in the
+      loop.
+
+   #. A handle to the previously instantiated processor is stored in the
+      current processor's ``Dependencies`` property (possibly empty if
+      first element of the list).
+
+#. Generate a linear mapping (vector of indexes of the processors
+   ordered in increasing processing order).
+
+#. Return a handle to the requested signal to the user.
+
+Once ``addProcessor`` called, the properties of the manager will have been
+populated, e.g.:
+
+::
+
+    >> mObj
+
+    mObj = 
+
+      manager with properties:
+
+        Processors: {3x2 cell}
+         InputList: {3x2 cell}
+        OutputList: {3x2 cell}
+               Map: [1 2 3]
+              Data: [1x1 dataObject]
+
+Processors are arranged with the same convention as for signals in a data
+objects: they are stored in a cell array, where the first column is for left (or
+mono) channel, and second column for right channel.  Different lines are for
+different processors, e.g.:
+
+::
+
+    >> mObj.Processors
+
+    ans = 
+
+        [1x1 preProc      ]    [1x1 preProc      ]
+        [1x1 gammatoneProc]    [1x1 gammatoneProc]
+        [1x1 ihcProc      ]    [1x1 ihcProc      ]
+
+``InputList`` and ``OutputList`` are cell arrays of handles to signal objects.
+An element in one of them will correspond to the input/output of the processor
+at the same position in the cell array.
+
+Handling of multiple requests
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The above-described process gets more complicated when a request is placed in a
+non-empty manager (i.e., when multiple requests have been placed). The same
+steps could be used, and would result in a functioning result. However, this
+would likely be sub-optimal in terms of computations. If the new request has
+common elements with representations that are already computed, one need not
+recompute them.
+
+If correctly implemented, a manager should be able to “branch” the processing,
+such that only new representations, or representations where a parameter has
+been changed, are recomputed. Achieving this relies on the ``findInitProc``
+method of the manager, which is described in more details in the next
+subsection. This method is passed the same arguments as the ``addProcessor``
+method, i.e., a request name and a structure of parameters. It will return a
+handle to an already existing processor in the manager that is exactly computing
+one of the steps needed for that request. It will return the “highest” already
+existing step. In other terms, it finds the point in the already existing
+ordered list of processors where the processing should “branch out” to obtain
+the newly requested feature. Knowing the processor to start from and updating
+accordingly the list of signals/processors that need to be instantiated, the
+same procedure as before can then be used in the ``addProcessor`` method.
+
+The ``findInitProc`` method
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To find an initial processor suitable in a request, this method calls the
+``hasProcessor`` method of the manager and the ``hasParameters`` method of each
+processor. From a given request, it can obtain a list of necessary processing
+steps from ``getDependencies`` and run the list backwards. For each element of
+the list, ``findInitProc`` “asks” the manager if it has such a processor via its
+``hasProcessor`` method. If yes, it calls this processor ``hasParameters``
+method to verify that what the processor computes corresponds to the request. If
+yes, then it found a suitable initial step. If no, it moves on to the next
+element in the list and repeats.
+
+Carrying out the processing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As of the current |AFE| implementation, the processing is linear and the
+``processChunk`` methods of each individual processor are called one after the
+other when asking the manager to start processing (via its
+``initiateProcessing`` method). The order in which the processors
+are called is important, as some will take as input what was other's output.
+This order is stored in the property ``Map`` of the manager. ``Map`` is a vector
+of indexes corresponding to the lines in the ``Processors`` cell array property
+of the manager. It is constructed at instantiation of the processors.
+Conceptually, if there are ``N`` instantiated processors, the ``processChunk``
+method of the manager ``mObj`` will call the ``initiateProcessing`` methods of each
+processor following this loop:
+
+.. code-block:: Matlab
+
+	for ii = 1:n_proc
+		% Get index of current processor
+		jj = mObj.Map(ii);
+		
+		% Perform the processing by calling initiateProcessing
+		mObj.Processors{jj,1}.initiateProcessing;
+		
+		if size(mObj.Processors,2) == 2 && ~isempty(mObj.Processors{jj,2})
+		mObj.Processors{jj,2}.initiateProcessing;
+		end
+	end
+
+.. note::
+
+    Note the difference between indexes ``ii`` which relate to the
+    processing order (processing first ``ii=1`` and last ``ii=n_proc``) and
+    ``jj = mObj.Map(ii)`` which relate the processing order with the actual
+    position of the processors in the cell array ``mObj.Processors``.
+
+.. ...::: References :::...
+
+.. [Goebbert2014]
+    Göbbert, J. H. (2014), "Circular double buffered vector buffer
+    (``circVBuf.m``)," *Matlab file exchange:*
+    http://www.mathworks.com/matlabcentral/fileexchange/47025-circvbuf,
+    accessed: 2014-10-30.
+
+.. vim: filetype=rst spell:

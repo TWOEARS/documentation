@@ -2,8 +2,8 @@
 
 .. _sec-tutorial-auditory-model:
 
-Setting up an auditory model
-============================
+Set up an auditory model
+========================
 
 From other auditory modeling frameworks like the |amtoolbox| you are most
 probably used to have one function for an auditory model. In addition you

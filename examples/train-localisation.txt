@@ -5,8 +5,12 @@
 (Re)train the localisation stage
 ================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 In the localisation stage of the |TwoEarsModel| the
-:ref:`sec-location-knowledge-source` is involved which has a learned lookup
+:ref:`sec-blackboard-localisation` is involved which has a learned lookup
 table for |ITD|\ s and |ILD|\ s. For the ``default`` setting of
 ``GmtkLocationKS`` this was trained with the
 :file:`impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa` from the

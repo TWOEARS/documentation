@@ -1,0 +1,75 @@
+.. _sec-spectro-temporal-modulation-spectrogram:
+
+Spectro-temporal modulation spectrogram
+---------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Neuro-physiological studies suggest that the response of neurons in the primary
+auditory cortex of mammals are tuned to specific spectro-temporal
+patterns [Theunissen2001]_, [Qiu2003]_. This response characteristic of neurons
+can be described by the so-called |STRF|. As suggested by [Qiu2003]_, the |STRF|
+can be effectively modelled by two-dimensional (2D) Gabor functions.  Based on
+these findings, a spectro-temporal filter bank consisting of 41 Gabor filters
+has been designed by [Schaedler2012]_.  This filter bank has been optimised for
+the task of |ASR|, and the respective real parts of the 41 Gabor filters is
+shown in :numref:`fig-gabor-2d`.
+
+The input is a log-compressed rate-map with a required resolution of 100 Hz,
+which corresponds to a step size of 10 ms. To reduce the correlation between
+individual Gabor features and to limit the dimensions of the resulting Gabor
+feature space, a selection of representative rate-map frequency channels will be
+automatically performed for each Gabor filter [Schaedler2012]_. For instance,
+the reference implementation based on 23 frequency channels produces a 311
+dimensional Gabor feature space.
+
+.. _fig-gabor-2d:
+
+.. figure:: ../img/Gabor_2D.png
+
+   Real part of 41 spectro-temporal Gabor filters. 
+
+The Gabor feature processor is demonstrated by the script
+``DEMO_GaborFeatures.m``, which produces the two plots shown in
+:numref:`fig-gabor`. A log-compressed rate-map with 25 ms time frames and 23
+frequency channels spaced between 124 and 3657 Hz is shown in the left panel for
+a speech signal.  These rate-map parameters have been adjusted to meet the
+specifications as recommended in the |ETSI| standard [ETSIES]_. The
+corresponding Gabor feature space with 311 dimension is presented in the right
+panel, where vowel transition (e.g.  at time frames around 0.2 s) are well
+captured. This aspect might be particularly relevant for the task of |ASR|.
+
+.. _fig-gabor:
+
+.. figure:: ../img/Gabor.png
+
+   Rate-map representation of a speech signal (left panel) and the corresponding
+   output of the Gabor feature processor (right panel).
+
+.. ...::: References :::...
+
+.. [ETSIES]
+    ETSI ES 201 108 v1.1.3 (2003), “Speech processing, transmission and quality
+    aspects (STQ); distributed speech recognition; front-end feature extraction
+    algorithm; compression algorithms,” http://www.etsi.org.
+
+.. [Qiu2003]
+    Qiu, A., Schreiner, C. E., and Escabì, M. A. (2003), “Gabor analysis of
+    auditory midbrain receptive fields: Spectro-temporal and binaural
+    composition.” Journal of Neurophysiology 90(1), pp. 456–476.
+
+.. [Schaedler2012]
+    Schädler, M. R., Meyer, B. T., and Kollmeier, B. (2012), “Spectro-temporal
+    modulation subspace-spanning filter bank features for robust automatic
+    speech recognition,” Journal of the Acoustical Society of America 131(5),
+    pp. 4134–4151.
+
+.. [Theunissen2001]
+    Theunissen, F. E., David, S. V., Singh, N. C., Hsu, A., Vinje, W. E., and
+    Gallant, J. L. (2001), “Estimating spatio-temporal receptive fields of
+    auditory and visual neurons from their responses to natural stimuli,”
+    Network: Computation in Neural Systems 12, pp. 289–316.
+
+.. vim: filetype=rst spell:

@@ -1,0 +1,135 @@
+.. _sec-get-the-code:
+
+Get the code
+------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The development of the |TwoEarsModel| happens independently for its different
+:ref:`modules <sec-modules>`. All of them are hosted as git repositories on
+github. For an overview go to https://github.com/TWOEARS.
+
+In order to get started you should :ref:`familarize yourself with git <sec-git>`
+and then start to clone the repository you would like to change the code.  First
+you have to start with getting the `main repository`_ as all other modules need
+this as a basis:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/TWOEARS/main.git
+
+.. warning::
+
+    At github you will also find a repository that is used for the official
+    releases of the model (https://github.com/TWOEARS/TwoEars). Please **don't**
+    use this for development.
+
+Work with the whole Two!Ears model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Let us now assume you want to take part in the development of the complete
+|TwoEarsModel|. What you have to do then is the following. In the `main
+repository`_ you will find the file :file:`TwoEars.xml` which defines all
+modules that are part of the |TwoEarsModel|:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configure which parts of the Two!Ears model should be started -->
+
+    <requirements>
+        <TwoEarsPart sub="src"    startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
+        <TwoEarsPart sub="API_MO" startup="SOFAstart">sofa</TwoEarsPart>
+        <TwoEarsPart              startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
+        <TwoEarsPart              startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
+    </requirements>
+
+First clone all necessary repositories:
+
+.. code-block:: bash
+
+    $ mkdir git
+    $ mkdir git/twoears/
+    $ cd git/twoears
+    $ git clone https://github.com/TWOEARS/main.git # if not already done
+    $ git clone https://github.com/TWOEARS/binaural-simulator.git
+    $ git clone https://github.com/TWOEARS/SOFA.git
+    $ git clone https://github.com/TWOEARS/auditory-front-end.git
+    $ git clone https://github.com/TWOEARS/blackboard-system.git
+
+Then you have to define the paths of the single modules. In the `main
+repository`_ copy the file :file:`TwoEarsPaths_Example.xml` to
+:file:`TwoEarsPaths.xml` and adjust it to the used paths, in our case the
+default settings:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configuration file for the Two!Ears auditory model -->
+
+    <repoPaths>
+        <!-- https://github.com/TWOEARS/binaural-simulator -->
+        <binaural-simulator>~/git/twoears/binaural-simulator</binaural-simulator>
+        <!-- https://github.com/TWOEARS/auditory-front-end -->
+        <auditory-front-end>~/git/twoears/auditory-front-end</auditory-front-end>
+        <!-- https://github.com/TWOEARS/blackboard-system -->
+        <blackboard-system>~/git/twoears/blackboard-system</blackboard-system>
+        <!-- https://github.com/TWOEARS/SOFA -->
+        <sofa>~/git/twoears/SOFA</sofa>
+    </repoPaths>
+
+After that you can simply run the following command in the folder of the `main
+repository`_ in order to work with the whole model:
+
+.. code-block:: Matlab
+
+    >> startTwoEars;
+
+Work with a single module
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you would like to work only on a single module you need only to get its
+repository as well as all its dependencies. If you not sure what are the
+dependencies, you can have a look at its XML configuration file.  For example,
+in the case of the |BinSim| it is stored in the file
+:file:`BinauralSimulator.xml` in its main directory of the `binaural-simulator
+repository`_:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configure dependency of Two!Ears modules for the Binaural Simulator -->
+
+    <!-- Start the Two!Ears Binaural Simulator with
+         startTwoEars('BinauralSimulator.xml'); -->
+
+    <requirements>
+      <TwoEarsPart  sub="src"
+                    startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
+      <TwoEarsPart  sub="API_MO"
+                    startup="SOFAstart">sofa</TwoEarsPart>
+    </requirements>
+
+This means in this case you have to clone the `sofa repository`_ in order to use
+the |BinSim|:
+
+.. code-block:: bash
+
+    $ mkdir git
+    $ mkdir git/twoears
+    $ cd git/twoears
+    $ git clone https://github.com/TWOEARS/main.git
+    $ git clone https://github.com/TWOEARS/SOFA.git
+
+After that you can start the |BinSim| in Matlab with the following command in
+order to test it::
+
+    >> startTwoEars('BinauralSimulator.xml');
+
+.. _main repository: https://github.com/TWOEARS/main
+.. _sofa repository: https://github.com/TWOEARS/SOFA
+.. _binaural-simulator repository: https://github.com/TWOEARS/binaural-simulator
+
+.. vim: filetype=rst spell:

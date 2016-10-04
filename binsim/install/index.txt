@@ -1,0 +1,16 @@
+.. _sec-binsim-install:
+
+Advanced installation
+=====================
+
+.. toctree::
+    :maxdepth: 1
+
+    linux-mac
+    windows
+
+This instructions guides you how to install the |BinSim| if the mex-files
+provided by the official download package are not working on your PC. This means
+you have to compile them yourself.
+
+.. vim: filetype=rst spell:

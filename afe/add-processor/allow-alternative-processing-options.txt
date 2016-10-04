@@ -1,0 +1,39 @@
+.. _sec-afe-alternative-processing:
+
+Allow alternative processing options
+------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Sometimes, two different processors (implemented as two different classes) can
+perform the same operation. The choice between such alternative processors is
+made depending on a given user-provided (or default) request parameter value.
+This is the case for example for the auditory filterbank, which can be performed
+by either a Gammatone filterbank (``gammatoneProc.m``) or a dual-resonance non-
+linear filterbank (``drnlProc.m``).
+
+As can be seen when browsing ``parameterHelper``, the two processors should be
+listed under the same request name, and one of the parameters (``'fb_type'`` in
+the example above) should allow to switch between the two (or more)
+alternatives. When the manager instantiates the processors and notices that a
+given representation has alternative ways of being computed, it will call the
+methods ``isSuitableForRequest`` of each alternatives to know which one should
+be used.
+
+Therefore, if your processor represents an alternative way of carrying out a
+given operation, you should implement its ``isSuitableForRequest`` method, as
+well as for its alternative, if it was not already existing.
+
+This method takes as unique input an instance of a processor and will look into
+its ``parameters`` property to determine if it is the suitable alternative. It
+will return a boolean indicating if it is suitable (``true``) or not
+(``false``). Note that this method is called internally, not from an actual
+processor instance that would be used afterwards, but from a dummy, empty
+processor generated using the user-provided request and parameters. 
+
+See as examples ``gammatoneProc.isSuitableForRequest`` and
+``drnlProc.isSuitableForRequest``.
+
+.. vim: filetype=rst spell:

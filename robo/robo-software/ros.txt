@@ -1,0 +1,58 @@
+.. _sec-robot-ros:
+
+|ROS|, a software platform for robotics
+---------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The :ref:`previous section <sec-cbsa>` identifies the *middleware* as the
+software piece ensuring data flow between functional components, and allowing
+their control.
+
+|ROS| is a widely known software platform in robotics, providing not only a
+middleware, but also implementing a wide range of commonly-used functionalities
+into software components (such as localisation, mapping, path-planning, obstacle
+avoidance, *etc.*), with a build system and a packaging system for easy
+compilation and installation. |ROS| benefits from a large community of users and
+developers, and runs on many robots today. This makes |ROS| a common choice as a
+robotic software platform, as it is for |TwoEars|.
+
+|ROS| embraces the principles of component-based software architectures,
+allowing distributed computation, software reuse and rapid testing [Kane2014]_.
+If you will be a user of a robotic platform running |ROS|, the `core tutorials
+<http://wiki.ros.org/ROS/Tutorials>`_ can help you to get familiar with the
+|ROS| environment. The main |ROS| terminology, introduced in the tutorials, is
+recalled here:
+
+Nodes
+    Software components using |ROS| middleware are called |ROS| **nodes**.
+
+Topics and messages
+    Data flows are called **topics**. A node that outputs data *publishes* on a
+    topic. A node that inputs data *subscribes* to a topic. The data elements
+    flowing on topics are called **messages**. Each message is made of various
+    data fields forming part of a data structure called *message type*. As a
+    given topic only carries one message type, the term *topic type* is equally
+    used.
+
+Services and actions
+    Nodes can provide **services** to control them. Some special services that
+    can take a long time to execute are called **actions**.
+
+.. note::
+
+    In spite of its name, |ROS| does not replace, but instead works alongside a
+    traditional operating system. As it provides features such as hardware
+    abstraction and low-level device control [ros]_, |ROS| has some similarities
+    with an OS (Operating System), hence its name.
+
+.. [Kane2014]
+    Jason M. O'Kane. A Gentle Introduction to
+    ROS. http://www.cse.sc.edu/~jokane/agitr/, 2014.
+
+.. [ros]
+    http://wiki.ros.org/ROS/Introduction
+
+.. vim: filetype=rst spell:

@@ -1,0 +1,41 @@
+.. _sec-offset-strength:
+
+Offset strength (``offsetProc.m``)
+----------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Similarly to onsets, the strength of offsets can be estimated by measuring the
+frame-based decrease in logarithmically-scaled energy. As discussed in the
+previous section, the selected rate-map parameters as listed in
+:numref:`tab-ratemap` will influence the offset processor. Similar to the onset
+strength, the offset strength can be constrained to a maximum value of
+``ons_maxOffsetdB = 30``. A list of all parameters is presented in
+:numref:`tab-onset-strength`.
+
+.. _tab-offset-strength:
+
+.. table:: List of parameters related to ``'offset_strength'``.
+
+    +---------------------+---------+---------------------------------------+
+    | Parameter           | Default | Description                           |
+    +=====================+=========+=======================================+
+    | ``ofs_maxOffsetdB`` | ``30``  | Upper limit for offset strength in dB |
+    +---------------------+---------+---------------------------------------+
+
+The offset strength is demonstrated by the script ``DEMO_OffsetStrength.m`` and
+the corresponding figures are depicted in :numref:`fig-offsetstrength`.
+It can be seen that the overall magnitude of the offset strength is lower
+compared to the onset strength. Moreover, the detected offsets are less
+synchronised across frequency.
+
+.. _fig-offsetstrength:
+
+.. figure:: ../img/OffsetStrength.png
+
+   Rate-map representation (left panel) of speech and the corresponding
+   offset strength in `decibel` (right panel).
+
+.. vim: filetype=rst spell:

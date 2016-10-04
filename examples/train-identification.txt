@@ -5,6 +5,10 @@
 Train sound type identification models
 ======================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 Part of the |TwoEarsModel| is the :ref:`sec-identity-knowledge-source` which can
 be instantiated (multiple times) to identify the type of auditory objects, like
 "speech", "fire", "knock" etc. Each |IdentityKS| needs a source type model -- this

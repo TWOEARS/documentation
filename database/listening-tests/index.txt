@@ -1,0 +1,20 @@
+.. _sec-listening-tests:
+
+Listening tests
+===============
+
+.. toctree::
+    :maxdepth: 1
+
+    human-label-file-format
+    localisation
+    coloration
+    quality-ratings
+
+In this part of the database we collect results from psychoacoustic experiments
+run by the different labs involved in |twoears|. In addition to the results we
+provide the underlying stimuli in a way that they can directly be fed into the
+|BinSim| and provide the model with exactly the same audio input as the
+listeners experienced during the actual experiments.
+
+.. vim: filetype=rst spell:

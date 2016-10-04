@@ -1,0 +1,147 @@
+.. _sec-git-advanced-commands:
+
+Git advanced commands
+---------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Storing credentials
+~~~~~~~~~~~~~~~~~~~
+
+For our https://dev.qu.tu-berlin.de address you have to provide your user name
+and password every time you push or pull or clone something from the server.
+In order to avoid retyping your password every time you can let git store it
+locally for some time with the following commands (works for git since version
+1.7.10) 
+
+`LINUX <https://help.github.com/articles/set-up-git#platform-linux>`_:
+
+.. code-block:: bash
+
+    $ git config --global credential.helper cache
+    $ git config --global credential.helper "cache --timeout=3600"
+
+The last command sets the storage time to 1 hour. You can change this if you
+like.
+
+`WINDOWS (GitBash) <http://stackoverflow.com/questions/11693074/git-credential-cache-is-not-a-git-command>`_:
+
+.. code-block:: bash
+
+    $ git config --global credential.helper wincred
+
+Your credentials are going to be saved during the next access.
+
+Working together with a svn repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We have a few svn repositories in the Two!Ears project. You can also use git to
+work with those repositories. The only thing you have to use is the `git-svn
+extension`_.
+
+Now you can clone the svn repository
+
+.. code-block:: bash
+
+    $ git svn clone https://dev.qu.tu-berlin.de/svn/twoears-repo-path
+
+Do your changes and add them with standard git commits on your local PC. At the
+end you push all your changes to the remote svn repository via
+
+.. code-block:: bash
+
+    $ git svn dcommit
+
+In order to update your repository with changes from others you have to run
+
+.. code-block:: bash
+
+    $ git svn rebase
+
+.. _git-svn extension: http://git-scm.com/book/en/v1/Git-and-Other-Systems-Git-and-Subversion
+
+Removing commits with large files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the `BFG Repo-Cleaner`_ to remove large files from your commit history. Just
+download the pre-compiled JAR file and copy it as :file:`bfg` to a folder where
+your system looks for executables. Now let's say you want to clean up the
+repository ``big-repo`` and remove all files larger than 2 MB, first create a
+local copy of it:
+
+.. code-block:: bash
+
+    $ git clone --mirror /path/to/big-repo big-repo-copy
+    $ echo "Remove large files" > banned.txt
+    $ bfg --strip-blobs-bigger-than 2M --replace-text banned.txt repo.git
+    $ cd big-repo-copy
+    $ git reflog expire --expire=now --all && git gc --prune=now --aggressive
+    $ git push
+
+For further infos on this topic have a look at `the discussion on removing large
+files`_.
+
+.. _BFG REpo-Cleaner: https://rtyley.github.io/bfg-repo-cleaner/
+.. _the discussion on removing large files:
+    http://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository
+
+.. _git-splitting:
+
+Split repository
+~~~~~~~~~~~~~~~~
+
+If you want to split an existing repository into two, you can do it the
+following way. Assume we have the repository ``<big-repo>`` and want to extract a
+sub folder ``<name-of-folder>``:
+
+.. code-block:: bash
+
+    # prepare old repo
+    $ cd <big-repo>
+    $ git subtree split -P <name-of-folder> -b <name-of-new-branch>
+    $ cd ..
+    # create new repo
+    $ mkdir <new-repo>
+    $ cd <new-repo>
+    $ git init
+    $ git pull </path/to/big-repo> <name-of-new-branch>
+    # clean up
+    $ rm -rf .git/refs/original/ && \
+      git reflog expire --all && \
+      git gc --aggressive --prune=now
+    $ git reflog expire --all --expire-unreachable=0
+    $ git repack -A -d
+    $ git prune
+
+Alternatively you could delete existing folders in your existing repository in order
+to create a new one out of it:
+
+.. code-block:: bash
+
+    # clone the repo
+    $ git clone <big-repo> tmp.git
+    $ cd tmp.git
+    $ ls
+     test1 test2
+    # remove original url
+    $ git remote rm origin
+    # Remove the folder test1 and all related commits from history
+    $ git filter-branch --force --index-filter \
+      'git rm -r --cached --ignore-unmatch test1' --prune-empty \
+      --tag-name-filter cat -- --all
+    # clean up space
+    $ git reflog expire --expire=now --all && git gc --prune=now --aggressive
+
+After that you have your first new repository for which you can set up a new
+remote and push it. For the other part of the splitting repeat the above steps
+for the ``test2`` folder.
+
+For further details have a look at `the discussion on how to split
+repositories`_.
+
+.. _the discussion on how to split repositories:
+    http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository/17864475#17864475
+
+.. vim: filetype=rst spell:

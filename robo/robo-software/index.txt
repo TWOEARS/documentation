@@ -1,0 +1,23 @@
+.. _sec-robot-software:
+
+Robotic specific software
+=========================
+
+.. toctree::
+    :maxdepth: 1
+
+    component-based-software
+    ros
+    genom3
+    installation
+
+Robots are highly complex systems that embed numerous sensors and actuators, in
+the service of a variety of algorithms performing heterogeneous tasks. They
+often have to deal with severe requirements (timing constraints, limited energy,
+memory and processing resources, *etc.*) and must show a robust conception as
+uncertainty about their environment is high, and unexpected events can have
+critical consequences. This sets some constrains on the underlying software
+running on a robot. This section describes how this is dealt with by the robotic
+community and introduces the software systems used on the Two!Ears robots.
+
+.. vim: filetype=rst spell:

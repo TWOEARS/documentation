@@ -1,0 +1,46 @@
+.. _sec-interaural-coherence:
+
+Interaural coherence (``icProc.m``)
+-----------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |IC| is estimated by determining the maximum value of the normalised |CCF|.
+It has been suggested that the |IC| can be used to select |TF| units where the
+binaural cues (|ITD|\ s and |ILD|\ s) are dominated by the direct sound of an
+individual sound source, and thus, are likely to reflect the true location of
+one of the active sources [Faller2004]_.  The  |IC| processor does not have any
+controllable parameters itself, but it depends on the settings of the |CCF|
+processor, which is described in :ref:`sec-cross-correlation`. The |IC|
+representation is computed by using the request entry ``’ic’``.
+
+The application of the |IC| processor is demonstrated by the script ``DEMO_IC``,
+which produces the following four plots shown in :numref:`fig-ic`. The top left
+and bottom left panels show the anechoic and reverberant speech signal,
+respectively. It can be seen that the time domain signal is smeared due to the
+influence of the reverberation. The |IC| for the anechoic signal is close to one
+for most of the individual |TF| units, which indicates that the corresponding
+binaural cues are reliable. In contrast, the |IC| for the reverberant signal is
+substantially lower for many |TF| units, suggesting that the corresponding
+binaural cues might be unreliable due to the impact of the reverberation.
+
+.. _fig-ic:
+
+.. figure:: ../img/IC.png
+
+   Time domain signals and the corresponding interaural coherence as a function
+   of time frames and frequency channels estimated for a speech signal in
+   anechoic and reverberant conditions. Anechoic speech (top left panel) and the
+   corresponding |IC| (top right panel). Reverberant speech (bottom left panel)
+   and the corresponding |IC| (bottom right panel). 
+
+.. ...::: References :::...
+
+.. [Faller2004]
+    Faller, C. and Merimaa, J. (2004), “Source localization in complex listening
+    situations: Selection of binaural cues based on interaural coherence,”
+    Journal of the Acoustical Society of America 116(5), pp. 3075–3089.
+
+.. vim: filetype=rst spell:

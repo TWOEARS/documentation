@@ -1,0 +1,82 @@
+.. _sec-binary-onset-and-offset-maps:
+
+Binary onset and offset maps (``transientMapProc.m``)
+-----------------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The information about sudden intensity changes, as represented by onsets or
+offsets, can be combined in order to organise and group the acoustic input
+according to individual auditory events. The required processing is similar for
+both onsets and offsets, and is summarised by the term *transient detection*. To
+apply this transient detection based on the onset strength or offset strength,
+the user should use the request name ``’onset_map’`` or ``’offset_map’``,
+respectively. Based on the transient strength which is derived from the
+corresponding onset strength and offset strength processor (described in
+:ref:`sec-onset-strength` and :ref:`sec-offset-strength`, a binary decision
+about transient activity is formed, where only the most salient information is
+retained. To achieve this, temporal and across-frequency constraints are imposed
+for the transient information.  Motivated by the observation that two sounds are
+perceived as separated auditory events when the difference in terms of their
+onset time is in the range of 20 ms – 40 ms [Turgeon2002]_, transients are fused
+if they appear within a pre-defined *time context*.  If two transients appear
+within this time context, only the stronger one will be considered. This time
+context can be adjusted by ``trm_fuseWithinSec``. Moreover, the minimum
+across-frequency context can be controlled by the parameters ``trm_minSpread``.
+To allow for this selection, individual transients which are connected across
+multiple |TF| units are extracted using Matlab's image labelling tool
+``bwlabel`` . The binary transient map will only retain those transients which
+consists of at least ``trm_minSpread`` connected |TF| units. The salience of the
+cue can be specified by the detection thresholds ``trm_minStrengthdB``.  Whereas
+this thresholds control the required relative change, a global threshold
+excludes transient activity if the corresponding rate-map level is below a
+pre-defined threshold, as determined by ``trm_minValuedB``. A summary of all
+parameters is given in :numref:`tab-onset-map`.
+
+.. _tab-onset-map:
+
+.. table:: List of parameters related to ``'onset_map'`` and ``'offset_map'``.
+
+    +-----------------------+-----------+------------------------------------------------+
+    | Parameter             | Default   | Description                                    |
+    +=======================+===========+================================================+
+    | ``trm_fuseWithinSec`` | ``30E-3`` | Time constant below which transients are fused |
+    +-----------------------+-----------+------------------------------------------------+
+    | ``trm_minSpread``     | ``5``     | Minimum number of connected |TF| units         |
+    +-----------------------+-----------+------------------------------------------------+
+    | ``trm_minStrengthdB`` | ``3``     | Minimum onset strength in dB                   |
+    +-----------------------+-----------+------------------------------------------------+
+    | ``trm_minValuedB``    | ``-80``   | Minimum rate-map level in dB                   |
+    +-----------------------+-----------+------------------------------------------------+
+
+To illustrate the benefit of selecting onset and offset information, a rate-map
+representation is shown in :numref:`fig-onoffset` (left panel), where the
+corresponding onsets and offsets detected by the ``transientMapProc``, through
+two individual requests ``’onset_map’`` and ``’offset_map’``, and without
+applying any temporal or across-frequency constraints are overlaid (respectively
+in black and white). It can be seen that the onset and offset information is
+quite noisy. When only retaining the most salient onsets and offsets by applying
+temporal and across-frequency constraints (right panel), the remaining onsets
+and offsets can be used as temporal markers, which clearly mark the beginning
+and the end of individual auditory events.
+
+.. _fig-onoffset:
+
+.. figure:: ../img/OnOffset.png
+
+   Detected onsets and offsets indicated by the black and white vertical
+   bars. The left panels shows all onset and offset events, whereas the
+   right panel applies temporal and across-frequency constraints in order
+   to retain the most salient onset and offset events.
+
+.. ...::: References :::...
+
+.. [Turgeon2002]
+    Turgeon, M., Bregman, A. S., and Ahad, P. A. (2002), “Rhythmic masking
+    release: Contribution of cues for perceptual organization to the
+    cross-spectral fusion of concurrent narrow-band noises,” Journal of the
+    Acoustical Society of America 111(4), pp. 1819–1831.
+
+.. vim: filetype=rst spell:

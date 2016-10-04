@@ -5,6 +5,10 @@
 GMM-based localisation under reverberant conditions
 ===================================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 The |TwoEarsModel| comes with several knowledge sources that work together to
 estimate the perceived azimuth of a sound source, see
 :ref:`sec-blackboard-localisation` for a summary. One stage of this process is
@@ -174,7 +178,5 @@ corresponding |BRIR| into the |BinSim| and run the |Blackboard| inside the
     end
 
 As we run four different blackboards after each other, we have to reinitialise the |BinSim| in between.
-
-.. [MaEtAl2015dnn] Ma, N., Brown, G. J. and May, T. (2015) Robust localisation of of multiple speakers exploiting deep neural networks and head movements. Proceedings of Interspeech'15, pp.3302-3306, Dresden, Germany
 
 .. vim: filetype=rst spell:

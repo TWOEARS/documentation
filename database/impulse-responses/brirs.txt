@@ -3,6 +3,10 @@
 Reverberant measurements (|BRIR|\ s)
 ------------------------------------
 
+.. contents::
+    :depth: 1
+    :local:
+
 .. _sec-brir-twoears-adream:
 
 Two!Ears, CNRS Toulouse, Adream-building

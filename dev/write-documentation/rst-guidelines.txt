@@ -1,0 +1,190 @@
+.. _sec-rst-guidelines:
+
+reStructuredText guidelines
+---------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+These guidelines regulate the format of our reST (reStructuredText)
+documentation and provide tips for writing them:
+
+* In section titles, capitalise only initial words and proper nouns.
+* Wrap the documentation at 80 characters wide, unless a code example
+  is significantly less readable when split over two lines, or for another
+  good reason.
+* The order of headings is the following::
+
+      =======
+      Section
+      =======
+
+      Subsection
+      ----------
+
+      Subsubsection
+      ~~~~~~~~~~~~~
+
+      Paragraphs
+      ^^^^^^^^^^
+
+* The main thing to keep in mind as you write and edit docs is that the
+  more semantic markup you can add the better. So::
+
+      To remove ``README.md`` execute ``rm README.md``...
+
+  Isn't nearly as helpful as::
+
+      To remove :file:`README.md` execute :command:`rm README.md`...
+
+  This is because Sphinx will generate proper links for the latter, which
+  greatly helps readers. There's basically no limit to the amount of
+  useful markup you can add.
+* The file ending of the reST files should be ``*.txt`` instead of ``*.rst``
+  this will force github to display them as raw text files. The downside is that
+  you have to tell your editor that you are editing a reST file -- ``:setf rst``
+  in vim.
+
+Add a figure
+~~~~~~~~~~~~
+
+A figure should always start with a label that can be later used to reference to
+the figure. This label should always start with ``fig-``.
+After that the figure with the actual image file is added. The image
+should be provided as a ``png``-file and stored in a ``img/`` folder::
+
+    .. _fig-super-result:
+
+    .. figure:: img/super-results.png
+        :align: center
+
+        Figure caption explaining the results.
+
+    Text in which the :numref:`fig-super-result` is referenced in.
+
+Add a table
+~~~~~~~~~~~
+
+Like a figure a table should always start with a label for referencing and gets
+a caption before the actual table::
+
+    .. _tab-super-result:
+
+    .. table:: Caption of the super result table.
+
+        =============== =============== ===============
+        Column1 heading Column2 heading Column3 heading
+        =============== =============== ===============
+        1               2               3
+        1               2               3
+        1               2               3
+        =============== =============== ===============
+
+    Text in which the Table :ref:`tab-super-result` is referenced in.
+
+There is another way to define the same table::
+
+    .. _tab-super-result:
+
+    .. table:: Caption of the super result table.
+
+        +-----------------+-----------------+-----------------+
+        | Column1 heading | Column2 heading | Column3 heading |
+        +=================+=================+=================+
+        | 1               | 2               | 3               |
+        +-----------------+-----------------+-----------------+
+        | 1               | 2               | 3               |
+        +-----------------+-----------------+-----------------+
+        | 1               | 2               | 3               |
+        +-----------------+-----------------+-----------------+
+
+This is especially interesting for more complex tables.
+
+Line breaking is unfortunately not handled automatically in a table. Instead,
+the table will be stretched out to fir the content in one line per cell. You can
+add line breaks manually by inserting blank lines::
+
+    .. _tab-super-result:
+
+    .. table:: Caption of the super result table.
+
+        +-----------------+-----------------+--------------------+
+        | Column1 heading | Column2 heading | Column3 heading    |
+        +=================+=================+====================+
+        | 1               | 2               | text in line1      |
+        |                 |                 | more text in line1 |
+        |                 |                 |                    |
+        |                 |                 | text in line2      |
+        |                 |                 |                    |
+        |                 |                 | text in line 3     |
+        +-----------------+-----------------+--------------------+
+        | 1               | 2               | 3                  |
+        +-----------------+-----------------+--------------------+
+        | 1               | 2               | 3                  |
+        +-----------------+-----------------+--------------------+
+
+This will result in
+
+.. _tab-super-result:
+
+.. table:: Caption of the super result table.
+
+    +-----------------+-----------------+--------------------+
+    | Column1 heading | Column2 heading | Column3 heading    |
+    +=================+=================+====================+
+    | 1               | 2               | text in line1      |
+    |                 |                 | more text in line1 |
+    |                 |                 |                    |
+    |                 |                 | text in line2      |
+    |                 |                 |                    |
+    |                 |                 | text in line 3     |
+    +-----------------+-----------------+--------------------+
+    | 1               | 2               | 3                  |
+    +-----------------+-----------------+--------------------+
+    | 1               | 2               | 3                  |
+    +-----------------+-----------------+--------------------+
+
+
+Dealing with referencing throughout the document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to add a reference to another section, figure, or table you can do
+it the following way::
+
+    See results in :numref:`fig-super-result` in Section :ref:`sec-results`.
+
+This requires of course that the labels for the figure and the section is set
+accordingly::
+
+    .. _sec-results
+
+    Results
+    -------
+
+    .. _fig-super-results
+
+    .. figure:: img/results.png
+
+    Super results from the experiment.
+
+If you do the referencing as shown in the first code listing the
+``:ref:`label``` will be replaced by the title of the section or ``Fig.`` and
+the number of the figure.
+
+.. _sec-acronyms:
+
+Using acronyms
+~~~~~~~~~~~~~~
+
+If you have an acronym like HRTF, you should define it in the :file:`acronym.py`
+file in the following way::
+
+    .. |HRTF| replace:: :abbr:`HRTF (head-related transfer function)`
+
+In the text you then simply write ``|HRTF|``.  This will transform to acronym
+like |HRTF| in the HTML version and will be written out only the first time in
+the PDF version of the documentation. If you need the plural form you have to
+write ``|HRTF|\ s`` which will translate into |HRTF|\ s.
+
+.. vim: filetype=rst spell:

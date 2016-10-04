@@ -1,0 +1,69 @@
+.. _sec-identification-training:
+
+Sound identification training pipeline
+======================================
+
+.. contents::
+    :depth: 1
+    :local:
+
+Concepts
+--------
+
+
+.. _sec-trainset:
+
+Train- and testsets
+~~~~~~~~~~~~~~~~~~~
+
+
+.. _sec-sceneConfiguration:
+
+Scene configuration
+~~~~~~~~~~~~~~~~~~~
+
+
+.. _sec_trainPipeRun:
+
+Running the pipeline
+~~~~~~~~~~~~~~~~~~~~
+
+
+.. _sec-trainPipeCore:
+
+Training pipeline core classes
+------------------------------
+
+
+.. _sec-TwoEarsIdTrainPipe:
+
+TwoEarsIdTrainPipe
+~~~~~~~~~~~~~~~~~~
+
+
+.. _sec-modelCreators:
+
+Model creators
+--------------
+
+
+.. _sec-GlmNetLambdaSelectTrainer:
+
+GlmNetLambdaSelectTrainer
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.. _sec-featureCreators:
+
+Feature creators
+----------------
+
+
+.. _sec-FeatureSet1Blockmean:
+
+FeatureSet1Blockmean
+~~~~~~~~~~~~~~~~~~~~
+
+
+
+.. vim: filetype=rst spell:

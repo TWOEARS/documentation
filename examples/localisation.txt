@@ -5,6 +5,10 @@
 Localisation with and without head rotations
 ============================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 The |TwoEarsModel| comes with several knowledge sources that work together to
 estimate the perceived azimuth of a sound source, see
 :ref:`sec-blackboard-localisation` for a summary. The main work is done by the

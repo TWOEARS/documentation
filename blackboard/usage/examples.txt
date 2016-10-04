@@ -1,0 +1,9 @@
+.. _sec-blackboard-examples:
+
+Further examples
+----------------
+
+In order to see the whole model in action, including setting up of the |binsim|
+you should have a look at the :ref:`example chapter <sec-examples>`.
+
+.. vim: filetype=rst spell:

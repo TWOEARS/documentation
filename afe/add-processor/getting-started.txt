@@ -1,0 +1,98 @@
+.. _sec-afe-class-properties:
+
+Getting started and setting up processor properties
+---------------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The properties of an object are a way to store data used by the object. There
+are two types of properties for processors, those which:
+
+- store all the parameters needed to integrate the processor into the framework 
+  (e.g., the sampling frequency on which it operates, the number of 
+  inputs/outputs, ...)
+- store parameter values which are used in the actual processing
+
+When writing the class definition for a new processor, it is only necessary to
+implement the latter: parameters which are needed in the computation. All
+parameters needed for the integration of the processor in the framework are
+already defined in the parent ``Processor`` class. Your new processor should
+inherit this parent class in order to automatically have access to the
+properties and methods of the parent class. Inheritance in Matlab is indicated
+by the command ``< nameOfParentClass`` following the name of your new class in
+the first line of its definition.
+
+.. Maybe we could set up a template file, i.e., a blank processor with basic
+.. guidelines on how to populate the blanks
+
+The new processor class definition should be saved in a ``.m`` file that has
+the same name as the defined class. In the example below, that would be
+``myNewProcessor.m``.
+
+There are usually two categories of properties to be implemented for a new
+processor: external (user-controlled) parameters and internal parameters
+necessary for the processor but which do not need to be known to the "outside
+world".
+
+.. note::
+
+    Only the two types of properties below have been used so far in every
+    processor implementation. However, it is fine to add more if needed for your
+    new processor.
+
+External parameters controllable by the user
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+External parameters are directly related to the parameters the user can access
+and change. The actual values for these are stored in a specific object
+accessible via the ``.parameters`` property of the processor. Defining them as
+individual properties seems redundant, and is therefore optional. However it can
+be very convenient in order to simplify the access to the parameter value and to
+make your code more readable.
+
+Instead of storing an actual value, the corresponding processor property should
+only point to a value in the ``.parameters`` object. This will avoid having two
+different values for the same parameter. To do this, external parameters should
+be defined as a set of dependent properties. This is indicated by the
+``Dependent = true`` property attribute. If a property is set to ``Dependent``,
+then a corresponding "getter" method has to be implemented for it. This will be
+developed :ref:`in a following section<sec-afe-getter-methods>`. For example, if
+your new processor has two parameters, ``parA`` and ``parB``, you can define
+these as properties as follow::
+
+
+    classdef myNewProcessor < Processor
+
+      properties (Dependent = true)
+        parA;
+        parB;
+      end
+
+      %...
+
+    end
+
+This will allow easier access to these values in your code. For example,
+``myNewProcessor.parA`` will always give the same output as
+``myNewProcessor.parameters.map('xx_nameTagOfParameterA')``, even if the
+parameter value changes due to feedback. This simplifies greatly the code,
+particularly when many parameters are involved.
+
+
+Internal parameters
+~~~~~~~~~~~~~~~~~~~
+
+Internal parameters are sometimes (not always) needed for the functioning of the
+processor. They are typically used to store internal states of the processor
+(e.g., to allow continuity in block-based processing), filter instances (if your
+processor involves filtering), or just intermediate parameter values used to
+make code more readable.
+
+Because they are "internal" to the processor, these parameters are usually
+stored as a set of private properties by using the ``GetAccess = private``
+property attributes. This will virtually make the property invisible and
+inaccessible to all other objects.
+
+.. vim: filetype=rst spell:

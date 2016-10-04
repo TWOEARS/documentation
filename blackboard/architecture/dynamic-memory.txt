@@ -1,0 +1,90 @@
+.. _sec-blackboard-memory:
+
+Dynamic blackboard memory
+-------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The ``Blackboard`` class holds the central data repository of the platform. It
+stores the knowledge sources and any shared data, in particular the output of
+the knowledge sources (e.g. estimates of the location of a sound source). It is
+accessible to all knowledge sources; and it not only stores current data, but
+keeps track of the history of this data in order to enable knowledge sources to
+work on time series data.
+
+Importantly, the ``Blackboard`` is flexible about data categories, which do not
+have to be hard-coded into the system. :ref:`Knowledge sources
+<sec-knowledge-sources>` decide on their own and at runtime what to add and what
+to request. Thus, the system does not need to be changed in order to implement
+new knowledge sources that work with new data categories. Of course, knowledge
+sources can only read data categories that are actually stored in the blackboard
+by other knowledge sources (or themselves).
+
+The following listing shows an excerpt of the ``Blackboard`` interface:
+
+::
+
+    class Blackboard
+            KSs;
+            signals;
+            currentSoundTime;
+        methods
+            Blackboard()
+            addData( dataLabel, data, append, time )
+            getData( dataLabel, reqSndTime )
+            getLastData( dataLabel, time )
+            getNextData( dataLabel, time )
+            getDataBlock( dataLabel, blockSize_s )
+
+Prominently featured are methods to add and access data:
+
+``addData``
+    lets knowledge sources add data to the blackboard storage. The data category
+    has to be named in ``dataLabel``, ``data`` hands over the actual data to
+    store. ``append`` is an optional flag indicating whether to overwrite or
+    append data at the same time step (there might, for example, be several
+    source identity hypotheses per time step, but only one source number
+    hypothesis might be allowed).  ``time`` specifies the time point under which
+    this data shall be stored. It is optional and, if not set, defaults to the
+    current time.
+
+``getData``
+    lets knowledge sources read data from the blackboard storage. ``dataLabel``
+    indicates the data category requested, ``reqSndTime`` the time point of
+    interest. ``getLastData``, ``getNextData`` and ``getDataBlock`` are special
+    cases of ``getData`` for retrieving the last data, the next data after a
+    particular point in time, or a whole data block of length ``blockSize_s``.
+
+The following is an example from the implementation of the ``IdDecisionKS``
+class:
+
+::
+
+    idHyps = obj.blackboard.getData( ...
+                 'identityHypotheses', obj.trigger.tmIdx ).data;
+    %...
+    %find the most likely identity hypothesis -> maxProbHyp
+    %...
+    obj.blackboard.addData( ...
+        'identityDecision', maxProbHyp, false, obj.trigger.tmIdx );
+
+Let us assume that we have an instantiation called ``bbs`` of the |blackboard|.
+Now we would like to see the currently available data in its memory. For that
+you can run::
+
+    >> bbs.blackboard.getDataLabels()
+
+or specify explicitly a time for which you would like to see the available
+data::
+
+    >> bbs.blackboard.getDataLabels(bbs.blackboard.currentSoundTimeIdx-1)
+
+Additionally, the blackboard is used as a storage for pointers to signals from
+the |AFE| requested by knowledge sources inheriting from
+``AuditoryFrontEndDepKS``.  The actual memory in which these signals are stored
+for recall is implemented in the |AFE| through :ref:`circular buffers
+<sec-afe-circular-buffer>`.
+
+.. vim: filetype=rst spell:

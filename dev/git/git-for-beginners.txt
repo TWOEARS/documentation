@@ -1,0 +1,168 @@
+.. _sec-git-for-beginners:
+
+Git for beginners
+-----------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+For a summary of the basic git commands you can use this
+:download:`git-cheat-sheet.pdf <../pdf/github-git-cheat-sheet.pdf>`.
+
+Another starting point for working with git is the `documentation at Atlassian`_
+which is the company behind `bitbucket`_.
+If you prefer to learn it interactively you might want to try out this
+`interactive git site`_.
+
+.. _documentation at Atlassian: https://www.atlassian.com/git/
+.. _bitbucket: http://bitbucket.org
+.. _interactive git site: http://pcottle.github.io/learnGitBranching/
+
+Getting a remote repository to your computer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following will create the directory ``twoears-wp1`` on your local computer including all
+the code from the |TwoEars| `binaural simulator repository`_:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/TWOEARS/binaural-simulator.git twoears-wp1
+
+See the guide on how to :ref:`sec-install-development-system` for further
+information on how to make changes to the |TwoEarsModel|.
+
+.. _binaural simulator repository: https://github.com/TWOEARS/binaural-simulator
+
+Adding/changing files
+~~~~~~~~~~~~~~~~~~~~~
+
+Let us assume you added a file :file:`additional_work.txt` and changed the file
+:file:`great_work.txt`.
+You can always see what you changed locally by one of the following commands:
+
+.. code-block:: bash
+
+    $ git status
+    $ git diff
+
+Before doing the actual commit you first have to add the files you want to
+commit, for example
+
+.. code-block:: bash
+
+    $ git add additional_work.txt great_work.txt
+
+Now you can create a commit together with a meaningful commit message
+
+.. code-block:: bash
+
+    $git commit -m "Added description of additional work not described in great_work.txt"
+
+Staying up to date with the remote repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you changed and committed something the changes are still only on your local
+machine you have to push it to the remote until everyone can see it.
+Before pushing and also before starting to work on something the next day it is
+always a good idea to pull the latest changes from the remote.
+This is then summarised by these two commands
+
+.. code-block:: bash
+
+    $ git pull
+    $ git push
+
+In order to get an overview of the latest changes you can run
+
+.. code-block:: bash
+
+    $ git log
+
+Getting further help
+~~~~~~~~~~~~~~~~~~~~
+
+Most of the commands of git can be really powerful and allow a lot of different
+stuff. In order to see what a command is capable of you can use the internal
+help for specific commands for example
+
+.. code-block:: bash
+
+    $ git reset --help
+
+And another good way is to use google in order to find the right command, for
+example google after
+
+::
+
+    git undo last commit
+
+.. _sec-git-branches:
+
+Developing and branching
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Let us assume you want to develop a new feature which uses a circular room
+instead of a shoe boxed one and you know that a lot of files will be involved
+and it will take some time. This is the perfect example to create a new feature
+branch for the development. So let's start with doing this, create a new branch
+and switch to that branch in order to start working on the new feature.
+
+.. code-block:: bash
+
+    $ git branch circular_room
+    $ git checkout circular_room
+
+If you want to include others in the development it is a good idea to also push
+this branch to the remote repository in order to allow others to pull it. This
+is one of the commands I always forget, but you can just ask google with ``git
+push branch`` and you will find the following command
+
+.. code-block:: bash
+
+    $ git push --set-upstream origin circular_room
+
+And if you are another person and want to contribute to that branch, you can get
+it from the remote with
+
+.. code-block:: bash
+
+    $ git checkout -b circular_room origin/circular_room
+
+After finishing your development and testing of the new feature it's time to
+integrate the branch back into master. In a development team this should not be
+done directly by the user who did the changes, but it should be given to a
+review process first. This is easily handled at github by using `pull requests
+<https://help.github.com/articles/using-pull-requests/>`_.
+If you have pushed the branch to github you can create a pull request from that
+branch where you state what are the goals of your changes. You can also assign a
+person for reviewing the pull request. If you don't know which is the best
+person, this will be handled by the maintainer of the corresponding repository.
+
+After the pull request has been integrated into the master branch the feature
+branch of the pull request will be deleted on github. This will not
+automatically delete your local copy of that branch, so you have to do it
+yourself:
+
+.. code-block:: bash
+
+    $ git branch -d circular_room
+
+Remote branches
+~~~~~~~~~~~~~~~
+
+In order to get an overview of all your local as well as the remote branches,
+type:
+
+.. code-block:: bash
+
+    $ git branch -a
+
+If someone deleted a remote branch in between it might be necessary that you
+update your list of remote branches first
+
+.. code-block:: bash
+
+    $ git remote update origin --prune
+
+.. vim: filetype=rst spell:

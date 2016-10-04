@@ -1,0 +1,28 @@
+.. _sec-git-under-windows:
+
+Git under Windows
+-----------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+* Apart from the git installation on Windows, I recommend `TortoiseGit`_ for a nice
+  user interface.
+
+  * it has to be configured to use the below mentioned `git for windows`_ as
+    back-end (usually should be configured like that by default): you can check in
+    ``(right-click in Explorer)->TortoiseGit/Settings/General/Git for Windows``.
+    (Click the ``version -> Check now`` button to ensure it says at least ``git
+    version 1.9.2.msysgit.0``.
+
+* If you want to use the Git bash, you need to
+  install the newest `git for windows`_.
+
+  * with a right-click on a folder, you can then start the git bash from that
+    point
+
+.. _TortoiseGit: https://code.google.com/p/tortoisegit/
+.. _git for Windows: http://msysgit.github.io/
+
+.. vim: filetype=rst spell:

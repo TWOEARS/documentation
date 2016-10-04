@@ -1,0 +1,12 @@
+.. _sec-document-new-features:
+
+Document new features
+---------------------
+
+Our policy for new features is:
+
+    The actual documentation present in the master branch of the development
+    repository should be always corresponding to the actual code/data that is
+    present in the master branches of the single module repositories.
+
+.. vim: filetype=rst spell:

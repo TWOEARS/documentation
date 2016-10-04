@@ -3,6 +3,10 @@
 Anechoic measurements (|HRTF|\ s)
 ---------------------------------
 
+.. contents::
+    :depth: 1
+    :local:
+
 .. _sec-hrtf-qu-kemar:
 
 Anechoic |HRTF|\ s from the KEMAR manikin with different distances
@@ -48,7 +52,10 @@ The measurement comes also with the following headphone compensation filters::
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_SennheiserHD25_hcomp.wav
     
 
-.. [Wierstorf2011] Wierstorf, H., Geier, M., Raake, A., Spors, S. (2011) "A Free Database of Head-Related Impulse Response Measurements in the Horizontal Plane with Multiple Distances," 130th AES Convention, eBrief 6
+.. [Wierstorf2011]
+    Wierstorf, H., Geier, M., Raake, A., Spors, S. (2011) "A Free Database of
+    Head-Related Impulse Response Measurements in the Horizontal Plane with
+    Multiple Distances," 130th AES Convention, eBrief 6
 
 .. _sec-hrtf-fhk-neumann:
 
@@ -89,8 +96,16 @@ position:
 For further details, see the `FH Köln website`_ or the corresponding paper [Bernschuetz2013]_.
 
 .. _FH Köln website: http://www.audiogroup.web.fh-koeln.de/ku100hrir.html
-.. [Bernschuetz2013] Bernschütz, B. (2013) "A Spherical Far Field HRIR/HRTF Compilation of the Neumann KU 100," German Annual Conference on Acoustics (DAGA)
-.. [Bernschuetz2010] Bernschütz, B., Pörschmann, C., Spors, S., and Weinzierl, S. (2010) “Entwurf und Aufbau eines variablen sphärischen Mikrofonarrays für Forschungsanwendungen in Raumakustik und virtual Audio,” German Annual Conference on Acoustics (DAGA)
+
+.. [Bernschuetz2013]
+    Bernschütz, B. (2013) "A Spherical Far Field HRIR/HRTF Compilation of the
+    Neumann KU 100," German Annual Conference on Acoustics (DAGA)
+
+.. [Bernschuetz2010]
+    Bernschütz, B., Pörschmann, C., Spors, S., and Weinzierl, S. (2010) “Entwurf
+    und Aufbau eines variablen sphärischen Mikrofonarrays für
+    Forschungsanwendungen in Raumakustik und virtual Audio,” German Annual
+    Conference on Acoustics (DAGA)
 
 .. _sec-hrtf-mit-kemar:
 
@@ -112,7 +127,10 @@ were downloaded from the `SOFA database`_. For documentation see [Gardner1994]_
 which is available `here <http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf>`_.
 
 .. _SOFA database: http://www.sofaconventions.org/mediawiki/index.php/Files
-.. [Gardner1994] Gardner, B., Martin, K. (1994) "HRTF measurements of a KEMAR dummy-head microphone," Massachusetts Institute of Technology 280
+
+.. [Gardner1994]
+    Gardner, B., Martin, K. (1994) "HRTF measurements of a KEMAR dummy-head
+    microphone," Massachusetts Institute of Technology 280
 
 .. _sec-hrtf-scut-kemar:
 
@@ -144,5 +162,13 @@ Above +30° elevation angle the azimuthal resolution is 10° , while for +90° e
 one measurement per distance was performed. Files were downloaded from the 
 `SOFA database`_. See [Xie2013a]_ and [Xie2013b]_ for documentation on the measurements.
 
-.. [Xie2013a] Xie, B. (2013), "Head-related transfer function and virtual auditory display," J Ross Publishing
-.. [Xie2013b] Xie, B. et al. (2013), "Report on Research Projects on Head-Related Transfer Functions and Virtual Auditory Displays in China," Journal of the Audio Engineering Society (61) 5, pages 314-26
+.. [Xie2013a]
+    Xie, B. (2013), "Head-related transfer function and virtual auditory
+    display," J Ross Publishing
+
+.. [Xie2013b]
+    Xie, B. et al. (2013), "Report on Research Projects on Head-Related Transfer
+    Functions and Virtual Auditory Displays in China," Journal of the Audio
+    Engineering Society (61) 5, pages 314-26
+
+.. vim: filetype=rst spell:

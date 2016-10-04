@@ -1,0 +1,40 @@
+.. _sec-afe-technical-description:
+
+Technical description
+=====================
+
+.. toctree::
+    :maxdepth: 1
+
+    data-handling
+    processors
+    manager
+
+Many different auditory models are available that can transform an input signal
+into an auditory representation. The actual design challenges behind the |AFE|
+arise from the multiplicity of supported representations, the requirement to
+process continuous signal in a chunk-based manner, and the ability to change
+what is being computed at run-time, which will allow the incorporation of
+*feedback* from higher processing stages. In addition to these three
+constraints, the framework will be subject to frequent updates in the future of
+the Two!Ears project (e.g., adding new processors), so the expandability and
+maintainability of its implementation should be optimal. For these reasons, the
+framework is implemented using a modular object-oriented approach.
+
+This chapter exposes the architecture and interactions of all the objects
+involved in the |AFE| and how the main constraints were tackled conceptually. In
+an effort to respect encapsulation and the hierarchical organisation of the
+objects, the sections are arranged in a “bottom-up” way: from the most
+fundamental objects to the more global processes.
+
+All classes involved in the |AFE| implementation are inheriting the Matlab
+``handle`` master class. This allows every created object to be of the
+``handle`` type, and simulates a “call-by-reference” when manipulating the
+objects. Given an object ``obj`` inheriting the handle class, doing ``obj2 =
+obj`` will not copy the object, but only obtain a pointer to it. If ``obj`` is
+modified, then so is ``obj2``. This avoids unnecessary copies of objects,
+limiting memory use, as well as providing user friendly handles to objects
+included under many levels of class hierarchy. The user can manipulate a simple
+short-named handle instead of tediously accessing the object.
+
+.. vim: filetype=rst spell:

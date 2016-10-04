@@ -3,8 +3,12 @@
 Usage of impulse responses
 --------------------------
 
-As described in :ref:`sec-database-usage` there are several ways to get the data
-downloaded to your PC.
+.. contents::
+    :depth: 1
+    :local:
+
+As described in :ref:`the general usage of the database <sec-database-usage>`
+there are several ways to get the data downloaded to your PC.
 
 
 .. _sec-hrtf-usage:
@@ -182,3 +186,5 @@ following.  Note also, that all angles are specified in world coordinates, where
 	  -96.2958   -6.0686    3.2225
 	 -105.3502   -5.8268    3.3804
 	 -109.6098   -5.7063    3.4695
+
+.. vim: filetype=rst spell:

@@ -1,0 +1,52 @@
+.. _sec-afe-overview:
+
+Overview
+========
+
+.. toctree::
+    :maxdepth: 1
+
+    getting-started
+    computation-of-an-auditory-representation
+    chunk-based-processing
+    feedback-inclusion
+    list-of-commands
+
+The purpose of the |AFE| is to extract a *subset* of
+common auditory representations from a binaural recording or from a *stream* of
+binaural audio data. These representations are to be used later by higher
+modelling or decision stages. This short description of the role of the |AFE|
+highlights its three fundamental properties:
+
+-  The framework operates on a request-based mechanism and extracts the
+   *subset* of all available representations which has been requested by
+   the user. Most of the available representations are computed from
+   other representations, i.e., they *depend* on other representations.
+   Because different representations can have a common dependency, the
+   available representations are organised following a “dependency
+   tree”. The framework is built such as to respect this structure and
+   limit redundancy. For example, if a user requests A and B, both
+   depending on a representation C, the software will not compute C
+   twice but will instead reuse it. As will be presented later, to
+   achieve this, the processing is shared among processors. Each
+   processor is responsible for one individual step in the extraction of
+   a given representation. The framework then instantiates only the
+   necessary processors at a given time.
+
+-  It can operate on a *stream* of input data. In other words, the
+   framework can operate on consecutive chunks of input signal, each of
+   arbitrary length, while returning the same output(s) as if the whole
+   signal (i.e., the concatenated chunks) was used as input.
+
+-  The user request can be modified at *run time*, i.e., during the
+   execution of the framework. New representations can be requested, or
+   the parameters of existing representations can be changed in between
+   two blocks of input signal. This mechanism is particularly designed
+   to allow higher stages of the whole Two!Ears framework to provide feedback,
+   requesting adjustments to the computation of auditory
+   representations. In connection to the first point above, when the
+   user requests such a change, the framework will identify where in the
+   dependency tree the requested change starts affecting the processing
+   and will only compute the steps affected.
+
+.. vim: filetype=rst spell:

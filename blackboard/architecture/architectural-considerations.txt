@@ -1,0 +1,65 @@
+.. _sec-blackboard-architecture-considerations:
+
+Architectural considerations
+----------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+In order to implement this integrative and system-wide view, some core
+attributes of the system have been established as follows.
+
+Building a flexible system
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The system we develop is a *platform*, i.e. it provides functionality to execute
+other functionality. While the target functionality is clear – auditory and
+multi-modal experience formation, scene understanding and exploration – it
+involves many different problems, each with many possible solutions. We
+therefore design the system with extension in mind, trying not to constrain
+possible functionality of modules.
+
+In particular, the blackboard system allows the plugging-in of different
+:ref:`knowledge sources <sec-knowledge-sources>`.  Knowledge sources are modules
+that define their own functionality, to be executed in the organised frame of
+our system. They define by themselves which data they need for execution and
+which data they produce – the blackboard system provides the tools for
+requesting and storing this data, but does not care about the actual contents
+(while the knowledge sources do not need to care about where and how data is
+stored). It is also important that the blackboard system has no static knowledge
+of what types of knowledge sources are available. So long as knowledge sources
+follow a certain implementation scheme, independent of their actual
+functionality they can register *dynamically* (i.e. at runtime) as a module in
+the blackboard system.  Thus, a library of knowledge sources can be built during
+this project that can be extended arbitrarily, without need to modify the
+blackboard system. Implementors of new modules need only be concerned with
+implementing their functionality.
+
+The Two!Ears architecture has been designed and implemented using an
+object-oriented approach. Accordingly, the implementation scheme :ref:`knowledge
+sources <sec-knowledge-sources>` must adhere to is provided in the form of an
+:ref:`abstract class <sec-abstract-knowledge-source>`).  Additionally, to enable
+creation of new knowledge sources that depend on auditory signals without
+needing to hard-code a signal request into the system, an :ref:`auditory
+front-end dependent knowledge source superclass <sec-afe-dep-knowledge-source>`
+has been developed.
+
+Building a dynamic system
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Key to providing the described flexibility is to neither hard-code lists of
+usable knowledge sources nor the interactions between them.  Hard-coded (or
+static) lists and dependencies would be overly restrictive – the system must be
+open to dynamic change.
+
+At the same time, flexibility for extension is not the only cause for needing a
+dynamic system. The system is intended to be an *active* system that does not
+only work in a signal processing bottom-up manner, but also in a cognitive
+top-down manner. Modules must therefore be allowed to change the system setup at
+runtime. This means that it is essential for our system to be equipped with
+functionality for *dynamic* module instantiation, registration and removal. This
+also implies the need for on-the-fly rewiring of the communication links between
+modules.
+
+.. vim: filetype=rst spell:

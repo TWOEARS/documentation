@@ -5,14 +5,14 @@ Blackboard system
 =================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     introduction 
-    usage
-    architecture
-    knowledge-sources
-    add-knowledge-sources
+    usage/index
+    architecture/index
+    knowledge-sources/index
+    add-knowledge-sources/index
     
-    training
+    training/index
 
 .. vim: filetype=rst spell:
