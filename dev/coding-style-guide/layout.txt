@@ -1,0 +1,117 @@
+.. _sec-coding-style-guide-layout:
+
+Layout
+------
+
+.. contents::
+    :depth: 1
+    :local:
+
+
+Code Indention
+~~~~~~~~~~~~~~
+
+Use exactly 4 white spaces (not a tab) for indention.
+
+::
+
+    if true
+        while true
+            disp('wait a very long time.')
+        end
+    end
+
+In vim this behaviour can be achieved with the following setting.
+
+.. code:: vim
+
+    set sw=4 ts=4 et
+
+White Spaces
+~~~~~~~~~~~~
+
+In order to enhance readability insert white spaces between ``=`` and function
+parameters.
+
+::
+
+    someVar = computeValue(oneArgument, anotherParameter);
+
+Avoid to insert white spaces into blank lines.
+
+
+Line Width
+~~~~~~~~~~
+
+Due to the large monitor sizes we have nowadays it is not mandatory to stick to
+the common line width of 79 characters. As the code at github is limited to 90
+characters, we should also use that limit instead.
+
+In vim this will add the following setting to the settings line introduced
+above.
+
+.. code:: vim
+
+    set sw=4 ts=4 et tw=90
+
+Line Breaks
+~~~~~~~~~~~
+
+If you have to break a line the elements should be aligned vertically in one of
+the following ways.
+
+::
+
+    % Aligned with opening delimiter
+    foo = loadFile(['/path/to/a/veryveryveryveryandsoon/', ...
+                    'filenaaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmeeeeeeeee.txt']);
+    % Start with function parameters in same line
+    foo = longFunctionName(parameterOne, parameterTwo, ...
+                           parameterThree, parameterFour);
+    % Start with function parameters on next line
+    foo = longFunctionName( ...
+        parameterOne, parameterTwo, ...
+        parameterThree, parameterFour);
+
+With ``if``-statements it could happen that you run into trouble if you have to do
+a line break. The reason is that the 4 characters indentation are exactly the same
+size as ``if (`` which is used for alignment. Here are solutions to deal with it.
+
+::
+
+    % No extra indentation
+    if (theFirstThing & ...
+        theSecondThing)
+        doFunnyStuff();
+    end
+    % Add a comment for separation
+    if (theFirstThing & ...
+        theSecondThing)
+        % Both conditions are met, we can party
+        doFunnyStuff();
+    end
+    % Add some extra indentation on the conditional continuation line
+    if (theFirstThing & ...
+            theSecondThing)
+        doFunnyStuff();
+    end
+
+For multi-line statements the closing bracket may line up at the end of the last
+line, under the first non-whitespace character of the last line, or it may line
+up under the first character of the line that starts the statement.
+
+::
+
+    largeMatrix = [
+        1, 2, 3
+        4, 5, 6];
+    largeMatrix = [
+        1, 2, 3
+        4, 5, 6
+        ];
+    largeMatrix = [
+        1, 2, 3
+        4, 5, 6
+    ];
+
+.. vim: filetype=rst spell:

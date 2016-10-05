@@ -1,0 +1,84 @@
+.. _sec-afe-feedback-inclusion:
+
+Feedback inclusion
+------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+A key concept of the |AFE| is its ability to respond to feedback from the user
+or from external, higher stage models. Conceptually, feedback at the stage of
+auditory feature extraction is realised by allowing changes in parameters and/or
+changes in which features are extracted at run time, i.e., in between two chunks
+of input signal in a :ref:`chunk-based processing 
+scenario<sec-chunk-based-processing>`.
+
+In practice, three types of feedback can be identified:
+- A new request is placed
+- One or more parameters of an existing request is changed
+- A processor has become obsolete and is deleted
+
+Placing a new request
+~~~~~~~~~~~~~~~~~~~~~
+
+Placing a new request at run time, i.e., online, is done exactly is it is done
+:ref:`offline<sec-computation-of-an-auditory-representation>`, by calling the
+``.addProcessor`` method of an existing manager instance.
+
+Modifying a processor parameter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. warning::
+
+  Some parameters are blacklisted for modifications as they would imply a change
+  in dimension in the output signal of the processor. If you need to perform
+  this change anyway, consider placing a new request instead of modifying an
+  existing one.
+
+Modifying a processor parameter can be done by calling the ``modifyParameter``
+method of that processor in between two calls to the ``processChunk`` of the
+manager instance.
+
+.. _fig-sharpening-the-ear:
+
+.. figure:: ../img/sharpening_the_ear.png
+
+   Sharpening the frequency selectivity of the ear by means of feedback
+
+:numref:`fig-sharpening-the-ear` illustrates feedback capability of the |AFE|. 
+This is a rate-map representation of a speech signal that is extracted online. 
+The bandwidth of auditory filters, controlled by the parameter ``fb_bwERBs`` in 
+the original request was set to ``3 ERBs``, an abnormally large value in 
+comparison to a normal-hearing frequency selectivity. Throughout the 
+processing, the bandwidth is reduced to ``1.5 ERBs`` by calling::
+
+  mObj.Processors{2}.modifyParameter('fb_bwERBs',1.5);
+
+in between two calls to the ``processChunk`` method of the manager ``mObj``, at
+around 0.9s. Here, ``mObj.Processors{2}`` points to the auditory filterbank
+processor, an instance of a gammatone processor. The bandwidth is later (at
+1.75s) reduced even further (to about 0.25). :numref:`fig-sharpening-the-ear`
+illustrates how narrower auditory filters will reveal the harmonic structure of
+speech.
+
+.. note::
+
+  If a processor is modified in response to feedback, subsequent processors need
+  to reset themselves, in order not to carry on incorrect internal states. This
+  is done automatically inside the framework. For example, in the figure above,
+  internal filters of the inner hair-cell envelope extraction and the ratemap
+  computation are reset accordingly when the bandwidth parameter is changed
+
+Deleting a processor
+~~~~~~~~~~~~~~~~~~~~
+
+Deleting a processor is simply done by calling its ``remove`` method. Like for
+parameter modifications, this affects subsequent processors, as they will also
+become obsolete. Hence they will also be automatically deleted.
+
+Deleting processors will leave empty entries in the ``manager.Processors`` cell
+array. To clean up the list of processor, call the ``cleanup()`` method of your
+manager instance.
+
+.. vim: filetype=rst spell:

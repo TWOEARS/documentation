@@ -1,0 +1,104 @@
+.. _sec-afe-processor-constructor:
+
+Implement the processor constructor
+-----------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+For any possible application, every class should implement a very specific
+method: a class constructor. A class constructor is a function that has the
+exact same name as your class. It can take any combination of input arguments
+but can return only a single output: an "instance" of your class.
+
+In the |AFE| architecture however, the input arguments to the constructor of all
+processors have been standardised, such that all processor constructors can be
+called using the exact same arguments. The input arguments should be (in this
+order) the sampling frequency of the input signal to the processor and an
+instance of a parameter object returned e.g. by the script ``genParStruct.m``.
+The constructor's role is then to create an object of the class, and often to
+initialise all its properties. Most of this initialisation step is the same
+across all processors (e.g., setting input/output sampling frequencies,
+indicating the type of processor, ...). Hence all processor constructors rely
+heavily on the constructor of their parent class (or super-constructor),
+``Processor(...)`` which defines these across-processors operations. This allows
+to have all this code in one place which reduces the code you have to write for
+your processor, as well as reducing chances for bugs and increasing
+maintainability. This concept of "inheritance" will be discussed in a
+:ref:`further section<sec-afe-override-methods>`.
+
+In practice, this means that the constructor for your processor will be very
+short:
+
+.. code-block:: Matlab
+    :linenos:
+
+    function pObj = myNewProcessor(fs,parObj)
+      %myNewProcessor   ... Provide some help here ...
+
+      if nargin<2||isempty(parObj); parObj = Parameters; end
+      if nargin<1; fs = []; end
+
+      % Call super-constructor
+      pObj = pObj@Processor(fs, fsOut,'myNewProcessor',parObj);
+
+      % Additional code depending on your processor
+      % ...
+
+    end
+
+
+.. note::
+
+    The constructor method should be placed in a "method" block with no method 
+    attributes.
+
+Let us break down the constructor structure line by line:
+
+- *Line 1*: As stated earlier, all processor constructors take two input and 
+  return a single output, your processor instance ``pObj``. Matlab restricts all 
+  constructors to return a single output. If for any reason you need additional 
+  outputs, you would have to place them in a property of your 
+  processor instead of a regular output. Input arguments are the **input** 
+  sampling frequency, i.e., the sampling frequency of the signal at the input of 
+  the processor, and a parameter object ``parObj``.
+- *Line 2*: This is where you will place help regarding how to call this 
+  constructor. Because they have a generic form across all processors, you can 
+  easily copy/paste it from another processor.
+- *Lines 4 and 5*: An important aspect in this implementation is that the 
+  constructor should be called with no input argument and still return a valid 
+  instance of the processor, without any error. Hence these two lines define 
+  default values for inputs if none were specified.
+- *Line 8*: This line generates a processor instance by calling the class 
+  super-constructor. The super-constructor takes four inputs: 
+
+  - the **input** sampling frequency ``fs``
+  - the **output** sampling frequency. If your processor does not modify the 
+    sampling rate, then you can replace ``fsOut`` with ``fs``. If the output 
+    sampling rate of your processor if **fixed**, i.e., not depending on 
+    external parameters, then you can specify it here, in place of ``fsOut``. 
+    Lastly, if the output sampling rate depends on some external parameters 
+    (i.e., susceptible to change via feedback from the user), then you should 
+    leave the ``fsOut`` field empty: ``[]``. The output sampling rate will be 
+    defined in :ref:`another method<sec-afe-override-methods>` that is called 
+    every time feedback is involved.
+  - the name of the children processor, here ``myNewProcessor``.
+  - the parameter object ``parObj`` already provided as input.
+
+- *Line 11*: Your processor might need additional initialisation. All extra code
+  should go there. To ensure that no error is generated when calling the 
+  constructor with no arguments (which Matlab sometimes does implicitly), the 
+  code should be embedded in a ``if nargin > 0 ... end`` block. Here you can 
+  for example initialise buffers or internal properties.
+
+.. warning::
+
+    The initialisation of anything that depends on external parameters (e.g.,
+    filters, framing windows, ...) is not performed here on line 11. When 
+    parameters change due to feedback, these properties need to be 
+    re-initialised. Hence their initialisation is performed in another method 
+    that will be described in a 
+    :ref:`following section<sec-afe-override-methods>`.
+
+.. vim: filetype=rst spell:

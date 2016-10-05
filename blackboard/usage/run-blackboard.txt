@@ -1,0 +1,28 @@
+.. _sec-blackboard-execute:
+
+Execution
+---------
+
+The following example code fragment shows how to run the blackboard system. It
+is assumed that the XML files ``Scene.xml`` and ``Blackboard.xml`` have
+previously been created and are on your Matlab path. 
+
+.. code-block:: Matlab
+    :linenos:
+
+    bbs = BlackboardSystem(0);
+    sim = simulator.SimulatorConvexRoom('Scene.xml');
+    bbs.setRobotConnect(sim);           
+    bbs.buildFromXml('Blackboard.xml'); 
+    bbs.run();
+
+In the first line, a ``BlackboardSystem`` object is created. The parameter to
+the constructor (in this case, zero) indicates the verbosity level. In line 2 a
+room simulation is created from the scene description file ``Scene.xml``. Line 3
+then connects the blackboard to this simulator front end (at this stage you
+could also connect it to a real :ref:`robot platform <sec-robot>`). Finally, in
+line 4 the blackboard is built from the configuration file ``Blackboard.xml``
+and line 5 runs the blackboard; it will now proceed in a run loop until there is
+no more data to process.
+
+.. vim: filetype=rst spell:

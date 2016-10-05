@@ -1,0 +1,31 @@
+.. _sec-human-label-format:
+
+Human label file format
+-----------------------
+
+The test results are called human labels in the following and the average
+results of the single experiments are all stored in the same way in the human
+label file format. This is a simple csv file, which includes the following
+entries::
+
+    # Description of the results stored in the file
+    # stimuli, rating, 95% confidence interval
+    experiments/link_to/brs_file1.wav, -0.4653, 0.0123
+    experiments/link_to/brs_file2.wav,  0.2738, 0.1548
+    ...
+
+The file starts with a header that uses ``#`` as a comment sign and then
+includes at least three columns. The first one provides a link to the actual
+|BRS| file used in the experiment. The second one the average result from the
+experiment, this could be a mean, a median, or something else, and the third one
+showing the variance of the data, in most of the cases in the form of the
+confidence interval. The files could of course have more columns with additional
+information, like the time the listeners needed to response or if another value
+like the sound pressure level was changed during the experiment it could be
+indicated in a later column.
+
+Besides the human label files, most experiments provide the anonymised results
+from single listeners. The format of those data can vary, but in all cases they
+are provided as plain text or csv files.
+
+.. vim: filetype=rst spell:

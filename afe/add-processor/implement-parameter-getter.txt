@@ -1,0 +1,44 @@
+.. _sec-afe-getter-methods:
+
+Implement parameters "getter" methods
+-------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+As described in an :ref:`earlier section<sec-afe-class-properties>`, external
+parameters of the processor, i.e., those that can be modified by the user, are
+implemented as ``Dependent`` properties of your processor class. For your
+implementation to be valid, a "getter" method needs to be implemented for each
+of these parameters. If not, Matlab will generate an error when trying to access
+that parameter value. If a property is set as ``Dependent``, then its getter
+method will be called whenever the program tries to access that property. In
+general, this can be useful for a property that *depends* on others and that
+need to be recomputed whenever accessed. In the present case, we will set the
+getter method to read the corresponding parameter value in the parameter object
+associated with your processor. If the value of the parameter has changed
+throughout the processing (e.g., in response to feedback), then we are sure to
+always get the updated value.
+
+"Getter" methods for parameters are implemented without any method attribute and
+always follow the same structure. Hence they can easily be copy/pasted and
+adjusted::
+
+    methods
+
+      function value = get.parName(pObj)
+        value = pObj.parameters.map('xx_parNameTag')
+      end
+
+      % ... implement one get. method for each parameter
+
+    end
+
+In the above example, ``parName`` is the name of the parameter as a dependent
+*property* of your processor class, and ``xx_parNameTag`` is the name of the
+parameter defined in the :ref:`static<sec-afe-static-methods>`
+``.getParameterInfo`` method. ``pObj`` represents an instance of your processor
+class, it does not need to be changed across methods.
+
+.. vim: filetype=rst spell:

@@ -1,0 +1,78 @@
+.. _sec-cbsa:
+
+Component-based software architectures in robotics
+--------------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Robots are highly complex systems that embed numerous sensors and actuators, in
+the service of a variety of algorithms performing heterogeneous tasks. They
+often have to deal with severe requirements (timing constraints, limited energy,
+memory and processing resources, *etc.*) and must show a robust conception as
+uncertainty about their environment is high, and unexpected events can have
+critical consequences.
+
+To facilitate the development of robotic software, **component-based
+architectures**, where components are independent processes, have become the *de
+facto* standard in robotics. Each software component is dedicated to a given
+task, from low-level control to high-level processing. Components communicate
+with each other with the help of a software piece called the **middleware**.
+
+For instance, consider a robot embedding a camera and performing object
+detection in the images. One component could be in charge of acquiring the
+images using the camera's driver, and would output them. Another component could
+input the images and run an algorithm on them to detect objects, producing the
+detection result as output for any other component in need of this
+information. Routing data from the output of the first component to the input of
+the second one is ensured by the middleware, this is called **data flow**.
+
+Components offer **services** to the user to modify their behaviour and adapt to
+different situations. To follow with the example above, the component acquiring
+images could provide a service to select which camera to use, another one to
+configure parameters such as the image size and the number of frames per second,
+a third one to explicitly request the start of the acquisition, *etc.* The
+component detecting objects could have a service to change some parameters in
+the detection algorithm, another one to choose which image stream to take as
+input (because there could be several components streaming images from different
+cameras), *etc.* Making services available to the user is again handled by the
+middleware, this is called **control flow**.
+
+.. note::
+
+    The *user* mentioned here is not necessarily a physical person. For
+    autonomous robots, it will probably be a detached software piece,
+    supervising the state of the robot and choosing to start a given service to
+    accomplish a new goal. This software piece belongs to the **decisional
+    level**, while other components make up the **functional level**.
+
+Component-based software architectures offer great benefits in robotics, in
+particular [Brooks2005]_:
+
+* **Modularity**
+    * As many operations handled by a robot require to have their own thread of
+      execution (*e.g.* data acquisition for sensors, motion control for
+      actuators), having them in separate programs eases their concurrent
+      execution.
+    * The architecture can be adapted to the needs of the robot: adding a new
+      hardware piece such as a sensor will result in running a new software
+      component to drive it.
+    * The system can be distributed over a network, as the middleware seamlessly
+      ensures communication between components running on different host
+      machines.
+
+* **Re-usability**
+    * Common components can be used across robots without having to recode them
+      from scratch.
+    * Components can be packaged and easily shared in the robotics community,
+      where open source software prevails.
+    * Re-usable components reduce development cost and time, while improving
+      software quality and sustainability.
+
+.. [Brooks2005]
+    A. Brooks, T. Kaupp, A. Makarenko, S. Williams, and A. Ore- back. Towards
+    component-based robotics. In *IEEE International Conference on Intelligent
+    Robots and Systems*, pages 163–168, Tsukuba (Japan), 2005.
+
+.. vim: filetype=rst spell:

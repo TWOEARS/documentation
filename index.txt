@@ -65,7 +65,7 @@ see:
 
 * :ref:`Introduction <sec-afe>`
 * :ref:`sec-afe-overview`
-* :ref:`sec-technical-description`
+* :ref:`sec-afe-technical-description`
 * :ref:`sec-afe-processors`
 * :ref:`sec-afe-add-processor`
 
@@ -90,7 +90,7 @@ data:
 
 * :ref:`Overview <sec-database>`
 * :ref:`sec-database-usage`
-* :ref:`sec-experiments`
+* :ref:`sec-listening-tests`
 * :ref:`sec-impulse-responses`
 * :ref:`sec-sound-databases`
 * :ref:`sec-database-stimuli`
@@ -115,7 +115,7 @@ it, read on:
 
 * :ref:`How to get involved <sec-dev>`
 * :ref:`sec-coding-style-guide`
-* :ref:`Writing this documentation <sec-writing-documentation>`
+* :ref:`Writing this documentation <sec-write-documentation>`
 * :ref:`sec-git`
 
 .. rubric:: License

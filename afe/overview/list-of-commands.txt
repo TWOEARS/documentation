@@ -1,0 +1,105 @@
+.. _sec-afe-list-of-commands:
+
+List of commands
+----------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+This section sums up the commands that could be relevant to a standard user of
+the |AFE|. It does not describe each action extensively, nor does it give a full
+list of corresponding parameters. A more detailed description can be obtained
+through calling the help script of a given method from Matlab´s command window.
+Note that one can get help on a specific method of a given class. For example
+
+::
+
+    >> help manager.processChunk
+
+will return help related to the ``processChunk`` method of the manager class.
+The following aims at being concise, hence optional inputs are marked as
+“``...``” and can be reviewed from the specific method help.
+
+Signal objects ``sObj``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
++----------------------------------+---------------------------------------------------------------+
+| ``sObj.Data(:)``                 | Returns all the data in the signal                            |
++----------------------------------+---------------------------------------------------------------+
+| ``sObj.Data(n1:n2)``             | Returns the data in the time interval ``[n1,n2]`` (samples)   |
++----------------------------------+---------------------------------------------------------------+
+| ``sObj.findProcessor(mObj)``     | Finds processor that computed the signal                      |
++----------------------------------+---------------------------------------------------------------+
+| ``sObj.getParameters(mObj)``     | Parameter summary for that signal                             |
++----------------------------------+---------------------------------------------------------------+
+| ``sObj.getSignalBlock(T,...)``   | Returns last ``T`` seconds of the signal                      |
++----------------------------------+---------------------------------------------------------------+
+| ``sObj.play``                    | Plays back the signal (time-domain signals only)              |
++----------------------------------+---------------------------------------------------------------+
+| ``sObj.plot(...)``               | Plots the signal                                              |
++----------------------------------+---------------------------------------------------------------+
+
+Data objects ``dObj``
+^^^^^^^^^^^^^^^^^^^^^
+
++------------------------------------------+------------------------------------------+
+| ``dataObject(s,fs,bufSize,nChannels)``   | Constructor                              |
++------------------------------------------+------------------------------------------+
+| ``dObj.addSignal(sObj)``                 | Adds a signal object                     |
++------------------------------------------+------------------------------------------+
+| ``dObj.clearData``                       | Clears all signals in ``dObj``           |
++------------------------------------------+------------------------------------------+
+| ``dObj.getParameterSummary(mObj)``       | Lists parameter used for each signal     |
++------------------------------------------+------------------------------------------+
+| ``dObj.play``                            | Plays back the containing audio signal   |
++------------------------------------------+------------------------------------------+
+
+Processors ``pObj``
+^^^^^^^^^^^^^^^^^^^
+
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.LowerDependencies``                | List of processors ``pObj`` depends on                    |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.UpperDependencies``                | List of processors depending on ``pObj``                  |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.getCurrentParameters``             | Parameter summary for that processor                      |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.getDependentParameter(parName)``   | Value of a parameter from ``pObj`` or its dependencies    |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.hasParameters(parStruct)``         | True if ``pObj`` used the exact values in ``parStruct``   |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.Input``                            | Handle to input signal object                             |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.Output``                           | Handle to output signal object                            |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.modifyParameter``                  | Change a parameter value                                  |
++-------------------------------------------+-----------------------------------------------------------+
+| ``pObj.remove``                           | Removes a processor (and its subsequent processors)       |
++-------------------------------------------+-----------------------------------------------------------+
+
+Manager ``mObj``
+^^^^^^^^^^^^^^^^
+
++-------------------------------------+------------------------------------------------------+
+| ``manager(dObj)``                   | Constructor                                          |
++-------------------------------------+------------------------------------------------------+
+| ``manager(dObj,name,param)``        | Constructor with initial request                     |
++-------------------------------------+------------------------------------------------------+
+| ``mObj.addProcessor(name,param)``   | Adds a processor (including eventual dependencies)   |
++-------------------------------------+------------------------------------------------------+
+| ``mObj.Data``                       | Handle to the associated data object                 |
++-------------------------------------+------------------------------------------------------+
+| ``mObj.processChunk(input,...)``    | Process a new chunk                                  |
++-------------------------------------+------------------------------------------------------+
+| ``mObj.Processors``                 | Lists instantiated processors                        |
++-------------------------------------+------------------------------------------------------+
+| ``mObj.processSignal``              | Process a signal offline                             |
++-------------------------------------+------------------------------------------------------+
+| ``mObj.reset``                      | Resets all processors                                |
++-------------------------------------+------------------------------------------------------+
+| ``mObj.cleanup``                    | Cleans up the list of processors                     |
++-------------------------------------+------------------------------------------------------+
+
+.. vim: filetype=rst spell:

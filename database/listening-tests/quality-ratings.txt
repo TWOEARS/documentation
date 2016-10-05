@@ -1,0 +1,87 @@
+.. _sec-experiments-quality:
+
+Quality ratings
+---------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+.. _sec-2014-04-01_scene_quality:
+
+2014-04-01: Scene related sound quality
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _fig-2014-04-01_scene_quality:
+
+.. figure:: ../img/quality_scene.png
+    :align: center
+
+    The ten different conditions of the quality test.
+
+We did a preference test where we asked for the preferred audio quality of the
+presented stimuli, see [Raake2014]_ for details. The stimuli consisted always of
+the same acoustic scene with three individual sources, which had different
+degrees of impairments. We provide the ratings of the listeners and the
+WAV-files of the stimuli in the following folders::
+
+    experiments/2014-04-01_scene_quality/stimuli/*
+    experiments/2014-04-01_scene_quality/results/*
+
+.. [Raake2014]
+    Raake, A., Wierstorf, H., Blauert J. (2014), "A case for TWO!EARS in audio
+    quality assessment," Forum Acusticum
+
+.. _sec-2015-11-01_wfs_stereo_comparison:
+
+2015-11-01: Listening preference of popular music presented by |WFS|, surround, and stereo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _fig-2015-11-01_wfs_stereo_comparison:
+
+.. figure:: ../img/2015-11-01_wfs_stereo_comparison.png
+    :align: center
+
+    Estimated preference (system ability) of the different reproduction systems
+    averaged over all listeners and musical pieces. The preference was estimated
+    with a Bradley-Terry-Luce model. The bars denote the corresponding 95%
+    confidence interval.
+
+We did a paired comparison preference test where listeners rated their listening
+preference for four different pop musical pieces presented by |WFS|, stereo or
+surround. The musical pieces were all mixed by the same person in order to try
+to minimize the influence of the mix on the ratings, but still trying to get the
+best out of every system, see [Hold2016a]_ for details. We provide the single
+and average results, the |BRS| files for a binaural simulation of the
+loudspeaker array (the experiment itself was performed using a real loudspeaker
+array, but for modelling purposes the binaural simulation is of interest) and
+the driving signals of the single loudspeakers as WAV-files
+`[doi:10.14279/depositonce-5173] <http://dx.doi.org/10.14279/depositonce-5173>`_::
+
+    experiments/2015-11-01_wfs_stereo_comparison/brs/*
+    experiments/2015-11-01_wfs_stereo_comparison/results/*
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew-stereo.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew-surround.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew-wfs.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew2-stereo.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew2-surround.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew2-wfs.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/lighthouse-stereo.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/lighthouse-surround.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/lighthouse-wfs.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/lighthouse2-stereo.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/lighthouse2-surround.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/lighthouse2-wfs.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/sister-stereo.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/sister-surround.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/sister-wfs.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-stereo.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-surround.wav
+    experiments/2015-11-01_wfs_stereo_comparison/stimuli/toynbee-wfs.wav
+
+.. [Hold2016a]
+    Hold, C., Wierstorf, H., Raake, A. (2016), "The Difference Between
+    Stereophony and Wave Field Synthesis in the Context of Popular Music," 140th
+    AES Convention, Paper 9533
+
+.. vim: filetype=rst spell:

@@ -1,0 +1,26 @@
+.. _sec-write-documentation:
+
+===================
+Write documentation
+===================
+
+.. toctree::
+    :maxdepth: 1
+
+    get-raw-documentation
+    get-started-with-sphinx
+    convert-existing-documentation
+    commonly-used-terms
+    rst-guidelines
+    document-new-features
+
+The impact of Two!Ears on the research community will be the greater the easier
+the code can be used and extended by other researchers.  To achieve this the
+documentation of the whole |TwoEarsModel| is as important as the code itself.
+This means we are not only working constantly on our code base, but on the
+documentation as well.
+
+This section explains how we should write the Two!Ears documentation from both a
+technical and a writing standpoint and includes:
+
+.. vim: filetype=rst spell:

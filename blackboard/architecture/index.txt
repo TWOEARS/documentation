@@ -1,0 +1,29 @@
+.. highlight:: Matlab
+
+.. _sec-blackboard-architecture:
+
+Blackboard architecture
+=======================
+
+.. toctree::
+    :maxdepth: 1
+
+    architectural-considerations
+    dynamic-construction
+    dynamic-memory
+    dynamic-interactions
+    scheduler
+
+The |blackboard| is targeted as the front-end for a great variety of
+applications, providing an architecture that integrates experience formation and
+active behaviour from a set of different functional modules. These modules can
+work on different levels of abstraction, independently from each other or in
+collaboration, in a bottom-up or top-down manner. A key feature of this system
+should be its ability to evolve, so that easy modification, exchange and/or
+extension of modules can be achieved within a scalable architecture.
+
+This document will provide you an overview about the blackboard architecture
+that is used together with the :ref:`knowledge sources <sec-knowledge-sources>`
+in order to provide such a system.
+
+.. vim: filetype=rst spell:

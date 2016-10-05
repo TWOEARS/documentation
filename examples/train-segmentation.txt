@@ -5,6 +5,10 @@
 (Re)train the segmentation stage
 ================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 The |SegmentationKS| knowledge source of the |TwoEarsModel| depends on a
 localisation model which is based on support vector machine regression. This
 regression model has to be trained using a set of |HRTF|\ s. A demo of how a
@@ -131,4 +135,4 @@ calling the ``removeTrainingData`` method:
 
     segKS.removeTrainingData();
 
-
+.. vim: filetype=rst spell:

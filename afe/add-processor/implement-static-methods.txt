@@ -1,0 +1,162 @@
+.. _sec-afe-static-methods:
+
+Implement static methods
+------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Static methods are methods that can be called without an existing instance of an
+object. In the implementation of processors, they are used to store all the
+hard-coded information. This can be for example the processor name, the type of
+signal it accepts as input, or the names and default values of its external
+parameters. A static method is implemented by defining it in a method block with
+the ``(Static)`` method attribute::
+
+
+    classdef myNewProcessor < Processor
+
+      % ... Properties and other methods definition
+
+      methods (Static)
+
+        function out = myStaticMethod_1(in)
+          %...
+        end
+
+        function out = myStaticMethod_2(in)
+          %...
+        end
+
+      end
+
+    end
+
+Static methods share the same structure and names across processors, so they can
+easily be copy/pasted from an existing processor and then modified to reflect
+your new processor. The following three methods have to be implemented.
+
+- ``.getDependency()``: Returns the type of input signal by its user request 
+  name
+- ``.getParameterInfo()``: Returns names, default values, and descriptions of 
+  external parameters
+- ``.getProcessorInfo()``: Returns information about the processor as a Matlab 
+  structure
+
+As they are used to hard-code and return information, none of these methods 
+accept input arguments.
+
+``getDependency``
+~~~~~~~~~~~~~~~~~
+
+This method returns the type of input signal your processor should accept::
+
+    function name = getDependency()
+      name = 'requestNameOfInputSignal';
+    end
+
+where ``'requestNameOfInputSignal'`` is the request name of the signal that
+should be used as input. "Request name" corresponds to the request a user would
+place in order to obtain a particular signal. For example, the inner hair-cell
+envelope processor requires as input the output of e.g., a gammatone filterbank.
+The request name for this signal is ``'filterbank'`` which should therefore be
+the output of the static method ``ihcProc.getDependency()``. You can also  check
+the list of currently valid request names by typing ``requestList`` in Matlab's
+command window.
+
+If you are unsure about which name should be used, consider which processor
+would come directly before your new processor in a processing chain (i.e., the
+processor your new processor depends on). Say it is named ``dependentProc``.
+Then typing::
+
+    dependentProc.getProcessorInfo.requestName
+
+in Matlab's command window will return the corresponding request name you should
+output in your ``getDependency`` method.
+
+``getParameterInfo``
+~~~~~~~~~~~~~~~~~~~~
+
+This method hard-codes all information regarding the (external) parameters used
+by your processor, i.e., lists of their names, default values, and description.
+These are used to populate the output of the helper script ``parameterHelper``
+and to give a default value to parameters when your processor is instantiated.
+
+The lists are returned as cell arrays of strings (or any other type for the
+default parameter values). They should follow the same order, such that the n-th
+member of each of the three lists relate to the same parameter.
+
+Parameter names need not be the same as the parameter property name you
+defined :ref:`earlier<sec-afe-class-properties>`. This will become apparent in
+the :ref:`next section<sec-afe-getter-methods>`. In fact, names should be
+changed to at least include a two or three letters prefix that is unique to your
+new processor. You can make sure it is not already in use by browsing through
+the output of the ``parameterHelper`` script.
+
+The method should look something like this::
+
+    function [names,defValues,description] = getParameterInfo()
+
+      names = {'xx_par1','xx_par2','xx_par3'};
+
+      defValues = {0.5, ...
+                   [1 2 3 4], ...
+                   'someStringValue'};
+
+      description = {'Tuning factor of dummy example (s)',...
+                     'Vector of unused frequencies (Hz)',...
+                     'Model name (''someStringValue'' or ''anotherValue'')'}
+
+    end
+
+This dummy example illustrates the following important points:
+
+- Use a unique prefix in the name of the parameters (``xx_`` above) that 
+  abbreviates the name or task of the processor.
+- Find a short, but self-explanatory parameter name (*not* like ``parX`` above).
+  If it makes sense, you can re-use the same name as a parameter involved in 
+  another processor. The prefix will make the name unique.
+- Default values can be of any type (e.g., float number, array, strings,...)
+- Descriptions should be as short as possible while still explanatory. Mention 
+  if applicable the units or the different alternatives.
+
+``getProcessorInfo``
+~~~~~~~~~~~~~~~~~~~~
+
+This method stores the properties of the processor that are needed to integrate
+it in the framework. It outputs a structure with the following fields:
+
+- ``.name``: A short, self-explanatory name for the processor
+- ``.label``: A name for the processor that is used as a label. It can the same 
+  as ``.name`` if that is sufficient, or a bit longer if needed.
+- ``.requestName``: The name tag of the request that a user should input when 
+  calling the ``.addProcessor`` method of the manager. This has to be a valid 
+  Matlab name (e.g., it *cannot* include spaces).
+- ``.requestLabel``: A longer name for the signal this processor produces, used 
+  e.g., as plot labels.
+- ``outputType``: The type of signal object (name of the class) this processor 
+  produces. If none of the existing signals in the framework are suitable, you 
+  will need to :ref:`implement a new one<sec-afe-new-signal>`.
+- ``isBinaural``: Set to 0 if your processor operates on a single channel (e.g.,
+  an auditory filterbank) or to 1 if it *needs* a binaural input (e.g., the 
+  inter-aural level differences processor). If your processor can operate 
+  on both mono and stereo signals (such as the pre-processor ``preProc.m``), 
+  set it to 2.
+
+Your method should initialise the structure that will be returned as output and
+give a value to all of the above-mentioned fields::
+
+  %...
+
+  function pInfo = getProcessorInfo
+
+    pInfo = struct;
+
+    pInfo.name = 'MyProcessor';
+    pInfo.label = 'Processor doing things';
+    % etc...
+
+  end
+
+.. vim: filetype=rst spell:

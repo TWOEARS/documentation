@@ -3,10 +3,25 @@
 Anechoic measurements (|HRTF|\ s)
 ---------------------------------
 
+.. contents::
+    :depth: 1
+    :local:
+
 .. _sec-hrtf-qu-kemar:
 
 Anechoic |HRTF|\ s from the KEMAR manikin with different distances
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.55418.svg
+   :target: https://doi.org/10.5281/zenodo.55418nd
+
+License
+^^^^^^^
+
+`Creative Commons Attribution-NonCommercial-ShareAlike 3.0 <https://creativecommons.org/licenses/by-nc-sa/3.0/>`_
+
+Description
+^^^^^^^^^^^
 
 ::
 
@@ -35,13 +50,25 @@ The measurement comes also with the following headphone compensation filters::
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_AKGK271_hcomp.wav
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_AKGK601_hcomp.wav
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_SennheiserHD25_hcomp.wav
+    
 
-.. [Wierstorf2011] Wierstorf, H., Geier, M., Raake, A., Spors, S. (2011) "A Free Database of Head-Related Impulse Response Measurements in the Horizontal Plane with Multiple Distances," 130th AES Convention, eBrief 6
+.. [Wierstorf2011]
+    Wierstorf, H., Geier, M., Raake, A., Spors, S. (2011) "A Free Database of
+    Head-Related Impulse Response Measurements in the Horizontal Plane with
+    Multiple Distances," 130th AES Convention, eBrief 6
 
 .. _sec-hrtf-fhk-neumann:
 
 Spherical far-field |HRTF| compilation of the Neumann KU100
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+`Creative Commons Attribution-ShareAlike 3.0 <https://creativecommons.org/licenses/by-sa/3.0/>`_
+
+Description
+^^^^^^^^^^^
 
 ::
 
@@ -54,12 +81,31 @@ Spherical far-field |HRTF| compilation of the Neumann KU100
 
     Setup of the measurement in the anechoic chamber of FH Köln.
 
-|HRTF|\ s measured with the Neumann KU100 dummy head.
-For further details, see the `FH Köln website`_
-or the corresponding paper [Bernschuetz2013]_.
+Three-dimensional HRIR datasets were measured with the Neumann KU100 dummy head.
+An active 3-way louspeaker (Genelec 8260A) was used as a sound source with a constant
+distance of approximately 3.25m. Different apparent source positions were realized by
+rotating the dummy head around two axis using the VariSphear measurement system [Bernschuetz2010]_.
+The impulse responses were captured for different sampling configurations of the source’s
+position:
+
+- horizontal plane with a resolution of 1°
+- two different equidistant spherical Lebedev grids with 2354 and 2702 sampling points
+- full sphere equiangular 2° Gauss grid with 16020 sampling points
+
+
+For further details, see the `FH Köln website`_ or the corresponding paper [Bernschuetz2013]_.
 
 .. _FH Köln website: http://www.audiogroup.web.fh-koeln.de/ku100hrir.html
-.. [Bernschuetz2013] Bernschütz, B. (2013) "A Spherical Far Field HRIR/HRTF Compilation of the Neumann KU 100," German Annual Conference on Acoustics (DAGA)
+
+.. [Bernschuetz2013]
+    Bernschütz, B. (2013) "A Spherical Far Field HRIR/HRTF Compilation of the
+    Neumann KU 100," German Annual Conference on Acoustics (DAGA)
+
+.. [Bernschuetz2010]
+    Bernschütz, B., Pörschmann, C., Spors, S., and Weinzierl, S. (2010) “Entwurf
+    und Aufbau eines variablen sphärischen Mikrofonarrays für
+    Forschungsanwendungen in Raumakustik und virtual Audio,” German Annual
+    Conference on Acoustics (DAGA)
 
 .. _sec-hrtf-mit-kemar:
 
@@ -71,17 +117,28 @@ MIT |HRTF| measurements of a KEMAR dummy head
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
 
-Files were downloaded from the `SOFA database`_.  For documentation see
-[Gardner1994]_ which is available `here
-<http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf>`_.
+The three-dimensional HRTF dataset was measured with a KEMAR (type DB-4004)
+equipped with a large right ear (type DB-065) and a normal-size left ear (type DB-061).
+A small two-way loudspeaker (Realistic Optimus Pro 7) was used as a sound source. The
+HRTFs were measured for a distances of 1.4m. The elevation angle varies from -40° (40°
+below horizontal plane) to +90° (directly overhead) with a stepsize of 10°. The azimuth an-
+gle varies from 0° to 360° with an elevation angle dependent resolution. Files 
+were downloaded from the `SOFA database`_. For documentation see [Gardner1994]_ 
+which is available `here <http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf>`_.
 
 .. _SOFA database: http://www.sofaconventions.org/mediawiki/index.php/Files
-.. [Gardner1994] Gardner, B., Martin, K. (1994) "HRTF measurements of a KEMAR dummy-head microphone," Massachusetts Institute of Technology 280
+
+.. [Gardner1994]
+    Gardner, B., Martin, K. (1994) "HRTF measurements of a KEMAR dummy-head
+    microphone," Massachusetts Institute of Technology 280
 
 .. _sec-hrtf-scut-kemar:
 
 Near-field HRTFs from SCUT database of the KEMAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Description
+^^^^^^^^^^^
 
 ::
 
@@ -97,9 +154,21 @@ Near-field HRTFs from SCUT database of the KEMAR
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa
 
+The three-dimensional HRTF dataset was measured with a KEMAR dummy head. The
+HRTFs were measured for ten different distances of 0.2m, 0.25m, 0.3m and 0.4m, 0.5m, ...,
+1.0m. The elevation angle varies from -30° to +90° with a stepsize of 15°. The azimuth
+angle varies from 0° to 360° with a resolution of 5° for elevation angles between ±30°.
+Above +30° elevation angle the azimuthal resolution is 10° , while for +90° elevation only
+one measurement per distance was performed. Files were downloaded from the 
+`SOFA database`_. See [Xie2013a]_ and [Xie2013b]_ for documentation on the measurements.
 
-Files were downloaded from the `SOFA database`_. See [Xie2013a]_ and [Xie2013b]_
-for documentation on the measurements.
+.. [Xie2013a]
+    Xie, B. (2013), "Head-related transfer function and virtual auditory
+    display," J Ross Publishing
 
-.. [Xie2013a] Xie, B. (2013), "Head-related transfer function and virtual auditory display," J Ross Publishing
-.. [Xie2013b] Xie, B. et al. (2013), "Report on Research Projects on Head-Related Transfer Functions and Virtual Auditory Displays in China," Journal of the Audio Engineering Society (61) 5, pages 314-26
+.. [Xie2013b]
+    Xie, B. et al. (2013), "Report on Research Projects on Head-Related Transfer
+    Functions and Virtual Auditory Displays in China," Journal of the Audio
+    Engineering Society (61) 5, pages 314-26
+
+.. vim: filetype=rst spell:

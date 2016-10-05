@@ -4,6 +4,15 @@
 Database
 ========
 
+.. toctree::
+    :maxdepth: 1
+
+    usage
+    listening-tests/index
+    impulse-responses/index
+    sound-databases/index
+    stimuli
+
 Two!Ears comes with a central storage of data that can be used together with the
 |TwoEarsModel|. The data could be acoustical measures performed by Two!Ears
 themselves or collected from other resources.
@@ -13,14 +22,5 @@ can be used to validate the model.
 If not otherwise stated all available data is provided under `CC BY-SA 3.0`_.
 
 .. _CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
-
-.. toctree::
-    :maxdepth: 2
-
-    usage
-    experiments
-    impulse-responses/index
-    sound-databases
-    stimuli
 
 .. vim: filetype=rst spell:

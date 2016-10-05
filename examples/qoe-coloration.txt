@@ -5,6 +5,10 @@
 Prediction of coloration in spatial audio systems
 =================================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 Assume we have a live performance of three singers at different
 positions. Using spatial audio systems like Wave Field Synthesis we might be
 able to synthesize their corresponding sound field in a way that we are

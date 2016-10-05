@@ -4,6 +4,14 @@
 Development of Two!Ears
 =======================
 
+.. toctree::
+   :maxdepth: 1
+
+   development-system/index
+   git/index
+   coding-style-guide/index
+   write-documentation/index
+
 |twoears| is developed by different Universities in a collaborate fashion.
 This section should help to streamline the development and gave guides on how to
 write code and documentation.
@@ -21,15 +29,7 @@ If you want to become involved yourself you can do the following things:
   them`_.
 
 If you are want to contribute code or documentation to Two!Ears
-browse the following sections to find out how:
-
-.. toctree::
-   :maxdepth: 2
-
-   development-system 
-   git
-   coding-style-guide
-   writing-documentation
+please read on in this section.
 
 .. _pull requests: https://help.github.com/articles/using-pull-requests/
 .. _ticket tracker: https://github.com/TWOEARS/TwoEars/issues

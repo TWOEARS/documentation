@@ -1,0 +1,83 @@
+.. _sec-experiments-coloration:
+
+Coloration
+----------
+
+.. contents::
+    :depth: 1
+    :local:
+
+.. _sec-2013-05-01_wfs_coloration:
+
+2013-05-01: Coloration of a point source in Wave Field Synthesis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _fig-2013-05-01_wfs_coloration:
+
+.. figure:: ../img/2013-05-01_wfs_coloration.png
+    :align: center
+
+    Mean rated coloration of a point source synthesised with |WFS| compared to a
+    reference point source. The error bars are showing the confidence intervals.
+
+This database entry contains stimuli and results from the experiments described
+in [Wierstorf2014a]_. In the experiment different |WFS| systems synthesising a
+point source were rated in terms of their perceived coloration compared to real
+point source. This was done for different audio material, namely pink noise,
+speech, and music and different listener positions. The results are summarised
+in :numref:`fig-2013-05-01_wfs_coloration` and available in the following
+database files::
+
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_music.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_noise.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_speech.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_music.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_noise.csv
+    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_speech.csv
+
+the corresponding stimuli are provided as |brs| files that can be used together
+with the |binsim| and the corresponding scene description file
+:file:`wfs_coloration.xml` to reproduce the exact pink noise signals from the
+test. the path to the |brs| files is also listed in the first column of the
+human label files, so it can directly extracted from them.
+
+.. [Wierstorf2014a]
+    Wierstorf, H., Hohnerlein, C., Spors, S., Raake, A. (2014), "Coloration in
+    wave field synthesis," 55th International Aes Conference, Paper 5-3
+
+
+.. _sec-2015-10-01_wfs_coloration:
+
+2015-10-01: coloration of a point source in wave field synthesis revisited
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:ref:`the first experiment <sec-2013-05-01_wfs_coloration>` investigating
+coloration in |wfs| had some artefacts in the stimuli for high frequencies due
+to the limitation coming with a finite sampling rate during the process of time
+delaying single signals in |wfs|. this time the experiment was repeated using
+fractional delay filter (add citation). in addition, we added a linear
+loudspeaker array besides the circular one used in the first experiment.
+
+.. _fig-2015-10_01_wfs_coloration:
+
+.. figure:: ../img/2015-10-01_wfs_coloration.png
+    :align: center
+
+    Median of the rated coloration of a point source synthesized with |WFS|
+    compared to a reference point source. The error bars are showing the
+    confidence intervals.
+
+The results are available in the following files::
+
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_noise.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_speech.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_offcenter_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_offcenter_speech.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_noise.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_speech.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_offcenter_music.csv
+    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_offcenter_speech.csv
+
+.. vim: filetype=rst spell:

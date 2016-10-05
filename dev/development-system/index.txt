@@ -1,0 +1,13 @@
+.. _sec-install-development-system:
+
+Installation of the development version
+=======================================
+
+.. toctree::
+    :maxdepth: 1
+
+    get-the-code
+    setup-dependencies
+    add-your-changes
+
+.. vim: filetype=rst spell:

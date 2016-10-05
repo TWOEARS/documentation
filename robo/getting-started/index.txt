@@ -1,0 +1,11 @@
+.. _sec-robot-getting-started:
+
+Getting started
+===============
+
+.. contents::
+    :local:
+
+Add some introduction to the usage of the robot.
+
+.. vim: filetype=rst spell:

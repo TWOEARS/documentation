@@ -1,0 +1,50 @@
+.. _sec-dev-setting-up-whole-model:
+
+Set up dependencies on particular branches
+------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Git allows to ease software development by using :ref:`branches
+<sec-git-branches>`. During the development of the whole model it could happen
+that you have dependencies to particular branches of other modules. You can
+specify those dependencies also in the XML configuration files, for example:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Configure which parts of the Two!Ears model should be started -->
+
+    <requirements>
+        <TwoEarsPart branch="master"
+                     sub="src"
+                     startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
+        <TwoEarsPart branch="feature1"
+                     sub="API_MO"
+                     startup="SOFAstart">sofa</TwoEarsPart>
+        <TwoEarsPart branch="feature1"
+                     startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
+        <TwoEarsPart branch="master"
+                     startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
+    </requirements>
+
+The ``startTwoEars`` function will then check if you have all the modules
+checked out at the correct branches. Of course you have to have git installed in
+order to use this feature.  Even if you are using only the master branches you
+are encouraged to use the ``branch`` setting as it ensures that other people
+testing your code are also using the master branch and not another one.
+
+.. note::
+
+    Under Windows it is most likely that Matlab complains that git cannot be
+    found in the system path, when executing ``startTwoEars``. To fix this you
+    have to add git to your system paths, see for example `this tutorial
+    <http://blog.countableset.ch/2012/06/07/adding-git-to-windows-7-path/>`_.
+
+The ``startup`` entries are functions that are looked for in the Matlab path and
+executed by ``startTwoEars``. If you want to include not only a folder, but also
+all of it sub-folders to the path you can replace ``sub`` by ``sub-all``.
+
+.. vim: filetype=rst spell:

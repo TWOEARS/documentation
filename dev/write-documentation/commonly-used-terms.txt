@@ -1,0 +1,49 @@
+.. _sec-commonly-used-terms:
+
+Commonly used terms
+-------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Here are some style guidelines on commonly used terms throughout the
+documentation:
+
+* ``|TwoEars|`` -- when referring to the project in general, this will be
+  automatically replaced by |TwoEars|
+
+* ``|TwoEarsModel|`` -- when referring to the complete auditory model, this
+  will be   replaced with the text |TwoEarsModel|.
+
+* ``|BinSim|`` -- when referring to the binaural simulator
+  module of the |TwoEarsModel|, this will be automatically replaced by |BinSim|.
+
+* ``|AFE|`` -- when referring to the auditory front-end
+  module of the |TwoEarsModel|, this will be automatically replaced by |AFE|.
+
+* ``|blackboard|`` -- when referring to the blackboard
+  architecture module of the |TwoEarsModel|, this will be automatically replaced by
+  |blackboard|.
+
+* ``|robot|`` -- when referring to the robot platform of the |TwoEarsModel|, this
+  will be automatically replaced by |robot|.
+
+* ``|database|`` -- when referring to the database of the |TwoEarsModel|, this will be
+  automatically replaced by |database|.
+
+* ``|amtoolbox|`` -- when referring to the Auditory Modelling Toolbox, this will
+  be automatically replaced by |amtoolbox|.
+
+* ``Matlab`` -- when referring to the language, capitalise Matlab.
+
+* ``localise``, ``initialise``, etc. -- use the British "ise" suffix, not "ize."
+
+.. note::
+
+    These automatic replacement are defined in the file :file:`replacements.py`,
+    which also involves things lile ``|DnnLocationKS|``. Common links are
+    defined in :file:`links.py`, acronyms are defined in :file:`acronyms.py`,
+    see :ref:`sec-acronyms`.
+
+.. vim: filetype=rst spell:

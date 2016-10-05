@@ -1,0 +1,96 @@
+.. _sec-auto-correlation:
+
+Auto-correlation (``autocorrelationProc.m``)
+--------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Auto-correlation is an important computational concept that has been extensively
+studied in the context of predicting human pitch perception [Licklider1951]_,
+[Meddis1991]_. To measure the amount of periodicity that is present in
+individual frequency channels, the |ACF| is computed in the |FFT| domain for
+short time frames based on the |IHC| representation. The *unbiased* |ACF|
+scaling is used to account for the fact that fewer terms contribute to the |ACF|
+at longer time lags. The resulting |ACF| is normalised by the |ACF| at lag zero
+to ensure values between minus one and one. The window size ``ac_wSizeSec``
+determines how well low-frequency pitch signals can be reliably estimated and
+common choices are within the range of 10 milliseconds – 30 milliseconds.
+
+For the purpose of pitch estimation, it has been suggested to modify the signal
+prior to correlation analysis in order to reduce the influence of the formant
+structure on the resulting |ACF| [Rabiner1977]_. This pre-processing can be
+activated by the flag ``ac_bCenterClip`` and the following nonlinear operations
+can be selected for ``ac_ccMethod``: centre clip and compress ``’clc’``, centre
+clip ``’cc’``, and combined centre and peak clip ``’sgn’``.  The percentage of
+centre clipping is controlled by the flag ``ac_ccAlpha``, which sets the
+clipping level to a fixed percentage of the frame-based maximum signal level.
+
+A generalised |ACF| has been suggested by [Tolonen2000]_, where the exponent
+``ac\_K`` can be used to control the amount of compression that is applied to
+the |ACF|. The conventional |ACF| function is computed using a value of
+``ac\_K=2``, whereas the function is compressed when a smaller value than 2 is
+used. The choice of this parameter is a trade-off between sharpening the peaks
+in the resulting |ACF| function and amplifying the noise floor. A value of
+``ac\_K = 2/3`` has been suggested as a good compromise [Tolonen2000]_. A list
+of all |ACF|-related parameters is given in :numref:`tab-acorr-parameters`. Note
+that these parameters will influence the pitch processor, which is described in
+:ref:`sec-pitch`.
+
+.. _tab-acorr-parameters:
+
+.. table:: List of parameters related to the auditory representation ``'autocorrelation'``.
+
+    =================== ========== =========================================================
+    Parameter           Default    Description
+    =================== ========== =========================================================
+    ``ac_wname``        ``'hann'`` Window type
+    ``ac_wSizeSec``     ``0.02``   Window duration in s
+    ``ac_hSizeSec``     ``0.01``   Window step size in s
+    ``ac_bCenterClip``  ``false``  Activate centre clipping
+    ``ac_clipMethod``   ``'clp'``  Centre clipping method ``'clc'``, ``'clp'``, or ``'sgn'``
+    ``ac_clipAlpha``    ``0.6``    Centre clipping threshold within ``[0,1]``
+    ``ac_K``            ``2``      Exponent in |ACF|
+    =================== ========== =========================================================
+
+
+A demonstration of the |ACF| processor is shown in :numref:`fig-acf`, which has
+been produced by the scrip ``DEMO_ACF.m``.  It shows the |IHC| output in
+response to a 20 ms speech signal for 16 frequency channels (left panel). The
+corresponding |ACF| is presented in the upper right panel, whereas the |SACF| is
+shown in the bottom right panel. Prominent peaks in the |SACF| indicate lag
+periods which correspond to integer multiples of the fundamental frequency of
+the analysed speech signal. This relationship is exploited by the pitch
+processor, which is described in :ref:`sec-pitch`.
+
+.. _fig-acf:
+
+.. figure:: ../img/ACF.png
+
+   |IHC| representation of a speech signal shown for one time frame of 20 ms
+   duration (left panel) and the corresponding |ACF| (right panel). The |SACF|
+   summarises the |ACF| across all frequency channels (bottom right panel). 
+  
+.. ...::: References :::...
+
+.. [Licklider1951]
+    Licklider, J. C. R. (1951), “A duplex theory of pitch perception,”
+    Experientia (4), pp. 128–134.
+
+.. [Meddis1991]
+    Meddis, R. and Hewitt, M. J. (1991), “Virtual pitch and phase sensitivity of
+    a computer model of the auditory periphery. I: Pitch identification,”
+    Journal of the Acoustical Society of America 89(6), pp. 2866–2882.
+
+.. [Rabiner1977]
+    Rabiner, L. R. (1977), “On the use of autocorrelation analysis for pitch
+    detection,” IEEE Transactions on Audio, Speech, and Language Processing
+    25(1), pp. 24–33.
+
+.. [Tolonen2000]
+    Tolonen, T. and Karjalainen, M. (2000), “A computationally efficient
+    multipitch analysis model,” IEEE Transactions on Audio, Speech, and Language
+    Processing 8(6), pp. 708–716.
+
+.. vim: filetype=rst spell:

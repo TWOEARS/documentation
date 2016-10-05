@@ -1,0 +1,22 @@
+.. highlight:: Matlab
+
+.. _sec-knowledge-sources:
+
+Knowledge sources
+=================
+
+.. toctree::
+    :maxdepth: 1
+
+    abstract
+    afe
+    afe-dep
+    localisation
+    identification
+    sound-quality
+    segmentation
+
+In this section we describe knowledge sources that are currently available in
+the |blackboard|.
+
+.. vim: filetype=rst spell:

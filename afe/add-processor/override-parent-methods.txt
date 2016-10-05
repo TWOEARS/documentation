@@ -1,0 +1,244 @@
+.. _sec-afe-override-methods:
+
+Override parent methods
+-----------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |AFE| framework was developed to maximise code reusing. Many of the existing
+processors, although they carry out different processing tasks, have common
+attributes in terms of e.g., number of inputs, number of outputs, how to call
+their processing methods, ... Hence all aspects of initialisation (and re-
+initialisation following a response to feedback) and input/output routing have
+been implemented for common-cases as methods of the parent ``Processor`` class.
+If your processor does not behave similarly to others in one of these regards,
+then this approach allows you to redefine the specific method in your new
+children processor class definition. In the object oriented jargon, this
+procedure is called method overriding.
+
+In the following, we list the methods that might need overriding and how to do
+so. Subsections for each methods will start with a description of what the
+method does and a note explaining in which cases the method needs to be
+overridden, such that you can quickly identify if this is necessary for your
+processor. Some examples of existing processors that override a given method
+will also be given so they can be used as examples. Note that all non- static
+methods from the parent ``Processor`` class can be overridden if necessary. The
+following list only concerns methods that were written with overriding in mind
+to deal with particular cases.
+
+.. note::
+
+  Overridden methods need to have the same method attribute(s) as the parent
+  method they are overriding.
+
+Initialisation methods
+~~~~~~~~~~~~~~~~~~~~~~
+
+``verifyParameters``
+^^^^^^^^^^^^^^^^^^^^
+
+This method is called at the end of the ``Processor`` super-constructor. It
+ensures that user-provided parameters are valid. The current implementation of
+the |AFE| relies on the user being responsible and aware of which type or values
+are suitable for a given parameter. Therefore, we do not perform a systematic
+check of all parameters. Sometimes though, you might want to verify that user-
+provided parameters are correct in order to avoid Matlab returning an error at a
+later stage. For example, ``ihcProc.verifyParameters`` will check that the inner
+hair-cell model name entered by the user is part of the list of valid names.
+
+Another use for the ``verifyParameters`` method is to solve conflicts between
+parameters. For example, the auditory filterbank in ``gammatoneProc`` can be
+instantiated in three different ways (e.g., by providing a range of frequency
+and a number of channels, or directly a vector of centre frequencies). The user-
+provided parameters for this processor are therefore potentially "over-
+determining" the position of centre frequencies. To make sure that there is no
+conflict, some priority rules are defined in ``gammatoneProc.verifyParameters``
+to ensure that a unique and non-ambiguous vector of centre frequencies is
+generated.
+
+.. note::
+
+  This method does nothing by default. Override it if you need to perform
+  specific checks on external parameters (i.e., the user-provided parameters
+  extended by the default values) before instantiating your processor.
+
+To override this method, place it in a methods block with the
+``Access=protected`` attribute. The method takes only an instance of the
+processor object (say, ``pObj``) as input argument, and does not return any
+output.
+
+If you are checking that parameters have valid values, replace those which are
+invalid with their default value in ``pObj.parameters.map`` (see e.g.,
+``ihcProc.verifyParameters``). It is a good practice here to inform the user by
+returning a warning, so that he/she knows that the default value is used
+instead.
+
+If you are solving conflicts between parameters, set up a priority rule and only
+retain user-provided parameters that have higher priority according to this rule
+(see e.g., ``gammatoneProc.verifyParameters``). Mention explicitly this rule in
+the help line of your processor constructor.
+
+
+``prepareForProcessing``
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+This method performs the remaining initialisation steps that we purposely did
+not include in the constructor as they initialise properties that are
+susceptible to change when receiving feedback. It also includes initialisation
+steps that can be performed only once processors have been linked together in a
+"processing tree". For example, ``ildProc`` needs to know the original sampling
+frequency of the signal before its cross-correlation was computed to provide lag
+values in seconds. But to access the cross-correlation processor and request
+that value, the two processors need to be linked together already, which does
+not happen at the level of instantiation but later. Hence this method will be
+called for each processors once they all have been inter-linked, but also
+whenever feedback is received.
+
+.. note::
+
+  Override this method if your processor has properties or internal parameters
+  that can be changed via user feedback or that comes directly from preceding
+  processors in the processing tree.
+
+This method should have the ``Hidden=true`` method attribute. Hidden methods are
+sometimes used in the |AFE| when we need public access to it (i.e., other
+objects than the processor itself should be able to call the method) but when it
+is not deemed necessary to have the user call it. The user can still call the
+method by explicitly writing its name, but the method will not appear in the
+list of methods returned by Matlab script ``methods(.)`` nor by Matlab's
+automatic completion.
+
+The method only takes an instance of the processor as input argument and does
+not return outputs. In the method, you should initialise all internal parameters
+that are susceptible to changes from user feedback. Note that this includes the
+processor's output sampling frequency ``FsHzOut`` if this frequency depends on
+the processor parameters. A good example is
+``ratemapProc.prepareForProcessing``, which initialises internal parameters
+(framing windows), the output sampling frequency and some filters.
+
+.. _sec_afe-instantiate-output:
+
+``instantiateOutput``
+^^^^^^^^^^^^^^^^^^^^^
+
+This method is called just after a processor has been instantiated to create a
+signal object that will contain the output of this new processor and add the
+signal to the data object.
+
+.. note::
+
+  Override this method if your output signal object constructor needs additional
+  input arguments (e.g., for a ``FeatureSignal``), if your processor generates
+  more than one type of output, or if your processor can generate either mono or
+  stereo output (e.g., the current ``preProc``). There is no processor in the
+  current implementation that generates two different outputs. However, the pre-
+  processor can generate either mono or stereo outputs depending on the number
+  of channels in the input signal (see ``preProc.instantiateOutput`` for an
+  example).
+
+This method should have the ``Hidden=true`` method attribute. It takes as input
+an instance of your processor and a instance of a data object to add the signal
+to. It returns the output signal object(s) as a cell array with the usual
+convention that first column is left channel (or mono) and right column is right
+channel. Different lines are for different types of signals.
+
+.. warning::
+
+  Because there is no such processor at the moment, creating a new processor
+  that returns two different types of output (and not just left/right channels)
+  might involve additional changes. This is left to the developers
+  responsibility to test and adjust existing code.
+
+
+
+Input/output routing methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When the manager creates a processing "tree", it also populates the ``Input``
+and ``Output`` properties of each processors with handles to their respective
+input and output signal objects. The methods defined in the parent ``Processor``
+should cover most cases already, and it is unlikely that you will have to
+override them for your own processor. For these two methods, it is important to
+remember the internal convention when storing multiple signals in a cell array:
+columns are for audio channels (first column is left or mono and second column
+is right). Different lines are for different types of signals.
+
+The way ``Input`` and ``Output`` properties are routed should be in accordance
+with how they are used in the ``initiateProcessing`` method, which will be
+described in the next subsection.
+
+``addInput``
+^^^^^^^^^^^^
+
+This method takes an instance of the processor and a cell array of handles to
+dependent processors (i.e., processors one level below in the processing tree)
+and does not return any arguments. Instead, it will populate the ``Input``
+property of your processor with a cell array of handles to the signals that are
+outputs to the dependent processors. The current implementation of
+``Processor.addInput`` works for three cases, which overall cover all currently
+existing processors in the |AFE|:
+
+* There is a single dependent processor which has a single output.
+* There are two dependent processors each with single output corresponding to 
+  the left and right channels of a same input signal.
+* There is a single dependent processor which produces two outputs: a left and 
+  a right channel (such as ``preProc`` for stereo signals).
+
+.. note::
+
+  Override this method if your processor input signals are related to its
+  dependent processors in a different way than the three scenarios listed above.
+
+This method should have the ``Hidden=true`` attribute. You should just route the
+output of your dependent processors to the input of your new processor
+adequately. Again, it was not necessary thus far to override this method, hence
+no examples can be provided here. Additionally, this functionality has not been
+tested, so it might imply some minor reworking of other code components.
+
+``addOutput``
+^^^^^^^^^^^^^
+
+This method adds a signal object (or a cell array of signals) to the ``Output``
+property of your processor.
+
+.. note::
+
+  Override this method if your processor has multiple outputs of different
+  types. If your processor returns two outputs as the left and right channel of
+  a same representation, it is not necessary to override this method.
+
+This method should have the ``Hidden=true`` method attribute. It takes as input
+an instance of the processor and a single or a cell array of signal objects.
+
+
+Processing method
+~~~~~~~~~~~~~~~~~
+
+.. _sec-afe-initiate-processing:
+
+``initiateProcessing``
+^^^^^^^^^^^^^^^^^^^^^^
+
+This method is closely linked to the ``addInput``, ``addOutput`` and
+``processChunk`` methods. It is a wrapper to the actual processing method that
+routes elements of the cell arrays ``Input`` and ``Output`` to actual inputs and
+outputs of the ``processChunk`` method and call that method. It also appends the
+new chunk(s) of output to the corresponding output signal(s).
+
+The parent implementation considers two cases: monaural and binaural (i.e., a
+"left" and a "right" inputs) which produce single outputs.
+
+.. note::
+
+  Override this method if your processor is not part of the two cases above or
+  if your implementation of the ``processChunk`` has a different signature than
+  :ref:`the standard<sec-afe-processing-method>`.
+
+A good example of an overridden ``initiateProcessing`` method can be found in
+``preProc.initiateProcessing``, as the processing method of the pre-processor
+does not have a standard signature as it returns two outputs (left and right
+channels).
+
+.. vim: filetype=rst spell:

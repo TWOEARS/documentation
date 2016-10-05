@@ -3,11 +3,12 @@
 Stream binaural signals from |BASS| to Matlab
 =============================================
 
+.. contents::
+    :depth: 1
+    :local:
+
 This tutorial shows an example of how to control the |BASS| component and
 retrieve audio streams in Matlab, using the |matlab-genomix| bridge.
-
-.. contents::
-    :local:
 
 Preliminary steps
 -----------------

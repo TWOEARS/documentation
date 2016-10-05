@@ -1,0 +1,77 @@
+.. _sec-acoustic-scenes-and-events:
+
+Acoustic scenes and events
+--------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+.. _sec-ieee-aasp:
+
+IEEE AASP Challenge on Detection and Classification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This data set includes stereo recordings of acoustic environmental scenes as
+well as isolated events (of an office environment). It can be used for
+classification tasks of acoustic scenes and events.
+
+We have put the isolated sounds into a folder structure processable for the
+:ref:`sec-identification-training`, removed the printer class, as it was not
+very suited for the training, and added a "void" class with different kinds of
+noise (to be used as negative examples during training).
+
+
+License
+^^^^^^^
+
+`Creative Commons Attribution 2.0 UK: England & Wales
+<http://creativecommons.org/licenses/by/2.0/uk/>`_
+
+Usage
+^^^^^
+
+To use the data base for acoustic event classification, stereo WAV files from the
+following folders are of interest::
+
+    alert/
+    clearthroat/
+    cough/
+    doorslam/
+    drawer/
+    keyboard/
+    keys/
+    knock/
+    laughter/
+    mouse/
+    pageturn/
+    pendrop/
+    phone/
+    speech/
+    switch/
+    void/
+
+In each folder different recordings of the corresponding class are
+provided along with an annotation file with on- and offset times.
+
+In the ``scenes/`` folder stereo recordings of the following acoustic scenes are
+provided:
+
+    | bus
+    | busystreet (busy street with heavy traffic)
+    | office
+    | openairmarket (open-air or semi-open market)
+    | park
+    | quietstreet (quiet street with mild traffic)
+    | restaurant
+    | supermarket
+    | tube (train in the Transport for London, Underground and Overground, train
+    |   networks)
+    | tubestation (tube station in the Transport for London, Underground and
+    |   Overground, train networks, either subterranean or supraterranean)
+
+Each class contains ten recordings. Each recording is 30 s long. Files are named
+according to the class name, i.e. ``classXX.wav`` where ``XX`` is a two-digit,
+non-consecutive number.
+
+.. vim: filetype=rst spell:

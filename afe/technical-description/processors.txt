@@ -1,0 +1,281 @@
+.. _sec-afe-description-processors:
+
+Processors
+----------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Processors are at the core of the |AFE|. Each processor is responsible for an
+individual step in the processing, i.e., going from representation A to
+representation B. They are adapted from existing models documented in the
+literature such as to allow for block-based (online) processing.  This is made
+possible by keeping track of the information necessary to transition adequately
+between two chunks of input. The nature of this “information” varies depending
+on the processor, and we use in the following the term “internal state” of the
+processor to refer to it.  Internal states and online processing compatibility
+are then assessed in :ref:`sec-process-chunk`.
+
+A detailed overview of all processors, with a list of all parameters they
+accept, is given in :ref:`sec-afe-processors`. Hence this section will focus on
+the properties and methods shared among every processors, as well as the
+techniques employed to make processing compatible with chunk-based inputs.
+
+.. _sec-processors-general:
+
+General considerations
+~~~~~~~~~~~~~~~~~~~~~~
+
+As for signal objects, processors make use of inheritance, with a parent
+``Processor`` class. The parent class defines shared properties of the
+processor, abstract classes that each children must implement, and a couple of
+methods shared among children. 
+
+The motivation behind the implementation of these methods is probably not clear
+at this stage, but should appear in the following sections.  Many of these
+methods are used in the manager object described later for organising and
+routing the processing such as to always perform as few operations as needed.
+
+Properties
+^^^^^^^^^^
+
+Each processor shares the properties:
+
+-  ``Type`` - describes formally the processing performed
+
+-  ``Input`` - list of input signal object handles
+
+-  ``Output`` - list of output signal object handles
+
+-  ``isBinaural`` - Flag indicating the need of left and right channel
+   as input
+
+-  ``FsHzIn`` - Input signal sampling frequency (Hz)
+
+-  ``FsHzOut`` - Output signal sampling frequency (Hz)
+
+-  ``UpperDependencies`` - List of processors that directly depend on this 
+   processor
+
+-  ``LowerDependencies`` - List of processors this processor directly depends on
+
+-  ``Channel`` - Audio channel this processor operates on
+
+-  ``parameters`` - Parameter object instance that contains parameter values for 
+   this processor
+
+These properties are populated automatically when using the |AFE| by the manager
+class which is described later in :ref:`sec-afe-manager`. All of them, apart
+from ``Type`` are implemented as ``Hidden`` properties as they should not be
+relevant to the user but still need public access by other classes.
+
+In addition, three private properties are implemented:
+
+-  ``bHidden`` - A flag indicating that the processor should be hidden from the 
+   framework. This is used for example for "sub-processors" such as 
+   ``downSamplerProc``
+
+-  ``listenToModify`` - An event listener for modifications in any lower 
+   dependent processor
+
+-  ``listenToDelete`` - An event listener for deletion of any lower dependent 
+   processor
+
+
+Feedback handling
+^^^^^^^^^^^^^^^^^
+
+To these two listeners mentioned above correspond two events, ``hasChanged`` and
+``isDeleted``. These events are used in connection to feedback as a mean to
+communicate between processors. When parameters of a processor are modified, it
+will broadcast a message that will be picked up by its upper dependencies which
+will then "know" they have to react accordingly (usually by resetting).
+Connecting events and listeners is done automatically when instantiating a
+"processing tree". Modifying a parameter is done via the ``modifyParameter``
+method which will broadcast the ``hasChanged`` message to upper dependencies.
+
+Abstract and shared methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The parent ``Processor`` class defines the following abstract methods.  Because
+these methods are children dependent, each processor sub-class ``pObj`` should
+then implement them:
+
+-  ``out = pObj.processChunk(in)``, the core processing method. Returns
+   an output ``out`` given the input ``in``. It will, if necessary, use
+   the internal states of the processor (derived from previous chunk(s)
+   of input) to calculate the output. These internal states should be
+   accordingly updated in this method after the processing was
+   performed. Next sub-section provides more details regarding these
+   internal states.
+
+-  ``pObj.reset``, that clears the internal states of the processor. To
+   be used e.g., in an offline scenario in between two different input
+   signals.
+
+Some methods are then identical across all processors and are therefore
+implemented in the parent ``Processor`` class:
+
+-  ``getDependentParameter`` and ``getDependentProperty`` recursively recovers
+   the value of a specific parameter (or property) used by ``pObj`` or by one 
+   of its dependencies
+
+-  ``hasParameters`` check that the processor uses a specific set of parameter 
+   values
+
+-  ``getCurrentParameters`` returns a structure of the
+   parameter values currently used by the processor.
+
+
+Potentially overridden methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Most processors behave in similar ways with regard to how many inputs and
+outputs they have, as well as how they connect with their dependencies. However,
+there can always be exceptions. To provide sufficient code modularity to easily
+handle these exceptions without changing existing code, heavy use of methods
+overriding was made. This means that general behaviour for a given method is
+implemented in the ``Processor`` super-class, and any children which needs to
+handle things differently will override this specific method. These methods
+susceptible to being overridden are the following, in order in which they are
+called:
+
+-  ``prepareForProcessing``: Finalise processor initialisation or re-initialise 
+   after receiving feedback
+-  ``addInput``: Populate the ``Input`` property
+-  ``addOutput``: Populate the ``Output`` property
+-  ``instantiateOutput``: Instantiate an output signal and add it to the data 
+   object
+-  ``initiateProcessing``: Calls the processing method, appropriately routing 
+   inputs and output signals to the input and output arguments of the 
+   ``processChunk`` method.
+
+Any of these method are then overridden in children that do not behave 
+"normally" (e.g., processors with multiple input or outputs)
+
+
+.. _sec-process-chunk:
+
+``processChunk`` method and chunk-based compatibility
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+General approach
+^^^^^^^^^^^^^^^^
+
+As briefly exposed above, exact computation performed by each processors are
+taken from published models, and are described individually in
+:ref:`sec-afe-processors`. However, most of the available implementations are
+for batch processing, i.e., using one whole input signal at once. To be included
+in the |AFE|, these implementations need to be adapted to account for
+chunk-based processing, i.e., when the input signal is fed to the system in
+non-overlapping contiguous blocks, or chunks.
+
+Some processors rely on the input only at time *t* to generate the output at
+time *t*. These processors are then compatible as such with chunk-based
+processing. This is the case for instance for the ``itdProc`` which given
+cross-correlation deduces the . That is because the processor, at time *t*, is
+provided a cross-correlation value as input (which is a function of frequency
+and lag), and only locates for each frequency the lag value for which the
+cross-correlation is maximal. There is no influence of past (or future) inputs
+to provide the output at time *t*. This is unfortunately not the case for most
+processors, which output at a given time will be influenced, to different
+extent, by older input. However, so far, all the processing involved in the
+|AFE| is causal, i.e., might depend on past input, but will not depend on future
+input.
+
+Adapting offline implementations to online is of course case-dependent, and how
+it was done for each individual processors will not be described here. However
+the same concept is used for each, and can be related to the *overlap-save*
+method traditionally used for filtering long signals (or a stream of input
+signal) with a |FIR| filter. This concept revolves around using an internal
+buffer to store the input samples of a given chunk that will influence the
+processing of the next chunk. Because of the causality, these samples will
+always be at the end of the present chunk.  Considering a processor which is in
+“steady-state” (i.e., has a populated internal buffer) and a new incoming chunk
+of input signal, the following steps are performed:
+
+#. The buffer is appended in the beginning of the new input chunk.
+   Conceptually, this provides also a chunk of the input signal, but a
+   longer one that starts at an earlier point in time.
+
+#. The input extended in this way is processed following the
+   computations described in literature. If the input is required to
+   have specific dimensions in time (e.g., when windowing is performed),
+   then it is virtually truncated to these dimensions (i.e., input
+   samples falling outside the required dimensions are discarded). The
+   goal is for the output to be as long as possible while still being
+   “valid”, i.e., not being influenced by the boundary with the next
+   input chunks. If additional output was generated due to the appended
+   buffer, it is discarded.
+
+#. The buffer is updated to prepare for the next input chunk. This step
+   can vary between processors but the idea is to store in the buffer
+   the end of the current chunk which did not generate output, or which
+   will influence the output of next chunk.
+
+.. _sec-ratemap-example:
+
+An example: rate-map
+^^^^^^^^^^^^^^^^^^^^
+
+A practical example to better illustrate the concepts described above is given
+in the following. The rate-map is conceptually a “framed” version of an |IHC|
+multi-channel envelope. The |IHC| envelope is a two-dimensional representation
+(time versus frequency), and the rate-map extraction is the same procedure
+repeated for every frequency channel. Hence the following is described for a
+single channel. To extract the rate-map, the envelope is windowed by a set of
+overlapping windows, and its magnitude averaged in each window. This process is
+adapted to online processing as illustrated in :numref:`fig-windowing`.
+
+.. _fig-windowing:
+
+.. figure:: ../img/chunkBasedRatemap.png
+
+   Three steps for simple online windowing, given a chunk of input and
+   an internal buffer.
+
+The three above-mentioned steps are followed:
+
+#. The internal buffer (which can be empty, e.g., if first chunk) is
+   appended to the input chunk.
+
+#. This “extended” input is then processed. In that case, it is windowed
+   and the average is taken in each window.
+
+#. The “valid” outputs form the output chunk. Note that the right-most
+   window (dashed line) is not fully covering the signal. Hence the
+   output it would provide is not “valid”, since it would also partly
+   depend on the content of the next input chunk. Therefore the section
+   of the signal corresponding to this incomplete window forms the new
+   buffer.
+
+Note that the output chunk could in theory be empty. If the duration of the
+“extended” input in step 1 is shorter than the duration of the window, then no
+valid output is produced for this chunk, and the whole extended input will be
+transferred to the internal buffer. This is unlikely to happen in practice
+however.
+
+Particular case for filters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The processing performed by the |AFE| often involves filtering (e.g., in
+auditory filter bank processing, inner hair cell envelope detection, or
+amplitude modulation detection). While filtering by |FIR| filters could in
+principle be made compatible with chunk-based processing using the principle
+described above, it will be impractical for filters with long impulse response,
+and in theory impossible for |IIR| filters.
+
+For this reason, chunk-based compatibility is managed differently for filtering.
+In Matlab’s ``filter`` function, the user can specify initial conditions and can
+get as optional output the final conditions of the filter delays. These take the
+form of a vector, of dimension equal to the filter order.
+
+In the |AFE|, filters are implemented as objects, and encapsulate a private
+``states`` property. This property simply contains the final conditions of the
+filter delays, i.e., its internal states after the last processing it performed.
+If applied to a new input chunk, these states are used as initial condition and
+are updated after the processing. This will provide a continuous output given a
+fragmented input.
+
+.. vim: filetype=rst spell:

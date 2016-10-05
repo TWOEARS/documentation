@@ -1,0 +1,20 @@
+.. _sec-binsim-usage:
+
+Usage
+=====
+
+.. toctree::
+    :maxdepth: 1
+
+    configuration
+    simulate-ear-signals
+
+This instruction guides you in detail on how to use the |BinSim|, for a brief
+guide have a look at the tutorial :ref:`sec-tutorial-acoustic-scene`. For
+instructions on how to use the whole |TwoEarsModel| have a look at the provided
+:ref:`sec-examples`.
+
+In the following it is assumed that you have started the |TwoEarsModel| already
+via the :code:`startTwoEars()` command, see also the :ref:`sec-install`.
+
+.. vim: filetype=rst spell:

@@ -4,6 +4,17 @@
 First steps
 ===========
 
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+
+    install
+    modules
+    tutorial-acoustic-scene/index
+    tutorial-auditory-model
+    tutorial-database
+    tutorial-robot
+
 The |TwoEarsModel| consists of several modules for modelling active human
 listening. It could handle real recorded binaural data as well as simulated one
 and can be freely configured to solve different tasks like localisation and
@@ -21,22 +32,8 @@ at :ref:`sec-tutorial-database`. And if you are ready to not only simulate
 binaural ear signals, but really record them on the fly have a look at the
 :ref:`sec-tutorial-robot`.
 
-
-
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-
-    install
-    modules
-    tutorial-acoustic-scene
-    tutorial-auditory-model
-    tutorial-database
-    tutorial-robot
-
 The model is being developed by the partners of the `EU project Two!Ears`_.
 
 .. _EU project Two!Ears: http://www.twoears.eu/
-
 
 .. vim: filetype=rst spell:

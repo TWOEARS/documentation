@@ -1,0 +1,46 @@
+.. _sec-interaural-time-differences:
+
+Interaural time differences (``itdProc.m``)
+-------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |ITD| between the left and the right ear signal is estimated for individual
+frequency channels and time frames by locating the time lag that corresponds to
+the most prominent peak in the normalised |CCF|. This estimation is further
+refined by a parabolic interpolation stage [May2011]_, [May2013b]_. The |ITD|
+processor does not have any adjustable parameters, but it relies on the |CCF|
+described in :ref:`sec-cross-correlation` and its corresponding parameters (see
+:numref:`tab-crosscorrelation`). The |ITD| representation is computed by using
+the request entry ``’itd’``.
+
+The |ITD| processor is demonstrated by the script ``DEMO_ITD.m``, which produces
+two plots as shown in :numref:`fig-itd`.  The ear signals for a speech source
+that is located closer to the right ear are shown in the left panel. The
+corresponding |ITD| estimation is presented for each individual |TF| unit (right
+panel). Apart from a few estimation errors, the estimated |ITD| between both
+ears is in the range of 0.5 ms for the majority of |TF| units.
+
+.. _fig-itd:
+
+.. figure:: ../img/ITD.png
+
+   Binaural speech signal (left panel) and the estimated |ITD| in ms shown as a
+   function of time frames and frequency channels.
+  
+.. ...::: References :::...
+
+.. [May2011]
+    May, T., van de Par, S., and Kohlrausch, A. (2011), “A probabilistic model
+    for robust localization based on a binaural auditory front-end,” IEEE
+    Transactions on Audio, Speech, and Language Processing 19(1), pp. 1–13.
+
+.. [May2013b]
+    May, T., van de Par, S., and Kohlrausch, A. (2013), “Binaural Localization
+    and Detection of Speakers in Complex Acoustic Scenes,” in The technology of
+    binaural listening, edited by J. Blauert, Springer, Berlin–Heidelberg–New
+    York NY, chap. 15, pp. 397–425.
+
+.. vim: filetype=rst spell:

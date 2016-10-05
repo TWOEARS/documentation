@@ -1,0 +1,57 @@
+.. _sec-onset-strength:
+
+Onset strength (``onsetProc.m``)
+--------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+According to [Bregman1990]_, common onsets and offsets across frequency are
+important grouping cues that are utilised by the human auditory system to
+organise and integrate sounds originating from the same source. The onset
+processor is based on the rate-map representation, and therefore, the choice of
+the rate-map parameters, as listed in :numref:`tab-ratemap`, will influence the
+output of the onset processor. The temporal resolution is controlled by the
+window size ``rm_wSizeSec`` and the step size ``rm_hSizeSec``, respectively. The
+amount of temporal smoothing can be adjusted by the leaky integrator time
+constant ``rm_decaySec``, which reduces the amount of temporal fluctuations in
+the rate-map. Onset are detected by measuring the frame-based increase in energy
+of the rate-map representation. This detection is performed based on the
+logarithmically-scaled energy, as suggested by [Klapuri1999]_. It is possible to
+limit the strength of individual onsets to an upper limit, which is by default
+set to ``ons_maxOnsetdB = 30``. A list of all parameters is presented in
+:numref:`tab-onset-strength`.
+
+.. _tab-onset-strength:
+
+.. table:: List of parameters related to ``'onset_strength'``
+
+    +--------------------+---------+--------------------------------------+
+    | Parameter          | Default | Description                          |
+    +====================+=========+======================================+
+    | ``ons_maxOnsetdB`` | ``30``  | Upper limit for onset strength in dB |
+    +--------------------+---------+--------------------------------------+
+
+The resulting onset strength expressed in `decibel`, which is a function of time
+frame and frequency channel, is shown in :numref:`fig-onsetstrength`. The
+two figures can be replicated by running the script ``DEMO_OnsetStrength.m``.
+When considering speech as an input signal, it can be seen that onsets appear
+simultaneously across a broad frequency range and typically mark the beginning
+of an auditory event.
+
+.. _fig-onsetstrength:
+
+.. figure:: ../img/OnsetStrength.png
+
+   Rate-map representation (left panel) of speech and the corresponding
+   onset strength in decibel (right panel).
+
+.. ...::: References :::...
+
+.. [Klapuri1999]
+    Klapuri, A. (1999), “Sound onset detection by applying psychoacoustic
+    knowledge,” in Proceedings of the IEEE International Conference on
+    Acoustics, Speech and Signal Processing (ICASSP), pp. 3089–3092.
+
+.. vim: filetype=rst spell:

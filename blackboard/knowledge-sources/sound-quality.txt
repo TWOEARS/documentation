@@ -1,0 +1,69 @@
+.. _sec-qoe-knowledge-sources:
+
+Sound quality related knowledge sources
+---------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+.. _sec-coloration-knowledge-source:
+
+Coloration knowledge source: ``ColorationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The class ``ColorationKS`` implements the prediction of the perceived change in
+timbre of an auditory event compared to a reference. The reference is nothing
+fixed, but can be learned and is stored inside the blackboard memory. At the
+moment the learning is implemented in a very low level fashion: the first signal
+the |blackboard| is confronted with is learned as the reference and all later
+signals are compared to that reference. The ``colorationHypotheses`` is then a
+value between 0 and 1 -- whereas it is not hard limited and can be larger than 1
+for some conditions. The actual value is calculated using the naturalness model
+from [MooreTan2004]_ which compares the weighted excitation patterns of the
+reference and the test stimulus.
+
++------------------------+-----------------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                 |
++------------------------+-----------------------------------------------------+
+| reads data category    | ``colorationReference``                             |
++------------------------+-----------------------------------------------------+
+| writes data category   | ``colorationHypotheses`` or ``colorationReference`` |
++------------------------+-----------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                    |
++------------------------+-----------------------------------------------------+
+
+.. _sec-itd-localisation-knowledge-source:
+
+Location knowledge source: ``ItdLocationKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As the current implementation of ``GmmLocationKS`` and ``DnnLocationKS`` are
+not able to predict the localisation reliable under difficult conditions, we
+introduced a different location knowledge source as an intermediate solution.
+This ``ItdLocationKS`` is optimised for the prediction of predicting the
+perceived direction of a sound source created by a spatial audio system. It uses
+only |ITD| cues under 1400 Hz and utilises a lookup table to match those values
+to the corresponding angles.  This implies that the knowledge source is not able
+to distinguish between front and back. Beside the lookup table it uses also an
+outlier detection in the process of integrating the perceived angles over the
+different frequency channels as suggested in [Wierstorf2014]_. The output of the
+knowledge source is a ``sourcesAzimuthsDistributionHypotheses`` identical to the
+output of the ``GmmLocationKS`` or ``DnnLocationKS``.
+
++------------------------+-------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``       |
++------------------------+-------------------------------------------+
+| writes data category   | ``sourcesAzimuthsDistributionHypotheses`` |
++------------------------+-------------------------------------------+
+| triggers event         | ``KsFiredEvent``                          |
++------------------------+-------------------------------------------+
+
+.. ...::: References :::...
+
+.. [MooreTan2004]
+    Moore, B. C. J., & Tan, C. (2004) Development and Validation of a Method for
+    Predicting the Perceived Naturalness of Sounds Subjected to Spectral
+    Distortion. JAES, 52(9), 900–14.
+
+.. vim: filetype=rst spell:

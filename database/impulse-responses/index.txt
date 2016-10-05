@@ -3,19 +3,19 @@
 Impulse responses
 =================
 
-The Two!Ears database provides a large collection of |HRTF|\ s and |BRIR|\ s.
-Some of those were measured by the Two!Ears project, others were collected from
-other labs. All of them are available in the `SOFA format`_ which allows for an
-easy usage with the |BinSim|.
-
-.. _SOFA format: https://www.sofaconventions.org/
-
 .. toctree::
     :maxdepth: 1
 
     usage
     hrirs
     brirs
+
+The Two!Ears database provides a large collection of |HRTF|\ s and |BRIR|\ s.
+Some of those were measured by the Two!Ears project, others were collected from
+other labs. All of them are available in the `SOFA format`_ which allows for an
+easy usage with the |BinSim|.
+
+.. _SOFA format: https://www.sofaconventions.org/
 
 As you have seen in :ref:`sec-database-usage` the |BinSim| has automatic download
 capabilities for the impulse responses, you just have to copy and paste there
@@ -56,3 +56,5 @@ names.  Here is a list of all available data sets::
     impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
     impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
     impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
+
+.. vim: filetype=rst spell:
