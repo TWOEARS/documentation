@@ -240,17 +240,26 @@ latex_elements = {
 'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-'pointsize': '12pt',
+'pointsize': '11pt',
+
+# Default LaTeX font
+'fontpkg' : '\usepackage{lmodern}',
 
 'maketitle' : '',
 'tableofcontents' : '',
 'fncychap' : '',
 
 # Additional stuff for the LaTeX preamble.
-'preamble': '\usepackage[scaled=.7]{beramono}',
+'preamble': '''
+\\usepackage[scaled=.7]{beramono}
+\\definecolor{TitleColor}{rgb}{0,0,0}
+\\definecolor{InnerLinkColor}{rgb}{0,0,0}
+\\usepackage{geometry}
+\\geometry{a4paper,portrait,ignoreall,heightrounded,twoside,bindingoffset=5mm,marginparwidth=0pt,textwidth=400pt}
+''',
 
-# Latex figure (float) alignment
-#'figure_align': 'htbp',
+# Latex figure (float) alignment (H for disable floating)
+'figure_align': 'h!',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -258,7 +267,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('database/index', 'twoears-auditory-model.tex', u'The Two!Ears Auditory Model Documentation',
-   u'Two!Ears team', 'article'),
+   u'Two!Ears team', 'scrreprt'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
