@@ -12,6 +12,9 @@ Anechoic measurements (|HRTF|\ s)
 Anechoic |HRTF|\ s from the KEMAR manikin with different distances
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.55418.svg
    :target: https://doi.org/10.5281/zenodo.55418nd
 

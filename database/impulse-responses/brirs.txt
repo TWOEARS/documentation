@@ -12,6 +12,20 @@ Reverberant measurements (|BRIR|\ s)
 Two!Ears, CNRS Toulouse, Adream-building
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.49357.svg
+   :target: https://doi.org/10.5281/zenodo.49357
+   
+License
+^^^^^^^
+
+`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
 The Adream-building at the University Toulouse is a robot-lab space consisting
 of a large hall that contains four small rooms without concrete windows, doors,
 and ceilings. :numref:`fig-adream-building` provides a look from above on the
@@ -132,5 +146,70 @@ as described in [Wierstorf2011]_.
     Room sketch of the setup. The green crosses are the positions of the three
     loudspeakers starting with *src1* on the left side.
 
+Single-channel RIRs and BRIRs of a 64-Channel Loudspeaker Array for different Room Configurations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`10.142799/depositonce-87.6 <http://dx.doi.org/10.14279/depositonce-87.6>`_
+
+License
+^^^^^^^
+
+`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
+The database contains measured single-channel and binaural room impulse
+responses (RIRs and BRIRs) of a 64-channel loudspeaker array of square shape
+under varying room acoustical conditions. The measurements have been performed
+at the Audio Lab of the Institute of Communications Engineering, University of
+Rostock. The RIRs have been measured at three receiver positions for four
+different absorber configurations. Corresponding BRIRs for head-orientations in
+the range of ±80° in 2° steps with a KEMAR manikin have been captured for a
+subset of seven combinations of position and absorber configurations.
+
+.. figure:: ../img/brir_uro_kemar_audiolab-1.jpg
+    :width: 50 %
+    :align: center
+    
+    KEMAR Manikin in Audio Laboratory.
+    
+.. figure:: ../img/brir_uro_kemar_audiolab-2.jpg
+    :width: 50 %
+    :align: center
+    
+    Sketch of Audio Laboratory.
+
+Binaural room impulse responses:
+
+::
+
+		impulse_responses/uro_kemar_audiolab/brirs/BRIR_AddAbsorbers_ArrayCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/brirs/BRIR_NoAbsorbers_ArrayCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/brirs/BRIR_AllAbsorbers_ArrayCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/brirs/BRIR_NoAbsorbers_OffCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/brirs/BRIR_AllAbsorbers_OffCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/brirs/BRIR_NoCeilingAbsorbers_ArrayCentre_Emitters1to64_shifted.sofa
+		impulse_responses/uro_kemar_audiolab/brirs/BRIR_AllAbsorbers_RoomCentre_Emitters1to64.sofa
+
+Single-channel impulse responses:
+
+::
+
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_AddAbsorbers_ArrayCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_AddAbsorbers_OffCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_AddAbsorbers_RoomCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_AllAbsorbers_ArrayCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_AllAbsorbers_OffCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_AllAbsorbers_RoomCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoAbsorbers_ArrayCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoAbsorbers_OffCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoAbsorbers_RoomCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_ArrayCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_OffCentre_Emitters1to64.sofa
+		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_RoomCentre_Emitters1to64.sofa
+		
 .. vim: filetype=rst spell:
