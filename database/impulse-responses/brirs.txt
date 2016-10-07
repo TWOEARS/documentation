@@ -212,4 +212,46 @@ Single-channel impulse responses:
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_OffCentre_Emitters1to64.sofa
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_RoomCentre_Emitters1to64.sofa
 		
+Salford-BBC Spatially-sampled Binaural Room Impulse Responses
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		
+License
+^^^^^^^
+
+`Creative Commons Attribution-NonCommercial-ShareAlike 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
+The |BRIR|\ s were measured for a 12-channel Genelec 8030A loudspeaker setup 
+inside the University of Salford’s ITU-R BS.1116-compliant listening room. The 
+B&K Type 4100 head-and-torso-simulator (HATS) was positioned at 15 different 
+positions. The torso of the HATS was rotated horizontally in the range of ±180°
+in 2° steps at each position. Additional information can be found at the
+`authors' website <http://www.bbc.co.uk/rd/publications/sbsbrir>`_.
+
+.. figure:: ../img/brir_bbc_bk_salford_setup.jpg
+    :width: 50 %
+    :align: center
+    
+    Measurement layout.
+    
+::
+
+		impulse_responses/bbc_bk_salford/SBSBRIR_x-0pt5y-0pt5.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x0pt5y-0pt5.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x-0pt5y0.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x0pt5y0.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x-0pt5y-1.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x0pt5y-1.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x0y-0pt5.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x0y0.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x0y-1.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x-1y-0pt5.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x1y-0pt5.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x-1y0.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x1y0.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x-1y-1.sofa
+		impulse_responses/bbc_bk_salford/SBSBRIR_x1y-1.sofa
+
 .. vim: filetype=rst spell:
