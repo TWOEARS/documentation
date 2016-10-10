@@ -271,7 +271,7 @@ While position and orientation of the HATS is kept constant for one room, the
 sound source was placed in the horizontal plane at 1.5m distance with an azimuth
 between ±90° with an increment of 5°. Additional information can be found at the
 author's `website <http://iosr.surrey.ac.uk/software/index.php#BRIRs>`_, on
-the `github page <https://github.com/IoSR-Surrey/RealRoomBRIRs>`_ and in the
+the `github page <https://github.com/IoSR-Surrey/RealRoomBRIRs>`_ and in
 [Hummersone2011]_.
 
 The Data has been converted from the original SimpleFreeFieldHRIR convention
