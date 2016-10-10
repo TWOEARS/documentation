@@ -212,8 +212,8 @@ Single-channel impulse responses:
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_OffCentre_Emitters1to64.sofa
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_RoomCentre_Emitters1to64.sofa
 		
-Salford-BBC Spatially-sampled Binaural Room Impulse Responses
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Salford-BBC, 12-channel loudspeaker studio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		
 License
 ^^^^^^^
@@ -253,5 +253,74 @@ in 2° steps at each position. Additional information can be found at the
 		impulse_responses/bbc_bk_salford/SBSBRIR_x1y0.sofa
 		impulse_responses/bbc_bk_salford/SBSBRIR_x-1y-1.sofa
 		impulse_responses/bbc_bk_salford/SBSBRIR_x1y-1.sofa
+
+University of Surrey, four different rooms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+Copyright (c) 2016 Institute of Sound Recording under `The MIT License <https://opensource.org/licenses/MIT>`_
+
+Description
+^^^^^^^^^^^
+
+The BRIRs are measured with the Cortex Instruments Mk.2 HATS in four different
+rooms.  A Genelec 8020A active loudspeaker has been used as the sound source.
+While position and orientation of the HATS is kept constant for one room, the
+sound source was placed in the horizontal plane at 1.5m distance with an azimuth
+between ±90° with an increment of 5°. Additional information can be found at the
+author's `website <http://iosr.surrey.ac.uk/software/index.php#BRIRs>`_, on
+the `github page <https://github.com/IoSR-Surrey/RealRoomBRIRs>`_ and in the
+[Hummersone2011]_.
+
+The Data has been converted from the original SimpleFreeFieldHRIR convention
+to the SingleRoomDRIR convention (see also 
+`here <https://www.sofaconventions.org/mediawiki/index.php/SOFA_conventions>`_). 
+Furthermore the azimuth angle convention was been changed from clockwise 
+counting to counter-clockwise counting.
+
+.. |surreyA| image:: ../img/brir_surrey_roomA.png
+    :width: 100 %
+    :align: top
+
+.. |surreyB| image:: ../img/brir_surrey_roomB.png
+    :width: 100 %
+    :align: top
+
+.. |surreyC| image:: ../img/brir_surrey_roomC.png
+    :width: 100 %
+    :align: top
+
+.. |surreyD| image:: ../img/brir_surrey_roomD.png
+    :width: 100 %
+    :align: top
+
+.. table:: Rooms of Dataset [Hummersone2011]_
+
+		======================  ============================
+		A: medium sized office  B: medium-small class room 
+
+		|surreyA|            		|surreyB|
+		----------------------  ----------------------------
+		D: large cinema         C: medium-large seminar room
+
+		|surreyC|            		|surreyD|
+		======================  ============================
+
+::
+
+		impulse_responses/surrey_cortex_rooms/UniS_Room_A_BRIR_16k.sofa
+		impulse_responses/surrey_cortex_rooms/UniS_Room_A_BRIR_48k.sofa
+		impulse_responses/surrey_cortex_rooms/UniS_Room_B_BRIR_16k.sofa
+		impulse_responses/surrey_cortex_rooms/UniS_Room_B_BRIR_48k.sofa
+		impulse_responses/surrey_cortex_rooms/UniS_Room_C_BRIR_16k.sofa
+		impulse_responses/surrey_cortex_rooms/UniS_Room_C_BRIR_48k.sofa
+		impulse_responses/surrey_cortex_rooms/UniS_Room_D_BRIR_16k.sofa
+		impulse_responses/surrey_cortex_rooms/UniS_Room_D_BRIR_48k.sofa
+
+.. [Hummersone2011]
+    Hummersone, C. (2011), “Binaural Room Impulse Response Measurements,” `pdf
+    <https://github.com/IoSR-Surrey/RealRoomBRIRs/raw/master/Documentation/BRIR_measurements.pdf>`_.
 
 .. vim: filetype=rst spell:
