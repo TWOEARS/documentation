@@ -37,6 +37,7 @@ acronyms = """
 .. |MU|              replace:: :abbr:`MU (Model Units)`
 .. |NFC-HOA|         replace:: :abbr:`NFC-HOA (Near-Field Compensated Higher Order Ambisonics)`
 .. |OOP|             replace:: :abbr:`OOP (Object-Oriented Programming)`
+.. |RIR|             replace:: :abbr:`RIR (Room Impulse Response)`
 .. |RMS|             replace:: :abbr:`RMS (Root Mean Square)`
 .. |robotpkg|        replace:: *robotpkg*
 .. |rosix|           replace:: *rosix*

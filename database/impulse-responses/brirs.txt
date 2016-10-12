@@ -119,6 +119,7 @@ same as described in [Wierstorf2011]_.
     loudspeakers that correspond to *src4*, *src5*, *src6* in the |BRIR| file
     names.
 
+
 .. _sec-brir-qu-spirit:
 
 TU Berlin, Telefunken-building, room Spirit
@@ -146,8 +147,77 @@ as described in [Wierstorf2011]_.
     Room sketch of the setup. The green crosses are the positions of the three
     loudspeakers starting with *src1* on the left side.
 
-Single-channel RIRs and BRIRs of a 64-Channel Loudspeaker Array for different Room Configurations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _sec-brir-qu-calypso-surround:
+
+TU Berlin, Telefunken-building, room Calypso, 5.0 surround setup for different listening positions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
+.. |calypso1a| image:: ../img/brir_qu_calypso_surround_genelec8030A.jpg
+    :width: 100%
+.. |calypso2a| image:: ../img/brir_qu_calypso_surround_genelec8250A.jpg
+    :width: 100%
+.. |calypso1b| image:: ../img/brir_qu_calypso_surround_genelec8030A-2.png
+    :width: 100% 
+.. |calypso2b| image:: ../img/brir_qu_calypso_surround_genelec8250A-2.png
+    :width: 100% 
+   
+.. |calypso1pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_calypso_surround_genelec8030A-2.pdf>`
+.. |calypso2pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_calypso_surround_genelec8250A-2.pdf>`      
+   
+.. table::  Sketches (top) and photographs (bottom) of measurement setup.
+    
+		===========================  ===========================
+		Genelec 8030A |calypso1pdf|  Genelec 8250A |calypso2pdf|
+		---------------------------  ---------------------------
+		|calypso1b|                  |calypso2b|
+
+		|calypso1a|	                 |calypso2a|
+		===========================  ===========================
+
+The |BRIR|\ s were measured using a KEMAR (type 45BA) with the corresponding
+large ears (type KB0065 and KB0066). 5 Loudspeakers were placed around the
+manikin to establish a 5.0 surround setup. The measurements were done with two
+different two-way loudspeaker fabricates, namely Genelec 8030A (left figures)
+and Genelec 8250A (right).  For the former, the measurements were repeated at 9
+different listening positions (bottom left). For each position of the manikin,
+its head was rotated horizontally from -90° to 90° with a resolution of 1°.
+
+
+|BRIR|\ s for Genelec 8030A:
+
+::
+
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/1_KEMAR_Calypso_Surround_X-1.0m_Y+0.5m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/2_KEMAR_Calypso_Surround_X-0.5m_Y+0.5m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/3_KEMAR_Calypso_Surround_X+0.0m_Y+0.5m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/4_KEMAR_Calypso_Surround_X-1.0m_Y+0.0m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/5_KEMAR_Calypso_Surround_X-0.5m_Y+0.0m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/6_KEMAR_Calypso_Surround_X+0.0m_Y+0.0m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/7_KEMAR_Calypso_Surround_X-1.0m_Y-0.5m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/8_KEMAR_Calypso_Surround_X-0.5m_Y-0.5m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/9_KEMAR_Calypso_Surround_X+0.0m_Y-0.5m.sofa
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8030A/KEMAR_Calypso_Surround.sofa
+
+|BRIR|\ s for Genelec 8250A:
+
+::
+
+		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8250A/KEMAR_Calypso_Surround_Large_X+0.0m_Y+0.0m.sofa
+
+
+.. _sec-brir-uro-array:
+
+University of Rostock, |RIR|\ s and |BRIR|\ s of a 64-channel Loudspeaker array for different room configurations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -163,13 +233,14 @@ Description
 ^^^^^^^^^^^
 
 The database contains measured single-channel and binaural room impulse
-responses (RIRs and BRIRs) of a 64-channel loudspeaker array of square shape
-under varying room acoustical conditions. The measurements have been performed
-at the Audio Lab of the Institute of Communications Engineering, University of
-Rostock. The RIRs have been measured at three receiver positions for four
-different absorber configurations. Corresponding BRIRs for head-orientations in
-the range of ±80° in 2° steps with a KEMAR manikin have been captured for a
-subset of seven combinations of position and absorber configurations.
+responses (|RIR|\ s and |BRIR|\ s) of a 64-channel loudspeaker array of square
+shape under varying room acoustical conditions. The measurements have been
+performed at the Audio Lab of the Institute of Communications Engineering,
+University of Rostock. The |RIR|\ s have been measured at three receiver
+positions for four different absorber configurations. Corresponding |BRIR|\ s
+for head-orientations in the range of ±80° in 2° steps with a KEMAR manikin have
+been captured for a subset of seven combinations of position and absorber
+configurations.
 
 .. figure:: ../img/brir_uro_kemar_audiolab-1.jpg
     :width: 50 %
@@ -211,7 +282,10 @@ Single-channel impulse responses:
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_ArrayCentre_Emitters1to64.sofa
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_OffCentre_Emitters1to64.sofa
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_RoomCentre_Emitters1to64.sofa
-		
+	
+
+.. _sec-brir-bbc:
+	
 Salford-BBC, 12-channel loudspeaker studio
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		
@@ -254,6 +328,9 @@ in 2° steps at each position. Additional information can be found at the
 		impulse_responses/bbc_bk_salford/SBSBRIR_x-1y-1.sofa
 		impulse_responses/bbc_bk_salford/SBSBRIR_x1y-1.sofa
 
+
+.. _sec-brir-surrey:
+
 University of Surrey, four different rooms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -265,14 +342,14 @@ Copyright (c) 2016 Institute of Sound Recording under `The MIT License <https://
 Description
 ^^^^^^^^^^^
 
-The BRIRs are measured with the Cortex Instruments Mk.2 HATS in four different
-rooms.  A Genelec 8020A active loudspeaker has been used as the sound source.
-While position and orientation of the HATS is kept constant for one room, the
-sound source was placed in the horizontal plane at 1.5m distance with an azimuth
-between ±90° with an increment of 5°. Additional information can be found at the
-author's `website <http://iosr.surrey.ac.uk/software/index.php#BRIRs>`_, on
-the `github page <https://github.com/IoSR-Surrey/RealRoomBRIRs>`_ and in
-[Hummersone2011]_.
+The |BRIR|\ s are measured with the Cortex Instruments Mk.2 HATS in four
+different rooms.  A Genelec 8020A active loudspeaker has been used as the sound
+source.  While position and orientation of the HATS is kept constant for one
+room, the sound source was placed in the horizontal plane at 1.5m distance with
+an azimuth between ±90° with an increment of 5°. Additional information can be
+found at the author's `website
+<http://iosr.surrey.ac.uk/software/index.php#BRIRs>`_, on the `github page
+<https://github.com/IoSR-Surrey/RealRoomBRIRs>`_ and in [Hummersone2011]_.
 
 The Data has been converted from the original SimpleFreeFieldHRIR convention
 to the SingleRoomDRIR convention (see also 
