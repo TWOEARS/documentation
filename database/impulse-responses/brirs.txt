@@ -86,8 +86,8 @@ loudspeaker and dummy head positions and orientations.
 
 .. _sec-brir-qu-auditorium3:
 
-TU Berlin, Telefunken-building, room Auditorium 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TU Berlin, room Auditorium 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -101,10 +101,11 @@ TU Berlin, Telefunken-building, room Auditorium 3
 .. figure:: ../img/brir_qu_auditorium3.jpg
     :align: center
 
-The |BRIR|\ s are measured for three different sources and with a resolution of
-1° and head movement from -90° to 90°.  The measurement was done in two parts,
-which are shown in the following two figures. The measurement equipment was the
-same as described in [Wierstorf2011]_.
+The |BRIR|\ s were measured at the mid-size lecture room Auditorium 3 at the
+Telefunken-building of TU Berlin. They were measured for three different sources
+and with a resolution of 1° and head movement from -90° to 90°.  The measurement
+was done in two parts, which are shown in the following two figures. The
+measurement equipment was the same as described in [Wierstorf2011]_.
 
 .. figure:: ../img/brir_qu_auditorium3_setup1.png
     :align: center
@@ -122,8 +123,8 @@ same as described in [Wierstorf2011]_.
 
 .. _sec-brir-qu-spirit:
 
-TU Berlin, Telefunken-building, room Spirit
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TU Berlin, room Spirit
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -136,10 +137,11 @@ TU Berlin, Telefunken-building, room Spirit
 
     Photo of the room *Spirit* at the Telefunken-building at TU Berlin.
 
-The |BRIR|\ s are measured for three different sources and with a resolution of
-1° and head movement from -90° to 90°.  Note, that the photo of the room was not
-taken for the actual measurement setup.  The measurement equipment was the same
-as described in [Wierstorf2011]_.
+The |BRIR|\ s were measured in the meeting room Spirit at the
+Telefunken-building of TU Berlin. They were measured for three different sources
+and with a resolution of 1° and head movement from -90° to 90°.  Note, that the
+photo of the room was not taken for the actual measurement setup.  The
+measurement equipment was the same as described in [Wierstorf2011]_.
 
 .. figure:: ../img/brir_qu_spirit_setup.png
     :align: center
@@ -150,8 +152,8 @@ as described in [Wierstorf2011]_.
 
 .. _sec-brir-qu-calypso-surround:
 
-TU Berlin, Telefunken-building, room Calypso, 5.0 surround setup for different listening positions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TU Berlin, room Calypso, 5.0 surround setup for different listening positions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 License
 ^^^^^^^
@@ -184,13 +186,13 @@ Description
 		===========================  ===========================
 
 The |BRIR|\ s were measured using a KEMAR (type 45BA) with the corresponding
-large ears (type KB0065 and KB0066). 5 Loudspeakers were placed around the
-manikin to establish a 5.0 surround setup. The measurements were done with two
-different two-way loudspeaker fabricates, namely Genelec 8030A (left figures)
-and Genelec 8250A (right).  For the former, the measurements were repeated at 9
-different listening positions (bottom left). For each position of the manikin,
-its head was rotated horizontally from -90° to 90° with a resolution of 1°.
-
+large ears (type KB0065 and KB0066) in the studio room Calypso at the
+Telefunken-building of TU Berlin. 5 Loudspeakers were placed around the manikin
+to establish a 5.0 surround setup. The measurements were done with two different
+two-way loudspeaker fabricates, namely Genelec 8030A (left figures) and Genelec
+8250A (right).  For the former, the measurements were repeated at 9 different
+listening positions (bottom left). For each position of the manikin, its head
+was rotated horizontally from -90° to 90° with a resolution of 1°.
 
 |BRIR|\ s for Genelec 8030A:
 
@@ -212,6 +214,48 @@ its head was rotated horizontally from -90° to 90° with a resolution of 1°.
 ::
 
 		impulse_responses/qu_kemar_rooms/calypso_surround/genelec8250A/KEMAR_Calypso_Surround_Large_X+0.0m_Y+0.0m.sofa
+
+
+.. _sec-brirs-qu-calypso-linear:
+
+TU Berlin, room Calypso, 19-channel linear loudspeaker array
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		
+License
+^^^^^^^
+
+`Creative Commons Attribution-ShareAlike 4.0 <https://creativecommons.org/licenses/by-sa/3.0/>`_
+
+Description
+^^^^^^^^^^^
+
+|BRIR|\ s for 19 different loudspeakers placed in room Calypso at the
+Telefunken-building of TU Berlin were measured.  The room is a studio listening
+room. The 19 loudspeakers constituted a linear loudspeaker array with a
+inter-loudspeaker distance of roughly 15cm.  The measurement was done with the
+KEMAR (type 45BA) with the corresponding large ears (type KB0065 and KB0066) and
+Fostex PM0.4 loudspeakers.  The dummy head was rotated from −90° to 90° in 1°
+steps.  The measurement was repeated with the head wearing AKG K601 open
+headphones.
+
+.. figure:: ../img/brir_qu_calypso_loudspeaker_array.jpg
+    :width: 50 %
+    :align: center
+    
+    KEMAR wearing AKG K601 headphones in front of the loudspeaker array hidden
+    by a acoustically transparent curtain.
+    
+.. figure:: ../img/brir_qu_calypso_loudspeaker_array_setup.png
+    :width: 50 %
+    :align: center
+    
+    Setup of the measurements. For details see the :download:`PDF version
+    <../pdf/brir_qu_calypso_loudspeaker_array_setup.pdf>` of this figure.
+    
+::
+
+		qu_kemar_rooms/calypso_loudspeaker_array/QU_KEMAR_Calypso_loudspeaker_array.sofa
+		qu_kemar_rooms/calypso_loudspeaker_array/QU_KEMAR_Calypso_loudspeaker_array_AKG_K601.sofa
 
 
 .. _sec-brir-uro-array:
