@@ -15,9 +15,9 @@ Two!Ears, CNRS Toulouse, Adream-building
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.49357.svg
+.. image:: ../img/doi-10.5281-zenodo.49357.svg
    :target: https://doi.org/10.5281/zenodo.49357
-   
+
 License
 ^^^^^^^
 
@@ -157,6 +157,12 @@ measurement equipment was the same as described in [Wierstorf2011]_.
 TU Berlin, room Calypso, 5.0 surround setup for different listening positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: ../img/doi-10.5281-zenodo.160761.svg
+   :target: https://doi.org/10.5281/zenodo.160761
+
 License
 ^^^^^^^
 
@@ -170,15 +176,14 @@ Description
 .. |calypso2a| image:: ../img/brir_qu_calypso_surround_genelec8250A.jpg
     :width: 100%
 .. |calypso1b| image:: ../img/brir_qu_calypso_surround_genelec8030A-2.png
-    :width: 100% 
+    :width: 100%
 .. |calypso2b| image:: ../img/brir_qu_calypso_surround_genelec8250A-2.png
-    :width: 100% 
-   
+    :width: 100%
 .. |calypso1pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_calypso_surround_genelec8030A-2.pdf>`
-.. |calypso2pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_calypso_surround_genelec8250A-2.pdf>`      
-   
+.. |calypso2pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_calypso_surround_genelec8250A-2.pdf>`
+
 .. table::  Sketches (top) and photographs (bottom) of measurement setup.
-    
+
 		===========================  ===========================
 		Genelec 8030A |calypso1pdf|  Genelec 8250A |calypso2pdf|
 		---------------------------  ---------------------------
@@ -194,7 +199,9 @@ to establish a 5.0 surround setup. The measurements were done with two different
 two-way loudspeaker fabricates, namely Genelec 8030A (left figures) and Genelec
 8250A (right).  For the former, the measurements were repeated at 9 different
 listening positions (bottom left). For each position of the manikin, its head
-was rotated horizontally from -90° to 90° with a resolution of 1°.
+was rotated horizontally from -90° to 90° with a resolution of 1°.  The room has
+a volume of 83 m³ and a reverberation time RT60 of 0.17 s at a frequency of 1
+kHz.
 
 |BRIR|\ s for Genelec 8030A:
 
@@ -274,7 +281,8 @@ University of Rostock, |RIR|\ s and |BRIR|\ s of a 64-channel Loudspeaker array 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`10.142799/depositonce-87.6 <http://dx.doi.org/10.14279/depositonce-87.6>`_
+.. image:: ../img/doi-10.142799-depositonce-87.6.svg
+    :target: https://doi.org/10.14279/depositonce-87.6
 
 License
 ^^^^^^^
@@ -297,13 +305,13 @@ configurations.
 .. figure:: ../img/brir_uro_kemar_audiolab-1.jpg
     :width: 50 %
     :align: center
-    
+
     KEMAR Manikin in Audio Laboratory.
-    
+
 .. figure:: ../img/brir_uro_kemar_audiolab-2.jpg
     :width: 50 %
     :align: center
-    
+
     Sketch of Audio Laboratory.
 
 Binaural room impulse responses:
