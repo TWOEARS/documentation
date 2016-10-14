@@ -222,7 +222,13 @@ was rotated horizontally from -90° to 90° with a resolution of 1°.
 
 TU Berlin, room Calypso, 19-channel linear loudspeaker array
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		
+
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: ../img/doi-10.5281-zenodo.160754.svg
+   :target: https://doi.org/10.5281/zenodo.160754
+
 License
 ^^^^^^^
 
