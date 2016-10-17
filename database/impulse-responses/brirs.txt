@@ -52,7 +52,7 @@ orientations.
 
 .. figure:: ../img/brir_twoears_adream_pos_setup.png
     :align: center
-    :width: 50% 
+    :width: 50%
 
     Setup of the measurements. For details see the :download:`PDF version
     <../pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
@@ -91,36 +91,44 @@ loudspeaker and dummy head positions and orientations.
 TU Berlin, room Auditorium 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-::
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
+.. image:: ../img/doi-10.5281-zenodo.160749.svg
+    :target: https://doi.org/10.5281/zenodo.160749
 
-.. figure:: ../img/brir_qu_auditorium3.jpg
-    :align: center
+License
+^^^^^^^
+
+`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
+.. Local abbreviations
+.. |auditorium3a| image:: ../img/brir_qu_auditorium3_setup.png
+    :width: 100%
+.. |auditorium3b| image:: ../img/brir_qu_auditorium3.jpg
+    :width: 100%
+.. |auditorium3pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_auditorium3_setup.pdf>`
+
+.. table::  Measurement setup. Click on the figures for larger versions.
+
+    ================================  ========================================
+    Sketch of setup |auditorium3pdf|  Photo from the position of loudspeaker 1
+    --------------------------------  ----------------------------------------
+    |auditorium3a|                    |auditorium3b|
+    ================================  ========================================
 
 The |BRIR|\ s were measured at the mid-size lecture room Auditorium 3 at the
-Telefunken-building of TU Berlin. They were measured for three different sources
-and with a resolution of 1° and head movement from -90° to 90°.  The measurement
-was done in two parts, which are shown in the following two figures. The
-measurement equipment was the same as described in [Wierstorf2011]_.
+Telefunken-building of TU Berlin.  They were measured for six different
+loudspeaker positions. The head of the dummy head was rotated with a resolution
+of 1° ranging from -90° to 90°.  The measurement equipment was the same as
+described in [Wierstorf2011]_.
 
-.. figure:: ../img/brir_qu_auditorium3_setup1.png
-    :align: center
+::
 
-    Room sketch of the setup. The green crosses are the positions of the three
-    loudspeakers *src1*, *src2*, *src3*.
-
-.. figure:: ../img/brir_qu_auditorium3_setup2.png
-    :align: center
-
-    Room sketch of the setup. The green crosses are the positions of the three
-    loudspeakers that correspond to *src4*, *src5*, *src6* in the |BRIR| file
-    names.
+    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3.sofa
 
 
 .. _sec-brir-qu-spirit:
