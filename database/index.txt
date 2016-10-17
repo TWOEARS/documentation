@@ -10,6 +10,7 @@ Database
     usage
     listening-tests/index
     impulse-responses/index
+    learned-models/index
     sound-databases/index
     stimuli
     vision/index
