@@ -190,6 +190,8 @@ Description
 .. |calypso1pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_calypso_surround_genelec8030A-2.pdf>`
 .. |calypso2pdf| replace:: :download:`(PDF version) <../pdf/brir_qu_calypso_surround_genelec8250A-2.pdf>`
 
+.. _tab-brir-qu-calypso-surround:
+
 .. table::  Sketches (top) and photographs (bottom) of measurement setup.
 
 		===========================  ===========================
