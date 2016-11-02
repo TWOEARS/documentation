@@ -73,6 +73,8 @@ simulation of the loudspeaker array setup used in this experiment.
 Files
 ^^^^^
 
+::
+
     experiments/2015-11-01_wfs_stereo_comparison/results/*
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew-stereo.wav
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew-surround.wav
