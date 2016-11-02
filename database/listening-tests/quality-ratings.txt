@@ -93,8 +93,7 @@ the driving signals of the single loudspeakers as WAV-files
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../img/doi-10.5281-zenodo.164413.svg
-    :target: https://doi.org/10.5281/zenodo.164413
+`doi-10.5281/zenodo.164413 <https://doi.org/10.5281/zenodo.164413>`_
 
 License
 ^^^^^^^
