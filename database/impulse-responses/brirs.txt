@@ -253,7 +253,7 @@ Telefunken-building of TU Berlin were measured.  The room is a studio listening
 room. The 19 loudspeakers constituted a linear loudspeaker array with a
 inter-loudspeaker distance of roughly 15cm.  The measurement was done with the
 KEMAR (type 45BA) with the corresponding large ears (type KB0065 and KB0066) and
-Fostex PM0.4 loudspeakers.  The dummy head was rotated from −90° to 90° in 1°
+Fostex PM0.4 loudspeakers.  The dummy head was rotated from -90° to 90° in 1°
 steps.  The measurement was repeated with the head wearing AKG K601 open
 headphones.
 
