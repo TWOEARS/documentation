@@ -15,8 +15,7 @@ Anechoic |HRTF|\ s from the KEMAR manikin with different distances
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../img/doi-10.5281-zenodo.55418.svg
-   :target: https://doi.org/10.5281/zenodo.55418
+`10.5281-zenodo.55418 <https://doi.org/10.5281/zenodo.55418>`_
 
 License
 ^^^^^^^
