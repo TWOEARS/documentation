@@ -1,0 +1,14 @@
+.. _sec-learned-models:
+
+Trained Models for Knowledge Sources
+====================================
+
+In order to ease up the usage of Two!Ears model, the training of the
+propabilistic models used for the knowledge sources may be skipped by the user.
+This is a collection of data created during a-priori training of the models.
+The data for the respective knowledge source is stored inside 
+``learned_models/<name of knowledge source class>``. Documentation of the
+training data is available inside the description of the individual
+:ref:`sec-knowledge-sources`.
+
+.. vim: filetype=rst spell:

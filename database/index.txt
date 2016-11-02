@@ -10,8 +10,10 @@ Database
     usage
     listening-tests/index
     impulse-responses/index
+    learned-models/index
     sound-databases/index
     stimuli
+    vision/index
 
 Two!Ears comes with a central storage of data that can be used together with the
 |TwoEarsModel|. The data could be acoustical measures performed by Two!Ears

@@ -1,0 +1,11 @@
+.. _sec-database-vision:
+
+Visual Stimuli
+==============
+
+.. toctree::
+    :maxdepth: 1
+
+    uro-panorama
+
+.. vim: filetype=rst spell:

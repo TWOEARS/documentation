@@ -1,0 +1,25 @@
+.. _sec-uro-audiolab-panorama:
+
+Panorama Image of Audio Laboratory at the Institute of Communications Engineering, University of Rostock
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+`CC0 1.0 Universal <https://creativecommons.org/publicdomain/zero/1.0/>`_
+
+Description
+^^^^^^^^^^^
+
+Cylindrical 360° indoor panorama ``vision/uro_audiolab_panorama/panorama.jpg``
+created from 8 images (see ``vision/uro_audiolab_panorama/raw``) recorded with a
+Canon EOS 70D. The software `hugin <http://hugin.sourceforge.net/>`_ was been used
+to combine the images. The hugin configuration file is also provided at
+``vision/uro-panorama/hugin_settings.pto`` .
+
+.. figure:: ../img/uro_audiolab_panorama.jpg
+    :align: center
+    
+    360° Panorama of the Audio Laboratory.
+
+.. vim: filetype=rst spell:
