@@ -84,4 +84,78 @@ the driving signals of the single loudspeakers as WAV-files
     Stereophony and Wave Field Synthesis in the Context of Popular Music," 140th
     AES Convention, Paper 9533
 
+
+.. _sec-2016-06-01_wfs_mixing_quality:
+
+2016-06-01: Listening preference of different mixes of one popular music song presented by |WFS|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Stimuli: `doi-10.5281-zenodo.61000 <https://doi.org/10.5281/zenodo.61000>`_
+- Results: `doi-10.5281-zenodo.162161 <https://doi.org/10.5281/zenodo.162161>`_
+
+Description
+^^^^^^^^^^^
+
+.. _fig-2016-06-01_wfs_mixing_quality:
+
+.. figure:: ../img/2016-06-01_wfs_mixing_quality.png
+    :width: 100%
+    :align: center
+
+    Estimated preferences of the different mixes of a piece of pop music for
+    |WFS|. The conditions are stereo (STE), |WFS| reference (REF), both from
+    :ref:`a former listening test <sec-2015-11-01_wfs_stereo_comparison>`, |WFS|
+    with mixing parameter switched off (MM), |WFS| with decreased processing of
+    the specified mixing parameter (M), |WFS| with increased processing (P), and
+    |WFS| with further increased processing (PP). The preference was estimated
+    with a Bradley-Terry-Luce model. The bars denote the corresponding 95%
+    confidence interval. :download:`(PDF version)
+    <../pdf/2016-06-01_wfs_mixing_quality.pdf>`
+
+We did a paired comparison preference test where listeners rated their listening
+preference for a pop musical pieces presented by |WFS| or stereo. For |WFS| four
+to five different mixes of the same song were presented for one run of the
+experiment. Those mixes were variations along one of the following mixing
+parameters: "compression", "equalizing", "reverb", "changes of reverb,
+equalizing and compression to the vocals alone", "positioning of musical
+foreground elements".  The musical pieces were all mixed by the same person,
+that also mixed the stereo and |WFS| reference condition, compare [Hold2016a]_.
+The results for the "positioning of musical foreground elements" are discussed
+in more detail in [Hold2016b]_.
+
+Files
+^^^^^
+
+The experiment was performed with dynamic binaural synthesis. The |BRS| files
+for the 56-channel circular loudspeaker array are available under::
+
+    experiments/2016-06-01_wfs_mixing_quality/brs/
+
+The actual stimuli for the different mixing conditions are available as wav
+file, containing the driving signals for the loudspeakers. The stereo file is
+available as a two channel signal, the |WFS| signals are stored in a 64-channel
+wav file, where the first 56 channel are the driving signals for the
+loudspeakers::
+
+    experiments/2016-06-01_wfs_mixing_quality/stimuli/
+
+The single preference ratings of the 41 test participants and the results of the
+survey conducted after the experiment are available under::
+
+    experiments/2016-06-01_wfs_mixing_quality/results/
+
+The data analysis scripts and results, that calculates the preference values shown in
+:numref:`fig-2016-06-01_wfs_mixing_quality` are available under::
+
+    experiments/2016-06-01_wfs_mixing_quality/analysis/
+
+
+.. [Hold2016b]
+    Hold, C., Nagel, L., Wierstorf, H., Raake A. (2016), "Positioning of Musical Foreground
+    Parts in Surrounding Sound Stages," AES International Conference on Audio
+    for Virtual and Augmented Reality, Paper 7-2
+
 .. vim: filetype=rst spell:
