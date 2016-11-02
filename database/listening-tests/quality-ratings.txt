@@ -142,7 +142,7 @@ As music material seven different simultaneously recordings of the piece
 differed in the applied recording technique, which are listed in
 :numref:`tab-2016-03-01_sweet_spot` and were done at ORF (Austrian Broadcast,
 Vienna) and the piece was played by the Radio Symphony Orchestra Vienna. For
-more details on the applied microphones and for downloading all recordings haver
+more details on the applied microphones and for downloading all recordings have
 a look at [Wittek2015]_.
 
 :numref:`fig-2016-03-01_sweet_spot` summarizes the results across all listeners
