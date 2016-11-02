@@ -102,7 +102,7 @@ except Exception:
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', '*usage.txt']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -256,10 +256,14 @@ latex_elements = {
 \\definecolor{InnerLinkColor}{rgb}{0,0,0}
 \\usepackage{geometry}
 \\geometry{a4paper,portrait,ignoreall,heightrounded,twoside,bindingoffset=5mm,marginparwidth=0pt,textwidth=400pt}
+\\usepackage{titlesec}
+\\assignpagestyle{\\chapter}{empty}
 ''',
 
 # Latex figure (float) alignment (H for disable floating)
 'figure_align': 'h!',
+
+'sphinxpackageoptions' : 'verbatimwrapslines=true',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
