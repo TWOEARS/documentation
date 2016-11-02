@@ -15,7 +15,7 @@ Two!Ears, CNRS Toulouse, Adream-building
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`10.5281-zenodo.49357 <https://doi.org/10.5281/zenodo.49357>`_
+`doi: 10.5281/zenodo.49357 <https://doi.org/10.5281/zenodo.49357>`_
 
 License
 ^^^^^^^
@@ -93,7 +93,7 @@ TU Berlin, room Auditorium 3
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`doi-10.5281-zenodo.160749 <https://doi.org/10.5281/zenodo.160749>`_
+`doi: 10.5281/zenodo.160749 <https://doi.org/10.5281/zenodo.160749>`_
 
 License
 ^^^^^^^
@@ -166,7 +166,7 @@ TU Berlin, room Calypso, 5.0 surround setup for different listening positions
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`doi-10.5281-zenodo.160761 <https://doi.org/10.5281/zenodo.160761>`_
+`doi: 10.5281/zenodo.160761 <https://doi.org/10.5281/zenodo.160761>`_
 
 License
 ^^^^^^^
@@ -238,7 +238,7 @@ TU Berlin, room Calypso, 19-channel linear loudspeaker array
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`doi-10.5281-zenodo.160754 <https://doi.org/10.5281/zenodo.160754>`_
+`doi: 10.5281/zenodo.160754 <https://doi.org/10.5281/zenodo.160754>`_
 
 License
 ^^^^^^^
@@ -285,7 +285,7 @@ University of Rostock, |RIR|\ s and |BRIR|\ s of a 64-channel Loudspeaker array 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`10.142799-depositonce-87.6 <https://doi.org/10.14279/depositonce-87.6>`_
+`doi: 10.142799/depositonce-87.6 <https://doi.org/10.14279/depositonce-87.6>`_
 
 License
 ^^^^^^^
