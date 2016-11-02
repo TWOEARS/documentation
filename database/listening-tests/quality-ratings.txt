@@ -37,28 +37,42 @@ WAV-files of the stimuli in the following folders::
 2015-11-01: Listening preference of popular music presented by |WFS|, surround, and stereo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Stimuli: `doi: 10.14279/depositonce-5173 <https://doi.org/10.14279/depositonce-5173>`_
+- Results: `doi: 10.5281/zenodo.164433 <https://doi.org/10.5281/zenodo.164433>`_
+
+Description
+^^^^^^^^^^^
+
 .. _fig-2015-11-01_wfs_stereo_comparison:
 
 .. figure:: ../img/2015-11-01_wfs_stereo_comparison.png
     :align: center
+    :width: 80%
 
-    Estimated preference (system ability) of the different reproduction systems
+    Estimated preference of the different reproduction systems
     averaged over all listeners and musical pieces. The preference was estimated
     with a Bradley-Terry-Luce model. The bars denote the corresponding 95%
-    confidence interval.
+    confidence interval. :download:`(PDF version)
+    <../pdf/2015-11-01_wfs_stereo_comparison.pdf>`
+
 
 We did a paired comparison preference test where listeners rated their listening
 preference for four different pop musical pieces presented by |WFS|, stereo or
 surround. The musical pieces were all mixed by the same person in order to try
 to minimize the influence of the mix on the ratings, but still trying to get the
-best out of every system, see [Hold2016a]_ for details. We provide the single
-and average results, the |BRS| files for a binaural simulation of the
-loudspeaker array (the experiment itself was performed using a real loudspeaker
-array, but for modelling purposes the binaural simulation is of interest) and
-the driving signals of the single loudspeakers as WAV-files
-`[doi:10.14279/depositonce-5173] <http://dx.doi.org/10.14279/depositonce-5173>`_::
+best out of every system, see [Hold2016a]_ for details.
+As this experiment was performed with real loudspeakers, there are no |BRS|
+files available with this experiment, but if you like to run a binaural model on
+the stimuli you can try the |BRS| files from
+:ref:`sec-2016-06-01_wfs_mixing_quality` which provide a anechoic binaural
+simulation of the loudspeaker array setup used in this experiment.
 
-    experiments/2015-11-01_wfs_stereo_comparison/brs/*
+Files
+^^^^^
+
     experiments/2015-11-01_wfs_stereo_comparison/results/*
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew-stereo.wav
     experiments/2015-11-01_wfs_stereo_comparison/stimuli/brew-surround.wav
