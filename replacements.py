@@ -2,11 +2,11 @@ replacements = """
 .. |TwoearsMailingList|     replace:: `Two!Ears mailing list`_
 .. |TwoEars|                replace:: Two!Ears
 .. |TwoEarsModel|           replace:: :ref:`Two!Ears Auditory Model <index>`
-.. |AFE|                    replace:: :ref:`sec-afe`
-.. |BinSim|                 replace:: :ref:`sec-binsim`
-.. |robot|                  replace:: :ref:`sec-robot`
+.. |AFE|                    replace:: Auditory Front-End
+.. |BinSim|                 replace:: Binaural Simulator
+.. |robot|                  replace:: Robotics Platform
 .. |database|               replace:: :ref:`sec-database`
-.. |blackboard|             replace:: :ref:`sec-blackboard`
+.. |blackboard|             replace:: Blackboard-System
 .. |amtoolbox|              replace:: `Auditory Modeling Toolbox`_
 .. |LatestVersion|          replace:: `the latest version`_
 .. |AuditoryFrontEndKS|     replace:: :ref:`AuditoryFrontEndKS <sec-afe-knowledge-source>`
