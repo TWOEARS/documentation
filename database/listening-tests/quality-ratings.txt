@@ -30,12 +30,19 @@ Description
 .. figure:: ../img/quality_scene.png
     :align: center
 
-    The ten different conditions of the quality test.
+    The ten different conditions of the quality test, ordered after their
+    listener preferrence. See text for the meaning of the color code.
 
-We did a preference test where we asked for the preferred audio quality of the
-presented stimuli, see [Raake2014]_ for details. The stimuli consisted always of
-the same acoustic scene with three individual sources, which had different
-degrees of impairments.
+We did a paired comparison preference test where we asked for the preferred
+audio quality of the presented stimuli, see [Raake2014]_ for details. The
+stimuli consisted always of the same acoustic scene with three individual
+sources, which had different degrees of impairments: no impairment (gray),
+medium degraded guitar (light red), degraded guitar (red), degraded vocals
+(blue). Those impairments were applied in different combinations to the three
+sources, see :numref:`fig-2014-04-01_scene_quality`. The ordering in
+:numref:`fig-2014-04-01_scene_quality` also corresponds to the average listening
+preference for the presented scenes, where 1. is the most preferred scene and
+10. the less preferred one.
 
 Files
 ^^^^^
