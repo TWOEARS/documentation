@@ -25,14 +25,6 @@ License
 Description
 ^^^^^^^^^^^
 
-::
-
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_0_5m.sofa
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
-
-
 .. figure:: ../img/hrtf_qu_kemar.jpg
     :align: center
 
@@ -46,6 +38,16 @@ Note, that for the distance of 0.5m the used Genelec loudspeaker presents not
 really a point source. In addition, the |HRTF|\ s for 0.5m include reflections
 of the sound going from the KEMAR head back to the loudspeaker and back to the
 dummy head.
+
+Files
+^^^^^
+
+::
+
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_0_5m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
+    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
 
 The measurement comes also with the following headphone compensation filters::
 
@@ -71,12 +73,6 @@ License
 Description
 ^^^^^^^^^^^
 
-::
-
-    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360RM.sofa
-    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
-    impulse_responses/fhk_ku100_anechoic/HRIR_FULL2DEG.sofa
-
 .. figure:: ../img/hrtf_fhk_neumann.jpg
     :align: center
 
@@ -98,6 +94,15 @@ For further details, see the `FH Köln website`_ or the corresponding paper [Ber
 
 .. _FH Köln website: http://www.audiogroup.web.fh-koeln.de/ku100hrir.html
 
+Files
+^^^^^
+
+::
+
+    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360RM.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
+    impulse_responses/fhk_ku100_anechoic/HRIR_FULL2DEG.sofa
+
 .. [Bernschuetz2013]
     Bernschütz, B. (2013) "A Spherical Far Field HRIR/HRTF Compilation of the
     Neumann KU 100," German Annual Conference on Acoustics (DAGA)
@@ -113,21 +118,28 @@ For further details, see the `FH Köln website`_ or the corresponding paper [Ber
 MIT |HRTF| measurements of a KEMAR dummy head
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Description
+^^^^^^^^^^^
+
+The three-dimensional HRTF dataset was measured with a KEMAR (type DB-4004)
+equipped with a large right ear (type DB-065) and a normal-size left ear (type
+DB-061).  A small two-way loudspeaker (Realistic Optimus Pro 7) was used as a
+sound source. The HRTFs were measured for a distances of 1.4m. The elevation
+angle varies from -40° (40° below horizontal plane) to +90° (directly overhead)
+with a stepsize of 10°. The azimuth angle varies from 0° to 360° with an
+elevation angle dependent resolution. Files were downloaded from the `SOFA
+database`_. For documentation see [Gardner1994]_ which is available `here
+<http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf>`_.
+
+.. _SOFA database: http://www.sofaconventions.org/mediawiki/index.php/Files
+
+Files
+^^^^^
+
 ::
 
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
     impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
-
-The three-dimensional HRTF dataset was measured with a KEMAR (type DB-4004)
-equipped with a large right ear (type DB-065) and a normal-size left ear (type DB-061).
-A small two-way loudspeaker (Realistic Optimus Pro 7) was used as a sound source. The
-HRTFs were measured for a distances of 1.4m. The elevation angle varies from -40° (40°
-below horizontal plane) to +90° (directly overhead) with a stepsize of 10°. The azimuth an-
-gle varies from 0° to 360° with an elevation angle dependent resolution. Files 
-were downloaded from the `SOFA database`_. For documentation see [Gardner1994]_ 
-which is available `here <http://www.linux.bucknell.edu/~kozick/elec32007/hrtfdoc.pdf>`_.
-
-.. _SOFA database: http://www.sofaconventions.org/mediawiki/index.php/Files
 
 .. [Gardner1994]
     Gardner, B., Martin, K. (1994) "HRTF measurements of a KEMAR dummy-head
@@ -140,6 +152,17 @@ Near-field HRTFs from SCUT database of the KEMAR
 
 Description
 ^^^^^^^^^^^
+
+The three-dimensional HRTF dataset was measured with a KEMAR dummy head. The
+HRTFs were measured for ten different distances of 0.2m, 0.25m, 0.3m and 0.4m, 0.5m, ...,
+1.0m. The elevation angle varies from -30° to +90° with a stepsize of 15°. The azimuth
+angle varies from 0° to 360° with a resolution of 5° for elevation angles between ±30°.
+Above +30° elevation angle the azimuthal resolution is 10° , while for +90° elevation only
+one measurement per distance was performed. Files were downloaded from the 
+`SOFA database`_. See [Xie2013a]_ and [Xie2013b]_ for documentation on the measurements.
+
+Files
+^^^^^
 
 ::
 
@@ -154,14 +177,6 @@ Description
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.9m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
     impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa
-
-The three-dimensional HRTF dataset was measured with a KEMAR dummy head. The
-HRTFs were measured for ten different distances of 0.2m, 0.25m, 0.3m and 0.4m, 0.5m, ...,
-1.0m. The elevation angle varies from -30° to +90° with a stepsize of 15°. The azimuth
-angle varies from 0° to 360° with a resolution of 5° for elevation angles between ±30°.
-Above +30° elevation angle the azimuthal resolution is 10° , while for +90° elevation only
-one measurement per distance was performed. Files were downloaded from the 
-`SOFA database`_. See [Xie2013a]_ and [Xie2013b]_ for documentation on the measurements.
 
 .. [Xie2013a]
     Xie, B. (2013), "Head-related transfer function and virtual auditory
