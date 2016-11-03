@@ -67,6 +67,12 @@ Digital Object Identifier
 - Stimuli: `doi: 10.14279/depositonce-5173 <https://doi.org/10.14279/depositonce-5173>`_
 - Results: `doi: 10.5281/zenodo.164433 <https://doi.org/10.5281/zenodo.164433>`_
 
+License
+^^^^^^^
+
+- Stimuli: |CC BY-NC-SA 4.0|
+- Results: |CC BY 4.0|
+
 Description
 ^^^^^^^^^^^
 
@@ -135,6 +141,11 @@ Digital Object Identifier
 
 - Stimuli: `doi: 10.5281/zenodo.61000 <https://doi.org/10.5281/zenodo.61000>`_
 - Results: `doi: 10.5281/zenodo.162161 <https://doi.org/10.5281/zenodo.162161>`_
+
+License
+^^^^^^^
+
+|CC BY 4.0|
 
 Description
 ^^^^^^^^^^^
