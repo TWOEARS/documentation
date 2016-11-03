@@ -56,13 +56,6 @@ orientations.
     Setup of the measurements. For details see the :download:`PDF version
     <../pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
 
-::
-
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
-
 **Moving listener without head rotations**
 
 The second part of the measurement consists of a trajectory of 20 listener
@@ -80,8 +73,15 @@ loudspeaker and dummy head positions and orientations.
     Setup of the measurements. For details see the :download:`PDF version
     <../pdf/brir_twoears_adream_trajectory_setup.pdf>` of this figure.
 
+Files
+^^^^^
+
 ::
 
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
     impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_trajectory.sofa
 
 
@@ -123,6 +123,9 @@ Telefunken-building of TU Berlin.  They were measured for six different
 loudspeaker positions. The head of the dummy head was rotated with a resolution
 of 1° ranging from -90° to 90°.  The measurement equipment was the same as
 described in [Wierstorf2011]_.
+
+Files
+^^^^^
 
 ::
 
@@ -208,6 +211,9 @@ was rotated horizontally from -90° to 90° with a resolution of 1°.  The room 
 a volume of 83 m³ and a reverberation time RT60 of 0.17 s at a frequency of 1
 kHz.
 
+Files
+^^^^^
+
 |BRIR|\ s for Genelec 8030A:
 
 ::
@@ -271,6 +277,9 @@ headphones.
     Setup of the measurements. For details see the :download:`PDF version
     <../pdf/brir_qu_calypso_loudspeaker_array_setup.pdf>` of this figure.
 
+Files
+^^^^^
+
 ::
 
 		qu_kemar_rooms/calypso_loudspeaker_array/QU_KEMAR_Calypso_loudspeaker_array.sofa
@@ -316,6 +325,9 @@ configurations.
     :align: center
 
     Sketch of Audio Laboratory.
+
+Files
+^^^^^
 
 Binaural room impulse responses:
 
@@ -372,6 +384,9 @@ in 2° steps at each position. Additional information can be found at the
     :align: center
 
     Measurement layout.
+
+Files
+^^^^^
 
 ::
 
@@ -447,6 +462,9 @@ counting to counter-clockwise counting.
 
 		|surreyC|            		|surreyD|
 		======================  ============================
+
+Files
+^^^^^
 
 ::
 
