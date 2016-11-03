@@ -15,12 +15,12 @@ Two!Ears, CNRS Toulouse, Adream-building
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`10.5281-zenodo.49357 <https://doi.org/10.5281/zenodo.49357>`_
+`doi: 10.5281/zenodo.49357 <https://doi.org/10.5281/zenodo.49357>`_
 
 License
 ^^^^^^^
 
-`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+|CC BY 4.0|
 
 Description
 ^^^^^^^^^^^
@@ -93,12 +93,12 @@ TU Berlin, room Auditorium 3
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`doi-10.5281-zenodo.160749 <https://doi.org/10.5281/zenodo.160749>`_
+`doi: 10.5281/zenodo.160749 <https://doi.org/10.5281/zenodo.160749>`_
 
 License
 ^^^^^^^
 
-`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+|CC BY 4.0|
 
 Description
 ^^^^^^^^^^^
@@ -166,12 +166,12 @@ TU Berlin, room Calypso, 5.0 surround setup for different listening positions
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`doi-10.5281-zenodo.160761 <https://doi.org/10.5281/zenodo.160761>`_
+`doi: 10.5281/zenodo.160761 <https://doi.org/10.5281/zenodo.160761>`_
 
 License
 ^^^^^^^
 
-`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+|CC BY 4.0|
 
 Description
 ^^^^^^^^^^^
@@ -238,12 +238,12 @@ TU Berlin, room Calypso, 19-channel linear loudspeaker array
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`doi-10.5281-zenodo.160754 <https://doi.org/10.5281/zenodo.160754>`_
+`doi: 10.5281/zenodo.160754 <https://doi.org/10.5281/zenodo.160754>`_
 
 License
 ^^^^^^^
 
-`Creative Commons Attribution-ShareAlike 4.0 <https://creativecommons.org/licenses/by-sa/3.0/>`_
+|CC BY-SA 3.0|
 
 Description
 ^^^^^^^^^^^
@@ -285,12 +285,12 @@ University of Rostock, |RIR|\ s and |BRIR|\ s of a 64-channel Loudspeaker array 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`10.142799-depositonce-87.6 <https://doi.org/10.14279/depositonce-87.6>`_
+`doi: 10.142799/depositonce-87.6 <https://doi.org/10.14279/depositonce-87.6>`_
 
 License
 ^^^^^^^
 
-`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+|CC BY 4.0|
 
 Description
 ^^^^^^^^^^^
@@ -345,17 +345,17 @@ Single-channel impulse responses:
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_ArrayCentre_Emitters1to64.sofa
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_OffCentre_Emitters1to64.sofa
 		impulse_responses/uro_kemar_audiolab/rirs/RIR_NoCeilingAbsorbers_RoomCentre_Emitters1to64.sofa
-	
+
 
 .. _sec-brir-bbc:
-	
+
 Salford-BBC, 12-channel loudspeaker studio
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		
+
 License
 ^^^^^^^
 
-`Creative Commons Attribution-NonCommercial-ShareAlike 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+|CC BY-NC-SA 4.0|
 
 Description
 ^^^^^^^^^^^
@@ -370,9 +370,9 @@ in 2° steps at each position. Additional information can be found at the
 .. figure:: ../img/brir_bbc_bk_salford_setup.jpg
     :width: 50 %
     :align: center
-    
+
     Measurement layout.
-    
+
 ::
 
 		impulse_responses/bbc_bk_salford/SBSBRIR_x-0pt5y-0pt5.sofa
@@ -400,7 +400,7 @@ University of Surrey, four different rooms
 License
 ^^^^^^^
 
-Copyright (c) 2016 Institute of Sound Recording under `The MIT License <https://opensource.org/licenses/MIT>`_
+Copyright (c) 2016 Institute of Sound Recording under |MIT|
 
 Description
 ^^^^^^^^^^^

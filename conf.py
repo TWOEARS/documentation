@@ -27,7 +27,8 @@ sys.path.insert(0, os.path.abspath('.'))
 from acronyms import acronyms # This includes things like |HRTF| etc.
 from replacements import replacements # This includes |TwoEarsModel| etc.
 from links import links # This includes url links
-rst_epilog = acronyms + replacements + links # Apply those to every page
+from licenses import licenses # This includes acronyms for licenses
+rst_epilog = acronyms + replacements + links + licenses # Apply those to every page
 
 
 # -- General configuration ------------------------------------------------
