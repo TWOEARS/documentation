@@ -12,6 +12,19 @@ Coloration
 2013-05-01: Coloration of a point source in Wave Field Synthesis
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`10.5281/zenodo.164589 <https://doi.org/10.5281/zenodo.164589>`_
+
+License
+^^^^^^^
+
+`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
 .. _fig-2013-05-01_wfs_coloration:
 
 .. figure:: ../img/2013-05-01_wfs_coloration.png
@@ -22,24 +35,52 @@ Coloration
 
 This database entry contains stimuli and results from the experiments described
 in [Wierstorf2014a]_. In the experiment different |WFS| systems synthesising a
-point source were rated in terms of their perceived coloration compared to real
+point source were rated in terms of their perceived coloration compared to a real
 point source. This was done for different audio material, namely pink noise,
-speech, and music and different listener positions. The results are summarised
-in :numref:`fig-2013-05-01_wfs_coloration` and available in the following
-database files::
+speech, and music and different listener positions. The different |WFS| systems
+consisted always of a circular loudspeaker array with a radius of 3m, but
+different number of employed loudspeakers. To control for the exact
+listening position, allow instantaneous switching between listening positions,
+and allow for very high numbers of loudspeakers in the |WFS| systems
+the experiment was performed with binaural synthesis without head tracking.
+The results are summarised in :numref:`fig-2013-05-01_wfs_coloration`.
 
-    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_music.csv
-    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_noise.csv
-    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_center_positon_speech.csv
-    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_music.csv
-    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_noise.csv
-    experiments/2013-05-01_wfs_coloration/human_label_coloration_wfs_multiple_positions_speech.csv
+Files
+^^^^^
 
-the corresponding stimuli are provided as |brs| files that can be used together
-with the |binsim| and the corresponding scene description file
-:file:`wfs_coloration.xml` to reproduce the exact pink noise signals from the
-test. the path to the |brs| files is also listed in the first column of the
-human label files, so it can directly extracted from them.
+The |BRS| files for the binaural simulation can be found at::
+
+    experiments/2013-05-01_wfs_coloration/brs/*
+
+For the music stimulus a twelve second clip from the electronic song “Luv
+deluxe” by “Cinnamon Chasers” was chosen, which is not published in this
+database. The applied speech and pink noise stimuli can be found under::
+
+    experiments/2013-05-01_wfs_coloration/stimuli/pink_noise_pulse.wav
+    experiments/2013-05-01_wfs_coloration/stimuli/speech.wav
+
+The single results of the listeners and an analysis are available under::
+
+    experiments/2013-05-01_wfs_coloration/results/*
+    experiments/2013-05-01_wfs_coloration/analysis/*
+
+Where of special interest are the mean rating results shown in
+:numref:`fig-2013-05-01_wfs_coloration`::
+
+    experiments/2013-05-01_wfs_coloration/analysis/data_mean/coloration_wfs_center_music.csv
+    experiments/2013-05-01_wfs_coloration/analysis/data_mean/coloration_wfs_center_noise.csv
+    experiments/2013-05-01_wfs_coloration/analysis/data_mean/coloration_wfs_center_speech.csv
+    experiments/2013-05-01_wfs_coloration/analysis/data_mean/coloration_wfs_multiple_music.csv
+    experiments/2013-05-01_wfs_coloration/analysis/data_mean/coloration_wfs_multiple_noise.csv
+    experiments/2013-05-01_wfs_coloration/analysis/data_mean/coloration_wfs_multiple_speech.csv
+
+.. note::
+
+    This experiment has a flaw for the results using very high number of
+    loudspeakers. In this case some of the perceivable coloration was due to
+    some artifacts arriving from the fact that we employed only integer delay in
+    the delay line involved in the |WFS| processing. See the next experiment
+    for a corrected version.
 
 .. [Wierstorf2014a]
     Wierstorf, H., Hohnerlein, C., Spors, S., Raake, A. (2014), "Coloration in
@@ -48,14 +89,27 @@ human label files, so it can directly extracted from them.
 
 .. _sec-2015-10-01_wfs_coloration:
 
-2015-10-01: coloration of a point source in wave field synthesis revisited
+2015-10-01: Coloration of a point source in Wave Field Synthesis revisited
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:ref:`the first experiment <sec-2013-05-01_wfs_coloration>` investigating
-coloration in |wfs| had some artefacts in the stimuli for high frequencies due
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`10.5281/zenodo.164592 <https://doi.org/10.5281/zenodo.164592>`_
+
+License
+^^^^^^^
+
+`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
+:ref:`The first experiment <sec-2013-05-01_wfs_coloration>` investigating
+coloration in |WFS| had some artefacts in the stimuli for high frequencies due
 to the limitation coming with a finite sampling rate during the process of time
-delaying single signals in |wfs|. this time the experiment was repeated using
-fractional delay filter (add citation). in addition, we added a linear
+delaying single signals in |WFS|. This time the experiment was repeated using
+fractional delay filter. In addition, we added a linear
 loudspeaker array besides the circular one used in the first experiment.
 
 .. _fig-2015-10_01_wfs_coloration:
@@ -67,17 +121,32 @@ loudspeaker array besides the circular one used in the first experiment.
     compared to a reference point source. The error bars are showing the
     confidence intervals.
 
-The results are available in the following files::
+Files
+^^^^^
 
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_music.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_noise.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_center_speech.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_offcenter_music.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_circular_offcenter_speech.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_music.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_noise.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_center_speech.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_offcenter_music.csv
-    experiments/2015-10-01_wfs_coloration/human_label_coloration_wfs_linear_offcenter_speech.csv
+The |BRS| files for the binaural simulation, and the speech and pink noise
+stimuli are available under::
+
+    experiments/2015-10-01_wfs_coloration/brs/*
+    experiments/2015-10-01_wfs_coloration/stimuli/pink_noise_pulse.wav
+    experiments/2015-10-01_wfs_coloration/stimuli/speech.wav
+
+The results of the single listeners and an analysis are available under::
+
+    experiments/2015-10-01_wfs_coloration/results/*
+    experiments/2015-10-01_wfs_coloration/analysis/*
+
+The average results, plotted in :numref:`fig-2015-10_01_wfs_coloration`, are stored under::
+
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_circular_center_music.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_circular_center_noise.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_circular_center_speech.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_circular_offcenter_music.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_circular_offcenter_speech.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_linear_center_music.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_linear_center_noise.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_linear_center_speech.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_linear_offcenter_music.csv
+    experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_linear_offcenter_speech.csv
 
 .. vim: filetype=rst spell:
