@@ -112,11 +112,11 @@ Description
 
 .. table::  Measurement setup. Click on the figures for larger versions.
 
-    ================================  ========================================
-    Sketch of setup |auditorium3pdf|  Photo from the position of loudspeaker 1
-    --------------------------------  ----------------------------------------
-    |auditorium3a|                    |auditorium3b|
-    ================================  ========================================
+    ========================================  ========================================
+    Sketch of setup |auditorium3pdf|          Photo from the position of loudspeaker 1
+    ----------------------------------------  ----------------------------------------
+    |auditorium3a|                            |auditorium3b|
+    ========================================  ========================================
 
 The |BRIR|\ s were measured at the mid-size lecture room Auditorium 3 at the
 Telefunken-building of TU Berlin.  They were measured for six different
