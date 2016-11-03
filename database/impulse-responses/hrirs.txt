@@ -20,7 +20,7 @@ Digital Object Identifier
 License
 ^^^^^^^
 
-`Creative Commons Attribution-NonCommercial-ShareAlike 3.0 <https://creativecommons.org/licenses/by-nc-sa/3.0/>`_
+|CC BY-NC-SA 3.0|
 
 Description
 ^^^^^^^^^^^
@@ -52,7 +52,6 @@ The measurement comes also with the following headphone compensation filters::
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_AKGK271_hcomp.wav
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_AKGK601_hcomp.wav
     impulse_responses/qu_kemar_anechoic/QU_KEMAR_SennheiserHD25_hcomp.wav
-    
 
 .. [Wierstorf2011]
     Wierstorf, H., Geier, M., Raake, A., Spors, S. (2011) "A Free Database of
@@ -67,7 +66,7 @@ Spherical far-field |HRTF| compilation of the Neumann KU100
 License
 ^^^^^^^
 
-`Creative Commons Attribution-ShareAlike 3.0 <https://creativecommons.org/licenses/by-sa/3.0/>`_
+|CC BY-SA 3.0|
 
 Description
 ^^^^^^^^^^^
