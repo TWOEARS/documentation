@@ -270,7 +270,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('database/index', 'twoears-auditory-model.tex', u'The Two!Ears Auditory Model Documentation',
+  ('database/index', 'database.tex', u'The Two!Ears Public Database',
    u'Two!Ears team', 'scrreprt'),
 ]
 
@@ -293,7 +293,6 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_domain_indices = True
-
 
 # -- Options for manual page output ---------------------------------------
 

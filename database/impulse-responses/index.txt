@@ -3,13 +3,6 @@
 Impulse responses
 =================
 
-.. toctree::
-    :maxdepth: 1
-
-    usage
-    hrirs
-    brirs
-
 The Two!Ears database provides a large collection of |HRTF|\ s and |BRIR|\ s.
 Some of those were measured by the Two!Ears project, others were collected from
 other labs. All of them are available in the `SOFA format`_ which allows for an
@@ -17,44 +10,61 @@ easy usage with the |BinSim|.
 
 .. _SOFA format: https://www.sofaconventions.org/
 
-As you have seen in :ref:`sec-database-usage` the |BinSim| has automatic download
-capabilities for the impulse responses, you just have to copy and paste there
-names.  Here is a list of all available data sets::
+.. only:: latex
 
-    # HRTFs
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_0_5m.sofa
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
-    impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
-    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360RM.sofa
-    impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
-    impulse_responses/fhk_ku100_anechoic/HRIR_FULL2DEG.sofa
-    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
-    impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.2m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.3m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.4m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.5m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.6m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.7m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.8m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.9m.sofa
-    impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa
-    # BRIRs
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_trajectory.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
-    impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
+	.. toctree::
+		  :maxdepth: 1
+
+		  hrirs
+		  brirs
+    
+.. only:: html
+
+	.. toctree::
+		  :maxdepth: 1
+
+		  usage
+		  hrirs
+		  brirs
+
+	As you have seen in :ref:`sec-database-usage` the |BinSim| has automatic download
+	capabilities for the impulse responses, you just have to copy and paste there
+	names.  Here is a list of all available data sets::
+
+		  # HRTFs
+		  impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_0_5m.sofa
+		  impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_1m.sofa
+		  impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa
+		  impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa
+		  impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360RM.sofa
+		  impulse_responses/fhk_ku100_anechoic/HRIR_CIRC360.sofa
+		  impulse_responses/fhk_ku100_anechoic/HRIR_FULL2DEG.sofa
+		  impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_large.sofa
+		  impulse_responses/mit_kemar_anechoic/MIT_KEMAR_anechoic_1.7m_normal.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.25m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.2m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.3m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.4m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.5m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.6m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.7m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.8m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_0.9m.sofa
+		  impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa
+		  # BRIRs
+		  impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
+		  impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
+		  impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
+		  impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
+		  impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_trajectory.sofa
+		  impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa
+		  impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa
+		  impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa
+		  impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa
+		  impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa
+		  impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa
+		  impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
+		  impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
+		  impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
 
 .. vim: filetype=rst spell:
