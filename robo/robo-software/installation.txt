@@ -293,7 +293,7 @@ Applying the above commands to install |BASS| gives:
 
 .. note::
 
-    You might need additional ALSA libraries, like ``libasound-dev``, to install the 
-    |BASS| component (commonly with ``apt-get`` under Ubuntu).
+    You might need additional ALSA libraries, like ``libasound-dev`` or ``libasound2-dev``,
+    to install the |BASS| component (commonly with ``apt-get`` under Ubuntu).
      
 .. vim: filetype=rst spell:
