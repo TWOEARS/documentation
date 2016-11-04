@@ -1,0 +1,30 @@
+.. _sec-rosafe:
+
+A |ROS| auditory front-end
+=========================
+
+.. toctree::
+    :maxdepth: 1
+
+    overview
+    openafe
+    rosafe
+    matlab_client
+
+The |TwoEars| deployment system relies (i) on a functional level --in charge of the low-level robotic
+components, such as locomotion, audio acquisition and streaming--, and (ii) on a higher, cognitive 
+level --taking decisions based on the descriptors extracted from the raw binaural signals provided
+by the functional level--. Importantly, the functional level has to provide real-time robust and 
+reactive capabilities so as to be able to face dynamic acoustic conditions. Consequently, such a
+functional level is rooted on the |ROS| middleware.
+
+In the development system, the :ref:`Auditory Front-End <sec-afe>` is placed in-between. On the 
+deployment system, its role is to turn the acquired auditory signals --provided from the functional 
+layer by the :ref:`Binaural Audio Stream Server <sec-bass>`-- into higher level features exploited 
+by the decisional layer. However, the Matlab implementation of the AFE has not been
+implemented with real time constraints in mind: no concurrency is available between
+processors, and guaranteed computation time can hardly be satisfied when extracting a lot of
+features. It has then been decided to implement a new AFE right at the functional layer, supported by 
+|ROS| and |GenoM3|. This implementation is precisely described in this documentation.
+
+.. vim: filetype=rst spell:

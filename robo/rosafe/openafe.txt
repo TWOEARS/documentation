@@ -1,0 +1,179 @@
+.. _sec-robot-openafe:
+
+openAFE, a C++ library for rosAFE
+-----------------------------------------
+
+``openAFE`` is an independant, open-source, library providing the core
+algorithmic functionalities needed by the |ROS| implementation of the genuine
+Matlab |AFE|. It is written in C++ and implements the extraction of a subset
+of common auditory  representations from an offline binaural recording, or
+from a real- time stream of  binaural audio data.
+
+Installation
+~~~~~~~~~~~~
+
+.. note::
+  
+  For all the following installation instructions, we will assume that you are
+  using a Ubuntu GNU/Linux as it is the supported distribution for ROS. Even
+  if ``openAFE`` does not exploit any |ROS| capabilities, this library is
+  mandatory for the actual ``rosAFE``  implementation, thus justifying this
+  requirement. All the guidelines here have been successfully  tested on the
+  14.04 LTS version of Ubuntu.
+
+``openAFE`` links against existing two external libraries:
+
+* the `BOOST library <http://www.boost.org>`_  which is a set of over 80
+  individual C++ libraries providing    everything needed to perform linear
+  algebra, multithreading, image processing, etc. computations.    openAFE
+  exploits its circular buffer implementation to represent audio signal buffers.
+  It can be   installed with
+
+  .. code-block:: bash
+
+     $ sudo apt-get install libboost1.54-all-dev
+
+* the `FFTW library <http://www.fftw.org>`_; FFTW is among the fastest
+  implementation of the Fast Fourier    transform and is widely used when
+  dealing with signal frequency representations. It can be installed with:
+
+  .. code-block:: bash
+
+     $ sudo apt-get install fftw2
+
+``openAFE`` can be installed *with* or *without* demos, which require a Matlab
+installation. Whatever your  choice, you will have to get first the
+``openAFE`` repository in your home folder (you can choose another  location,
+but we recommend this one):
+
+.. code-block:: bash
+
+  $ cd
+  $ git clone https://github.com/TWOEARS/openAFE
+  
+Now, go inside the newly cloned repository, and create the ``build`` folder
+inside:
+
+.. code-block:: bash
+
+  $ cd  openAFE
+  $ mkdir  build
+  $ cd  build
+
+Standalone version
+^^^^^^^^^^^^^^^^^^
+
+If you are interested in the installation of a standalon version of
+``openAFE``,  *without* any demo binaries, you have then to use the following
+commands inside the ``build`` folder:
+
+.. code-block:: bash
+
+  $ ../ configure
+  $ make
+  $ sudo make install
+
+Complete version, with demo binaries
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are interested in the installation of the complete version of
+``openAFE``, including all demo binaries, you have then to use the following
+commands inside the ``build`` folder:
+
+.. code-block:: bash
+
+  $ ../configure  LDFLAGS="-L/usr/local/MATLAB/R2015b/bin/glnxa64" CPPFLAGS="-I/usr/local/MATLAB/R2015b/extern/include  -Wl,-rpath =/usr/local/MATLAB/R2015b/bin/glnxa64"
+  $ make
+  $ sudo make install
+
+.. note::
+
+	Depending on your Matlab installation, the paths used during the configure
+	step above must be changed accordingly. Note also that the installation of
+	the complete version is optional. The demos are only provided to test and
+	ilustrate use cases of the ``openAFE`` library. The ``rosAFE`` component
+	does not require them.
+
+.. To install
+.. a standalone version of the library, withou
+
+.. The openAFE library is available on https://github.com/TWOEARS/openAFE. This
+.. repository contains some DEMOs. They uses .mat files as input, so they need
+.. Matlab tobe installed on your computer. To install the library and to compile
+.. the DEMOs, adapt the following commands according to your own Matlab directory
+.. before using:
+
+.. .. code-block:: bash
+
+..   $ git clone https://github.com/TWOEARS/openAFE
+..   $ cd  openAFE
+..   $ mkdir  build
+..   $ cd  build
+..   $ ../ configure  LDFLAGS="-L/usr/local/MATLAB/R2015a/bin/glnxa64" CPPFLAGS="-I/usr/local/MATLAB/R2015a/extern/include  -Wl,-rpath =/usr/local/MATLAB/R2015a/bin/glnxa64"
+..   $ make
+..   $ sudo make install
+
+.. If your system doesn’t have Matlab, or if you don’t want to install DEMOs, use
+.. the following commands instead of the previous ones:
+
+.. .. code-block:: bash
+
+..   $ cd openAFE
+..   $ mkdir build
+..   $ cd build
+..   $ ../configure
+..   $ make
+..   $ sudo make install
+
+.. .. note::
+  
+..   The installation of the DEMOs are optional. Install them to test the openAFE
+..   library. The RosAFE component doesn't need them.
+
+.. Overview
+.. ~~~~~~~~
+.. ``openAFE`` is a C/C++ library to extract a subset of common auditory
+.. representations from a binaural recording or from a stream of binaural audio
+.. data. Similarily to the architecture of the |AFE|, this library contains
+.. processor, signal and filter classes. The following classes can be
+.. instantiated from the openAFE
+
+.. .. _tab-rosafe-openAFE-classes:
+
+.. .. table:: Available processors, filters and signals of openAFE.
+
+..   +---------------+--------------------------------------------------------------------------------------------------+
+..   | Type          | Name                                                                                             |
+..   +===============+==================================================================================================+
+..   | Processors    | Input Processor                                                                                  |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Pre-Processor (DC removal filter, Pre-emphasis filter, Binaural RMS normalization, Level scaling)|
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Filterbank (Gammatone)                                                                           |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Inner Hair Cell (Methods : none, halfwave, fullwave, square, dau)                                |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Interaural Level Difference (Windows : hamming, hann, blackman, triangular, square root)         |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Ratemap (Windows : hamming, hann, blackman, triangular, square root)                             |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Cross-Correlation                                                                                |
+..   +---------------+--------------------------------------------------------------------------------------------------+
+..   | Signals       | Time Domain Signal                                                                               |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Time Frequency Signal                                                                            |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Cross Correlation Signal                                                                         |
+..   +---------------+--------------------------------------------------------------------------------------------------+
+..   | Filters       | Generic Filter                                                                                   |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Butterworth Filter                                                                               |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Gammatone Filter                                                                                 |
+..   +               +--------------------------------------------------------------------------------------------------+
+..   |               | Leaky Integration Filter                                                                         |
+..   +---------------+--------------------------------------------------------------------------------------------------+
+
+
+
+.. .. vim: filetype=rst spell:

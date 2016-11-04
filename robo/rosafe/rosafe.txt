@@ -1,0 +1,6 @@
+.. _sec-robot-rosafe:
+
+rosAFE, a |ROS| implementation of the auditory front-end
+--------------------------------------------------------
+
+.. vim: filetype=rst spell:
