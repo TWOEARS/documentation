@@ -51,7 +51,7 @@ end is based on:
 * a :ref:`C/C++ library <sec-robot-openafe>` ``openAFE``, which actually implements the core
   algorithmic functionalities needed by the |ROS| implementation of the |AFE|,
 
-* a :ref:`|ROS|/|GenoM3| node/module <sec-robot-rosafe>` ``/rosAFE`, which implements 
+* a :ref:`ROS/GenoM3 node/module <sec-robot-rosafe>` ``/rosAFE``, which implements 
   the |AFE| processors, handles concurrency between them, and defines standard interface
   to transmit the computed audio descriptions to other |ROS| nodes or to higher levels 
   in the architecture,
