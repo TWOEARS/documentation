@@ -1,7 +1,7 @@
 .. _sec-uro-audiolab-panorama:
 
 Panorama Image of Audio Laboratory at the Institute of Communications Engineering, University of Rostock
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------------------------------------------------------------
 
 License
 ^^^^^^^
