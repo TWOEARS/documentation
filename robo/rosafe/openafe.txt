@@ -72,8 +72,8 @@ commands inside the ``build`` folder:
   $ make
   $ sudo make install
 
-The library ``libopenAFE.so`` is then installed in ``/usr/local/lib``.
-HEADER FILES ????
+The library ``libopenAFE.so`` is then installed in ``/usr/local/lib``, while
+the header files are in the ``/usr/local/include/openafe/`` folder.
 
 
 Complete version, with demo binaries
@@ -97,27 +97,32 @@ commands inside the ``build`` folder:
 	ilustrate use cases of the ``openAFE`` library. The ``rosAFE`` component
 	does not require them.
 
-The library ``libopenAFE.so`` is then installed in ``/usr/local/lib``, while
-the demo binaries can be found in ``/usr/local/bin``.
-HEADER FILES ????
+The library ``libopenAFE.so`` is then installed in ``/usr/local/lib``, 
+the demo binaries can be found in ``/usr/local/bin``, while
+the header files are in the ``/usr/local/include/openafe/`` folder.
 
 Demos
 '''''''
 
 ``openAFE`` contains a demo binary per processor type. The source code of
 these examples can be found in the ``examples`` folder of the repository. Each
-binary takes a ``.mat`` file as input, which must contains an array
-``earSignals`` made of a M samples x 2 matrix corresponding to the binaural
+binary takes a ``.mat`` file as input, which must contains an matrix
+``earSignals`` of size M samples x 2 corresponding to the binaural
 input signal, and a scallar ``fsHz`` corresponding to the sampling frequency.
-In he same vein, the binary create a ``.mat`` file as well as output. This
+In the same vein, the binary create a ``.mat`` file as well as output. This
 file contains the data in two separate matrices (left and right channels), and
 a value called fsHz which is the sampling frequency.
 
+.. note::     
+
+	Three ``.mat`` are provided as examples in the ``examples/Test_signals/`` 
+	folder of the repository. They all can be used as input to the demo binaries.
+
 For each demo, you should provide at least the following arguments:
 
-* ``inFilePath``: the path of the input .mat file
+* ``inFilePath``: the path of the input ``.mat`` file
 
-* ``outputName`` : the name of the output .mat file (including the .mat extension)
+* ``outputName`` : the name of the output ``.mat`` file (including the ``.mat`` extension)
 
 * All other arguments (parameters of the processors) are optional. If missing, default values will be
   used. 
@@ -293,162 +298,114 @@ immediately used for the new chunks arriving just after the modification.
 Code example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following C++ code shows how the ``openAFE`` library can be used to compute
-the gammatone filterbank outputs from a binaural signal recorded inside a
-``.mat`` file. This also illustrates the processing scheme explained above,
-using the ``processChunk()`` and ``releaseChunk()`` methods.
+The following C++ code shows how the ``openAFE`` library can be used to
+compute the gammatone filterbank outputs from a binaural signal recorded
+inside a ``.mat`` file. This also illustrates the processing scheme explained
+above, using the ``processChunk()`` and ``releaseChunk()`` methods. This
+example exploits some additional code to be able to read and write from/to
+``.mat`` files. This code has been compiled to form a library
+``libmatFiles.a`` during the ``openAFE`` installation (the library and its
+header file are located in the ``build/example`` folder). The example below
+must be then linked against this library to correctly operate. This
+requirement can be relaxed when working directly on data structures defined in
+the code.
+
+To compile the example, first :download:`download the example source code file
+<test.cpp>` to the ``~/TEST`` folder, and follow the steps below:
+
+.. code-block:: bash
+
+	$ cd TEST
+	$ cp ../openAFE/examples/matFiles.hpp .
+	$ cp ../openAFE/build/examples/libmatFiles.a .
+	$ cp ../openAFE/examples/Text_signals/DEMO_Speech_Anechoic.mat .
+	$ sed -i -e 's/..\/src\/Signals\/dataType.hpp/Signals\/dataType.hpp/g' matFiles.hpp
+	$ g++ -Wall -O3 -std=c++11 -pthread -Wl,-rpath=/usr/local/MATLAB/R2015b/bin/glnxa64 -I/usr/local/include/openafe -I/usr/local/MATLAB/R2015b/extern/include -L/usr/local/MATLAB/R2015b/bin/glnxa64 test.cpp -o test -lopenAFE libmatFiles.a -lmat -lmx -lm
+
+You then get a binary file ``test``, which can be run directly from the command line:
+
+.. code-block:: bash
+
+	$ ./test
+
+The example reads the data from the ``DEMO_Speech_Anechoic.mat``, process it,
+and writes the output to a ``out.mat`` file. The source code of the example is
+reproduced here:
 
 .. code-block:: c++
-
 
 	#include <memory>
 	#include <iostream>
 
-	# A CHANGER !!!!!
-	#include "../src/Processors/inputProc.hpp"
-	#include "../src/Processors/preProc.hpp"
-	#include "../src/Processors/gammatoneProc.hpp"
+	#include "matFiles.hpp" 
+	#include "openafe/Processors/inputProc.hpp"
+	#include "openafe/Processors/preProc.hpp"
+	#include "openafe/Processors/gammatoneProc.hpp"
 
 	using namespace openAFE;
 	using namespace std;
 
-	# Read input from .mat file 
-	string dataPath;
-	dataPath = "/path/to/input/.mat/file/";
-	vector <vector<double> > earSignals;
-  	double fsHz;
-	int result = matFiles::readMatFile(dataPath.c_str(), earSignals, &fsHz);
-
-	# Gammaton processor parameters
-	filterBankType fb_type = _gammatoneFilterBank;
-	double fb_lowFreqHz = 80;
-  	double fb_highFreqHz = 8000;
-  	double fb_nERBs = 1;
-	uint32_t fb_nChannels = 0;	
-	double* fb_cfHz = nullptr;		
-	size_t fb_cfHz_length = 0;		
-	uint32_t fb_nGamma = 4;
-	double fb_bwERBs = 1.0180;
-
 	int main(int argc, char **argv) {
 
-	  ## Processor instanciations
-	  # Input processor
-	  shared_ptr <InputProc > inputP; 
+	  // Read input from .mat file
+	  string dataPath("./DEMO_Speech_Anechoic.mat");
+	  vector <vector<double> > earSignals;
+	  double fsHz;
+	  matFiles::readMatFile(dataPath.c_str(), earSignals, &fsHz);
+
+	  // Gammaton processor parameters
+	  filterBankType fb_type = _gammatoneFilterBank;
+	  double fb_lowFreqHz = 80;
+	  double fb_highFreqHz = 8000;
+	  double fb_nERBs = 1;
+	  uint32_t fb_nChannels = 0;
+	  double* fb_cfHz = nullptr;
+	  size_t fb_cfHz_length = 0;
+	  uint32_t fb_nGamma = 4;
+	  double fb_bwERBs = 1.0180;
+	  
+	  /// Processor instanciations
+	  // Input processor
+	  shared_ptr <InputProc > inputP;
 	  inputP.reset( new InputProc("input", fsHz, 10 /* bufferSize_s */, false /* doNormalize */) );
 
-	  # Pre-processor
+	  // Pre-processor
 	  shared_ptr <PreProc > ppP;
 	  ppP.reset( new PreProc("preProc", inputP ) ); /* default parameters */
 
-	  # Gammatone processor
+	  // Gammatone processor
 	  shared_ptr <GammatoneProc > gtP;
 	  gtP.reset( new GammatoneProc("gammatoneProc", ppP ,fb_type,
-					fb_lowFreqHz,
-					fb_highFreqHz,
-					fb_nERBs,
-					fb_nChannels,
-					fb_cfHz,
-					fb_cfHz_length,
-					fb_nGamma,
-					fb_bwERBs ) );
-				  
-	  ## Successive computations in the tree to obtain the required audio representation
-	  # Dirst, input Processor
-	  inputP->processChunk ( earSignals[0].data(), earSignals[0].size(), earSignals[1].data(), earSignals[1].size() );
-	  inputP->releaseChunk(); 
-	  
-	  # Then the pre-Processor
-	  ppP->processChunk ();
-	  ppP->releaseChunk();  	
+	                                fb_lowFreqHz,
+	                                fb_highFreqHz,
+	                                fb_nERBs,
+	                                fb_nChannels,
+	                                fb_cfHz,
+	                                fb_cfHz_length,
+	                                fb_nGamma,
+	                                fb_bwERBs ) );
 
-	  # And finally, the gammatone Processor
+	  /// Successive computations in the tree to obtain the required audio representation
+	  // First, input Processor
+	  inputP->processChunk ( earSignals[0].data(), earSignals[0].size(), earSignals[1].data(), earSignals[1].size() );
+	  inputP->releaseChunk();
+
+	  // Then the pre-Processor
+	  ppP->processChunk ();
+	  ppP->releaseChunk();
+
+	  // And finally, the gammatone Processor
 	  gtP->processChunk ();
 	  gtP->releaseChunk();
-	  
-	  ## Outputs are in the lOut and rOut variables
+
+	  /// Outputs are in the lOut and rOut variables
 	  vector<shared_ptr<twoCTypeBlock<double> > > lOut = gtP->getLeftWholeBufferAccessor();
 	  vector<shared_ptr<twoCTypeBlock<double> > > rOut = gtP->getRightWholeBufferAccessor();
 
+	  // Eventually, write the signals into a .mat file
+	  matFiles::writeTFSMatFile("out.mat", lOut, rOut, fsHz);
+
+
 	}
 
-.. The openAFE library is available on https://github.com/TWOEARS/openAFE. This
-.. repository contains some DEMOs. They uses .mat files as input, so they need
-.. Matlab tobe installed on your computer. To install the library and to compile
-.. the DEMOs, adapt the following commands according to your own Matlab directory
-.. before using:
-
-.. .. code-block:: bash
-
-..   $ git clone https://github.com/TWOEARS/openAFE
-..   $ cd  openAFE
-..   $ mkdir  build
-..   $ cd  build
-..   $ ../ configure  LDFLAGS="-L/usr/local/MATLAB/R2015a/bin/glnxa64" CPPFLAGS="-I/usr/local/MATLAB/R2015a/extern/include  -Wl,-rpath =/usr/local/MATLAB/R2015a/bin/glnxa64"
-..   $ make
-..   $ sudo make install
-
-.. If your system doesn’t have Matlab, or if you don’t want to install DEMOs, use
-.. the following commands instead of the previous ones:
-
-.. .. code-block:: bash
-
-..   $ cd openAFE
-..   $ mkdir build
-..   $ cd build
-..   $ ../configure
-..   $ make
-..   $ sudo make install
-
-.. .. note::
-  
-..   The installation of the DEMOs are optional. Install them to test the openAFE
-..   library. The RosAFE component doesn't need them.
-
-.. Overview
-.. ~~~~~~~~
-.. ``openAFE`` is a C/C++ library to extract a subset of common auditory
-.. representations from a binaural recording or from a stream of binaural audio
-.. data. Similarily to the architecture of the |AFE|, this library contains
-.. processor, signal and filter classes. The following classes can be
-.. instantiated from the openAFE
-
-.. .. _tab-rosafe-openAFE-classes:
-
-.. .. table:: Available processors, filters and signals of openAFE.
-
-..   +---------------+--------------------------------------------------------------------------------------------------+
-..   | Type          | Name                                                                                             |
-..   +===============+==================================================================================================+
-..   | Processors    | Input Processor                                                                                  |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Pre-Processor (DC removal filter, Pre-emphasis filter, Binaural RMS normalization, Level scaling)|
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Filterbank (Gammatone)                                                                           |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Inner Hair Cell (Methods : none, halfwave, fullwave, square, dau)                                |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Interaural Level Difference (Windows : hamming, hann, blackman, triangular, square root)         |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Ratemap (Windows : hamming, hann, blackman, triangular, square root)                             |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Cross-Correlation                                                                                |
-..   +---------------+--------------------------------------------------------------------------------------------------+
-..   | Signals       | Time Domain Signal                                                                               |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Time Frequency Signal                                                                            |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Cross Correlation Signal                                                                         |
-..   +---------------+--------------------------------------------------------------------------------------------------+
-..   | Filters       | Generic Filter                                                                                   |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Butterworth Filter                                                                               |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Gammatone Filter                                                                                 |
-..   +               +--------------------------------------------------------------------------------------------------+
-..   |               | Leaky Integration Filter                                                                         |
-..   +---------------+--------------------------------------------------------------------------------------------------+
-
-
-
-.. .. vim: filetype=rst spell:
+.. vim: filetype=rst spell:
