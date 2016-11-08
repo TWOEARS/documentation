@@ -271,8 +271,8 @@ Example: installing the |BASS| component
 
 |BASS| is a :ref:`component for binaural audio streaming <sec-bass>`. The folder
 for this component is named ``bass-genom3``, under the ``RoboticPlateform``
-folder of the software repository. Applying the above commands to install |BASS|
-gives:
+folder of the software repository (see the :ref:`installation guide <sec-install>`).
+Applying the above commands to install |BASS| gives:
 
 .. code-block:: bash
 
@@ -293,7 +293,7 @@ gives:
 
 .. note::
 
-    You might need additional ALSA libraries, like ``libasound-dev``, to install the 
-    |BASS| component (commonly with ``apt-get`` under Ubuntu).
+    You might need additional ALSA libraries, like ``libasound-dev`` or ``libasound2-dev``,
+    to install the |BASS| component (commonly with ``apt-get`` under Ubuntu).
      
 .. vim: filetype=rst spell:
