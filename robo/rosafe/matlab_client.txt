@@ -1,0 +1,6 @@
+.. _sec-robot-rosafe-matlab-client:
+
+Matlab client to rosAFE
+-------------------------
+
+.. vim: filetype=rst spell:

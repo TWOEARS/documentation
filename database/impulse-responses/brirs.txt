@@ -56,13 +56,6 @@ orientations.
     Setup of the measurements. For details see the :download:`PDF version
     <../pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
 
-::
-
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
-    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
-
 **Moving listener without head rotations**
 
 The second part of the measurement consists of a trajectory of 20 listener
@@ -75,13 +68,20 @@ loudspeaker and dummy head positions and orientations.
 
 .. figure:: ../img/brir_twoears_adream_trajectory_setup.png
     :align: center
-    :width: 50% 
+    :width: 50%
 
     Setup of the measurements. For details see the :download:`PDF version
     <../pdf/brir_twoears_adream_trajectory_setup.pdf>` of this figure.
 
+Files
+^^^^^
+
 ::
 
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa
+    impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa
     impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_trajectory.sofa
 
 
@@ -112,17 +112,20 @@ Description
 
 .. table::  Measurement setup. Click on the figures for larger versions.
 
-    ================================  ========================================
-    Sketch of setup |auditorium3pdf|  Photo from the position of loudspeaker 1
-    --------------------------------  ----------------------------------------
-    |auditorium3a|                    |auditorium3b|
-    ================================  ========================================
+    ========================================  ========================================
+    Sketch of setup |auditorium3pdf|          Photo from the position of loudspeaker 1
+    ----------------------------------------  ----------------------------------------
+    |auditorium3a|                            |auditorium3b|
+    ========================================  ========================================
 
 The |BRIR|\ s were measured at the mid-size lecture room Auditorium 3 at the
 Telefunken-building of TU Berlin.  They were measured for six different
 loudspeaker positions. The head of the dummy head was rotated with a resolution
 of 1° ranging from -90° to 90°.  The measurement equipment was the same as
 described in [Wierstorf2011]_.
+
+Files
+^^^^^
 
 ::
 
@@ -134,16 +137,33 @@ described in [Wierstorf2011]_.
 TU Berlin, room Spirit
 ~~~~~~~~~~~~~~~~~~~~~~
 
-::
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src1_30deg.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src2_0deg.sofa
-    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit_src3_-30deg.sofa
+`doi-10.5281-zenodo.160751 <https://doi.org/10.5281/zenodo.160751>`_
 
-.. figure:: ../img/brir_qu_spirit.jpg
-    :align: center
+License
+^^^^^^^
 
-    Photo of the room *Spirit* at the Telefunken-building at TU Berlin.
+|CC BY 4.0|
+
+Description
+^^^^^^^^^^^
+
+.. Local abbreviations
+.. |spirita| image:: ../img/brir_qu_spirit_setup.png
+    :width: 100%
+.. |spiritb| image:: ../img/brir_qu_spirit.jpg
+    :width: 100%
+.. |spiritpdf| replace:: :download:`(PDF version) <../pdf/brir_qu_spirit_setup.pdf>`
+
+.. table::  Measurement setup. Click on the figures for larger versions.
+
+    =====================================  =======================================
+    Sketch of setup |spiritpdf|            Photo with different loudspeaker layout
+    -------------------------------------  ---------------------------------------
+    |spirita|                              |spiritb|
+    =====================================  =======================================
 
 The |BRIR|\ s were measured in the meeting room Spirit at the
 Telefunken-building of TU Berlin. They were measured for three different sources
@@ -151,11 +171,12 @@ and with a resolution of 1° and head movement from -90° to 90°.  Note, that t
 photo of the room was not taken for the actual measurement setup.  The
 measurement equipment was the same as described in [Wierstorf2011]_.
 
-.. figure:: ../img/brir_qu_spirit_setup.png
-    :align: center
+Files
+^^^^^
 
-    Room sketch of the setup. The green crosses are the positions of the three
-    loudspeakers starting with *src1* on the left side.
+::
+
+    impulse_responses/qu_kemar_rooms/spirit/QU_KEMAR_spirit.sofa
 
 
 .. _sec-brir-qu-calypso-surround:
@@ -207,6 +228,9 @@ listening positions (bottom left). For each position of the manikin, its head
 was rotated horizontally from -90° to 90° with a resolution of 1°.  The room has
 a volume of 83 m³ and a reverberation time RT60 of 0.17 s at a frequency of 1
 kHz.
+
+Files
+^^^^^
 
 |BRIR|\ s for Genelec 8030A:
 
@@ -260,17 +284,20 @@ headphones.
 .. figure:: ../img/brir_qu_calypso_loudspeaker_array.jpg
     :width: 50 %
     :align: center
-    
+
     KEMAR wearing AKG K601 headphones in front of the loudspeaker array hidden
     by a acoustically transparent curtain.
-    
+
 .. figure:: ../img/brir_qu_calypso_loudspeaker_array_setup.png
     :width: 50 %
     :align: center
-    
+
     Setup of the measurements. For details see the :download:`PDF version
     <../pdf/brir_qu_calypso_loudspeaker_array_setup.pdf>` of this figure.
-    
+
+Files
+^^^^^
+
 ::
 
 		qu_kemar_rooms/calypso_loudspeaker_array/QU_KEMAR_Calypso_loudspeaker_array.sofa
@@ -317,6 +344,9 @@ configurations.
 
     Sketch of Audio Laboratory.
 
+Files
+^^^^^
+
 Binaural room impulse responses:
 
 ::
@@ -360,9 +390,9 @@ License
 Description
 ^^^^^^^^^^^
 
-The |BRIR|\ s were measured for a 12-channel Genelec 8030A loudspeaker setup 
-inside the University of Salford’s ITU-R BS.1116-compliant listening room. The 
-B&K Type 4100 head-and-torso-simulator (HATS) was positioned at 15 different 
+The |BRIR|\ s were measured for a 12-channel Genelec 8030A loudspeaker setup
+inside the University of Salford’s ITU-R BS.1116-compliant listening room. The
+B&K Type 4100 head-and-torso-simulator (HATS) was positioned at 15 different
 positions. The torso of the HATS was rotated horizontally in the range of ±180°
 in 2° steps at each position. Additional information can be found at the
 `authors' website <http://www.bbc.co.uk/rd/publications/sbsbrir>`_.
@@ -372,6 +402,9 @@ in 2° steps at each position. Additional information can be found at the
     :align: center
 
     Measurement layout.
+
+Files
+^^^^^
 
 ::
 
@@ -415,9 +448,9 @@ found at the author's `website
 <https://github.com/IoSR-Surrey/RealRoomBRIRs>`_ and in [Hummersone2011]_.
 
 The Data has been converted from the original SimpleFreeFieldHRIR convention
-to the SingleRoomDRIR convention (see also 
-`here <https://www.sofaconventions.org/mediawiki/index.php/SOFA_conventions>`_). 
-Furthermore the azimuth angle convention was been changed from clockwise 
+to the SingleRoomDRIR convention (see also
+`here <https://www.sofaconventions.org/mediawiki/index.php/SOFA_conventions>`_).
+Furthermore the azimuth angle convention was been changed from clockwise
 counting to counter-clockwise counting.
 
 .. |surreyA| image:: ../img/brir_surrey_roomA.png
@@ -439,7 +472,7 @@ counting to counter-clockwise counting.
 .. table:: Rooms of Dataset [Hummersone2011]_
 
 		======================  ============================
-		A: medium sized office  B: medium-small class room 
+		A: medium sized office  B: medium-small class room
 
 		|surreyA|            		|surreyB|
 		----------------------  ----------------------------
@@ -447,6 +480,9 @@ counting to counter-clockwise counting.
 
 		|surreyC|            		|surreyD|
 		======================  ============================
+
+Files
+^^^^^
 
 ::
 
@@ -462,5 +498,49 @@ counting to counter-clockwise counting.
 .. [Hummersone2011]
     Hummersone, C. (2011), “Binaural Room Impulse Response Measurements,” `pdf
     <https://github.com/IoSR-Surrey/RealRoomBRIRs/raw/master/Documentation/BRIR_measurements.pdf>`_.
+
+TU Ilmenau, conference room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`doi: 10.5281/zenodo.163617 <https://doi.org/10.5281/zenodo.163617>`_
+
+License
+^^^^^^^
+
+|CC BY 4.0|
+
+Description
+^^^^^^^^^^^
+
+The |BRIR|\ s were measured with a KEMAR 45BA head-and-torso-simulator (HATS)
+with large ears using an active 2-way loudspeaker Genelec 1030A as the sound
+source. The HATS was positioned at five different locations, while the sound
+source has always been 2.5 meter in front of the HATS. The head of the HATS
+was rotated horizontally in the range of ±180° in 5° steps at each position.
+Additional information can be found in the corresponding paper [Neidhardt2016]_.
+
+.. figure:: ../img/brir_tuil_confroom_setup.png
+    :width: 80 %
+    :align: center
+
+    Measurement layout. For details see the :download:`PDF version
+    <../pdf/brir_tuil_confroom_setup.pdf>` of this figure.
+
+Files
+^^^^^
+
+::
+
+		impulse_responses/tuil_kemar_confroom/confroom_pos1.sofa
+		impulse_responses/tuil_kemar_confroom/confroom_pos2.sofa
+		impulse_responses/tuil_kemar_confroom/confroom_pos3.sofa
+		impulse_responses/tuil_kemar_confroom/confroom_pos4.sofa
+		impulse_responses/tuil_kemar_confroom/confroom_pos5.sofa
+
+.. [Neidhardt2016]
+    Neidhardt, A. (2016), "Perception of reververation captured in a real room, depending on position and direction", 22nd Int. Congress on Acoustics, Buenos Aires, Argentina
 
 .. vim: filetype=rst spell:

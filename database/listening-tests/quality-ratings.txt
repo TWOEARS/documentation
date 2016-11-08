@@ -12,21 +12,52 @@ Quality ratings
 2014-04-01: Scene related sound quality
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`doi: 10.5281/zenodo.164624 <https://doi.org/10.5281/zenodo.164624>`_
+
+License
+^^^^^^^
+
+|CC BY-SA 4.0|
+
+Description
+^^^^^^^^^^^
+
 .. _fig-2014-04-01_scene_quality:
 
 .. figure:: ../img/quality_scene.png
     :align: center
 
-    The ten different conditions of the quality test.
+    The ten different conditions of the quality test, ordered after their
+    listener preferrence. See text for the meaning of the color code.
 
-We did a preference test where we asked for the preferred audio quality of the
-presented stimuli, see [Raake2014]_ for details. The stimuli consisted always of
-the same acoustic scene with three individual sources, which had different
-degrees of impairments. We provide the ratings of the listeners and the
-WAV-files of the stimuli in the following folders::
+We did a paired comparison preference test where we asked for the preferred
+audio quality of the presented stimuli, see [Raake2014]_ for details. The
+stimuli consisted always of the same acoustic scene with three individual
+sources, which had different degrees of impairments: no impairment (gray),
+medium degraded guitar (light red), degraded guitar (red), degraded vocals
+(blue). Those impairments were applied in different combinations to the three
+sources, see :numref:`fig-2014-04-01_scene_quality`. The ordering in
+:numref:`fig-2014-04-01_scene_quality` also corresponds to the average listening
+preference for the presented scenes, where 1. is the most preferred scene and
+10. the less preferred one.
+
+Files
+^^^^^
+
+We provide the ratings of the listeners and the
+wav-files of the stimuli in the following folders. The wav-files were created by
+using the |HRTF|\ s from :ref:`sec-hrtf-qu-kemar`::
 
     experiments/2014-04-01_scene_quality/stimuli/*
     experiments/2014-04-01_scene_quality/results/*
+
+The result files contain always three columns, in the first two columns is the
+number of the presented condition (the number corresponds to the number at the
+beginning of the stimuli files). The third row contains a ``1`` or ``2``
+indicated which of the two presented conditions was preferred by the listeners.
 
 .. [Raake2014]
     Raake, A., Wierstorf, H., Blauert J. (2014), "A case for TWO!EARS in audio
