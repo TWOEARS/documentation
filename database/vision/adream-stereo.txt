@@ -37,9 +37,10 @@ stereovision system embedded on the robot
 
     KEMAR head with mounted stereo cameras.
 
-Views are available with the robot in all four positions used for the
-impulse responses (:numref:`fig-adream-pos-setup`), with head
-orientation ranging from -78° to 78° in 2° steps. For each position,
+Views are available with the robot in all four positions
+(:numref:`fig-adream-pos-setup`) for which impulse responses of where measured
+in the |BRIR| dataset :ref:`sec-brir-twoears-adream`. For positions the head
+orientation ranges from -78° to 78° in 2° steps. For each position,
 raw and rectified images are available from both left and right
 cameras.
 
@@ -55,21 +56,25 @@ cameras.
 Files
 ^^^^^
 
-All raw images are available under::
+All raw images are available under for respective position (1-4) are available
+at::
 
-		vision/twoears_stereo_adream/raw
+		vision/twoears_stereo_adream/raw/pos1/*
+		vision/twoears_stereo_adream/raw/pos2/*
+		vision/twoears_stereo_adream/raw/pos3/*
+		vision/twoears_stereo_adream/raw/pos4/*
 		
-Rectified images were obtained with the `stereo_image_proc
+Rectified images were obtained from the raw images with the `stereo_image_proc
 <http://wiki.ros.org/stereo_image_proc>`_ tool from |ROS|. They are
-available under::
+available under (same structure as raw images)::
 
 		vision/twoears_stereo_adream/rect
 
-Calibration data of the stereovision system includes all pairs of
+The calibration data of the stereovision system includes all pairs of
 images used for calibration, and text files with the estimated
-parameters. These data were computed and saved by the
+parameters. This data were computed and saved by the
 `camera_calibration <http://wiki.ros.org/camera_calibration>`_ tool
-from |ROS|. They are available under::
+from |ROS|. It is available under::
 
 		vision/twoears_stereo_adream/calib
 
