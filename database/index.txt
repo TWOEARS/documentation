@@ -4,6 +4,8 @@
 Database
 ========
 
+
+
 .. only:: latex
 
 		.. toctree::
@@ -29,15 +31,11 @@ Database
 				sound-databases/index
 				stimuli
 				vision/index
-
-Two!Ears comes with a central storage of data that can be used together with the
-|TwoEarsModel|. The data could be acoustical measures performed by Two!Ears
-themselves or collected from other resources.
-In addition results from human listening experiments are provided as well, which
-can be used to validate the model.
-
-If not otherwise stated all available data is provided under `CC BY-SA 3.0`_.
-
-.. _CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
+				
+		Two!Ears comes with a central storage of data that can be used together with the
+		|TwoEarsModel|. The data could be acoustical measures performed by Two!Ears
+		themselves or collected from other resources.
+		In addition results from human listening experiments are provided as well, which
+		can be used to validate the model.
 
 .. vim: filetype=rst spell:
