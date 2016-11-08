@@ -6,18 +6,43 @@ Stereo-Vision Capture from Adream Building, CNRS Toulouse
 License
 ^^^^^^^
 
-Decide which License you want to take
+|CC BY 4.0|
 
 Description
 ^^^^^^^^^^^
 
-Add a description about what we have done-
+This database contains views of the environment in the
+Adream-building, a robot-lab space consisting of a large hall that
+contains four small rooms without concrete windows, doors, and
+ceilings (:numref:`fig-adream-building`). Impulse responses are
+available for this environment in :ref:`sec-brir-twoears-adream`.
+
+.. _fig-adream-building:
 
 .. figure:: ../img/brir_twoears_adream_lab.jpg
     :align: center
 
     Lab space in the Adream building, look from above.
     
+
+The views are taken from the robot's perspective, using the calibrated
+stereovision system embedded on the robot
+(:numref:`fig-kemar-glasses`).
+
+.. _fig-kemar-glasses:
+
+.. figure:: ../img/vision_twoears_kemar_glasses.jpg
+    :align: center
+    :width: 50%
+
+    KEMAR head with mounted stereo cameras.
+
+Views are available with the robot in all four positions used for the
+impulse responses (:numref:`fig-adream-pos-setup`), with head
+orientation ranging from -78° to 78° in 2° steps. For each position,
+raw and rectified images are available from both left and right
+cameras.
+
 .. _fig-adream-pos-setup:
 
 .. figure:: ../img/brir_twoears_adream_pos_setup.png
@@ -30,15 +55,21 @@ Add a description about what we have done-
 Files
 ^^^^^
 
-add description for raw files::
+All raw images are available under::
 
 		vision/twoears_stereo_adream/raw
 		
-add description for rectified files::
+Rectified images were obtained with the `stereo_image_proc
+<http://wiki.ros.org/stereo_image_proc>`_ tool from |ROS|. They are
+available under::
 
 		vision/twoears_stereo_adream/rect
 
-add description for calibration files::
+Calibration data of the stereovision system includes all pairs of
+images used for calibration, and text files with the estimated
+parameters. These data were computed and saved by the
+`camera_calibration <http://wiki.ros.org/camera_calibration>`_ tool
+from |ROS|. They are available under::
 
 		vision/twoears_stereo_adream/calib
 
