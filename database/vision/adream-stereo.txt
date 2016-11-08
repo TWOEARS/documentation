@@ -1,0 +1,45 @@
+.. _sec-adream-stereo:
+
+Stereo-Vision Capture from Adream Building, CNRS Toulouse
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+Decide which License you want to take
+
+Description
+^^^^^^^^^^^
+
+Add a description about what we have done-
+
+.. figure:: ../img/brir_twoears_adream_lab.jpg
+    :align: center
+
+    Lab space in the Adream building, look from above.
+    
+.. _fig-adream-pos-setup:
+
+.. figure:: ../img/brir_twoears_adream_pos_setup.png
+    :align: center
+    :width: 50%
+
+    Setup of the measurements. For details see the :download:`PDF version
+    <../pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
+    
+Files
+^^^^^
+
+add description for raw files::
+
+		vision/twoears_stereo_adream/raw
+		
+add description for rectified files::
+
+		vision/twoears_stereo_adream/rect
+
+add description for calibration files::
+
+		vision/twoears_stereo_adream/calib
+
+.. vim: filetype=rst spell:
