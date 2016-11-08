@@ -11,13 +11,13 @@ License
 Description
 ^^^^^^^^^^^
 
-This database contains views of the environment in the
-Adream-building, a robot-lab space consisting of a large hall that
-contains four small rooms without concrete windows, doors, and
-ceilings (:numref:`fig-adream-building`). Impulse responses are
-available for this environment in :ref:`sec-brir-twoears-adream`.
+This database contains views of the environment in the Adream-building, a
+robot-lab space consisting of a large hall that contains four small rooms
+without concrete windows, doors, and ceilings
+(:numref:`fig-adream-stereo-building`). Impulse responses are available for this
+environment in :ref:`sec-brir-twoears-adream`.
 
-.. _fig-adream-building:
+.. _fig-adream-stereo-building:
 
 .. figure:: ../img/brir_twoears_adream_lab.jpg
     :align: center
@@ -38,13 +38,12 @@ stereovision system embedded on the robot
     KEMAR head with mounted stereo cameras.
 
 Views are available with the robot in all four positions
-(:numref:`fig-adream-pos-setup`) for which impulse responses of where measured
-in the |BRIR| dataset :ref:`sec-brir-twoears-adream`. For positions the head
-orientation ranges from -78° to 78° in 2° steps. For each position,
-raw and rectified images are available from both left and right
-cameras.
+(:numref:`fig-adream-stereo-pos-setup`) for which impulse responses of where
+measured in the |BRIR| dataset :ref:`sec-brir-twoears-adream`. For positions the
+head orientation ranges from -78° to 78° in 2° steps. For each position, raw and
+rectified images are available from both left and right cameras.
 
-.. _fig-adream-pos-setup:
+.. _fig-adream-stereo-pos-setup:
 
 .. figure:: ../img/brir_twoears_adream_pos_setup.png
     :align: center
