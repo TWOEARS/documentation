@@ -247,18 +247,28 @@ latex_elements = {
 'fontpkg' : '\usepackage{lmodern}',
 
 'maketitle' : '',
-'tableofcontents' : '',
+
+'tableofcontents' : '''
+\\renewcommand{\contentsname}{Datasets}
+\\tableofcontents
+''',
+
 'fncychap' : '',
 
 # Additional stuff for the LaTeX preamble.
 'preamble': '''
+\\usepackage[tocindentauto]{tocstyle}
+\\usetocstyle{KOMAlike} %the previous line resets it
+\\settocstylefeature{pagenumberbox}{\hbox}
+\\input{settings}
 \\usepackage[scaled=.7]{beramono}
 \\definecolor{TitleColor}{rgb}{0,0,0}
 \\definecolor{InnerLinkColor}{rgb}{0,0,0}
 \\usepackage{geometry}
-\\geometry{a4paper,portrait,ignoreall,heightrounded,twoside,bindingoffset=5mm,marginparwidth=0pt,textwidth=400pt}
 \\usepackage{titlesec}
 \\assignpagestyle{\\chapter}{empty}
+\\pagenumbering{Roman}
+\\setcounter{page}{2}
 ''',
 
 # Latex figure (float) alignment (H for disable floating)
@@ -281,7 +291,7 @@ latex_documents = [
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
-#latex_use_parts = False
+# latex_use_parts = True
 
 # If true, show page references after internal links.
 #latex_show_pagerefs = False
@@ -294,6 +304,8 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_domain_indices = True
+
+latex_additional_files = ['settings.tex']
 
 # -- Options for manual page output ---------------------------------------
 
