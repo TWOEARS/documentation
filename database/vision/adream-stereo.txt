@@ -69,9 +69,8 @@ available under (same structure as raw images)::
 
 		vision/twoears_stereo_adream/rect
 
-The calibration data of the stereovision system includes all pairs of
-images used for calibration, and text files with the estimated
-parameters. This data were computed and saved by the
+The calibration data of the stereovision system includes text files with the
+estimated parameters. This data were computed and saved by the
 `camera_calibration <http://wiki.ros.org/camera_calibration>`_ tool
 from |ROS|. It is available under::
 
