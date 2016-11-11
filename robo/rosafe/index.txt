@@ -1,7 +1,7 @@
 .. _sec-rosafe:
 
 A |ROS| auditory front-end
-=========================
+==========================
 
 .. toctree::
     :maxdepth: 1

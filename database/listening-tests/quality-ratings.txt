@@ -138,6 +138,120 @@ Files
     AES Convention, Paper 9533
 
 
+.. _sec-2016-03-01_sweet_spot:
+
+2016-03-01: Listening position preference for different 5.0 reproductions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Digital Object Identifier
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`doi-10.5281/zenodo.164413 <https://doi.org/10.5281/zenodo.164413>`_
+
+License
+^^^^^^^
+
+|CC BY 4.0|
+
+Description
+^^^^^^^^^^^
+
+.. _fig-2016-03-01_sweet_spot:
+
+.. figure:: ../img/2016-03-01_sweet_spot.png
+    :width: 100%
+    :align: center
+
+    Number of chosen preferred positons summed over all listeners and recording
+    techniques. On the left side the results without visual feedback and on the
+    right with visual feedback about the actual listening position are shown.
+    :download:`(PDF version) <../pdf/2016-03-01_sweet_spot.pdf>`
+
+We conducted an experiment on the preferred listening position in a 5.0 surround
+setup. The experiment was performed in the studio like room Calypso in the
+Telefunken building of the TU Berlin. The experiment employed dynamic binaural
+synthesis in order to allow instantaneous switching between positions during
+listening. To accomplish this |BRIR|\ s were recorded before at nine different
+positions, see :ref:`sec-brir-qu-calypso-surround`.  26 test participants rated
+their preferred listening position out of the 9 positions for every recording
+technique. They did this first without visual feedback using a |GUI| that only
+showed nine buttons where the stimuli were randomly assigned to. In a second run
+they had a |GUI| showing a actual sketch of the listening setup, similar to the
+sketch shown in :numref:`tab-brir-qu-calypso-surround`.
+
+.. note::
+    The |BRIR|\ s used in this experiment were not the one available under
+    `10.5281/zenodo.160761 <https://doi.org/10.5281/zenodo.160761>`_, but an
+    earlier version available under `10.5281/zenodo.49691
+    <http://doi.org/10.5281/zenodo.49691>`_.  That earlier version had an error
+    in the metadata of the stored SOFA files, resulting in the fact that the
+    listeners were not looking towards the front at all listening positions, but
+    facing always towards the center loudspeaker.
+
+As music material seven different simultaneously recordings of the piece
+"Maurerische Trauermusik K.477" of W. A. Mozart were used. The recordings
+differed in the applied recording technique, which are listed in
+:numref:`tab-2016-03-01_sweet_spot` and were done at ORF (Austrian Broadcast,
+Vienna) and the piece was played by the Radio Symphony Orchestra Vienna. For
+more details on the applied microphones and for downloading all recordings have
+a look at [Wittek2015]_.
+
+:numref:`fig-2016-03-01_sweet_spot` summarizes the results across all listeners
+and recording techniques, showing only differences between with and without
+visual feedback. The results for the different recording techniques are
+summarized in this :download:`PDF <../pdf/2016-03-01_sweet_spot_single.pdf>`.
+For more details on the experiment have a look at [Schultze2016]_.
+
+.. _tab-2016-03-01_sweet_spot:
+
+.. table:: Different recording techniques used and there corresponding
+    abbreviations.
+
+    ============ ===============================
+    Abbreviation Recording technique
+    ------------ -------------------------------
+    Rec. 80      Stereo + C + NHK
+    Rec. 81      Decca-Tree + NHK
+    Rec. 82      OCT + NHK
+    Rec. 83      INA5 (Brauner ASM5)
+    Rec. 84      Schoeps KFM 360 + DSP-4 KFM 360
+    Rec. 85      OCT-Surround
+    Rec. 86      Soundfield MKV + SP 451
+    ============ ===============================
+
+Files
+^^^^^
+The experiment was performed with dynamic binaural synthesis. The employed |BRS|
+files are available under::
+
+    experiments/2016-03-01_sweet_spot/brs/
+
+The actual stimuli were extracted from the DVD available for download at [Wittek2015]_
+and are stored in the database as wav files under::
+
+    experiments/2016-03-01_sweet_spot/stimuli/
+
+The results of the single listeners are available under::
+
+    experiments/2016-03-01_sweet_spot/results/no_visual_feedback/
+    experiments/2016-03-01_sweet_spot/results/visual_feedback/
+
+The analysis, resulting in :numref:`fig-2016-03-01_sweet_spot` is available
+under::
+
+    experiments/2016-03-01_sweet_spot/analysis/
+
+
+.. [Schultze2016]
+    Schultze, A. (2016), "Der Sweet Spot in 5.0 Wiedergabesystemen in
+    Abhängigkeit des Aufnahmeverfahrens und des visuellen Eindrucks des
+    Zuhörers," bachelor thesis, Technische Universität Berlin
+
+.. [Wittek2015]
+    Wittek, H. (2015), "ORF Surround sound techniques, 2002,"
+    http://www.hauptmikrofon.de/stereo-3d/orf-surround-techniques, last
+    access: 2016/10/21
+
 .. _sec-2016-06-01_wfs_mixing_quality:
 
 2016-06-01: Listening preference of different mixes of one popular music song presented by |WFS|
