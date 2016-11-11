@@ -7,7 +7,7 @@ Database
 .. only:: latex
 
 		.. toctree::
-				:maxdepth: 2
+				:maxdepth: 3
 
 				listening-tests/index
 				impulse-responses/index
