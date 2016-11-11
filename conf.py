@@ -249,7 +249,7 @@ latex_elements = {
 'maketitle' : '',
 
 'tableofcontents' : '''
-\\renewcommand{\contentsname}{Datasets}
+\\renewcommand{\contentsname}{Datasets (Part II)}
 \\tableofcontents
 ''',
 
