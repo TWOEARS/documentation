@@ -1,0 +1,79 @@
+.. _sec-adream-stereo:
+
+Stereo-Vision Capture from Adream Building, CNRS Toulouse
+---------------------------------------------------------
+
+License
+^^^^^^^
+
+|CC BY 4.0|
+
+Description
+^^^^^^^^^^^
+
+This database contains views of the environment in the Adream-building, a
+robot-lab space consisting of a large hall that contains four small rooms
+without concrete windows, doors, and ceilings
+(:numref:`fig-adream-stereo-building`). Impulse responses are available for this
+environment in :ref:`sec-brir-twoears-adream`.
+
+.. _fig-adream-stereo-building:
+
+.. figure:: ../img/brir_twoears_adream_lab.jpg
+    :align: center
+
+    Lab space in the Adream building, look from above.
+    
+
+The views are taken from the robot's perspective, using the calibrated
+stereovision system embedded on the robot
+(:numref:`fig-kemar-glasses`).
+
+.. _fig-kemar-glasses:
+
+.. figure:: ../img/vision_twoears_kemar_glasses.jpg
+    :align: center
+    :width: 50%
+
+    KEMAR head with mounted stereo cameras.
+
+Views are available with the robot in all four positions
+(:numref:`fig-adream-stereo-pos-setup`) for which impulse responses of where
+measured in the |BRIR| dataset :ref:`sec-brir-twoears-adream`. For positions the
+head orientation ranges from -78° to 78° in 2° steps. For each position, raw and
+rectified images are available from both left and right cameras.
+
+.. _fig-adream-stereo-pos-setup:
+
+.. figure:: ../img/brir_twoears_adream_pos_setup.png
+    :align: center
+    :width: 50%
+
+    Setup of the measurements. For details see the :download:`PDF version
+    <../pdf/brir_twoears_adream_pos_setup.pdf>` of this figure.
+    
+Files
+^^^^^
+
+All raw images are available under for respective position (1-4) are available
+at::
+
+		vision/twoears_stereo_adream/raw/pos1/*
+		vision/twoears_stereo_adream/raw/pos2/*
+		vision/twoears_stereo_adream/raw/pos3/*
+		vision/twoears_stereo_adream/raw/pos4/*
+		
+Rectified images were obtained from the raw images with the `stereo_image_proc
+<http://wiki.ros.org/stereo_image_proc>`_ tool from |ROS|. They are
+available under (same structure as raw images)::
+
+		vision/twoears_stereo_adream/rect
+
+The calibration data of the stereovision system includes text files with the
+estimated parameters. This data were computed and saved by the
+`camera_calibration <http://wiki.ros.org/camera_calibration>`_ tool
+from |ROS|. It is available under::
+
+		vision/twoears_stereo_adream/calib
+
+.. vim: filetype=rst spell:

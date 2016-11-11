@@ -7,5 +7,6 @@ Visual Stimuli
     :maxdepth: 1
 
     uro-panorama
+    adream-stereo
 
 .. vim: filetype=rst spell:
