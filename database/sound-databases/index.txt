@@ -3,13 +3,13 @@
 Sound databases
 ===============
 
+This is a collection of different sound databases. A sound database can be
+anything that comes as a collection of related sound files like a speech corpus.
+
 .. toctree::
     :maxdepth: 1
 
     speech-databases
     acoustic-scenes-and-events
-
-This is a collection of different sound databases. A sound database can be
-anything that comes as a collection of related sound files like a speech corpus.
 
 .. vim: filetype=rst spell:

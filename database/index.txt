@@ -4,8 +4,6 @@
 Database
 ========
 
-
-
 .. only:: latex
 
 		.. toctree::
