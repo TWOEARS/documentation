@@ -1,0 +1,74 @@
+.. _sec-database-stimuli-anechoic:
+
+Anechoic Stimuli
+----------------
+
+TU Berlin - Noise Stimuli
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+Description
+^^^^^^^^^^^
+
+Simple Noise Stimuli.
+
+Files
+^^^^^
+
+::
+
+    stimuli/anechoic/aipa/pink_noise_pulse.wav
+    stimuli/anechoic/aipa/white_noise_pulse.wav
+
+
+Cologne University of Applied Sciences - Anechoic Recordings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+Copyright (c) 2012 Michio Woirgardt, Philipp Stade, Jeffrey Amankwor, 
+Benjamin Bernschütz, and Johannes Arend under |CC BY-SA 3.0|
+
+Description
+^^^^^^^^^^^
+
+The recordings of two Flamengo and two Pop/Blues pieces were done in
+the anechoic chamber of the Cologne University of Applied Sciences, 
+Institute of Communication Engineering. The sampling rate of all files was
+changed from 48000 to 44100 Hertz. The original files are available at 
+the `university's website <http://audiogroup.web.th-koeln.de/anechoic.html>`_.
+
+Files
+^^^^^
+
+::
+
+    stimuli/anechoic/fh-koeln/BluesA_GitL_44100.wav
+    stimuli/anechoic/fh-koeln/BluesA_GitR_44100.wav
+    stimuli/anechoic/fh-koeln/BluesA_Voc_44100.wav
+    stimuli/anechoic/fh-koeln/Flamenco1_U89_44100.wav
+    stimuli/anechoic/fh-koeln/Flamenco2_U89_44100.wav
+    stimuli/anechoic/fh-koeln/HellOfAGuy_GitL_44100.wav
+    stimuli/anechoic/fh-koeln/HellOfAGuy_GitR_44100.wav
+    stimuli/anechoic/fh-koeln/HellOfAGuy_Voc_44100.wav
+
+
+Instruments
+~~~~~~~~~~~
+
+Description
+^^^^^^^^^^^
+
+Files
+^^^^^
+
+::
+
+    stimuli/anechoic/instruments/anechoic_castanets.wav
+    stimuli/anechoic/instruments/anechoic_cello.wav
+
+
+.. vim: filetype=rst spell:
