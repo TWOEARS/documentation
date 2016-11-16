@@ -67,8 +67,8 @@ Files
 
 ::
 
-    stimuli/anechoic/instruments/anechoic_castanets.wav
-    stimuli/anechoic/instruments/anechoic_cello.wav
+    stimuli/anechoic/instruments/castanets.wav
+    stimuli/anechoic/instruments/cello.wav
 
 
 .. vim: filetype=rst spell:
