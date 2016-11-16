@@ -213,4 +213,43 @@ The average results are encoded in the following way
     Wierstorf, H. (2014), "Perceptual Assessment of Sound Field Synthesis,"
     PhD-thesis, TU Berlin
 
+.. _sec-2016-03-11_kopco:
+
+2016-03-11: Add some nice title
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+|CC BY-NC-SA 4.0|
+
+Description
+^^^^^^^^^^^
+
+.. _fig-2016-03-11_kopco:
+
+.. figure:: ../img/add_the_png_here.png
+    :align: center
+
+    Please add a nice figure and a caption. If you have an additional pdf 
+    version please provide it also by something like: For details see the
+    :download:`PDF version <../pdf/add_the_pdf_here.pdf>`
+    of this figure.
+
+Please add description of the experiment and the data. Reference the initial
+work of Kopco et. al.
+
+Files
+^^^^^
+
+The results for the individual listeners::
+
+    experiments/2016-03-11_kopco/results/*
+
+An analysis of the results including the resulting plots::
+
+    experiments/2016-03-11_kopco/analysis/*
+    experiments/2016-03-11_kopco/analysis/graphics/*
+
+
 .. vim: filetype=rst spell:
