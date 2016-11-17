@@ -3,6 +3,8 @@
 Stereo-Vision Capture from Adream Building, CNRS Toulouse
 ---------------------------------------------------------
 
+|PublishedByTwoEars|
+
 License
 ^^^^^^^
 

@@ -12,6 +12,8 @@ Coloration
 2013-05-01: Coloration of a point source in Wave Field Synthesis
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -91,6 +93,8 @@ Where of special interest are the mean rating results shown in
 
 2015-10-01: Coloration of a point source in Wave Field Synthesis revisited
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
