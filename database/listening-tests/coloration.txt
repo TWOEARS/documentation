@@ -156,6 +156,8 @@ The average results, plotted in :numref:`fig-2015-10_01_wfs_coloration`, are sto
 2015-10-05: Coloration of a point source in Local Wave Field Synthesis
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 License
 ^^^^^^^
 
