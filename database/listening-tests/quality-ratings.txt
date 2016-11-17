@@ -12,6 +12,8 @@ Quality ratings
 2014-04-01: Scene related sound quality
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -67,6 +69,8 @@ indicated which of the two presented conditions was preferred by the listeners.
 
 2015-11-01: Listening preference of popular music presented by |WFS|, surround, and stereo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -142,6 +146,8 @@ Files
 
 2016-03-01: Listening position preference for different 5.0 reproductions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -257,6 +263,8 @@ under::
 
 2016-06-01: Listening preference of different mixes of one popular music song presented by |WFS| (binaural simulation)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
