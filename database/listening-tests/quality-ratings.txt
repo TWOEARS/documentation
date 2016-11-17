@@ -365,7 +365,7 @@ Description
     |WFS| with further increased processing (PP). The preference was estimated
     with a Bradley-Terry-Luce model. The bars denote the corresponding 95%
     confidence interval. :download:`(PDF version)
-    <../pdf/2016-06-01_wfs_mixing_quality.pdf>`
+    <../pdf/2016-11-18_wfs_mixing_quality.pdf>`
 
 We did a paired comparison preference test where listeners rated their listening
 preference for a pop musical pieces presented by |WFS| or stereo. For |WFS| four
@@ -375,16 +375,13 @@ parameters: "compression", "equalizing", "reverb", "changes of reverb,
 equalizing and compression to the vocals alone", "positioning of musical
 foreground elements".  The musical pieces were all mixed by the same person,
 that also mixed the stereo and |WFS| reference condition, compare [Hold2016a]_.
-The results for the "positioning of musical foreground elements" are discussed
-in more detail in [Hold2016b]_.
+This experiment is very similar to an :ref:`earlier one
+<sec-2016-06-01_wfs_mixing_quality>` with the main difference that the earlier
+one used binaural synthesis to present the stimuli, whereby here we have used
+real loudspeaker setups.
 
 Files
 ^^^^^
-
-The experiment was performed with dynamic binaural synthesis. The |BRS| files
-for the 56-channel circular loudspeaker array are available under::
-
-    experiments/2016-06-01_wfs_mixing_quality/brs/
 
 The actual stimuli for the different mixing conditions are available as wav
 file, containing the driving signals for the loudspeakers. The stereo file is
@@ -392,21 +389,16 @@ available as a two channel signal, the |WFS| signals are stored in a 64-channel
 wav file, where the first 56 channel are the driving signals for the
 loudspeakers::
 
-    experiments/2016-06-01_wfs_mixing_quality/stimuli/
+    experiments/2016-11-18_wfs_mixing_quality/stimuli/
 
 The single preference ratings of the 41 test participants and the results of the
 survey conducted after the experiment are available under::
 
-    experiments/2016-06-01_wfs_mixing_quality/results/
+    experiments/2016-11-18_wfs_mixing_quality/results/
 
 The data analysis scripts and results, that calculates the preference values shown in
-:numref:`fig-2016-06-01_wfs_mixing_quality` are available under::
+:numref:`fig-2016-11-18_wfs_mixing_quality` are available under::
 
-    experiments/2016-06-01_wfs_mixing_quality/analysis/
+    experiments/2016-11-18_wfs_mixing_quality/analysis/
 
-
-.. [Hold2016b]
-    Hold, C., Nagel, L., Wierstorf, H., Raake A. (2016), "Positioning of Musical Foreground
-    Parts in Surrounding Sound Stages," AES International Conference on Audio
-    for Virtual and Augmented Reality, Paper 7-2
 .. vim: filetype=rst spell:
