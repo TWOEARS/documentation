@@ -149,4 +149,88 @@ The average results, plotted in :numref:`fig-2015-10_01_wfs_coloration`, are sto
     experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_linear_offcenter_music.csv
     experiments/2015-10-01_wfs_coloration/analysis/data_mean/coloration_wfs_linear_offcenter_speech.csv
 
+2015-10-05: Coloration of a point source in Local Wave Field Synthesis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+`Creative Commons Attribution 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
+Description
+^^^^^^^^^^^
+
+In the experiment a circular 56-channel loudspeaker array with a radius of 3 m
+was driven by different sound field synthesis techniques in order to reproduce a
+virtual point source. The different techniques were |WFS|, spectral band-limited
+|NFC-HOA|, and local |WFS|, which is similar to spectral band-limited |NFC-HOA|
+in showing a high aliasing frequency in a small region.  The techniques were
+rated in terms of their perceived coloration compared to a real point source
+using a Multi-Stimulus with Hidden Anchor and Reference (MUSHRA) test paradigm.
+This was done for different audio material, namely pink noise, speech, and
+music. The listener was positioned in the center of the loudspeaker array. The
+experiments has been repeated for an off center listening position. To control
+for the exact listening position, allow instantaneous switching between
+listening positions, and the experiment was performed with binaural synthesis
+without head tracking.  The results are summarised in
+:numref:`fig-2015-10-05_coloration_localwfs_center` and
+:numref:`fig-2015-10-05_coloration_localwfs_offcenter`.
+
+.. _fig-2015-10-05_coloration_localwfs_center:
+
+.. figure:: ../img/2015-10-05_coloration_localwfs_center.png
+    :align: center
+    :width: 65%
+
+    Median of the rated coloration of a point source synthesized with different
+    sound field synthesis techniques compared to a reference point source for a
+    centered listening positions. The error bars are showing the first and the
+    third quartile. The points with lower saturated color show a significant
+    difference from the reference. The length given after Local Wave Field
+    Synthesis (LWFS) denotes the radius of the local listening area. For details
+    see the :download:`PDF version
+    <../pdf/2015-10-05_coloration_localwfs_center.pdf>` of this figure.
+
+.. _fig-2015-10-05_coloration_localwfs_offcenter:
+
+.. figure:: ../img/2015-10-05_coloration_localwfs_offcenter.png
+    :align: center
+    :width: 65%
+
+    Median of the rated coloration of a point source synthesized with different
+    sound field synthesis techniques compared to a reference point source for
+    an off-center listening position (marked by Off). For details see the
+    :download:`PDF version <../pdf/2015-10-05_coloration_localwfs_offcenter.pdf>`
+    of this figure.
+
+
+Files
+^^^^^
+
+The |BRS| files for the binaural simulation are available under::
+
+    experiments/2015-10-05_localwfs_coloration/brs/*
+
+The results of the single listeners and an analysis are available under::
+
+    experiments/2015-10-01_wfs_coloration/results/*
+    experiments/2015-10-01_wfs_coloration/analysis/*
+
+The average results as well as the statistical significances plotted in the
+figures, are stored under::
+
+    experiments/2015-10-05_localwfs_coloration/analysis/stats_music_center.txt
+    experiments/2015-10-05_localwfs_coloration/analysis/stats_music_off.txt
+    experiments/2015-10-05_localwfs_coloration/analysis/stats_noise_center.txt
+    experiments/2015-10-05_localwfs_coloration/analysis/stats_noise_off.txt
+    experiments/2015-10-05_localwfs_coloration/analysis/stats_speech_center.txt
+    experiments/2015-10-05_localwfs_coloration/analysis/stats_speech_off.txt
+
+.. note::
+
+    This experiment has a flaw that the used sample rate of the stimuli and for
+    creating the |BRS| files was 48000 Hz while the sample rate for the |HRTF|
+    dataset was 44100 Hz. Hence, the |HRTF| were scaled with respect to
+    frequency.
+
 .. vim: filetype=rst spell:
