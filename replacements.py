@@ -2,7 +2,7 @@ replacements = """
 .. |TwoearsMailingList|     replace:: `Two!Ears mailing list`_
 .. |TwoEars|                replace:: Two!Ears
 .. |TwoEarsModel|           replace:: :ref:`Two!Ears Auditory Model <index>`
-.. |PublishedTwoEars|       replace:: |TwoEarsLogo| Published by members of the |TwoEars| consortium
+.. |PublishedByTwoEars|     replace:: |TwoEarsLogo| Published by members of the |TwoEars| consortium
 .. |TwoEarsLogo| image:: /img/twoears.png
     :width: 20pt
     :height: 20pt
