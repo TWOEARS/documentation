@@ -341,7 +341,7 @@ Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Stimuli: `doi: 10.5281/zenodo.61000 <https://doi.org/10.5281/zenodo.61000>`_
-- Results: `doi: 10.5281/zenodo.XXXXX <https://doi.org/10.5281/zenodo.XXXXX>`_
+- Results: `doi: 10.5281/zenodo.167331 <https://doi.org/10.5281/zenodo.167331>`_
 
 License
 ^^^^^^^
