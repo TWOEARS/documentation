@@ -345,6 +345,8 @@ The data analysis scripts and results, that calculates the preference values sho
 2016-11-18: Listening preference of different mixes of one popular music song presented by |WFS|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
