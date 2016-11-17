@@ -12,6 +12,8 @@ Reverberant measurements (|BRIR|\ s)
 Two!Ears, CNRS Toulouse, Adream-building
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
