@@ -26,6 +26,7 @@ acronyms = """
 .. |GenoM3|          replace:: :abbr:`GenoM3 (Generator of Modules, 3rd version)`
 .. |genomix|         replace:: *genomix*
 .. |GMM|             replace:: :abbr:`GMM (Gaussian mixture models)`
+.. |GUI|             replace:: :abbr:`GUI (Graphical User Interface)`
 .. |HRTF|            replace:: :abbr:`HRTF (Head-Related Transfer Function)`
 .. |IC|              replace:: :abbr:`IC (Interaural Coherence)`
 .. |IHC|             replace:: :abbr:`IHC (Inner Hair Cell)`

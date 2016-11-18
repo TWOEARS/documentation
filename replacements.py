@@ -2,6 +2,10 @@ replacements = """
 .. |TwoearsMailingList|     replace:: `Two!Ears mailing list`_
 .. |TwoEars|                replace:: Two!Ears
 .. |TwoEarsModel|           replace:: :ref:`Two!Ears Auditory Model <index>`
+.. |PublishedByTwoEars|     replace:: |TwoEarsLogo| Published by members of the |TwoEars| consortium
+.. |TwoEarsLogo| image:: /img/twoears.png
+    :width: 20pt
+    :height: 20pt
 .. |AFE|                    replace:: Auditory Front-End
 .. |BinSim|                 replace:: Binaural Simulator
 .. |robot|                  replace:: Robotics Platform
