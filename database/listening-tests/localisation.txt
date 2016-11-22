@@ -12,6 +12,8 @@ Localisation
 2012-03-01: Localisation of a real vs. binaural simulated point source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -78,6 +80,8 @@ are available at::
 
 2013-11-01: Localisation of different source types in sound field synthesis
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^

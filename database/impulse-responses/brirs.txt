@@ -12,6 +12,8 @@ Reverberant measurements (|BRIR|\ s)
 Two!Ears, CNRS Toulouse, Adream-building
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -90,6 +92,8 @@ Files
 TU Berlin, room Auditorium 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -137,6 +141,8 @@ Files
 TU Berlin, room Spirit
 ~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -183,6 +189,8 @@ Files
 
 TU Berlin, room Calypso, 5.0 surround setup for different listening positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -261,6 +269,8 @@ Files
 TU Berlin, room Calypso, 19-channel linear loudspeaker array
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+|PublishedByTwoEars|
+
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -310,6 +320,8 @@ Files
 
 University of Rostock, |RIR|\ s and |BRIR|\ s of a 64-channel Loudspeaker array for different room configurations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 Digital Object Identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^
