@@ -220,7 +220,9 @@ The average results are encoded in the following way
 .. _sec-2016-03-11_kopco:
 
 2016-03-11: Localisation of simulatenous talkers by humans and machines
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PublishedByTwoEars|
 
 License
 ^^^^^^^
@@ -230,15 +232,46 @@ License
 Description
 ^^^^^^^^^^^
 
-.. _fig-2016-03-11_kopco:
+.. _fig-2016-03-11_kopco_setup:
 
 .. figure:: ../img/kopco_setting.png
     :align: center
 
-    Experimental settings used in this study. One target female voice and four interfering male voices are presented at the same time from 11 potential loudspeaker locations. Five masker patterns are considered as indicated by the green loudspeakers.
+    Experimental settings used in this study. One target female voice and four
+    interfering male voices are presented at the same time from 11 potential
+    loudspeaker locations. Five masker patterns are considered as indicated by
+    the green loudspeakers.
 
-A recent psychophysical study [KopcoEtAl2010] has shown that listeners are able to exploit prior knowledge of the masker locations in a cocktail party scenario. This study investigated the ability of listeners to localise a female target voice in the presence of four male masking voices. In particular, it addresses two main research questions. First, we ask whether listeners are able to exploit prior information about the masker locations in Kopco et al.'s task when listening over headphones, where binaural cues are limited to those present in the HRIRs used to spatialise the signals for headphone listening. In headphone listening, head movements are not available and room characteristics can be carefully controlled; hence, we also investigate whether prior knowledge of the masker locations can assist localisation in both anechoic and reverberant conditions. Second, we ask whether the sources of knowledge available to listeners in this scenario -- speaker characteristics and masker locations --  can be successfully exploited in a computational system for sound localisation. More details can be found in [MaBrown2016].
+A recent psychophysical study [KopcoEtAl2010]_ has shown that listeners are able
+to exploit prior knowledge of the masker locations in a cocktail party scenario.
+This study investigated the ability of listeners to localise a female target
+voice in the presence of four male masking voices. The is experimental setup is
+shown in :numref:`fig-2016-03-11_kopco_setup`. In particular, it addresses
+two main research questions. First, we ask whether listeners are able to exploit
+prior information about the masker locations in Kopco et al.'s task when
+listening over headphones, where binaural cues are limited to those present in
+the HRIRs used to spatialise the signals for headphone listening. In headphone
+listening, head movements are not available and room characteristics can be
+carefully controlled; hence, we also investigate whether prior knowledge of the
+masker locations can assist localisation in both anechoic and reverberant
+conditions. The results are shown in :numref:`fig-2016-03-11_kopco_rmse`, where
+localisation performance for fixed and varied (mixed) masker locations is 
+compared. Second, we ask whether the sources of knowledge available to
+listeners in this scenario -- speaker characteristics and masker locations -- 
+can be successfully exploited in a computational system for sound localisation.
+More details can be found in [MaBrown2016]_.
 
+.. _fig-2016-03-11_kopco_rmse:
+
+.. figure:: ../img/kopco_rmse.png
+    :align: center
+
+    Across-participant average (:math:`\pm` standard error of the mean) of the
+    increases in root-mean-square errors (with respect to the no-masker control
+    condition) as a function of the target location. Masker locations are 
+    indicated by the filled triangles along the abscissa. Each column of panels
+    shows the Mixed and Fixed condition data for one masker pattern and for the
+    anechoic session (upper panels) and the reverberant session (lower panels).
 
 Files
 ^^^^^
@@ -252,37 +285,16 @@ An analysis of the results including the resulting plots::
     experiments/2016-03-11_kopco/analysis/*
     experiments/2016-03-11_kopco/analysis/graphics/*
 
-.. figure:: ../img/kopco_rmse_control.png
-    :align: center
-
-    Localisation performance in the no-masker control condition. Across-participant averages ($\pm1$\,SEM) of the RMS error are plotted as a function of the target location for both anechoic (dry) and reverberant (reverb) sessions.
-
-.. figure:: ../img/kopco_rmse_maskerLoc.png
-    :align: center
-
-    Effect of maskers on localisation accuracy shown as the increase in RMS error (re. the no-masker control condition) for the anechoic (left -- dry) and the reverberant (right -- reverb) sessions. RMS errors are averaged across all masker patterns and across either all target locations, across on-masker locations, or across off-masker locations. The red stars indicate conditions with significant difference (p<0.005).
-
-.. figure:: ../img/kopco_rmse.png
-    :align: center
-
-    Across-participant average ($\pm$\,SEM) of the increases in RMS errors (re. the no-masker control condition) as a function of the target location. Masker locations are indicated by the filled triangles along the abscissa. Each column of panels shows the Mixed and Fixed condition data for one masker pattern (masker locations indicated by the filled triangles along the abscissa) and for the anechoic session (upper panels) and the reverberant session (lower panels).
-
-.. figure:: ../img/dnn_rmse.png
-    :align: center
-
-    RMS errors of the proposed model as a function of the target location. Average listeners' RMS errors are plotted as dotted lines in each panel for comparison. Each column of panels shows the Mixed and Fixed condition data for one masker pattern (masker locations indicated by the filled triangles along the abscissa) and for the anechoic session (upper panels) and the reverberant session (lower panels).
-
-.. figure:: ../img/dnn_rmse_maskerLoc.png
-    :align: center
-
-    Effect of maskers on localisation accuracy of the proposed model shown as RMS error.  The red stars indicate conditions with significant difference (p<0.005).
 
 
 .. [KopcoEtAl2010]
-Kopco, N., Best, V., and Carlile, S. (2010) "Speech localization in a multitalker mixture," J. Acoust. Soc. Amer., vol. 127, no. 3, pp. 1450--1457.
+    Kopco, N., Best, V., and Carlile, S. (2010) "Speech localization in a 
+    multitalker mixture," J. Acoust. Soc. Amer., vol. 127, no. 3, pp. 
+    1450--1457.
 
 .. [MaBrown2016]
-Ma, N., Brown, G. (2016) "SSpeech localisation in a multitalker mixture by humans and machines," In Proceedings of Interspeech 2016, San Francisco, CA.
+    Ma, N., Brown, G. (2016) "SSpeech localisation in a multitalker mixture by
+    humans and machines," In Proceedings of Interspeech 2016, San Francisco, CA.
 
 
 .. vim: filetype=rst spell:
