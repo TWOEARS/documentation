@@ -9,10 +9,21 @@ TU Berlin - Noise Stimuli
 License
 ^^^^^^^
 
+|CC0|
+
 Description
 ^^^^^^^^^^^
 
-Simple Noise Stimuli.
+A 100 s train of Gaussian white noise pulses with a duration of 700 ms and a
+pause of 300 ms between each pulse is provided. The single pulses are
+independent white noise signals. They were windowed with a Hanning window of 20
+ms length at their start and end. The resulting signal was band-pass filtered
+with a fourth order Butterworth filter between 125 Hz and 20000 Hz.
+
+In addition, a 5.2 s train of pulsed pink noise with a duration of 800ms and a
+pause of 500 ms between each pulse is provided.  Here, the single pulses are
+identical pink noise signals. They were windowed with a Hanning window of 50 ms
+length at their start and end.
 
 Files
 ^^^^^
