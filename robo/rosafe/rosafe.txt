@@ -1,6 +1,6 @@
 .. _sec-robot-rosafe:
 
-rosAFE, a |ROS| implementation of the auditory front-end
+rosAFE, a |ROS| auditory front-end
 --------------------------------------------------------
 
 Installation
@@ -8,18 +8,36 @@ Installation
 
 Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ROS, GenoM, etc. must be installed + openAFE
 
-In addition to the other external libraries required for installing the
-``openAFE`` library, you also need to install the `Audio Processing
-Framework library <https://audioprocessingframework.github.io/>`_ (APF). APF is
-a collection of C++ code which has been written in the context of multichannel
-audio applications. However, many modules have a more generic scope, and this
-library provides some filter implementations of interest.
+``/rosAFE`` is a |ROS| node which is generated thanks to the |GenoM3| tool. As
+a first step, all these softwares must then be installed beforehand, see  the
+detailed installation instructions :ref:`here <sec-robot-install>`. In short,
+you will have to install:
 
-This library must be installed *by hand*, by cloning its repository. Since it is
-a *header-only library*, you only needs to copy header files in the adequate
-folder:
+- the |ROS| package ``ros-indigo-ros-base``,
+
+- Matlab, if needed,
+
+- the |GenoM3| tool, by using  |robotpkg|, which is a compilation framework
+  and packaging system for robotics software,
+
+- the |BASS| streaming server.
+
+Then, the C++ ``openAFE`` library must be installed on the system, see the
+installation instructions :ref:`here <sec-robot-openafe>`. In short, you will
+have to:
+
+- install the libraries ``libboost1.54-all-dev`` and ``lib-fftw3-dev``,
+
+- compile the library ``openAFE`` from its source code.
+
+You also need to install the `Audio Processing Framework library
+<https://audioprocessingframework.github.io/>`_ (APF). APF is a collection of
+C++ code which has been written in the context of multichannel audio
+applications. However, many modules have a more generic scope, and this
+library provides some filter implementations of interest. This library must be
+installed *by hand*, by cloning its repository. Since it is a *header-only
+library*, you only need to copy header files in the adequate folder:
 
 .. code-block:: bash
 	
@@ -31,33 +49,184 @@ folder:
 ``/rosAFE`` installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+At first, you will have to clone the ``/rosAFE`` repository, in your home directory 
+for instance:
+
 .. code-block:: bash
 
 	$ cd
 	$ git clone https://github.com/TWOEARS/rosAFE
+
+
+You then have to install the ``/rosAFE`` |GenoM3|/|ROS| component from sources, following 
+the guideline in the :ref:`sec-robot-install` section. The cloned repository contains a 
+description file of the component which will be used by |GenoM3| to generate the |ROS| 
+node by applying the following commands:
+
+.. code-block:: bash
+
 	$ cd rosAFE
-	$ genom3  skeleton -i -l c++ rosAFE.gen # (enter 'n' to the asked question)
+	$ genom3  skeleton -i -l c++ rosAFE.gen #(enter 'n' to the asked question)
 	$ ./bootstrap.sh
-	$ mkdir build
-	$ cd  build
-	$ ../configure --prefix =$ROBOTPKG_BASE --with -templates=ros/server,ros/client/c,ros/client/ros
-	$ make  install
+	$ mkdir build && cd build
+	$ ../configure --prefix=$ROBOTPKG_BASE --with-templates=ros/server,ros/client/c,ros/client/ros
+	$ make install
 
 Design and description of the module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-How-to use ``rosAFE`` to compute auditory representations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How-to use ``/rosAFE`` to compute auditory representations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Available processors in ``/rosAFE`` are listed in the processing tree shown in 
+:numref:`fig-rosafe-rosafeTree`, which also exhibits the dependencies between them.
+
+.. _fig-rosafe-rosafeTree:
+
+.. figure:: ../img/rosafeTree.png
+    :align: center
+    :width: 325px
+
+    Tree of processors. Each processor is represented as a box, which can be connected to one other. 
+    In this tree, Inner Hair Cell is the child of Filterbank, and Filterbank is then the parent of 
+    Inner Hair Cell.
+
+``/rosAFE`` can compute as many audio representations as needed. However each processor must have
+a unique name. This name is given by the user while requesting the processor and can not be changed
+after. ``/rosAFE`` still requires the user to setup the processing tree *by hand*, i.e. by creating
+each successive processors to obtained the requested audio representation. This requirement is relaxed
+when using the Matlab client to ``/rosAFE``, see the :ref:`sec-robot-rosafe-matlab-client` section. 
+Setting a processors tree then requires each processor instanciation to contain the name of its first 
+dependancy, i.e. must specify to which output its input is connected to.
 
 Launching the module
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+``/rosAFE`` requires the |ROS| master node, |Genomix| and |BASS| to be running. To do so, use the 
+following commands:
+
+.. code-block:: bash
+
+  $ roscore &
+  $ genomixd &
+  $ bass-ros &
+  $ rosAFE-ros &
+
+In this guide, **eltclsh** is used to communicate with the |ROS|/|GenoM3| nodes.  **eltclsh** acts as 
+a TCL client to |ROS| via |genomix|, and can be used to send requests to every component it is connected to. 
+Setting up **eltclsh** is easy and only requires to load a specific TCL module coming up with all the robotic 
+tools.
+
+.. code-block:: bash
+
+  $ eltclsh
+  >> eltclsh > package require genomix
+
+Still in **eltclsh**, one then need to load |BASS| and ``/rosAFE`` interfaces to make **eltclsh** aware of 
+all the available components requests:
+
+.. code-block:: bash
+
+  >> eltclsh > set g [::genomix::connect]
+  >> eltclsh > $g load  bass; $g load  rosAFE;
+
+Now, you should connect the output port of |BASS| to the input port of the ``/rosAFE``.
+
+.. code-block:: bash
+
+  >> eltclsh > ::rosAFE::connect_port Audio bass/Audio;
+
+Finally, you can start the audio acquisition and data streaming to ``/rosAFE``:
+
+.. code-block:: bash
+
+  >> eltclsh  > ::bass::Acquire {device hw:1,0 sampleRate 44100 nFramesPerChunk 2205 nChunksOnPort 20} &
+
+The parameters used in the above command are documented in the :ref:`BASS section<sec-robot-bass-client>` 
+and can be changed accordingly.
 
 RosAFE Services
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+The file ``rosAFE.gen`` in the root of the repository directory contains the definitions and
+the descriptions of the services offered by ``/rosAFE``. This section lists them and provides 
+additional details concerning their parameters.
+
 Requesting processors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+* ``InputProc`` service: 
+
+ This service is used to launch the ``InputProc`` processor, which loads the raw audio signals coming from 
+ |BASS| to ``/rosAFE``.
+ 
+ .. note::
+
+		The connection between the output *Audio* port of |BASS| and the input port of the ``/rosAFE``
+		must be established *before* requesting this service.
+
+ .. _tab-rosafe-InputProc-params:
+  
+ .. table:: Input parameters of the ``InputProc`` service of ``/rosAFE``.
+
+   +------------------------+-----------+---------------+----------------------------------------+
+   | Name                   | Data type | Default value | Documentation                          |
+   +========================+===========+===============+========================================+
+   | name                   | string    | input         | Name of the activity                   |
+   +------------------------+-----------+---------------+----------------------------------------+
+   | bufferSize_s_port      | double    | 1             | Buffer size in seconds, see Section XX |
+   +------------------------+-----------+---------------+----------------------------------------+
+   | bufferSize_s_getSignal | double    | 1             | Buffer size in seconds, see Section XX |
+   +------------------------+-----------+---------------+----------------------------------------+
+
+ The ``InputProc`` processor is instanciated with the following command launched from **eltclsh**:
+
+ .. code-block:: bash
+
+ 		$ eltclsh  > ::rosAFE::InputProc {name input nFramesPerBlock 12000 bufferSize_s_port 1 bufferSize_s_getSignal 1} &
+
+* ``PreProc`` service: 
+
+ This service is used to launch the ``ProProc``processor.
+
+  .. _tab-rosafe-PreProc-params:
+
+  .. table:: Input parameters of the ``PreProc`` service of RosAFE
+
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | Name                   | Data type | Default value | Documentation                                                        |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | name                   | string    | preProc       | The name of this activity                                            |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | upperDepName           | string    | input         | The name of the upper dependency                                     |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_bRemoveDC           | boolean   | 0             | Flag to activate the DC-removalhigh-pass filter                      |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_cutoffHzDC          | double    | 20            | Cutoff frequency (Hz) of DC-removalhigh-pass filter                  |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_bPreEmphasis        | boolean   | 0             | Flag to activate thepre-Emphasis                                     |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_coefPreEmphasis     | double    | 0.97          | Coefficient for pre-emphasiscompensation (usually between 0.9 and 1) |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_bNormalizeRMS       | boolean   | 0             | Flag to activate binaural RMSnormalization                           |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_intTimeSecRMS       | double    | 0.5           | Time constant (s) for automaticgain control                          |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_bLevelScaling       | boolean   | 0             | Flag to activate the level scaling                                   |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_refSPLdBS           | double    | 100           | Reference dB SPL value to correspond to input signal RMS value of 1  |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_bMiddleEarFiltering | boolean   | 0             | Flag to activate themiddle ear filtering                             |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_middleEarModel      | string    | jepsen        | Middle ear filter model (jepsenor lopezpoveda)                       |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+   | pp_bUnityComp          | boolean   | 0             | Compensation to have maximum of unity gain for middle ear filter     |
+   +------------------------+-----------+---------------+----------------------------------------------------------------------+
+
+ .. code-block:: bash
+
+	 >> eltclsh  > ::rosAFE::PreProc {name preProc upperDepName input pp_bRemoveDC 0 pp_cutoffHzDC 20 pp_bPreEmphasis 0 pp_coefPreEmphasis 0.97 pp_bNormalizeRMS 0 pp_intTimeSecRMS 0.5 pp_bLevelScaling 0 pp_refSPLdB 100 pp_bMiddleEarFiltering 0 pp_middleEarModel jespen pp_bUnityComp 0} &
+
+
+
 
 Other Services
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -296,7 +296,7 @@ higher levels of the |TwoEars| architecture. The new parameters are
 immediately used for the new chunks arriving just after the modification.
 
 Code example
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following C++ code shows how the ``openAFE`` library can be used to
 compute the gammatone filterbank outputs from a binaural signal recorded
