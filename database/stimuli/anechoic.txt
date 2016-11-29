@@ -1,0 +1,88 @@
+.. _sec-database-stimuli-anechoic:
+
+Anechoic Stimuli
+----------------
+
+TU Berlin - Noise Stimuli
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+|CC0|
+
+Description
+^^^^^^^^^^^
+
+A 100 s train of Gaussian white noise pulses with a duration of 700 ms and a
+pause of 300 ms between each pulse is provided. The single pulses are
+independent white noise signals. They were windowed with a Hanning window of 20
+ms length at their start and end. The resulting signal was band-pass filtered
+with a fourth order Butterworth filter between 125 Hz and 20000 Hz.
+
+In addition, a 5.2 s train of pulsed pink noise with a duration of 800ms and a
+pause of 500 ms between each pulse is provided.  Here, the single pulses are
+identical pink noise signals. They were windowed with a Hanning window of 50 ms
+length at their start and end.
+
+Files
+^^^^^
+
+::
+
+    stimuli/anechoic/aipa/pink_noise_pulse.wav
+    stimuli/anechoic/aipa/white_noise_pulse.wav
+
+
+Cologne University of Applied Sciences - Anechoic Recordings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License
+^^^^^^^
+
+Copyright (c) 2012 Michio Woirgardt, Philipp Stade, Jeffrey Amankwor, 
+Benjamin Bernschütz, and Johannes Arend under |CC BY-SA 3.0|
+
+Description
+^^^^^^^^^^^
+
+The recordings of two Flamengo and two Pop/Blues pieces were done in
+the anechoic chamber of the Cologne University of Applied Sciences, 
+Institute of Communication Engineering. The sampling rate of all files was
+changed from 48000 to 44100 Hertz. The original files are available at 
+the `university's website <http://audiogroup.web.th-koeln.de/anechoic.html>`_.
+
+Files
+^^^^^
+
+::
+
+    stimuli/anechoic/fh-koeln/BluesA_GitL_44100.wav
+    stimuli/anechoic/fh-koeln/BluesA_GitR_44100.wav
+    stimuli/anechoic/fh-koeln/BluesA_Voc_44100.wav
+    stimuli/anechoic/fh-koeln/Flamenco1_U89_44100.wav
+    stimuli/anechoic/fh-koeln/Flamenco2_U89_44100.wav
+    stimuli/anechoic/fh-koeln/HellOfAGuy_GitL_44100.wav
+    stimuli/anechoic/fh-koeln/HellOfAGuy_GitR_44100.wav
+    stimuli/anechoic/fh-koeln/HellOfAGuy_Voc_44100.wav
+
+
+Instruments
+~~~~~~~~~~~
+
+Description
+^^^^^^^^^^^
+
+Tiny collection of anechoic instrument recordings containing a castanet and a 
+cello.
+
+Files
+^^^^^
+
+::
+
+    stimuli/anechoic/instruments/castanets.wav
+    stimuli/anechoic/instruments/cello.wav
+
+
+.. vim: filetype=rst spell:

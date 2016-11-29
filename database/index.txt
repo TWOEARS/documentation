@@ -12,7 +12,7 @@ Database
     impulse-responses/index
     learned-models/index
     sound-databases/index
-    stimuli
+    stimuli/index
     vision/index
 
 Two!Ears comes with a central storage of data that can be used together with the

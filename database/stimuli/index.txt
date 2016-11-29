@@ -1,0 +1,15 @@
+.. _sec-database-stimuli:
+
+Stimuli
+=======
+
+.. toctree::
+    :maxdepth: 1
+    
+    anechoic
+    
+This is a collection of anechoic stimuli like noise or cello that you can use to
+convolve with the :ref:`impulse responses <sec-impulse-responses>`. Those files
+are placed in the :ref:`sec-database-stimuli-anechoic` section.
+
+.. vim: filetype=rst spell:
