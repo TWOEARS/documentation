@@ -9,31 +9,11 @@ Database
     .. toctree::
         :maxdepth: 3
 
-			    	usage
-				listening-tests/index
-				impulse-responses/index
-				    learned-models/index
-				    sound-databases/index
-				    stimuli/index
-				    vision/index
-
-.. only:: html
-
-		.. toctree::
-				:maxdepth: 1
-
-				usage
-				listening-tests/index
-				impulse-responses/index
-				learned-models/index
-				sound-databases/index
-				stimuli
-				vision/index
-
-Two!Ears comes with a central storage of data that can be used together with the
-|TwoEarsModel|. The data could be acoustical measures performed by Two!Ears
-themselves or collected from other resources.
-In addition results from human listening experiments are provided as well, which
-can be used to validate the model.
+        listening-tests/index
+        impulse-responses/index
+        learned-models/index
+        sound-databases/index
+        stimuli/index
+        vision/index
 
 .. vim: filetype=rst spell:
