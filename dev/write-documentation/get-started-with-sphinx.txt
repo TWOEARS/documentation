@@ -38,7 +38,7 @@ or directly ``sphinx-build -b html -d _build/doctrees . _build/html-preview`` if
 
     To generate the version presented on the `official Two!Ears documentation site
     <http://docs.twoears.eu>`_ you have to run ``make html``. As the
-    documentation is hosted and automatically build by `Read the Docs`_ you
+    documentation is hosted and automatically built by `Read the Docs`_ you
     don't need to do this.
 
 To get started contributing, you'll want to read the `reStructuredText
