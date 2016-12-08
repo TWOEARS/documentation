@@ -215,7 +215,7 @@ handled by two general methods:
 
 * ``processChunk()``, which gets data from the parent processor and process it. Once the
   representation is obtained, the result is stored on a private internal memory
-  zone (the attributes ``leftPMZ``and ``rightPMZ``), ready to be used by its
+  zone (the attributes ``leftPMZ`` and ``rightPMZ``), ready to be used by its
   child(ren);
 
 * Then, ``releaseChunk()`` can be used to search for the last chunk of
@@ -237,14 +237,13 @@ aforementioned chunk processing methods ``processChunk()`` and
 ``releaseChunk()``, but also attributes like the name of the processor, its
 sampling frequency, its input and output size, etc. On this basis, three
 classes are inheriting this description, each of them being dedicated to time-
-based, frequency- based and lag-based processors. This is to put in parallel
+based, frequency-based and lag-based processors. This is to put in parallel
 to the three aforementionned signal classes ``openAFE::TimeDomainSignal`` (1D
-signals), ``openAFE::TimeFrequencySignal`` (2D sig- nals) and
+signals), ``openAFE::TimeFrequencySignal`` (2D signals) and
 ``openAFE::CorrelationSignal`` (3D signals). Each of them gives rise to
 specific processor classes, which actually implements the processors
 representation (see the inheritance diagram :numref:`fig-openafe-processor`).
-For now, the 7 available processors are listed in :numref :`tab-rosafe-
-openAFE-classes`.
+For now, the 7 available processors are listed in :numref:`tab-rosafe-openAFE-classes`.
 
 .. _tab-rosafe-openAFE-classes:
 

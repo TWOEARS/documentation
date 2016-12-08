@@ -3,4 +3,216 @@
 Matlab client to rosAFE
 -------------------------
 
+Installation
+~~~~~~~~~~~~~~~~~
+
+The Matlab client only requires some files to be available on the Matlab PATH. These are in the ``matlabFiles``
+folder of the rosAFE repository. You then have to first follow the guidelines in the :ref:`rosAFE section<sec-robot-rosafe>` to 
+clone the repository before actually being able to use the client.
+
+Design
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On the basis on the specifications written on the ``.gen`` files and the algorithms
+actually written inside the codels of the module, |Genom3| automatically generates a |ROS| node which
+can be used as any other native |ROS| node. As such, all the already existing tools, able to dialog
+with |ROS| nodes and to connect to their ports/topics can be used as a client to ``/rosAFE``. 
+For instance, it has been proposed in this documentation to use either **eltclsh** or native |ROS|
+commands to directly interact with the ``/rosAFE`` node.
+
+But one have to keep in mind that for now, only basic tasks can be envisaged: launching a
+processor, stopping it, etc. In other words, ``/rosAFE`` basically encapsulates all the
+functionalities of the ``openAFE`` library inside a |ROS| node, but with all the functionalities of
+|ROS| and |GenoM3| concerning input/outputs specifications, tasks concurrency, etc. as a benefit. This
+means that the ``/rosAFE`` client still has to dynamically configure "by hand" the processing
+tree, depending on the required audio representation. The main objective of the proposed Matlab client
+is to provide a Matlab interface of ``/rosAFE`` which will automatically handles such
+considerations, by generating a tree of processor in once, over a single request. For instance,
+asking for an ILD computation must automatically instantiate all the processor required for this
+representation. This interface will remain highly inspired by the genuine Matlab AFE, thus allowing
+a smooth transition between the Matlab and |ROS| implementation of the AFE. 
+
+The proposed Matlab interface does not communicate directly with the ``/rosAFE`` node. Instead,
+it exploits the |matlab-genomix| client that communicates with the |genomix| server, being in charge of
+the control of |GenoM3| components. This implementation is hidden from the user, so that the proposed
+Matlab interface can be envisaged as a direct Matlab client to ``/rosAFE``, and will be considered as such 
+in the following. 
+
+Exactly like the original Matlab AFE, the proposed client entirely relies on an object-oriented
+framework, where two main objects are needed to extract any representation:
+
+- a **data object**, in which the signal(s), the requested representation(s), and also the
+  dependent representation(s) that have been computed in the process can be stored;
+
+- a **manager object**, which takes care of creating the necessary processors as well as
+  managing the computations.
+
+These two objects will not be detailed, as they exactly corresponds to their guenuine Matlab implementation. 
+Please refer to the :ref:`AFE section<sec-afe>` for additional information.
+
+How-to use the Matlab client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As outlined, the ``/rosAFE`` |GenoM3|/|ROS| component can be supervised directly from Matlab. 
+In practice, a Matlab class called ``manager`` is in charge of sending the commands allowing the control of 
+``/rosAFE`` (see :ref:`the rosAFE section<sec-robot-rosafe>` for a complete list of what can be controlled).
+At first, you will have to add the ``openrobots``, ``rosAFE/matlabfiles`` and ``Two!Ears`` paths to your 
+current Matlab workspace, and then initialize the environment:
+
+.. code-block:: Matlab
+
+  [ bass, rosAFE, client ] = initRosAFE( openRobotsMatlabPath, twoEarsPath, rosAFEPath );
+
+Next, similarly to the |AFE|, create a data object and manager object:
+
+.. code-block:: Matlab
+
+  %% Data Object
+  % Parameters for data object
+  sampleRate = 44100;
+
+  bufferSize_s_bass = 1; % The buffer size in seconds of the BASS component
+  bufferSize_s_rosAFE_port = 1; % The buffer size in seconds of the individual port
+  bufferSize_s_rosAFE_getSignal = 1; % The buffer size in seconds of the getSignal function
+  bufferSize_s_matlab = 10; % The buffer size in seconds of the Matlab signals
+
+  inputDevice = 'hw:2,0'; % Check your input device by bass.ListDevices();
+
+  framesPerChunk = 12000; % Each chunk is (framesPerChunk/sampleRate) seconds.
+
+  dObj = dataObject_RosAFE( bass , rosAFE , inputDevice ,sampleRate , framesPerChunk, bufferSize_s_bass, bufferSize_s_rosAFE_port, bufferSize_s_rosAFE_getSignal, bufferSize_s_matlab);
+
+  % Manager
+  mObj = manager_RosAFE(dObj);
+
+Then, you can make a request with exactly the same code as the |AFE|:
+
+.. code-block:: Matlab
+
+  % Request with default parameters
+  mObj.addProcessor('ild');
+  mObj.addProcessor('ratemap');
+
+Again, creating a parameter structure remains exactly the same as with the |AFE|:
+
+.. code-block:: Matlab
+
+  % Parameter settings
+  pp_bRemoveDC   = 1;
+  pp_cutoffHzDC   = 5000;
+
+  % Parameter structure
+  par = genParStruct('pp_bRemoveDC',pp_bRemoveDC, 'pp_cutoffHzDC',pp_cutoffHzDC);
+
+  % Request with seted parameters
+  mObj.addProcessor('time',par); 
+
+On-the-fly parameter modifications can be requested with the ``modifyParameter`` function:
+
+.. code-block:: Matlab
+  
+  % turning off the DC removal filter
+  nameOfProcessor = 'time_1'; % this name can be found by the getParameters function.
+  nameOfParameter = 'pp_cutoffHzDC';
+  newValue = '6000';
+  mObj.modifyParameter( nameOfProcessor, nameOfParameter, newValue );
+
+Differently from the Matlab AFE, a processor immediately computes its output(s) when instantiated
+from the Matlab ``/rosAFE`` client. This means that as soon as data are available on its input
+(s), these are processed and the resulting audio representation is published on its corresponding
+|GenoM3| port(s), even if the proposed manager doesn't explicitly ask to actually process audio
+chunks. This was the role of the ``processChunk()`` method in the genuine AFE, while this
+method is now used to load the processed audio representation from the |Genom3| environment to the
+Matlab environment. From the user viewpoint, this slight change in the method is transparent, and
+``processChunk()`` still presents the requested audio representation as output, which will be stored 
+in the data object.
+
+.. code-block:: Matlab
+
+  % Loading all the outputs of the all processors/
+  mObj.processChunk( );
+
+A processor can be deleted by the ``deleteProcessor`` function.
+
+.. code-block:: Matlab
+
+  typeOfProcessor = 'ild';
+  orderOfProcessor = 1; % this number can be found by the getParameters function. 1 means the first ild processor.
+  mObj.deleteProcessor( typeOfProcessor, numberOfProcessor );
+
+Individual ports (i.e. individual processor output) can also be loaded to Matlab to get the data:
+
+.. code-block:: Matlab
+
+  nameOfProcessor = 'ratemap_0'; % this number can be found by the getParameters function
+  output = mObj.RosAFE.ratemapPort(nameOfProcessor);
+
+Demo
+~~~~~~~~
+
+The following script will continuously plot the results of the ILD processor coming from the RosAFE.
+
+.. note::
+
+  Depending on your configuration and installation, you might have to adapt the following 
+  paths to the correct directories.
+
+.. code-block:: Matlab
+
+  clear all; close all; clc;
+
+  openRobotsMatlabPath = '~/openrobots/lib/matlab';
+  twoEarsPath = '~/TwoEars/AuditoryModel/TwoEars-1.2/';
+  rosAFE_matlab_Path = '~/genom_ws/rosAFE/matlabFiles';
+
+  addpath(genpath(rosAFE_matlab_Path));
+
+  %% Initialization of modules
+  [ bass, rosAFE, client ] = initRosAFE( openRobotsMatlabPath, twoEarsPath );
+
+  %% Parameters for data object
+  sampleRate = 44100;
+
+  bufferSize_s_bass = 1;
+  bufferSize_s_rosAFE_port = 1;
+  bufferSize_s_rosAFE_getSignal = 1;
+  bufferSize_s_matlab = 10;
+
+  inputDevice = 'hw:2,0'; % Check your input device by bass.ListDevices();
+
+  framesPerChunk = 12000; % Each chunk is (framesPerChunk/sampleRate) seconds.
+
+  %% Data Object
+  dObj = dataObject_RosAFE( bass, rosAFE, inputDevice, sampleRate, framesPerChunk, bufferSize_s_bass, ...
+                                                                                 bufferSize_s_rosAFE_port, ...
+                                                                                 bufferSize_s_rosAFE_getSignal, ...
+                                                                                 bufferSize_s_matlab );
+
+  %% Manager
+  mObj = manager_RosAFE(dObj);
+                
+  mObj.addProcessor('ild'); % With default parameters
+
+  %% Searching gammatone filter's fsHz parameter
+  name = 'ild_0';
+  output = mObj.RosAFE.ildPort(name);
+
+  sig = TimeFrequencySignal.construct(output.ildPort.sampleRate, mObj.dObj.bufferSize_s_matlab, 'ild', name, cell2mat(mObj.Processors.gammatone{1}.fb_cfHz), 'mono');
+  f = figure(1);
+
+  while (1)
+      output = mObj.RosAFE.ildPort(name);
+
+      chunkLeft = adaptTFS( output.ildPort.framesOnPort, output.ildPort.numberOfChannels, output.ildPort.left, 0 );
+      sig.appendChunk( chunkLeft );
+      sig.plot(f);
+    
+      pause(0.3);
+  end
+
+Known Bugs
+~~~~~~~~~~~~~
+
+* When asking two distinct gammatone processors from Matlab, a crush may occur sometimes. 
+  However we never noticed this kind error when using the TCL commands.
+
 .. vim: filetype=rst spell:

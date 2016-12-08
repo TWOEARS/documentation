@@ -75,11 +75,11 @@ node by applying the following commands:
 Design and description of the module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-How-to use ``/rosAFE`` to compute auditory representations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Available processors in ``/rosAFE`` are listed in the processing tree shown in 
-:numref:`fig-rosafe-rosafeTree`, which also exhibits the dependencies between them.
+The algorithmic core of the AFE is made of the C/C++ ``openAFE`` library, which implements
+--when possible-- multi-threading and parallel computations inside one processor. But considering
+the tree of processor shown in :numref:`fig-rosafe-rosafeTree`, one can also highlight another level
+of parallelization between processors. This concurrency property is discussed in the
+following, together with its actual implementation.
 
 .. _fig-rosafe-rosafeTree:
 
@@ -91,17 +91,146 @@ Available processors in ``/rosAFE`` are listed in the processing tree shown in
     In this tree, Inner Hair Cell is the child of Filterbank, and Filterbank is then the parent of 
     Inner Hair Cell.
 
+From this processor tree, only the root processor, i.e. the input processor, will read audio data 
+from another component of the architecture (the |ROS| ``/bass`` node). Other processors are connected 
+to each others with a parent/child structure, thus highlighting two kinds of concurrency between them:
+
+- **Vertical concurrency**: while a processor works on a resource delivered by its parent,
+  the parent can already prepare the next resource. This kind of concurrency concerns for instance the
+  ``Input`` processor, the ``Pre-processor``, the ``gammatone`` processor and the ``IHC`` processor 
+  in :numref:`fig-rosafe-rosafeTree`.
+
+- **Horizontal concurrency**: children of a processor are mutually independent and can
+  process concurrently their parent’s output. This kind of concurrency concerns the cross-correlation
+  processor, the ``ILD`` processor and the ``Ratemap`` processor in :numref:`fig-rosafe-rosafeTree`,
+  all of them having the same parent (the ``IHC`` processor).
+
+A processor takes an input resource from its parent and produces an output resource to its children.
+Each child could make its own local copy of the output resource, but this would lead to high memory
+needs in a tree that involves many children of a processor. Instead, it is proposed that children of a
+same parent share read access to a single memory zone, managed by the parent. In addition, the
+parent processor owns a private memory zone for its internal computation. With this memory
+management plan, each processor can be formalized by a state machine, as shown in :numref:`fig-rosafe-statemachine`. 
+A processor goes through four distinct states, in a loop:
+
+.. _fig-rosafe-statemachine:
+
+.. figure:: ../img/statemachine.png
+    :align: center
+
+    State machine and memory management of a processor.
+
+- **waitExec**: The processor is ready to read a new input resource, coming from
+  its parent;
+
+- **exec**: As soon as its parent releases the resource, the processor performs its
+  computation. It reads the input resource from its parent’s shared memory zone, and stores the 
+  result of the computation—its output resource—in its own private memory zone;
+
+- **waitRelease**: The processor stays in a waiting state while its children are still
+  processing the previous output resource it has released. Children lock the processor’s shared memory
+  zone;
+
+- **release**: Once all children are done processing the previous output resource, the
+  processor can release the new one: it copies the content of its private memory zone to its shared
+  memory zone.
+
+
+Additionally to these 4 functional states, the implementation requires the definition of the 
+**start**, **stop** and **delete** states to respectively initialize, stop and remove a
+processor from the processing tree. These are not represented in :numref:`fig-rosafe-statemachine`.
+
+On this basis, processors concurrency is implemented the following way.
+
+Vertical concurrency
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Considering a serial chain of 3 processors, the interaction between the three states machines 
+describing each processor can be summarized as:
+
+- while in **waitExec** state, ``processor 2`` needs a token issued after the
+  **release** state of its parent (``processor 1``) in order to fire the transition to the
+  **process** state;
+
+- while in **waitRelease** state, ``processor 2`` needs a token issued after the
+  **process** state of its child (``processor 3``) in order to fire the transition to the
+  **release** state.
+
+This functioning is summarized in :numref:`fig-rosafe-petri1`.
+
+.. _fig-rosafe-petri1:
+
+.. figure:: ../img/petri1.png
+    :align: center
+    :width: 325px
+
+    Petri net for a serial chain of processors, highlighting vertical concurrency 
+    between 3 processors
+
+Horizontal concurrency
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Considering a parallel chain of two processors, both connected to the same father, the interaction
+between the three states machines describing each processor can be summarized as:
+
+- when the parent processor ``parent`` leaves its **release** state, it issues individual
+  tokens allowing each child (``child 1`` and ``child 2``) to fire the transition from
+  **waitExec** to **exec** state.
+
+- once a child leaves its **Process** state, it issues one token. The parent processor needs as many
+  tokens as it has children (two, here) to fire the transition from **waitRelease**} to 
+  **release** state.
+
+This is summarized in :numref:`fig-rosafe-petri2`.
+
+.. _fig-rosafe-petri2:
+
+.. figure:: ../img/petri2.png
+    :align: center
+    :width: 325px
+
+    Petri net for a parallel chain of processors, highlighting horizontal concurrency 
+    between 2 processors.
+
+Actual implementation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Differently from the MATLAB implementation of the AFE, a |GenoM3| module enables concurrent
+processing. In view of the many concurrency and synchronization properties previously outlined,
+|GenoM3| facilitates the specifications writing and the development of the |ROS| AFE thanks to
+the synthetic description of the module in a text file and the automatic generation of real
+time code for |ROS|.
+
+This description file, called the dotgen file and with the ``.gen`` extension, is directly 
+available at the root of the repository. This file gathers in a single place all the definitions related to the
+component’s interface, needed to interact with it. Among others, one can mention:
+
+- activities, implementing the algorithmic core of the module.
+
+- tasks, in which an activity is executed. 
+
+- internal data structure (IDS), which allows to share data between tasks of the component.
+
+- ports, which implement the data flow between components as a publish/subscribe model.
+
+- and functions, which are dedicated to small operations which should be executed and
+  finished almost instantaneously.
+
+How-to use ``/rosAFE`` to compute auditory representations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Available processors in ``/rosAFE`` are listed in the processing tree shown in 
+:numref:`fig-rosafe-rosafeTree`, which also exhibits the dependencies between them.
+
 ``/rosAFE`` can compute as many audio representations as needed. However each processor must have
 a unique name. This name is given by the user while requesting the processor and can not be changed
 after. ``/rosAFE`` still requires the user to setup the processing tree *by hand*, i.e. by creating
 each successive processors to obtained the requested audio representation. This requirement is relaxed
 when using the Matlab client to ``/rosAFE``, see the :ref:`sec-robot-rosafe-matlab-client` section. 
-Setting a processors tree then requires each processor instanciation to contain the name of its first 
-dependancy, i.e. must specify to which output its input is connected to.
+Setting a processors tree then requires each processor instantiation to contain the name of its first 
+dependency, i.e. must specify to which output its input is connected to.
 
 Launching the module
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-``/rosAFE`` requires the |ROS| master node, |Genomix| and |BASS| to be running. To do so, use the 
+``/rosAFE`` requires the |ROS| master node, |genomix| and |BASS| to be running. To do so, use the 
 following commands:
 
 .. code-block:: bash
@@ -177,7 +306,7 @@ Requesting processors
    | bufferSize_s_getSignal | double    | 1             | Buffer size in seconds, see Section XX |
    +------------------------+-----------+---------------+----------------------------------------+
 
- The ``InputProc`` processor is instanciated with the following command launched from **eltclsh**:
+ The ``InputProc`` processor is instantiated with the following command launched from **eltclsh**:
 
  .. code-block:: bash
 
@@ -185,7 +314,7 @@ Requesting processors
 
 * ``PreProc`` service: 
 
- This service is used to launch the ``ProProc``processor.
+ This service is used to launch the ``PreProc`` processor.
 
   .. _tab-rosafe-PreProc-params:
 
@@ -198,50 +327,461 @@ Requesting processors
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
    | upperDepName           | string    | input         | The name of the upper dependency                                     |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
-   | pp_bRemoveDC           | boolean   | 0             | Flag to activate the DC-removalhigh-pass filter                      |
+   | pp_bRemoveDC           | boolean   | 0             | Flag to activate the DC-removal high-pass filter                     |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
-   | pp_cutoffHzDC          | double    | 20            | Cutoff frequency (Hz) of DC-removalhigh-pass filter                  |
+   | pp_cutoffHzDC          | double    | 20            | Cutoff frequency (Hz) of DC-removal high-pass filter                 |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
-   | pp_bPreEmphasis        | boolean   | 0             | Flag to activate thepre-Emphasis                                     |
+   | pp_bPreEmphasis        | boolean   | 0             | Flag to activate pre-Emphasis                                        |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
-   | pp_coefPreEmphasis     | double    | 0.97          | Coefficient for pre-emphasiscompensation (usually between 0.9 and 1) |
+   | pp_coefPreEmphasis     | double    | 0.97          | Coefficient for pre-emphasis compensation (usually between 0.9 and 1)|
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
    | pp_bNormalizeRMS       | boolean   | 0             | Flag to activate binaural RMSnormalization                           |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
-   | pp_intTimeSecRMS       | double    | 0.5           | Time constant (s) for automaticgain control                          |
+   | pp_intTimeSecRMS       | double    | 0.5           | Time constant (s) for automatic gain control                         |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
    | pp_bLevelScaling       | boolean   | 0             | Flag to activate the level scaling                                   |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
    | pp_refSPLdBS           | double    | 100           | Reference dB SPL value to correspond to input signal RMS value of 1  |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
-   | pp_bMiddleEarFiltering | boolean   | 0             | Flag to activate themiddle ear filtering                             |
+   | pp_bMiddleEarFiltering | boolean   | 0             | Flag to activate middle ear filtering                                |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
-   | pp_middleEarModel      | string    | jepsen        | Middle ear filter model (jepsenor lopezpoveda)                       |
+   | pp_middleEarModel      | string    | jepsen        | Middle ear filter model (jepsen or lopezpoveda)                      |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
    | pp_bUnityComp          | boolean   | 0             | Compensation to have maximum of unity gain for middle ear filter     |
    +------------------------+-----------+---------------+----------------------------------------------------------------------+
+  
+  The ``PreProc`` processor is instanciated with the following command launched from **eltclsh**:
 
  .. code-block:: bash
 
 	 >> eltclsh  > ::rosAFE::PreProc {name preProc upperDepName input pp_bRemoveDC 0 pp_cutoffHzDC 20 pp_bPreEmphasis 0 pp_coefPreEmphasis 0.97 pp_bNormalizeRMS 0 pp_intTimeSecRMS 0.5 pp_bLevelScaling 0 pp_refSPLdB 100 pp_bMiddleEarFiltering 0 pp_middleEarModel jespen pp_bUnityComp 0} &
 
+* ``Gammatone`` service: 
 
+  This service is used to launch the ``Gammatone`` filterbank processor
+
+  .. _tab-rosafe-Gammatone-params:
+
+  .. table:: Input parameters of the ``Gammatone`` service of RosAFE
+
+    +---------------+------------------+---------------+----------------------------------------------+
+    | Name          | Data type        | Default value | Documentation                                |
+    +===============+==================+===============+==============================================+
+    | name          | string           | gammatone     | The name of this activity                    |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | upperDepName  | string           | preProc       | The name of the upper dependency             |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_type       | string           | string        | Filterbank type (gammatone or drnl)          |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_lowFreqHz  | double           | 80            | Lowest center frequency                      |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_highFreqHz | double           | 8000          | Highest center frequency                     |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_nERBs      | double           | 1             | Distance between neighboring filters in ERBs |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_nChannels  | unsigned long    | 0             | Number of channels                           |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_cfHz       | sequence<double> | {}            | Channels center frequencies (Hz)             |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_nGamma     | unsigned long    | 4             | Gammatone rising slope order                 |
+    +---------------+------------------+---------------+----------------------------------------------+
+    | fb_bwERBs     | double           | 1.0180        | Bandwidth of the filters in ERBs             |
+    +---------------+------------------+---------------+----------------------------------------------+
+
+  The ``Gammatone`` processor is instantiated with the following command launched from **eltclsh**:
+
+  .. code-block:: bash
+
+    >> eltclsh  > ::rosAFE::GammatoneProc {name gammatone upperDepName preProc fb_type gammatone fb_lowFreqHz 80 fb_highFreqHz 8000 fb_nERBs 1 fb_nChannels 0 fb_cfHz {} fb_nGamma 4 fb_bwERBs 1.018}
+
+* ``IhcProc`` service:
+
+  This service is used to request an Inner Hair Cell representation.
+
+  .. _tab-rosafe-IhcProc-params:
+  
+  .. table:: Input parameters of the ``IhcProc`` service of RosAFE
+
+    +---------------+------------------+---------------+-------------------------------------------------------------+
+    | Name          | Data type        | Default value | Documentation                                               |
+    +===============+==================+===============+=============================================================+
+    | name          | string           | ihc           | The name of this activity                                   |
+    +---------------+------------------+---------------+-------------------------------------------------------------+
+    | upperDepName  | string           | gammatone     | The name of the upper dependency                            |
+    +---------------+------------------+---------------+-------------------------------------------------------------+
+    | ihc_method    | string           | dau           | The IHC method name (none, halfwave, fullwave, square, dau) |
+    +---------------+------------------+---------------+-------------------------------------------------------------+
+
+  The ``IhcProc`` processor is instantiated with the following command launched from **eltclsh**:
+
+  .. code-block:: bash
+
+    >> eltclsh  > ::rosAFE::IhcProc {name ihc upperDepName gammatone ihc_method dau}
+
+*  ``IldProc`` service:
+
+  This service is used to request an Interaural Level Difference processor.
+
+  .. _tab-rosafe-IldProc-params:
+  
+  .. table:: Input parameters of the ``IldProc`` service of RosAFE
+
+    +--------------+-----------+---------------+-----------------------------------+
+    | Port Type    | Data type | Default value | Documentation                     |
+    +==============+===========+===============+===================================+
+    | name         | string    | ild           | The name of this ild processor    |
+    +--------------+-----------+---------------+-----------------------------------+
+    | upperDepName | string    | ihc           | The name of the upper dependencie |
+    +--------------+-----------+---------------+-----------------------------------+
+    | ild_wname    | string    | hann          | Window name                       |
+    +--------------+-----------+---------------+-----------------------------------+
+    | ild_wSizeSec | double    | 0.02          | Window duration (s)               |
+    +--------------+-----------+---------------+-----------------------------------+
+    | ild_hSizeSec | double    | 0.01          | Window step size (s)              |
+    +--------------+-----------+---------------+-----------------------------------+
+
+  The ``IldProc`` processor is instantiated with the following command launched from **eltclsh**:
+
+.. code-block:: bash
+
+    >> eltclsh > ::rosAFE::IldProc {name ild upperDepName ihc ild_wname hann ild_wSizeSec 0.02 ild_hSizeSec 0.01} &
+
+* ``Ratemap`` service:
+
+  This service is used to request a ``Ratemap`` processor.
+
+  .. _tab-rosafe-Ratemap-params:
+
+  .. table:: Input parameters of the ``Ratemap`` service of RosAFE
+
+    +--------------+-----------+---------------+-------------------------------------------------+
+    | Port Type    | Data type | Default value | Documentation                                   |
+    +==============+===========+===============+=================================================+
+    | name         | string    | ratemap       | The name of this ratemap processor              |
+    +--------------+-----------+---------------+-------------------------------------------------+
+    | upperDepName | string    | ihc           | The name of the upper dependency                |
+    +--------------+-----------+---------------+-------------------------------------------------+
+    | rm_wname     | string    | hann          | Window name                                     |
+    +--------------+-----------+---------------+-------------------------------------------------+
+    | rm_wSizeSec  | double    | 20E-3         | Window duration (s)                             |
+    +--------------+-----------+---------------+-------------------------------------------------+
+    | rm_hSizeSec  | double    | 10E-3         | Window step size (s)                            |
+    +--------------+-----------+---------------+-------------------------------------------------+
+    | rm_scaling   | string    | power         | Scaling type (power or magnitude)               |
+    +--------------+-----------+---------------+-------------------------------------------------+
+    | rm_decaySec  | double    | 0.008         | Signal-smoothing leaky integrator time constant |
+    +--------------+-----------+---------------+-------------------------------------------------+
+
+  The ``Ratemap`` processor is instantiated with the following command launched from **eltclsh**:
+
+ .. code-block:: bash
+
+    >> eltclsh > ::rosAFE::RatemapProc {name ratemap upperDepName ihc rm_wname hann rm_wSizeSec 0.02 rm_hSizeSec 0.01 rm_scaling power rm_decaySec 0.008} &
+
+* ``Cross Correlation`` service: 
+
+  This service is used to request a ``CrossCorrelation`` processor.
+
+  .. _tab-rosafe-CrossCorelation-params:
+
+  .. table:: Input parameters of the ``CrossCorrelation`` service of RosAFE
+
+    +----------------+-----------+---------------+-----------------------------------------------------------------+
+    | Name           | Data type | Default value | Documentation                                                   |
+    +================+===========+===============+=================================================================+
+    | name           | string    | ratemap       | The name of this ratemap processor                              |
+    +----------------+-----------+---------------+-----------------------------------------------------------------+
+    | upperDepName   | string    | ihc           | The name of the upper dependency                                |
+    +----------------+-----------+---------------+-----------------------------------------------------------------+
+    | cc_wSizeSec    | double    | 20E-3         | Window duration in seconds                                      |
+    +----------------+-----------+---------------+-----------------------------------------------------------------+
+    | cc_hSizeSec    | double    | 10E-3         | Step size between windows in seconds                            |
+    +----------------+-----------+---------------+-----------------------------------------------------------------+
+    | cc_wname       | string    | hann          | Window shape descriptor                                         |
+    +----------------+-----------+---------------+-----------------------------------------------------------------+
+    | cc_maxDelaySec | double    | 0.0011        | Maximum delay in cross-correlation computation in seconds       |
+    +----------------+-----------+---------------+-----------------------------------------------------------------+
+
+  The ``CrossCorrelation`` processor is instantiated with the following command launched from **eltclsh**:
+
+ .. code-block:: bash
+
+   >> eltclsh > ::rosAFE::CrossCorrelationProc {name crosscorrelation upperDepName ihc cc_wSizeSec 0.02 cc_hSizeSec 0.01 cc_maxDelaySec 0.0011 cc_wname hann} &
 
 
 Other Services
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+* ``modifyParameter`` service: 
+
+  This service is dedicated to on-the-fly processor parameters modifications. 
+
+ .. _tab-rosafe-modifyParameter-params:
+ 
+ .. table:: Input parameters of the ``modifyParameter`` service of RosAFE
+
+   +-----------+-----------+---------------+---------------------------------------------------+
+   | Name      | Data type | Default value | Documentation                                     |
+   +-----------+-----------+---------------+---------------------------------------------------+
+   | nameProc  | string    |               | The name of the processor to change the parameter |
+   +-----------+-----------+---------------+---------------------------------------------------+
+   | nameParam | string    |               | The name of the parameter to be changed           |
+   +-----------+-----------+---------------+---------------------------------------------------+
+   | newValue  | string    |               | The new value of the parameter to be changed      |
+   +-----------+-----------+---------------+---------------------------------------------------+
+
+ Usage:
+
+ .. code-block:: bash
+
+   >> eltclsh > :: rosAFE :: modifyParameter {nameProc input nameParam pp_bRemoveDC newValue 1} &
+
+* The ``getParameters`` service:
+ 
+ This service returns all the parameters of all currently running processors. It doesn't have any parameter. 
+ Usage:
+
+ .. code-block:: bash
+
+   >> eltclsh > ::rosAFE::getParameters &
+
+* The ``getDependencies`` service: 
+ 
+ This service returns the names of processor dependencies from the Input Processor to the requested processor. 
+ 
+ .. _tab-rosafe-getDependencies-params:
+ 
+ .. table:: Input parameters of the ``getDependencies`` service of RosAFE
+
+   +-----------+-----------+---------------+------------------------------------------------------+
+   | Name      | Data type | Default value | Documentation                                        |
+   +-----------+-----------+---------------+------------------------------------------------------+
+   | nameProc  | string    |               | The name of the processor to search the dependencies |
+   +-----------+-----------+---------------+------------------------------------------------------+
+ 
+ Usage:
+
+ .. code-block:: bash
+  
+   >> eltclsh > ::rosAFE::getDependencies {nameProc ratemap} &
+
+* ``getSignal`` service:
+
+ This service allows to have access to the new audio representations computed by all currently running
+ processors. The function doesn't have any input parameter. The buffer size of this function is set by 
+ the user while requesting the Input Processor, see above.
+
+ .. note::
+
+    Requesting the outputs of all running processors is very demanding. All data must transit from the processor
+    outputs to the user through the |genomix| interface, i.e. by using TCP/IP connections in between. It is then
+    often a good idea to not set a too big buffer to this function. If a single processor output is needed, please use
+    instead the available output ports (see below).
+
+ Usage:
+
+ .. code-block:: bash
+
+  >> eltclsh  > ::rosAFE::getSignals {} &
+
+* ``removeProcessor`` service:
+ 
+ The user may delete any processor any time, except the input processor. If the deleted
+ processor was the dependency of some other processor (e.g. if it was the father of some another
+ processors), all are destructed as well.
+
+  .. _tab-rosafe-removeProcessor-params:
+
+  .. table:: Input parameters of the ``removeProcessor`` service of RosAFE
+
+   +-----------+-----------+---------------+--------------------------------------+
+   | Name      | Data type | Default value | Documentation                        |
+   +-----------+-----------+---------------+--------------------------------------+
+   | nameProc  | string    |               | The name of the processor to delete  |
+   +-----------+-----------+---------------+--------------------------------------+
+
+ Usage :
+
+ .. code-block:: bash
+
+  >> eltclsh  > ::rosAFE::removeProcessor {name preProc} &
+
+
 Output Ports
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``getSignal`` service mentioned above allow to reach all the computed auditory representations.
+In parallel, each processor acts like a server and publishes its outcome on an individual port. 
+The size of this port is set by the user while requesting the Input Processor. Since those ports are
+published directly to the |ROS| environment, both native |ROS| and TCL commands from **eltclsh** 
+can read them.
+
 
 Native ROS Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Commands over eltclsh
+Type the following command on a terminal to see all available ports.
+
+.. code-block:: bash
+
+  $ rostopic list
+
+Lets say there is a port called ``*/rosAFE/preProcPort/dummyName*``. The user can then use the commands 
+listed in :numref:`tab-rosafe-removeprocessor-params2` to access the ports data and statistics.
+
+.. _tab-rosafe-removeprocessor-params2:
+
+.. table:: ROS Topic options.
+
+  +----------------+---------------------------------------------------+
+  | Command Name   | Documentation                                     |
+  +================+===================================================+
+  | rostopic bw    | display bandwidth used by topic                   |
+  +----------------+---------------------------------------------------+
+  | rostopic delay | display delay for topic which has header          |
+  +----------------+---------------------------------------------------+
+  | rostopic echo  | print messages to screen                          |
+  +----------------+---------------------------------------------------+
+  | rostopic find  | find topics by type                               |
+  +----------------+---------------------------------------------------+
+  | rostopic hz    | display publishing rate of topic                  |
+  +----------------+---------------------------------------------------+
+  | rostopic info  | print information about active topics             |
+  +----------------+---------------------------------------------------+
+  | rostopic list  | print information about active topics             |
+  +----------------+---------------------------------------------------+
+  | rostopic pub   | publish data to topic                             |
+  +----------------+---------------------------------------------------+
+  | rostopic type  | print topic type                                  |
+  +----------------+---------------------------------------------------+
+
+For instance, to display the bandwidth used by the port ``*/rosAFE/preProcPort/dummyName*``, you can use
+
+ .. code-block:: bash
+
+  $ rostopic bw rosAFE/preProcPort/dummyName*
+
+Accessing processor outputs with eltclsh
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+The following code will print the output of the processor to the **eltclsh** screen. 
+Modify this code according to your needs by using :numref:`tab-rosafe-removeProcessor-params3`.
+
+.. code-block:: bash
+
+  >> eltclsh > ::rosAFE::preProcPort dummyName &
+
+.. _tab-rosafe-removeProcessor-params3:
+
+.. table:: Port types and theis corresponding message types.
+
+  +---------------------------------+------------------------------------------------+
+  | Port Type                       | Message Type                                   |
+  +=================================+================================================+
+  | /rosAFE/inputProcPort           | rosAFE/rosAFE_TimeDomainSignalPortStruct       |
+  +---------------------------------+------------------------------------------------+
+  | /rosAFE/preProcPort/            | rosAFE/rosAFE_TimeDomainSignalPortStruct       |
+  +---------------------------------+------------------------------------------------+
+  | /rosAFE/gammatonePort/          | rosAFE/rosAFE_TimeFrequencySignalPortStruct    |
+  +---------------------------------+------------------------------------------------+
+  | /rosAFE/ihcPort/                | rosAFE/rosAFE_TimeFrequencySignalPortStruct    |
+  +---------------------------------+------------------------------------------------+
+  | /rosAFE/ildPort/                | rosAFE/rosAFE_TimeFrequencySignalPortStruct    |
+  +---------------------------------+------------------------------------------------+
+  | /rosAFE/ratemapPort/            | rosAFE/rosAFE_TimeFrequencySignalPortStruct    |
+  +---------------------------------+------------------------------------------------+
+  | /rosAFE/crossCorrelationPort/   | rosAFE/rosAFE_CrossCorrelationSignalPortStruct |
+  +---------------------------------+------------------------------------------------+
+
+
 
 Matlab Commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Instead of eltclsh, all the commands mentioned above can be directly called from within Matlab.
+To do so, use the following indications.
+  
+At first, the openrobot path should be added to the current workspace (modifiy this path depending on 
+your current installation):
+
+.. code-block:: Matlab
+
+  addpath(genpath('~/openrobots/lib/matlab'));
+
+Then, the |genomix| client and the corresponding components must be loaded to make Matlab
+aware of their functionalities:
+
+.. code-block:: Matlab
+
+  client = genomix.client;
+  bass = client.load('bass');
+  rosAFE = client.load('rosAFE');
+
+You must then start the audio acquisition, which is handled by BASS:
+
+.. code-block:: Matlab
+
+  acquire = bass.Acquire('-a');
+
+  % Check acquisition status
+  pause(0.2);
+  if ( strcmp(acquire.status,'error') )
+    error(strcat('Error',acquire.exception.ex));
+  end
+
+.. note::
+
+  Do not forget to check your input device ID, see :ref:`sec-robot-bass-client`.
+
+Then, you must connect the BASS output port to ``/rosAFE``:
+
+.. code-block:: Matlab
+
+  connection = rosAFE.connect_port('Audio', 'bass/Audio');
+
+  % Check connection status
+  pause(0.2);
+  if ( strcmp(connection.status,'error') )
+  error(strcat('Error',connection.exception.ex));
+  end
+
+Now, everything is ready for processors instantiation. Pay attention to the processor 
+instantiation order, which must respect the processor tree shown in :numref:`fig-rosafe-rosafeTree`:
+
+.. code-block:: Matlab
+
+  inputProcRequest = rosAFE.InputProc('-a');
+  preProcRequest = rosAFE.PreProc('-a', 'preProc', 'input', 0, 20, 0, 0.97, 0, 0.5, 0, 100, 0, 'jespen', 0);
+  gammatoneRequest = rosAFE.GammatoneProc('-a', 'gammatone', 'preProc', 'gammatone', 80, 8000, 1, 0, {}, 4, 1.018);
+  ihcRequest = rosAFE.IhcProc('-a');
+  ildRequest = rosAFE.IldProc('-a');
+  ratemapRequest = rosAFE.RatemapProc('-a');
+  crossCorrelationRequest = rosAFE.CrossCorrelationProc('-a');
+
+Depending on your needs, you can use the different services of ``/rosAFE``. They way they
+must be called is listed below:
+
+.. code-block:: Matlab
+
+  getParameters = rosAFE.getParameters();
+  getDependencies = rosAFE.getDependencies();
+  modifyParameter = rosAFE.modifyParameter();
+  getSignals = rosAFE.getSignals();
+  removeProcessor = rosAFE.removeProcessor();
+
+In the same vein, on can also access to individual ports. The parameter to be used with the function
+is the actual name of the processor you want to read the output. You can get this name by using the 
+``getParameters`` function:
+
+.. code-block:: Matlab
+
+  inputProcOut = rosAFE.inputProcPort('input');
+  preProcOut = rosAFE.preProcPort('preProc');
+  gammatoneProcOut = rosAFE.gammatonePort('gammatone');
+  ihcProcOut = rosAFE.ihcPort('ihc');
+  ildProcOut = rosAFE.ildPort('ild');
+  ratemapProcOut = rosAFE.ratemapProcPort('ratemap');
+  crossCorrelationProcOut = rosAFE.crossCorrelationPort('crossCorrelation');
+
 
 
 .. vim: filetype=rst spell:
