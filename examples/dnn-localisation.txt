@@ -17,14 +17,14 @@ perceived azimuth angle. This mapping is highly influenced by the environment.
 For example, if you are in a room the |ITD| values will look quite different
 than in the case of an anechoic chamber. That is the reason why we have
 different knowledge sources that do this mapping: |DnnLocationKS|,
-|GmmLocationKS|, and |ItdLocationKS|. |ItdLocationKS| utilises a simple
-lookup table for the mapping works well in the case of
+|GmmLocationKS|, and |ItdLocationKS|. |ItdLocationKS| utilises a simple lookup
+table for the mapping works well in the case of
 :ref:`sec-example-qoe-localisation`. |GmmLocationKS| is at the moment trained
 only for anechoic condition. In this example we have a look at |DnnLocationKS|
 which was trained with a multi-conditional training approach to work under
-reverberant conditions [MaEtAl2015dnn]_.  Beside this, |DnnLocationKS| works
-in the same way as |GmmLocationKS| and connects with |ConfusionKS|,
-|ConfusionSolvingKS|, and |RotationKS| to solve front-back confusions.
+reverberant conditions [MaEtAl2015dnn]_.  Beside this, |DnnLocationKS| works in
+the same way as |GmmLocationKS| and connects with |LocalisationDecisionKS|, and
+|HeadRotationKS| to solve front-back confusions.
 
 In this example we will have a look at localisation in a larger room, namely the
 |BRIR| data set measured in :ref:`sec-brir-qu-auditorium3`, which provides six
@@ -86,11 +86,12 @@ trained for 16000 Hz at the moment. As an example, we list the file
         </dataConnection>
 
         <KS Name="loc" Type="DnnLocationKS">
-            <Param Type="int">16</Param>
+            <Param Type="char">MCT-DIFFUSE</Param>
         </KS>
-        <KS Name="conf" Type="ConfusionKS"/>
-        <KS Name="confSolv" Type="ConfusionSolvingKS"/>
-        <KS Name="rot" Type="RotationKS">
+        <KS Name="dec" Type="LocalisationDecisionKS">
+            <Param Type="int">1</Param>
+        </KS>
+        <KS Name="rot" Type="HeadRotationKS">
             <Param Type="ref">robotConnect</Param>
         </KS>
 
@@ -104,27 +105,23 @@ trained for 16000 Hz at the moment. As an example, we list the file
         </Connection>
         <Connection Mode="add">
             <source>loc</source>
-            <sink>conf</sink>
+            <sink>dec</sink>
         </Connection>
-        <Connection Mode="replaceOld" Event="ConfusedLocations">
-            <source>conf</source>
+        <Connection Mode="add" Event="RotateHead">
+            <source>dec</source>
             <sink>rot</sink>
-        </Connection>
-        <Connection Mode="add" Event="ConfusedLocations">
-            <source>conf</source>
-            <sink>confSolv</sink>
         </Connection>
 
     </blackboardsystem>
 
 Here, we use different knowledge sources that work together in order to solve
 the localisation task. We have |AuditoryFrontEndKS| for extract auditory cues
-from the ear signals sampled at 16 kHz, |DnnLocationKS| with 16 frequency
-channels, |ConfusionKS|, |ConfusionSolvingKS|, and |RotationKS| for the
-actual localisation task. The ``Param`` tags are parameters we can pass to the
-knowledge sources. After setting up which knowledge sources we will use, we
-connect them with the ``Connection`` tags.  For more information on configuring
-the blackboard see :ref:`sec-blackboard-configure`.
+from the ear signals sampled at 16 kHz, |DnnLocationKS|,
+|LocalisationDecisionKS|, and |HeadRotationKS| for the actual localisation task.
+The ``Param`` tags are parameters we can pass to the knowledge sources. After
+setting up which knowledge sources we will use, we connect them with the
+``Connection`` tags.  For more information on configuring the blackboard see
+:ref:`sec-blackboard-configure`.
 
 In the other blackboard configuration files we set up a blackboard for the case
 of |DnnLocationKS| without confusion solving by head rotation.
@@ -138,11 +135,11 @@ action, afterwards we will have a look at what happened::
     -------------------------------------------------------------------------
     Source direction   DnnLocationKS w head rot.   DnnLocationKS wo head rot.
     -------------------------------------------------------------------------
-            0                -5                       -180
-          -52               -60                        -55
-         -131              -135                       -135
             0                 0                       -180
-           30                25                         25
+          -52               -55                        -55
+         -131               -45                        -45
+            0                 0                       -180
+           30                30                         25
           -30               -30                        -30
     ------------------------------------------------------------------------
 
