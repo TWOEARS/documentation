@@ -6,10 +6,11 @@ Work with the database
 ======================
 
 The database is located at the following address:
-https://dev.qu.tu-berlin.de/projects/twoears-database, where you can browse the
-data, or download single files. Fortunately, the |BinSim| has an automatic
-download and caching functionality, which gets the files from the database on
-demand. Downloading the files twice is prevented by the caching mechanism.
+https://dev.qu.tu-berlin.de/projects/twoears-getdata/repository, where you can
+browse the data, or download single files. Fortunately, the |BinSim| has an
+automatic download and caching functionality, which gets the files from the
+database on demand. Downloading the files twice is prevented by the caching
+mechanism.
 
 For example, you could browse the database and get any file you want by
 specifying its relative position inside the database. The next command will
