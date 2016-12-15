@@ -34,17 +34,16 @@ details. To see what is currently available in the memory run::
 
     >> bbs.blackboard.getDataLabels()
 
-    ans = 
+    ans =
 
-        'confusionHypotheses'
         'headOrientation'
+        'locationHypothesis'
         'sourcesAzimuthsDistributionHypotheses'
-        'perceivedAzimuths'
 
 To analyse the localisation performance of the model we ask the blackboard to
 return the localisation data::
 
-    >> perceivedAzimuths = bbs.blackboard.getData('perceivedAzimuths')
+    >> perceivedAzimuths = bbs.blackboard.getData('locationHypothesis')
 
     perceivedAzimuths =
 
@@ -59,14 +58,16 @@ different things, here is the output for one time stamp::
 
     >> perceivedAzimuths(9).data
 
-    ans = 
+    ans =
 
-      PerceivedAzimuth with properties:
+      LocationHypothesis with properties:
 
-                azimuth: 20
-        headOrientation: 340
-        relativeAzimuth: 0
-                  score: 0.7028
+        sourcesPosteriors: [72x1 double]
+           sourceAzimuths: [72x1 double]
+          headOrientation: 340
+                  azimuth: 20
+          relativeAzimuth: 0
+                    score: 0.7028
 
 But don't worry there is an easy way to get an overview of the results. First,
 we are only interested in the summary of the localisation result::
@@ -132,6 +133,7 @@ look on them. In order to see which are available, run::
       'ild'
       'crosscorrelation'
       'head_rotation'
+      'ratemap'
 
 All those cues can be plotted with ``bbs.plotAfeData(cueName)``, for example::
 
