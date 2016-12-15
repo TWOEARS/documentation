@@ -15,11 +15,11 @@ estimate the perceived azimuth of a sound source, see
 |GmmLocationKS| knowledge source that uses |ITD| and |ILD| cues provided by the
 :ref:`sec-afe` and compares them with learned cues to azimuth maps. As an output
 it provides a probability distribution of possible directions for the source.
-This will be passed on to the |ConfusionKS| knowledge source which looks at the
-probabilities and decides if a clear direction can be extracted from this.  If
-not, |ConfusionSolvingKS| is called which then triggers |RotationKS| to rotate
-the head of the listener (could be in the simulation or of a robot) and start
-the localisation process again.
+This will be passed on to the |LocalisationDecisionKS| knowledge source which
+looks at the probabilities and decides if a clear direction can be extracted
+from this.  If not, it asks |HeadRotationKS| to rotate the head of the listener
+(could be in the simulation or of a robot) and start the localisation process
+again.
 
 In this example we will see how to set up the model to perform a localisation
 task and how to switch on or off the possibility of the model to rotate its
@@ -29,6 +29,7 @@ following files::
 
     BlackboardNoHeadRotation.xml
     Blackboard.xml
+    estimateAzimuth.m
     localise.m
     SceneDescription.xml
 
@@ -84,9 +85,10 @@ including head movements (:file:`Blackboard.xml`):
         <dataConnection Type="AuditoryFrontEndKS"/>
 
         <KS Name="loc" Type="GmmLocationKS"/>
-        <KS Name="conf" Type="ConfusionKS"/>
-        <KS Name="confSolv" Type="ConfusionSolvingKS"/>
-        <KS Name="rot" Type="RotationKS">
+        <KS Name="locDec" Type="LocalisationDecisionKS">
+            <Param Type="int">1</Param><!-- enable head rotation -->
+        </KS>
+        <KS Name="rot" Type="HeadRotationKS">
             <Param Type="ref">robotConnect</Param>
         </KS>
 
@@ -100,23 +102,19 @@ including head movements (:file:`Blackboard.xml`):
         </Connection>
         <Connection Mode="add">
             <source>loc</source>
-            <sink>conf</sink>
+            <sink>locDec</sink>
         </Connection>
-        <Connection Mode="replaceOld" Event="ConfusedLocations">
-            <source>conf</source>
+        <Connection Mode="replaceOld" Event="RotateHead">
+            <source>locDec</source>
             <sink>rot</sink>
-        </Connection>
-        <Connection Mode="add" Event="ConfusedLocations">
-            <source>conf</source>
-            <sink>confSolv</sink>
         </Connection>
 
     </blackboardsystem>
 
 Here, we use different knowledge sources that work together in order to solve
 the localisation task. We have |AuditoryFrontEndKS| for extract auditory cues
-from the ear signals, |GmmLocationKS|, |ConfusionKS|, |ConfusionSolvingKS|,
-and |RotationKS| for the actual localisation task. The ``Param`` tags are
+from the ear signals, |GmmLocationKS|, |LocalisationDecisionKS|, and
+|HeadRotationKS| for the actual localisation task. The ``Param`` tags are
 parameters we can pass to the knowledge sources. After setting up which
 knowledge sources we will use, we connect them with the ``Connection`` tags.
 For more information on configuring the blackboard see
@@ -133,9 +131,11 @@ disabling its ability to turn the head (:file:`BlackboardNoHeadRotation.xml`):
         <dataConnection Type="AuditoryFrontEndKS"/>
 
         <KS Name="loc" Type="GmmLocationKS"/>
-        <KS Name="conf" Type="ConfusionKS">
-            <!-- Disable confusion solving (== no head rotation) -->
-            <Param Type="int">0</Param>
+        <KS Name="locDec" Type="LocalisationDecisionKS">
+            <Param Type="int">0</Param><!-- disable head rotation -->
+        </KS>
+        <KS Name="rot" Type="HeadRotationKS">
+            <Param Type="ref">robotConnect</Param>
         </KS>
 
         <Connection Mode="replaceOld" Event="AgendaEmpty">
@@ -148,24 +148,29 @@ disabling its ability to turn the head (:file:`BlackboardNoHeadRotation.xml`):
         </Connection>
         <Connection Mode="add">
             <source>loc</source>
-            <sink>conf</sink>
+            <sink>locDec</sink>
         </Connection>
+        <Connection Mode="replaceOld" Event="RotateHead">
+            <source>locDec</source>
+            <sink>rot</sink>
+        </Connection>
+
     </blackboardsystem>
 
 Now, everything is prepared and we can start Matlab in order to perform the
 localisation. You can just start it and run the following command to see it in
 action, afterwards we will have a look at what happened::
 
-	>> localise
+    >> localise
 
-	------------------------------------------------------------------
-	Source direction        Model w head rot.       Model wo head rot.
-	------------------------------------------------------------------
-	   0 			    0 			    0
-	  33 			   35 			   35
-	  76 			   70 			   70
-	-121 			 -120 			  -55
-	------------------------------------------------------------------
+    ------------------------------------------------------------------
+    Source direction        Model w head rot.       Model wo head rot.
+    ------------------------------------------------------------------
+       0 			    0 			 -180
+      33 			   35 			   35
+      76 			   70 			   70
+    -121 			  -55 			  -55
+    ------------------------------------------------------------------
 
 As you can see the model with head rotation returned better results as the model
 without head rotation enabled. The reason why we have problems without head
