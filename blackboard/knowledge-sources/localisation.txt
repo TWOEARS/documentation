@@ -69,6 +69,13 @@ notified.
 | triggers event         | ``KsFiredEvent``                          |
 +------------------------+-------------------------------------------+
 
+.. _sec-localisation-decision-knowledge-source:
+
+Localisation decision knowledge source: ``LocalisationDecisionKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add text here.
+
 .. _sec-confusion-knowledge-source:
 
 Confusion detection knowledge source: ``ConfusionKS``

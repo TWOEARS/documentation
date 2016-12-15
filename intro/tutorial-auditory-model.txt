@@ -50,35 +50,32 @@ file is called :file:`blackboard.xml` and can be found in the
     <?xml version="1.0" encoding="utf-8"?>
     <blackboardsystem>
 
-        <dataConnection Type="AuditoryFrontEndKS"/>
+    	<dataConnection Type="AuditoryFrontEndKS"/>
 
-        <KS Name="loc" Type="GmmLocationKS"/>
-        <KS Name="conf" Type="ConfusionKS"/>
-        <KS Name="confSolv" Type="ConfusionSolvingKS"/>
-        <KS Name="rot" Type="RotationKS">
-            <Param Type="ref">robotConnect</Param>
-        </KS>
+    	<KS Name="loc" Type="GmmLocationKS"/>
+    	<KS Name="dec" Type="LocalisationDecisionKS">
+    		<Param Type="int">1</Param><!-- enable head rotation -->
+    	</KS>
+    	<KS Name="rot" Type="HeadRotationKS">
+    		<Param Type="ref">robotConnect</Param>
+    	</KS>
 
-        <Connection Mode="replaceOld" Event="AgendaEmpty">
-            <source>scheduler</source>
-            <sink>dataConnect</sink>
-        </Connection>
-        <Connection Mode="replaceOld">
-            <source>dataConnect</source>
-            <sink>loc</sink>
-        </Connection>
-        <Connection Mode="add">
-            <source>loc</source>
-            <sink>conf</sink>
-        </Connection>
-        <Connection Mode="replaceOld" Event="ConfusedLocations">
-            <source>conf</source>
-            <sink>rot</sink>
-        </Connection>
-        <Connection Mode="add" Event="ConfusedLocations">
-            <source>conf</source>
-            <sink>confSolv</sink>
-        </Connection>
+    	<Connection Mode="replaceOld" Event="AgendaEmpty">
+    		<source>scheduler</source>
+    		<sink>dataConnect</sink>
+    	</Connection>
+    	<Connection Mode="replaceOld">
+    		<source>dataConnect</source>
+    		<sink>loc</sink>
+    	</Connection>
+    	<Connection Mode="add">
+    		<source>loc</source>
+    		<sink>dec</sink>
+    	</Connection>
+    	<Connection Mode="add" Event="RotateHead">
+    		<source>dec</source>
+    		<sink>rot</sink>
+    	</Connection>
 
     </blackboardsystem>
 
@@ -86,16 +83,15 @@ It looks a little complicated, so let us go through it step by step.  First the
 |blackboard| needs some data it can work on. This data has the form of auditory
 cues which are extracted by the |afe|. There exists a special knowledge source
 to get the data into the blackboard, which is handled in line 4.  After that in
-lines 6-11 four other knowledge sources are included for our actual localisation
-task. Some of them come with parameters like ``robotConnect`` for the
-|RotationKS| which defines the connection to the system where the head can
-actually be rotated. It first starts with the |GmmLocationKS| and the other
-knowledge sources should then interpret its probability distribution data and
-see if they are able to estimate a single location from it. If not,
-|ConfusionSolvingKS| decides to turn the head of the listener in order to get a
-better estimation.  In order to allow for the communication between the
-knowledge sources all the ``<Connection>`` tags are used. For a detailed
-explanation on it have a look at :ref:`sec-blackboard-configure`.
+lines 6-12 three other knowledge sources are included for our actual
+localisation task. Some of them come with parameters like ``robotConnect`` for
+the |HeadRotationKS| which defines the connection to the system where the head
+can actually be rotated. It first starts with the |GmmLocationKS|, after which
+the |LocalisationDecisionKS| then interprets the resulting probability
+distribution and decides if a head rotation is needed to get better results.  In
+order to allow for the communication between the knowledge sources all the
+``<Connection>`` tags are used. For a detailed explanation on it have a look at
+:ref:`sec-blackboard-configure`.
 
 Now after having configured the acoustic scene in :file:`binaural_renderer.xml`
 and the blackboard in :file:`blackboard.xml` we could finally run the model
@@ -115,28 +111,29 @@ Now the model is finished, but we are of course interested in seeing the results
 What you could do here is the following::
 
     >> sourceAzimuth = 63; % real phyiscal position of the source
-    >> perceivedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
+    >> perceivedAzimuths = bbs.blackboard.getData('locationHypothesis');
     >> displayLocalisationResults(perceivedAzimuths, sourceAzimuth);
 
     ------------------------------------------------------------------------------------
     Reference target angle:  63 degrees
     ------------------------------------------------------------------------------------
     Localised source angle:
-    BlockTime   PerceivedAzimuth    (head orient., relative azimuth)    Probability
+    BlockTime	PerceivedAzimuth	(head orient., relative azimuth)	Probability
     ------------------------------------------------------------------------------------
-      0.56       65 degrees     (  0 degrees,     65 degrees)   0.52
-      1.02       65 degrees     ( 20 degrees,     45 degrees)   0.55
-      1.58      235 degrees     ( 40 degrees,    195 degrees)   0.35
-      2.04       60 degrees     ( 60 degrees,      0 degrees)   0.38
-      2.51      235 degrees     ( 80 degrees,    155 degrees)   0.42
+      0.56		 65 degrees		(  0 degrees,     65 degrees)	0.98
+      1.02		 65 degrees		(  0 degrees,     65 degrees)	0.98
+      1.58		 65 degrees		(  0 degrees,     65 degrees)	0.97
+      2.04		 65 degrees		(  0 degrees,     65 degrees)	0.97
+      2.51		 65 degrees		(  0 degrees,     65 degrees)	0.92
+      3.07		 65 degrees		(  0 degrees,     65 degrees)	0.93
     ------------------------------------------------------------------------------------
-    Mean localisation error: 11.7065
+    Mean localisation error: 2
     ------------------------------------------------------------------------------------
 
 Here you see for several steps in time the predicted location together with the
 actual head orientation of the listener and the probability of the predicted
-location. If the probability is below a given threshold the model decides to
-turn its head towards the most likely source position.
+location. As the probability was always quite high no head rotation was
+triggered.
 
 For details on how to view more results, like the extracted binaural cues, have
 a look at :ref:`sec-examples-localisation-details`. And for more details on

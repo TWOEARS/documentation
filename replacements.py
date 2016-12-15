@@ -22,7 +22,8 @@ replacements = """
 .. |GmmLocationKS|          replace:: :ref:`GmmLocationsKS <sec-gmm-location-knowledge-source>`
 .. |IdentityKS|             replace:: :ref:`IdentityKS <sec-identity-knowledge-source>`
 .. |ItdLocationKS|          replace:: :ref:`ItdLocationKS <sec-itd-localisation-knowledge-source>`
-.. |RotationKS|             replace:: :ref:`RotationKS <sec-rotation-knowledge-source>`
+.. |HeadRotationKS|         replace:: :ref:`HeadRotationKS <sec-rotation-knowledge-source>`
+.. |LocalisationDecisionKS| replace:: :ref:`LocalisationDecisionKS <sec-localisation-decision-knowledge-source>`
 .. |SegmentationKS|         replace:: :ref:`SegmentationKS <sec-segmentation-knowledge-source>`
 .. |SegmentIdentityKS|      replace:: :ref:`SegmentIdentityKS <sec-segmentation-identity-knowledge-source>`
 """
