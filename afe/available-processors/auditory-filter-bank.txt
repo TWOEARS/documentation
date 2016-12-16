@@ -129,6 +129,59 @@ panel.
    processor consisting of 16 auditory filters spaced between 80 Hz and 8000 Hz
    (right panel).
 
+
+Given the output of the gammatone filterbank, it is possible to reconstruct the
+original input signal by compensating for the frequency-specific delay of the
+individual subband signals. First, the peak in the envelope domain can be aligned
+across all subband channels by introducing a frequency-specific time lead
+[BrownCooke94]_. In addition, a phase compensation factor is necessary to align
+the peak in the fine structure across channels [BrownCooke94]_. The gammatone
+processor in the |AFE| supports this phase compensation strategy, which can be
+activated by the flag ``fb_bAlign``.
+
+.. _fig-reconstruction1:
+
+.. figure:: ../img/Gammatone_reconstruction_wave.png
+    :width: 100%
+
+    Frequency-specific output of a gammatone filterbank: without phase and delay
+    compensation (top left panel), with phase compensation (top right panel),
+    with delay compensation (bottom left panel) and with delay and phase
+    compensation (bottom right panel).
+
+The impact of these different strategies is visualized in
+:numref:`fig-reconstruction1` and :numref:`fig-reconstruction2`, which have been
+produced by the script ``Demo_Gammatone_Reconstruction.m``. The four panels in
+:numref:`fig-reconstruction1` show the frequency-specific output of a gammatone
+filterbank consisting of 64 filters spaced between 50 and 22050 Hz in response
+to an impulse located at 23.2 ms. The top left panel shows the output without
+delay and phase compensation. The impact of the phase compensation can be seen
+in the top right panel, which ensures that the fine structure of the subband
+signals is aligned across channels. The additional effect of the delay
+compensation can be seen in the bottom left and bottom right panels without and
+with phase compensation.
+
+Finally, the compensation of the time delay can be combined with a
+frequency-specific gain factor to ensure a flat frequency response of the
+analysis-synthesis system [Hohmann2002]_.  The impulse response and frequency
+response of three gammatone-based analysis-synthesis systems is presented in
+:numref:`fig-reconstruction2`. The output refers to a delay-compensated
+gammatone filterbank without phase compensation, which produces the largest
+deviations when comparing it to the response of the input signal. The addition
+of the phase compensation allows for a reasonably flat frequency response,
+although the absolute magnitude is shifted with respect to the original input.
+When combining all three stages, namely the delay, phase and gain compensation,
+a flat frequency response close to 0 dB can be achieved.
+
+.. _fig-reconstruction2:
+
+.. figure:: ../img/Gammatone_reconstruction_ir.png
+    :width: 100%
+
+    Impulse response (left panel) and frequency response (right panel) of an impulse
+    (input signal) and three gammatone-based analysis-synthesis systems.
+
+
 .. _sec-DRNL:
 
 Dual-resonance non-linear filter bank (``drnlProc.m``)
@@ -178,7 +231,7 @@ users. Details regarding the original idea behind the parameter derivation can
 be found in [Lopez-Poveda2001]_, which the |CASP| model slightly modified to
 provide a better fit of the output to physiological findings from human cochlear
 research works.
- 
+
 The |MOC| feedback is implemented in an open-loop structure within the |DRNL|
 filter bank model as the gain factor to be applied to the nonlinear path. This
 approach is used by [Ferry2007]_, where the attenuation caused by |MOC| the
@@ -224,22 +277,30 @@ of the nonlinear model responding to input level changes as described earlier.
    entering both processors for direct comparison.  The level difference between
    the two speech excerpts is reduced in the |DRNL| response, showing its
    compressive nature to input level variations.
-  
+
 .. ...::: References :::...
 
-.. [Brown2010] 
+.. [BrownCooke94]
+    Brown, G. J. and Cooke, M. P. (1994), “Computational auditory scene analysis
+    .” Computer Speech and Language 8(4), pp. 297–336.
+
+.. [Brown2010]
     Brown, G. J., Ferry, R. T., and Meddis, R. (2010), “A computer model of
     auditory efferent suppression: implications for the recognition of speech in
-    noise.” The Journal of the Acoustical Society of America 127(2), pp. 943–54.
+    noise.” The Journal of the Acoustical Society of America 127(2), pp. 943–954.
 
 .. [Ferry2007]
     Ferry, R. T. and Meddis, R. (2007), “A computer model of medial efferent
     suppression in the mammalian auditory system,” The Journal of the Acoustical
-    Society of America 122(6), pp. 3519.
+    Society of America 122(6), pp. 3519-3526.
 
 .. [Glasberg1990]
     Glasberg, B. R. and Moore, B. C. J. (1990), “Derivation of auditory filter
     shapes from notched-noise data,” Hearing Research 47(1-2), pp. 103–138.
+
+.. [Hohmann2002]
+    Hohmann, V. (2002), “Frequency analysis and synthesis using a Gammatone
+	filterbank,” Acta Acustica United With Acustica 88, pp. 433-442..
 
 .. [Jepsen2008]
     Jepsen, M. L., Ewert, S. D., and Dau, T. (2008), “A computational model of
