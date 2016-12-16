@@ -65,6 +65,7 @@ and the end of individual auditory events.
 .. _fig-onoffset:
 
 .. figure:: ../img/OnOffset.png
+   :width: 100%
 
    Detected onsets and offsets indicated by the black and white vertical
    bars. The left panels shows all onset and offset events, whereas the

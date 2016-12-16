@@ -81,6 +81,7 @@ to some round-off errors.
 .. _fig-online-vs-offline:
 
 .. figure:: ../img/onlineVsOffline.png
+   :width: 100%
 
    Difference in ILDs obtained with online and offline processing
 

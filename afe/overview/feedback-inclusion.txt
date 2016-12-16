@@ -43,6 +43,7 @@ manager instance.
 .. _fig-sharpening-the-ear:
 
 .. figure:: ../img/sharpening_the_ear.png
+   :width: 100%
 
    Sharpening the frequency selectivity of the ear by means of feedback
 

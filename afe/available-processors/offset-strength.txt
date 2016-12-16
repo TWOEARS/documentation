@@ -34,6 +34,7 @@ synchronised across frequency.
 .. _fig-offsetstrength:
 
 .. figure:: ../img/OffsetStrength.png
+   :width: 100%
 
    Rate-map representation (left panel) of speech and the corresponding
    offset strength in `decibel` (right panel).

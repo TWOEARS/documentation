@@ -124,10 +124,11 @@ panel.
 .. _fig-gammatone:
 
 .. figure:: ../img/Gammatone.png
+    :width: 100%
 
-   Time domain signal (left panel) and the corresponding output of the gammatone
-   processor consisting of 16 auditory filters spaced between 80 Hz and 8000 Hz
-   (right panel).
+    Time domain signal (left panel) and the corresponding output of the
+    gammatone processor consisting of 16 auditory filters spaced between 80 Hz
+    and 8000 Hz (right panel).
 
 
 Given the output of the gammatone filterbank, it is possible to reconstruct the
@@ -178,8 +179,8 @@ a flat frequency response close to 0 dB can be achieved.
 .. figure:: ../img/Gammatone_reconstruction_ir.png
     :width: 100%
 
-    Impulse response (left panel) and frequency response (right panel) of an impulse
-    (input signal) and three gammatone-based analysis-synthesis systems.
+    Impulse response (left panel) and frequency response (right panel) of an
+    impulse (input signal) and three gammatone-based analysis-synthesis systems.
 
 
 .. _sec-DRNL:
@@ -216,9 +217,10 @@ operation, which is specified by the default argument ``'CASP'`` for
 .. _fig-drnl-filterbank:
 
 .. figure:: ../img/DRNL_Diagram.png
+    :width: 100%
 
-   Filter bank channel structure, following the model specification as
-   default, with an additional nonlinear gain stage to receive feedback.
+    Filter bank channel structure, following the model specification as default,
+    with an additional nonlinear gain stage to receive feedback.
 
 In the |CASP| model, the linear path consists of a gain stage, two cascaded
 gammatone filters, and four cascaded low-pass filters; the nonlinear path
@@ -269,14 +271,15 @@ of the nonlinear model responding to input level changes as described earlier.
 .. _fig-drnl-output:
 
 .. figure:: ../img/DRNLs.png
+    :width: 100%
 
-   The gammatone processor output (left panel) compared to the output of the
-   |DRNL| processor (right panel), based on the right ear signal shown in panel
-   1 of :numref:`fig-pre-proc`, at 1 kHz centre or characteristic frequency.
-   Note that the input signal is converted to the stapes velocity before
-   entering both processors for direct comparison.  The level difference between
-   the two speech excerpts is reduced in the |DRNL| response, showing its
-   compressive nature to input level variations.
+    The gammatone processor output (left panel) compared to the output of the
+    |DRNL| processor (right panel), based on the right ear signal shown in panel
+    1 of :numref:`fig-pre-proc`, at 1 kHz centre or characteristic frequency.
+    Note that the input signal is converted to the stapes velocity before
+    entering both processors for direct comparison.  The level difference
+    between the two speech excerpts is reduced in the |DRNL| response, showing
+    its compressive nature to input level variations.
 
 .. ...::: References :::...
 

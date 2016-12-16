@@ -50,6 +50,7 @@ representation scaled in dB is presented in the right panel.
 .. _fig-ratemap:
 
 .. figure:: ../img/Ratemap.png
+   :width: 100%
 
    |IHC| representation of s speech signal using 64
    auditory filters (left panel) and the corresponding rate-map representation

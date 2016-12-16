@@ -55,6 +55,7 @@ intended |ITD| and |ILD| values as more chunks are analyzed.
 .. _fig-precedence:
 
 .. figure:: ../img/Precedence.png
+    :width: 100%
 
     Left panel: band-pass input noise signal, 400 ms long (only the first 50 ms
     is shown), 800 Hz wide, centered at 500 Hz, mixed with a reflection of a

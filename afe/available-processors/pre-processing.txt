@@ -69,6 +69,7 @@ is described in the following subsections.
 .. _fig-pre-proc:
 
 .. figure:: ../img/Pre_Proc.png
+   :width: 100%
 
    Illustration of the individual pre-processing steps.  1) Ear signals
    consisting of two sentences recorded at different levels, 2) ear signals

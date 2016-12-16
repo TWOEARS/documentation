@@ -41,6 +41,7 @@ can be seen at higher frequencies where |ILD|\ s can be as high as 30 dB.
 .. _fig-ild:
 
 .. figure:: ../img/ILD.png
+   :width: 100%
 
    Binaural speech signal (left panel) and the estimated |ILD| in dB shown as a
    function of time frames and frequency channels. 

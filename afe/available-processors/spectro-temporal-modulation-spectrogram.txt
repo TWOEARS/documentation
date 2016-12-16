@@ -28,6 +28,7 @@ dimensional Gabor feature space.
 .. _fig-gabor-2d:
 
 .. figure:: ../img/Gabor_2D.png
+   :width: 100%
 
    Real part of 41 spectro-temporal Gabor filters. 
 
@@ -44,6 +45,7 @@ captured. This aspect might be particularly relevant for the task of |ASR|.
 .. _fig-gabor:
 
 .. figure:: ../img/Gabor.png
+   :width: 100%
 
    Rate-map representation of a speech signal (left panel) and the corresponding
    output of the Gabor feature processor (right panel).

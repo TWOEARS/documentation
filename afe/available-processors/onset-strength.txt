@@ -43,6 +43,7 @@ of an auditory event.
 .. _fig-onsetstrength:
 
 .. figure:: ../img/OnsetStrength.png
+   :width: 100%
 
    Rate-map representation (left panel) of speech and the corresponding
    onset strength in decibel (right panel).

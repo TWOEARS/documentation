@@ -122,6 +122,7 @@ combination with the corresponding rate-map representation.
 .. _fig-spec-features:
 
 .. figure:: ../img/SpecFeatures.png
+   :width: 100%
 
    Speech signal and 14 spectral features that were extracted based on the
    rate-map representation.

@@ -42,6 +42,7 @@ illustrated in the right panel of :numref:`fig-modfb`.
 .. _fig-modfb:
 
 .. figure:: ../img/ModFB.png
+   :width: 100%
 
    Transfer functions of 15 linearly-scaled (left panel) and 9
    logarithmically-scaled (right panel) modulation filters.
@@ -123,6 +124,7 @@ with the activity reflected in the |IHC| representation.
 .. _fig-ams:
 
 .. figure:: ../img/AMS.png
+   :width: 100%
 
    Speech signal (top left panel) and the corresponding |IHC| representation
    (top right panel) using 23 frequency channels spaced between 80 and 8000 Hz.

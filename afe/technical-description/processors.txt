@@ -231,6 +231,7 @@ adapted to online processing as illustrated in :numref:`fig-windowing`.
 .. _fig-windowing:
 
 .. figure:: ../img/chunkBasedRatemap.png
+   :width: 100%
 
    Three steps for simple online windowing, given a chunk of input and
    an internal buffer.

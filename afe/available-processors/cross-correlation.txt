@@ -48,6 +48,7 @@ more evident by looking at the |SCCF|, as shown in the bottom right panel.
 .. _fig-ccf:
 
 .. figure:: ../img/CCF.png
+   :width: 100%
 
    Left and right ear signals shown for one time frame of 20 ms duration (left
    panel) and the corresponding |CCF| (right panel). The |SCCF| summarises the

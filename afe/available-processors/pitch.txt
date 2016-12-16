@@ -55,6 +55,7 @@ indicated by ``NaN``\ 's.
 .. _fig-pitch:
 
 .. figure:: ../img/Pitch.png
+   :width: 100%
 
    Time domain signal (top left panel) and the corresponding |SACF| (top right
    panel). The confidence measure based on the |SACF| magnitude is used to

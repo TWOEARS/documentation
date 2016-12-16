@@ -29,6 +29,7 @@ binaural cues might be unreliable due to the impact of the reverberation.
 .. _fig-ic:
 
 .. figure:: ../img/IC.png
+   :width: 100%
 
    Time domain signals and the corresponding interaural coherence as a function
    of time frames and frequency channels estimated for a speech signal in

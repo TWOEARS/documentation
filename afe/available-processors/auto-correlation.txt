@@ -67,6 +67,7 @@ processor, which is described in :ref:`sec-pitch`.
 .. _fig-acf:
 
 .. figure:: ../img/ACF.png
+   :width: 100%
 
    |IHC| representation of a speech signal shown for one time frame of 20 ms
    duration (left panel) and the corresponding |ACF| (right panel). The |SACF|

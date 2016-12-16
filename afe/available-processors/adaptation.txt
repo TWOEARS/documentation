@@ -127,6 +127,7 @@ script ``DEMO_Adaptation.m``.
 .. _fig-ihc-adapt:
 
 .. figure:: ../img/IHCadapt.png
+   :width: 100%
 
    Illustration of the adaptation processor. |IHC| output (left panel) as the
    input to the adaptation processor and the corresponding output using

@@ -50,6 +50,7 @@ retained at higher frequencies.
 .. _fig-ihc:
 
 .. figure:: ../img/IHC.png
+   :width: 100%
 
    Illustration of the envelope extraction processor.  |BM| output (left panel)
    and the corresponding |IHC| model output using ``ihc_method = ’dau’`` (right
