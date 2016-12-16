@@ -23,8 +23,8 @@ lookup table for the mapping works well in the case of
 only for anechoic condition. In this example we have a look at |GmmLocationKS|
 which was trained with a multi-conditional training approach to work under
 reverberant conditions [MaEtAl2015dnn]_.  Beside this, |GmmLocationKS| works
-in the same way as |DnnLocationKS| and connects with |ConfusionKS|,
-|ConfusionSolvingKS|, and |RotationKS| to solve front-back confusions.
+in the same way as |DnnLocationKS| and connects with |LocalisationDecisionKS|,
+and |HeadRotationKS| to solve front-back confusions.
 
 In this example we will have a look at localisation in a larger room, namely the
 |BRIR| data set measured in :ref:`sec-brir-qu-auditorium3`, which provides six
@@ -32,8 +32,8 @@ different loudspeaker positions as possible sound sources.  All files can be
 found in the ``examples/localisation_GMMs`` folder which consists of the
 following files::
 
-    BlackboardDnnNoHeadRotation.xml
-    BlackboardDnn.xml
+    BlackboardNoHeadRotation.xml
+    Blackboard.xml
     estimateAzimuth.m
     localise.m
     resetBinauralSimulator.m
@@ -72,19 +72,26 @@ Here, we configure it to use the ``@ssr_brs`` renderer which is needed for
 this will be done on the fly later on.
 
 We have four different configuration files for setting up the |Blackboard|.  As
-an example, we list the file :file:`BlackboardDnn.xml``:
+an example, we list the file :file:`BlackboardGmm.xml``:
 
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
     <blackboardsystem>
 
-        <dataConnection Type="AuditoryFrontEndKS"/>
+        <dataConnection Type="AuditoryFrontEndKS">
+           <Param Type="double">16000</Param>
+        </dataConnection>
 
-        <KS Name="loc" Type="GmmLocationKS"/>
-        <KS Name="conf" Type="ConfusionKS"/>
-        <KS Name="confSolv" Type="ConfusionSolvingKS"/>
-        <KS Name="rot" Type="RotationKS">
+        <KS Name="loc" Type="GmmLocationKS">
+            <!-- Use MCT-DIFFUSE for full 360 localisation -->
+            <Param Type="char">MCT-DIFFUSE</Param>
+        </KS>
+        <KS Name="dec" Type="LocalisationDecisionKS">
+            <!-- set to 1 to enable confusion solving (== head rotation) -->
+            <Param Type="int">1</Param>
+        </KS>
+        <KS Name="rot" Type="HeadRotationKS">
             <Param Type="ref">robotConnect</Param>
         </KS>
 
@@ -98,27 +105,23 @@ an example, we list the file :file:`BlackboardDnn.xml``:
         </Connection>
         <Connection Mode="add">
             <source>loc</source>
-            <sink>conf</sink>
+            <sink>dec</sink>
         </Connection>
-        <Connection Mode="replaceOld" Event="ConfusedLocations">
-            <source>conf</source>
+        <Connection Mode="replaceOld" Event="RotateHead">
+            <source>dec</source>
             <sink>rot</sink>
-        </Connection>
-        <Connection Mode="add" Event="ConfusedLocations">
-            <source>conf</source>
-            <sink>confSolv</sink>
         </Connection>
 
     </blackboardsystem>
 
 Here, we use different knowledge sources that work together in order to solve
 the localisation task. We have |AuditoryFrontEndKS| for extract auditory cues
-from the ear signals, |GmmLocationKS|
-channels, |ConfusionKS|, |ConfusionSolvingKS|, and |RotationKS| for the
-actual localisation task. The ``Param`` tags are parameters we can pass to the
-knowledge sources. After setting up which knowledge sources we will use, we
-connect them with the ``Connection`` tags.  For more information on configuring
-the blackboard see :ref:`sec-blackboard-configure`.
+from the ear signals, |GmmLocationKS| channels, |LocalisationDecisionKS|, and
+|HeadRotationKS| for the actual localisation task. The ``Param`` tags are
+parameters we can pass to the knowledge sources. After setting up which
+knowledge sources we will use, we connect them with the ``Connection`` tags.
+For more information on configuring the blackboard see
+:ref:`sec-blackboard-configure`.
 
 In the other blackboard configuration files we set up a blackboard for the case
 of |GmmLocationKS| without confusion solving by head rotation.
@@ -170,10 +173,10 @@ corresponding |BRIR| into the |BinSim| and run the |Blackboard| inside the
         sim.rotateHead(headOrientation, 'absolute');
         sim.Init = true;
         % GmmLocationKS w head rot.
-        phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');
+        phi1 = estimateAzimuth(sim, 'BlackboardGmm.xml');
         resetBinauralSimulator(sim, headOrientation);
         % GmmLocationKS wo head rot.
-        phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');
+        phi2 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');
         sim.ShutDown = true;
     end
 
