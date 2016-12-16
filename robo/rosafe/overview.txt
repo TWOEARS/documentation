@@ -64,8 +64,9 @@ Their installation and use is depicted in the following.
 .. _fig-rosafe-architecture:
 
 .. figure:: ../img/Archi.png
+    :width: 100%
 
-	Overview of the architecture.
+    Overview of the architecture.
 
 
 .. vim: filetype=rst spell:

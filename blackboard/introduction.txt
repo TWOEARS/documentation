@@ -42,6 +42,8 @@ probabilistic graphical models.
 .. _fig-blackboard-architecture:
 
 .. figure:: img/blackboard-architecture.png
+    :align: center
+    :width: 80%
 
     Overview of the blackboard architecture of Two!Ears.
 

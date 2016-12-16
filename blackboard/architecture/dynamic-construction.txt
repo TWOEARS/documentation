@@ -54,10 +54,12 @@ attentional priorities of the knowledge sources.
 .. _fig-blackboard-system-class-diagram:
 
 .. figure:: ../img/blackboard-system-class-diagram.png
+    :align: center
+    :width: 600px
 
-   Class diagram of the whole blackboard system. The ``BlackboardSystem``
-   class is the integrative system component holding the other modules
-   and giving access to system functionality.
+    Class diagram of the whole blackboard system. The ``BlackboardSystem``
+    class is the integrative system component holding the other modules
+    and giving access to system functionality.
 
 An example of an XML-configured blackboard system is shown below. Two identity
 knowledge sources are connected to the |AFE|, and triggering an identity

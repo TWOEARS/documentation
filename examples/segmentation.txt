@@ -143,14 +143,15 @@ will produce a result similar to Fig. :numref:`fig-segmentation-clean`.
 .. _fig-segmentation-clean:
 
 .. figure:: img/seg_demo_clean.png
+    :width: 100%
 
-   Figure generated after running the script :file:`demo_segmentation_clean.m`.
-   The figure shows all three soft masks and location estimates for the speech
-   sources that are simulated in this demo. Note that the estimated positions do
-   not necessarily match the true positions (-30°, 0° and 30°) due to the
-   limited localisation capabilities of the SegmentationKS knowledge source.
-   This problem can be circumvented by exploiting prior knowledge about the
-   source positions (see below).
+    Figure generated after running the script :file:`demo_segmentation_clean.m`.
+    The figure shows all three soft masks and location estimates for the speech
+    sources that are simulated in this demo. Note that the estimated positions
+    do not necessarily match the true positions (-30°, 0° and 30°) due to the
+    limited localisation capabilities of the SegmentationKS knowledge source.
+    This problem can be circumvented by exploiting prior knowledge about the
+    source positions (see below).
 
 The second demo file ``demo_segmentation_noisy.m`` provides essentially the same
 acoustic configuration as the first demo with additional diffuse background
@@ -237,14 +238,15 @@ an additional soft-mask for the background noise which is shown in Fig.
 .. _fig-segmentation-noisy:
 
 .. figure:: img/seg_demo_noisy.png
+    :width: 100%
 
-   Figure generated after running the script :file:`demo_segmentation_noisy.m`.
-   The figure shows four soft masks of which three correspond to the individual
-   sources and the remaining one is a soft-mask for the background noise. Note
-   that the latter one only contains very small probabilities for all
-   time-frequency units in this demo. This is due to the fact that stationary
-   white noise was used in this case and the (partially overlapping) speech
-   sources cover a broad range of the whole time-frequency spectrum.
+    Figure generated after running the script :file:`demo_segmentation_noisy.m`.
+    The figure shows four soft masks of which three correspond to the individual
+    sources and the remaining one is a soft-mask for the background noise. Note
+    that the latter one only contains very small probabilities for all
+    time-frequency units in this demo. This is due to the fact that stationary
+    white noise was used in this case and the (partially overlapping) speech
+    sources cover a broad range of the whole time-frequency spectrum.
 
 .. note::
 
@@ -280,5 +282,6 @@ converted accordingly. A possible result for this demo is shown in Fig.
 .. _fig-segmentation-priming:
 
 .. figure:: img/seg_demo_priming.png
+    :width: 100%
 
-   Figure generated after running the script :file:`demo_segmentation_priming.m`.
+    Figure generated after running the script :file:`demo_segmentation_priming.m`.

@@ -143,6 +143,7 @@ All those cues can be plotted with ``bbs.plotAfeData(cueName)``, for example::
 
 .. figure:: img/afe-time.png
     :align: center
+    :width: 100%
 
     Left and right ear signals.
 

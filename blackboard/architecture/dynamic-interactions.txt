@@ -78,8 +78,10 @@ a knowledge source is executed, it is removed from the agenda (first in
 .. _fig-blackboard-event-system:
 
 .. figure:: ../img/blackboard-event-system.png
+    :align: center
+    :width: 600px
 
-   The different possibilities of event binding between knowledge
-   sources with the blackboard system.
+    The different possibilities of event binding between knowledge sources with
+    the blackboard system.
 
 .. vim: filetype=rst spell:

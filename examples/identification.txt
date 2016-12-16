@@ -196,6 +196,7 @@ versus hypotheses produced by the models:
 
 .. figure:: img/identify.png
     :align: center
+    :width: 100%
 
     This is the live plot of hypotheses created by the identity knowledge
     sources, in comparison to the "ground truth" (as given by annotated on- and

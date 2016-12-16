@@ -188,8 +188,9 @@ AFE), namely:
 .. _fig-openafe-signal:
 
 .. figure:: ../img/classopen_a_f_e_1_1_signal__inherit__graph.png
+    :width: 100%
 
-	Inheritance diagram for the ``openAFE::Signal`` class.
+    Inheritance diagram for the ``openAFE::Signal`` class.
 
 
 Processor representation
@@ -271,8 +272,9 @@ For now, the 7 available processors are listed in :numref:`tab-rosafe-openAFE-cl
 .. _fig-openafe-processor:
 
 .. figure:: ../img/classopen_a_f_e_1_1_processor__inherit__graph.png
+    :width: 100%
 
-	Inheritance diagram for the ``openAFE::Processor`` class.  
+    Inheritance diagram for the ``openAFE::Processor`` class.  
 
 Processor parameters
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

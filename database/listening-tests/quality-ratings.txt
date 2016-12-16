@@ -31,6 +31,7 @@ Description
 
 .. figure:: ../img/quality_scene.png
     :align: center
+    :width: 100%
 
     The ten different conditions of the quality test, ordered after their
     listener preferrence. See text for the meaning of the color code.

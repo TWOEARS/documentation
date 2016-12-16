@@ -117,6 +117,7 @@ A processor goes through four distinct states, in a loop:
 
 .. figure:: ../img/statemachine.png
     :align: center
+    :width: 100%
 
     State machine and memory management of a processor.
 

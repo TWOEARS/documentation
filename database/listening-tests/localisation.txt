@@ -31,6 +31,7 @@ Description
 
 .. figure:: ../img/localisation_real_vs_simulated.png
     :align: center
+    :width: 100%
 
     The mean over all subjects together with the 95% confidence interval is
     shown. In grey, the individual subjects’ results are presented. In graph A,
@@ -102,6 +103,7 @@ Description
 
 .. figure:: ../img/localisation_sfs.png
     :align: center
+    :width: 718px
 
     Average localization results. The black symbols indicate loudspeakers, the
     grey ones the synthesised source. At every listening position, an arrow is
@@ -236,6 +238,7 @@ Description
 
 .. figure:: ../img/kopco_setting.png
     :align: center
+    :width: 100%
 
     Experimental settings used in this study. One target female voice and four
     interfering male voices are presented at the same time from 11 potential
@@ -265,6 +268,7 @@ More details can be found in [MaBrown2016]_.
 
 .. figure:: ../img/kopco_rmse.png
     :align: center
+    :width: 100%
 
     Across-participant average (:math:`\pm` standard error of the mean) of the
     increases in root-mean-square errors (with respect to the no-masker control

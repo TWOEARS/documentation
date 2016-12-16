@@ -19,6 +19,7 @@ to combine the images. The hugin configuration file is also provided at
 
 .. figure:: ../img/uro_audiolab_panorama.jpg
     :align: center
+    :width: 100%
     
     360° Panorama of the Audio Laboratory.
 
