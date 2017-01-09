@@ -16,8 +16,6 @@ At the moment the following examples are available:
     gmm-localisation
     train-identification
     identification
-    segmentation
-    train-segmentation
     tutorial-bass
     qoe-coloration
     qoe-localisation
