@@ -12,17 +12,17 @@ Train sound type identification models
 Part of the |TwoEarsModel| is the :ref:`sec-identity-knowledge-source` which can
 be instantiated (multiple times) to identify the type of auditory objects, like
 "speech", "fire", "knock" etc. Each |IdentityKS| needs a source type model -- this
-example shows one possibility to train such a model. Have a look at the
+example shows one possibility for trainining such a model. Have a look at the
 :ref:`sec-examples-identification` to see how these models are being used in the
 |blackboard|.
 
 The base folder for this example is :file:`examples/train_identification_model`,
 with the example script file being :file:`trainAndTestCleanModel.m`. Later in
 the model training process, new directories with names like
-``Training.2015.08.03.14.57.21.786`` will be created by the training pipeline,
-holding log files of the training, file lists of the used training and testing
-data, and of course the trained models. These are the models to be used in the
-|IdentityKS|, then. To see if everything is working, just run ::
+``test_1vsAll_training`` will be created by the training pipeline,
+containing log files of the training, file lists of the used training and testing
+data, and of course the trained models. These are the models that can be used with the
+|IdentityKS|. To see if everything is working, just run ::
 
     >> trainAndTestCleanModel;
 
@@ -30,7 +30,7 @@ data, and of course the trained models. These are the models to be used in the
 Example step-through
 --------------------
 
-To dive into the example, load up Matlab, navigate into the example directory,
+To dive into the example, start Matlab, navigate into the example directory,
 and open :file:`trainAndTestCleanModel.m`, which contains a function (also
 usable as a script). Let's have a look before firing it up!
 
@@ -42,28 +42,36 @@ First thing happening in there is the ::
 
     startTwoEars();
 
-command. This simply start the |TwoEarsModel| and adds all necessary paths to
-your Matlab paths.
+command. This simply starts the |TwoEarsModel| and adds all necessary paths to
+your Matlab paths. This is followed by a code snippet that checks for the existence 
+of a cache directory and create it if it does not already exist. The pipeline 
+uses this cache directory for saving and re-using intermediate results.
 
 Feature and model creators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The next code paragraph first creates the basic pipeline object of type
-:ref:`sec-TwoEarsIdTrainPipe`, and then sets two defining options: The *feature
-creator* and the *model creator*. ::
+The next code paragraph creates the basic pipeline object of type
+:ref:`sec-TwoEarsIdTrainPipe`, and then sets the basic components: The *block
+creator*, the *feature creator*, the *label creator* and the *model creator*. ::
 
-   pipe = TwoEarsIdTrainPipe();
-   pipe.featureCreator = featureCreators.FeatureSet1Blockmean();
-   pipe.modelCreator = modelTrainers.GlmNetLambdaSelectTrainer( ...
-       'performanceMeasure', @performanceMeasures.BAC2, ...
-       'cvFolds', 7, ...
-       'alpha', 0.99 );
+   pipe = TwoEarsIdTrainPipe('cacheSystemDir', cacheSystemDir);
+   pipe.blockCreator = BlockCreators.MeanStandardBlockCreator( 0.5, 0.5/3 );
+   pipe.featureCreator = featureCreators.FeatureSet5Blockmean();
+   oneVsRestLabeler = LabelCreators.MultiEventTypeLabeler( ...
+                                     'types', {{classname}}, 'negOut', 'rest' );
+   pipe.labelCreator = oneVsRestLabeler;
+   pipe.modelCreator = ModelTrainers.GlmNetLambdaSelectTrainer( ...
+       'performanceMeasure', @PerformanceMeasures.BAC2, ...
+       'cvFolds', 4, ...
+       'alpha', 0.99 ); % giving higher numerical stability (instead of 1.0)
 
 In this case, an L1-regularized sparse logistic regression model will be trained
 through the use of the :ref:`sec-GlmNetLambdaSelectTrainer`, which is a wrapper
 for `GLMNET`_. A pile of auditory features will be used in this model, processed
-and compiled by the :ref:`sec-FeatureSet1Blockmean` feature creator. Have a look
-into the respective sections to learn more!
+and compiled by the :ref:`sec-FeatureSet5Blockmean` feature creator. 
+The block creator is responsible of cutting these auditory features into blocks for each time-window. 
+The label creator uses the ground truth files for assigning a label to each block that the model can target.
+Have a look into the respective sections to learn more!
 
 .. _GLMNET: http://web.stanford.edu/~hastie/glmnet_matlab/
 
@@ -76,44 +84,39 @@ single event sounds <sec-ieee-aasp>` serve as training material. There are
 sounds for several classes like "laughter", "keys", "speech", etc. If you don't
 call the ``trainAndTestCleanModel`` function with a different class name, a model
 for the "speech" class will be trained (this is specified in the third line).
-Irregardless of the class the model is trained for, all sounds listed in the
+Regardless of the class the model is trained for, all sounds listed in the
 flist (`have a look
 <https://dev.qu.tu-berlin.de/projects/twoears-database/repository/revisions/master/entry/learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist>`_)
 will be used for training -- but only the ones belonging to the model class will
 serve as "positive" examples. ::
 
    pipe.trainset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist';
-   pipe.testset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TestSet_1.flist';
-
-The ``testset`` specifies files used for testing the trained model. This is not
-necessary for the model creation, it only serves as an immediate way of
-providing feedback about the model performance after training. Of course the
-``testset`` must only contain files that have not been used for training, to test
-for generalisation of the model.
-
 
 Scene configuration
 ~~~~~~~~~~~~~~~~~~~
 
 A "clean" :ref:`scene configuration <sec-sceneConfiguration>` is used to train
-this model. That means: the sound sources are positioned at 0° azimuth relative
+this model. ::
+
+    sc = SceneConfig.SceneConfiguration();
+    sc.addSource( SceneConfig.PointSource( ...
+                          'data', SceneConfig.FileListValGen( 'pipeInput' ) ) );
+
+The sound sources are positioned at 0° azimuth relative
 to the head, there is no interfering noise, and no reverberation (free-field
 conditions). Have a look into the :ref:`respective training pipeline
-documentation part <sec-sceneConfiguration>` to get to know the many
-possibilities to configure the acoustic training scene. ::
+documentation part <sec-amlttp-scenes>` to get to know the many
+possibilities to configure the acoustic training scene. 
 
-   sc = dataProcs.SceneConfiguration(); % clean
-   pipe.setSceneConfig( [sc] );
-
-   
 Running the pipeline
 ~~~~~~~~~~~~~~~~~~~~
 
 After everything is set up, the pipeline has to be initialised and can then be
 :ref:`run <sec_trainPipeRun>`. ::
 
-   pipe.init();
-   modelPath = pipe.pipeline.run( {classname}, 0 );
+   pipe.init( sc, 'fs', 16000 );
+   modelPath = pipe.pipeline.run( 'modelName', classname, ...
+                                  'modelPath', 'test_1vsAll_training' );
 
 Initialisation can take some time depending on the files for training and
 testing, and whether they are available through a local copy of the |TwoEars|
@@ -134,10 +137,13 @@ actually running the pipeline can vary substantially, depending on
   configuration, and it finds those files later, if a file is to be processed in
   the same (or partly the same) configuration. This way, a lot of time-consuming
   preprocessing can be saved. You can try it -- interrupt the preprocessing at
-  any moment by hitting `ctrl+c`, and restart the script. You will see that all
+  any moment by hitting ``ctrl+c``, and restart the script. You will see that all
   processed files/stages won't be done again.
+  
+The arguments ``'fs', 16000``   indicate that the pipeline will operate with 16 KHz signals. 
+The pipeline takes care of resampling sounds if they are not already sampled at this rate accordingly.
 
-After successful training and testing, you should see something like
+After successful training, you should see something like
 
 .. code-block:: text
 
@@ -178,12 +184,31 @@ After successful training and testing, you should see something like
    Starting run 1 of CV... GlmNet training with alpha=0.990000
       size(x) = 4111x846
 
-   Applying model to test set...
-   Done. Performance = 0.842686
-
    ...
 
    Calculate Performance for all lambdas...................................................Done
+   
+   -- Model is saved at C:\projekte\twoEars\twoears-examples\train_identification_model\test_1vsAll_training -- 
+   
+   
+The path returned indicates after running the training process contains the location of the model on your drive.
+
+Model testing
+~~~~~~~~~~~~~
+
+A new model has been trained. To test it we repeat the above code, except that this time, 
+we configure the pipeline to use test data instead of training data. ::
+  
+   pipe.trainset = [];
+   pipe.testset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TestSet_1.flist';
+
+The ``testset`` specifies files used for testing the trained model. This is not
+necessary for the model creation, it only serves as an immediate way of
+providing feedback about the model performance after training. Of course, the
+``testset`` should only contain files that have not been used for training, in order to test
+for the model's generalisation performance.
+
+After successful testing, you should see something like ::
 
    ==  Testing model on testSet... 
 
@@ -193,7 +218,7 @@ After successful training and testing, you should see something like
    ##   "speech" Performance: 0.942548
    ===================================
 
-    -- Model is saved at C:\projekte\twoEars\twoears-examples\train_identification_model\Training.2015.08.06.15.44.52.582 -- 
+    -- Model is saved at C:\projekte\twoEars\twoears-examples\train_identification_model\test_1vsAll_testing -- 
    >> 
 
 The stated performance is on the test set, and the path afterwards indicates the
