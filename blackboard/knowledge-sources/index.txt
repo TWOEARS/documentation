@@ -14,7 +14,6 @@ Knowledge sources
     localisation
     identification
     sound-quality
-    segmentation
 
 In this section we describe knowledge sources that are currently available in
 the |blackboard|.
