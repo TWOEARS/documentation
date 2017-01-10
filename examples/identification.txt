@@ -20,9 +20,8 @@ This example particularly serves to demonstrate two aspects of the
 
 The base folder for this example is :file:`examples/identification`, with the
 main example script file being :file:`identify.m`. Other than that, there is the
-file :file:`SceneDescription.xml` which describes the |BinSim| configuration,
-there are five directories with names like "Training.2015.07.24.00.23.42.772",
-which hold the used source type models, a sound file list
+file :file:`SceneDescription.xml` which describes the |BinSim| configuration. 
+A directory :file:`models/test_1vsAll_training` contains files which hold the source type models used in this example, a sound file list
 :file:`shortTest.flist`, and subfunctions (:file:`buildIdentificationBBS.m`,
 :file:`makeTestSignal.m`, :file:`setDefaultIdModels.m`) used in
 :file:`identify.m`. Have a look at
@@ -38,7 +37,7 @@ Example step-through
 
 To dive into the example, load up Matlab, navigate into the example directory,
 and open :file:`identify.m`, which contains a function (also usable as a
-script). Let's have a look before firing it up!
+script without arguments). Let's have a look before firing it up!
 
 
 Specifying the identification models
@@ -51,7 +50,7 @@ this for you. ::
 
    if nargin < 1, idModels = setDefaultIdModels(); end
 
-This function specifies five source type models by giving the directories they
+This function specifies six source type models by giving the directories they
 are located in and the class they are trained to identify, respectively.
 
 
@@ -68,7 +67,7 @@ Creating a test scene
 To test the identification models, a test scene is compiled from audio events
 (:ref:`IEEE AASP single event sounds database <sec-ieee-aasp>`) from several
 wav-files, listed in :file:`shortTest.flist`. All those wav-files have not been
-used for training of the tested models (they have all been trained using the
+used for training of the tested models (the models have all been trained using the
 same trainset), so the models have never "seen" (or better: "heard") these
 actual sounds. The function ``makeTestSignal`` not only compiles the audio, but
 also reads the "ground truth", i.e. the on- and offset times of the respective
@@ -80,7 +79,7 @@ Initialising the Binaural Simulator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The next code paragraph deals with initialisation of the |BinSim|. More
-specific, the acoustic sources are set to an head-relative azimuth of zero
+specific, the acoustic sources are set to a head-relative azimuth of zero
 degrees and three meters distance. Free-field conditions (no reverberation) are
 set through absence of a room definition (either in the
 :file:`SceneDescription.xml` or in code). The models have been trained under the
@@ -107,11 +106,12 @@ Followed by invocation of the :ref:`identity knowledge sources
 :ref:`sec-blackboard`, which also takes care to place the |AFE| requests at
 the :ref:`AuditoryFrontEndKs <sec-afe-knowledge-source>`. The identity knowledge
 sources need name and location of the source type models they load and represent
-in the system. We set their invocation frequency to 100ms (default value is
+in the system. The third argument serves as a preprocessing flag for removing the DC component from the ear signals.
+We set the invocation frequency of the knowledge sources to 100ms (default value is
 250ms)::
 
    for ii = 1 : numel( idModels )
-       idKss{ii} = bbs.createKS('IdentityKS', {idModels(ii).name, idModels(ii).dir});
+       idKss{ii} = bbs.createKS('IdentityKS', {idModels(ii).name, idModels(ii).dir, ppRemoveDc});
        idKss{ii}.setInvocationFrequency(10);
    end
 
