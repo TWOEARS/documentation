@@ -54,13 +54,6 @@ This function specifies six source type models by giving the directories they
 are located in and the class they are trained to identify, respectively.
 
 
-Starting |TwoEars|
-~~~~~~~~~~~~~~~~~~
-
-Next, we initialise the |TwoEarsModel|::
-
-    startTwoEars();
-
 Creating a test scene
 ~~~~~~~~~~~~~~~~~~~~~
 

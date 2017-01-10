@@ -35,17 +35,12 @@ and open :file:`trainAndTestCleanModel.m`, which contains a function (also
 usable as a script). Let's have a look before firing it up!
 
 
-Start-up
-~~~~~~~~
+Caching dir
+~~~~~~~~~~~
 
-First thing happening in there is the ::
-
-    startTwoEars();
-
-command. This simply starts the |TwoEarsModel| and adds all necessary paths to
-your Matlab paths. This is followed by a code snippet that checks for the existence 
-of a cache directory and create it if it does not already exist. The pipeline 
-uses this cache directory for saving and re-using intermediate results.
+The code starts with a snippet that checks for the existence of a cache
+directory and create it if it does not already exist. The pipeline uses this
+cache directory for saving and re-using intermediate results.
 
 Feature and model creators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
