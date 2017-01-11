@@ -11,7 +11,7 @@ In the first example, a KEMAR |HRTF| data set is used together with a sound
 stimulus (cello) as static source to the left of the listener. Such an anechoic
 scene can be defined via the following XML-file. The file is called
 :file:`binaural_renderer.xml` and can be found in the
-`Examples/first_steps/setting_up_an_acoustic_scene` folder:
+``Examples/first_steps/setting_up_an_acoustic_scene`` folder:
 
 .. code-block:: xml
 
