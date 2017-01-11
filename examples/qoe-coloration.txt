@@ -42,14 +42,14 @@ experiment performed with |WFS|, which is
 described in :ref:`sec-2015-10-01_wfs_coloration`. We did the experiment for
 different listening positions, loudspeaker arrays, and audio source materials.
 In this example, we will focus on the central listening position, a circular
-loudspeaker array, and music as source material.
+loudspeaker array, and speech as source material.
 
 First, we will get the source signal and the listening test results and
 corresponding |BRS| files::
 
-    sourceMaterial = audioread(db.getFile('stimuli/anechoic/aipa/music1_48k.wav'));
-    humanLabels = readHumanLabels(['experiments/2015-10-01_wfs_coloration/', ...
-                    'human_label_coloration_wfs_circular_offcenter_music.csv']);
+    sourceMaterial = audioread(db.getFile('experiments/2015-10-01_wfs_coloration/stimuli/speech.wav'));
+    humanLabels = readHumanLabels(['experiments/2015-10-01_wfs_coloration/analysis/data_mean/', ...
+                    'coloration_wfs_circular_center_speech.csv']);
 
 You could listen to the audio source material with and have a look at the
 results from the listening test::
@@ -59,16 +59,17 @@ results from the listening test::
 
     humanLabels = 
 
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.9622]    [0.0419]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [ 0.0075]    [0.2127]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [ 0.0730]    [0.2107]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.1764]    [0.2212]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.1103]    [0.2410]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.2899]    [0.2165]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.3714]    [0.2348]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.7415]    [0.1406]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.4208]    [0.1803]
-        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [ 0.7443]    [0.1587]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.9118]    [0.0641]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.4889]    [0.1948]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.0558]    [0.2083]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.1402]    [0.2176]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.4882]    [0.1478]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.4136]    [0.2215]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.7068]    [0.1239]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.8621]    [0.0824]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [-0.7680]    [0.1422]
+        'experiments/2015-10-01_wfs_coloration/brs/wfs_...'    [ 0.6618]    [0.1643]
+
 
 The first column of ``humanLabels`` lists the corresponding |BRS| file used
 during the experiment, the second column the median coloration rating -- ranging
@@ -117,7 +118,7 @@ estimate a coloration value for every condition with the |ColorationKS|::
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);
     bbs.setDataConnect('AuditoryFrontEndKS');
-    ColorationKS = bbs.createKS('ColorationKS', {'music'});
+    ColorationKS = bbs.createKS('ColorationKS', {'speech'});
     bbs.blackboardMonitor.bind({bbs.scheduler}, {bbs.dataConnect}, 'replaceOld', ...
                                'AgendaEmpty' );
     bbs.blackboardMonitor.bind({bbs.dataConnect}, {ColorationKS}, 'replaceOld' );
@@ -142,9 +143,9 @@ The model returned a coloration estimation for every condition in the range of
 
     prediction =
 
-        0.0035    0.5316    0.5566    0.4907    0.5321    0.3595    0.3080    0.2261
+        0.0007    0.1907    0.4678    0.2018    0.3461    0.2382    0.2580    0.1937
 
-        0.2608    1.7576
+        0.1891    1.3325
 
 The anchor condition, which is the very last entry, was rated to be even more
 degraded than 1. This reflects that the model is more optimised for comb-filter
@@ -172,7 +173,7 @@ transfer them to 0..1::
 
 .. _fig-examples-qoe_coloration:
 
-.. figure:: img/coloration_wfs_circular_offcenter_music.png
+.. figure:: img/coloration_wfs_circular_center_speech.png
     :align: center
 
     Median of coloration ratings (points) together with confidence intervals and model prediction (line).
