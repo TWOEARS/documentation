@@ -2,8 +2,8 @@
 
 .. _sec-examples-gmm-localisation:
 
-GMM-based localisation under reverberant conditions
-===================================================
+|GMM|-based localisation under reverberant conditions
+=====================================================
 
 .. contents::
     :depth: 1

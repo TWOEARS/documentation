@@ -2,8 +2,8 @@
 
 .. _sec-examples-dnn-localisation:
 
-DNN-based localisation under reverberant conditions
-===================================================
+|DNN|-based localisation under reverberant conditions
+=====================================================
 
 .. contents::
     :depth: 1
