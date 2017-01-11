@@ -27,6 +27,7 @@ acronyms = """
 .. |genomix|         replace:: *genomix*
 .. |GMM|             replace:: :abbr:`GMM (Gaussian mixture models)`
 .. |GUI|             replace:: :abbr:`GUI (Graphical User Interface)`
+.. |HATS|            replace:: :abbr:`HATS (Head-And-Torso Simulator)`
 .. |HRTF|            replace:: :abbr:`HRTF (Head-Related Transfer Function)`
 .. |IC|              replace:: :abbr:`IC (Interaural Coherence)`
 .. |IHC|             replace:: :abbr:`IHC (Inner Hair Cell)`
@@ -38,6 +39,7 @@ acronyms = """
 .. |MU|              replace:: :abbr:`MU (Model Units)`
 .. |NFC-HOA|         replace:: :abbr:`NFC-HOA (Near-Field Compensated Higher Order Ambisonics)`
 .. |OOP|             replace:: :abbr:`OOP (Object-Oriented Programming)`
+.. |PCB|             replace:: :abbr:`PCB (Printed Circuit Board)`
 .. |RIR|             replace:: :abbr:`RIR (Room Impulse Response)`
 .. |RMS|             replace:: :abbr:`RMS (Root Mean Square)`
 .. |robotpkg|        replace:: *robotpkg*

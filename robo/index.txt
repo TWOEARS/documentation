@@ -10,6 +10,7 @@ Robotic platform
     getting-started/index
     robo-software/index
     audio-streaming/index
+    head-motorization/index
     rosafe/index
 
 .. vim: filetype=rst spell:
