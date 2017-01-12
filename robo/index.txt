@@ -7,11 +7,26 @@ Robotic platform
 .. toctree::
     :maxdepth: 1
 
-    getting-started/index
     robo-software/index
     audio-streaming/index
     head-motorization/index
     rosafe/index
+
+Addressing real-life experiments (such as dynamic auditory scene analysis in a
+*search and rescue* scenario) implies to deploy and run the |TwoEarsModel| on a
+robotic platform. To assess the active and exploratory features of the model and
+its ability to handle multi-modality, the robot must be endowed with binaural
+perception, adequate mobility, and other sensing modalities. It must come with a
+software platform enabling the concurrent execution of all the processes
+involved in the model. To ensure reproducible research, this architecture must
+enable maximum software sharing when switching from one platform to another.
+
+This chapter first decribes general aspects of the :ref:`robotic software
+architecture <sec-robot-software>`, using the celebrated |ROS| middleware. Then,
+dedicated components to :ref:`stream audio <sec-robot-audio-streaming>` are
+documented. Guidelines to :ref:`motorize a kemar head
+<sec-robot-head-motorization>` are provided to tackle active perception
+scenarios. Last, a :ref:`ROS auditory front-end <sec-rosafe>` is presented.
 
 .. vim: filetype=rst spell:
 .. emacs:

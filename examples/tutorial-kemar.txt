@@ -1,0 +1,46 @@
+.. _sec-examples-tutorial-kemar:
+
+Control the rotation of a KEMAR motorized head from Matlab
+==========================================================
+
+.. contents::
+    :depth: 1
+    :local:
+
+The example below shows a simple position control of a :ref:`motorized KEMAR
+head <sec-robot-head-motorization>` from MATLAB, using the |matlab-genomix|
+bridge (see :ref:`sec-robot-install`). First, run the following commands on the
+computer connected to the motor controller:
+
+.. code-block:: bash
+
+   $ roscore &
+   $ genomixd &
+   $ kemar-ros
+
+Then in Matlab, you can try the following commands to control the rotation of
+the head:
+
+.. code-block:: matlab
+
+   % Make sure that matlab-genomix installation directory is in your userpath
+   >> userpath('<prefix>/lib/matlab');
+
+   % Connect to genomix and load the kemar component
+   >> client = genomix.client('host-machine:8080');
+   >> kemar = client.load('kemar');
+
+   % Execute the homing procedure
+   >> kemar.Homing();
+
+   % Set the reference velocity for position control to 50 deg/s
+   >> kemar.SetVelocity(50);
+
+   % Move the head to 45 deg with a blocking call
+   >> kemar.MoveAbsolutePosition(45);
+   % The prompt returns once the head has reached the position
+
+   % Move the head to -30 deg with a non-blocking call
+   >> r = kemar.MoveAbsolutePosition('-a', -30);
+   % The prompt returns immediately. While the head moves, r.status is 'sent'.
+   % When the goal is reached, r.status becomes 'done'.

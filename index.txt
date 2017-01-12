@@ -51,11 +51,13 @@ scene.
 .. rubric:: Robotic platform
 
 If you have a robotic platform ready to record the binaural signals, no
-simulation of them will be needed. Here you find the software you need to
-connect Matlab with the robotic world:
+simulation of them will be needed. Here you find the hardware and software you
+need to connect Matlab with the robotic world:
 
-* :ref:`sec-robot-getting-started`
+* :ref:`sec-robot-software`
 * :ref:`sec-robot-audio-streaming`
+* :ref:`sec-robot-head-motorization`
+* :ref:`sec-rosafe`
 
 .. rubric:: Auditory front-end
 
@@ -88,12 +90,13 @@ The Two!Ears Binaural Simulator and the Two!Ears Blackboard System uses a lot of
 different data to perform their tasks. This is achieved by a large collection of
 data:
 
-* :ref:`Overview <sec-database>`
 * :ref:`sec-database-usage`
 * :ref:`sec-listening-tests`
 * :ref:`sec-impulse-responses`
+* :ref:`sec-learned-models`
 * :ref:`sec-sound-databases`
 * :ref:`sec-database-stimuli`
+* :ref:`sec-database-vision`
 
 .. rubric:: Examples
 
@@ -103,10 +106,14 @@ figures from our publications:
 
 * :ref:`sec-examples-localisation`
 * :ref:`sec-examples-localisation-details`
-* :ref:`sec-examples-train-localisation`
+* :ref:`sec-examples-dnn-localisation`
+* :ref:`sec-examples-gmm-localisation`
 * :ref:`sec-examples-train-identification`
 * :ref:`sec-examples-identification`
 * :ref:`sec-examples-tutorial-bass`
+* :ref:`sec-examples-tutorial-kemar`
+* :ref:`sec-example-qoe-coloration`
+* :ref:`sec-example-qoe-localisation`
 
 .. rubric:: Development
 
@@ -114,9 +121,10 @@ If you are part of the Two!Ears development team or would like to become part of
 it, read on:
 
 * :ref:`How to get involved <sec-dev>`
+* :ref:`sec-install-development-system`
+* :ref:`sec-git`
 * :ref:`sec-coding-style-guide`
 * :ref:`Writing this documentation <sec-write-documentation>`
-* :ref:`sec-git`
 
 .. rubric:: License
 

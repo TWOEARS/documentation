@@ -17,6 +17,7 @@ At the moment the following examples are available:
     train-identification
     identification
     tutorial-bass
+    tutorial-kemar
     qoe-coloration
     qoe-localisation
 

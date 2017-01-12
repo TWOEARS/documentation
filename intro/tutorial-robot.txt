@@ -49,9 +49,9 @@ transcoding into software components is ongoing.
 Platforms of increasing complexity have been planned. Frank is a binaural
 *head-on-a-stick* type system, that is, a KEMAR head-and-torso simulator which
 we endowed with an original silent controllable device enabling neck rotation.
-This device will shortly be equipped with stereo vision. Meanwhile, it has been
-mounted on Jido, a Neobotix MP-L655 nonholonomic mobile robot, so as to get
-translational degrees-of-freedom for long-range navigation (figure
+This device can also be equipped with stereo vision, if needed. It
+has been mounted on Jido, a Neobotix MP-L655 nonholonomic mobile robot, so as to
+get translational degrees-of-freedom for long-range navigation (figure
 :numref:`fig-frank-on-jido`). Importantly, extensive evaluations of all the
 functional components hereafter presented have been conducted.
 
@@ -64,11 +64,12 @@ functional components hereafter presented have been conducted.
 
 The current release of the |TwoEarsModel| provides :ref:`sec-bass` which can be
 used to acquire the binaural signals from Frank or another dummy head from
-within Matlab. See further :ref:`sec-robot-getting-started` for an introduction
-on how to get started with the robotic software. In later releases of |TwoEars|
-we will provide you with a tutorial on how to build your own dummy head with
-rotatable head, and how to use the aforementioned Matlab bridge in order to
-steer its movements from within Matlab.
+within Matlab. See further the :ref:`robot documentation <sec-robot>` for an
+introduction on how to get started with the robotic software. We also provide
+you with a tutorial on how to :ref:`build your own dummy head with rotatable
+head <sec-robot-head-motorization>`, and how to use the aforementioned Matlab
+bridge in order to :ref:`steer its movements from within Matlab
+<sec-examples-tutorial-kemar>`.
 
 .. vim: filetype=rst spell:
 .. emacs:

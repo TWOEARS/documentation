@@ -1,4 +1,4 @@
-.. _sec-kemar-head-motorization:
+.. _sec-robot-head-motorization:
 
 Motorization of a KEMAR head
 ============================
@@ -260,3 +260,6 @@ in position or in speed via dedicated services. You can install it with:
    mkdir build && cd build
    ../configure --prefix=/path/to/your/install/folder --with-templates=ros/server,ros/client/c
    make install
+
+The example chapter includes a simple use of this component to :ref:`Control the
+rotation of a KEMAR motorized head from Matlab <sec-examples-tutorial-kemar>`.
