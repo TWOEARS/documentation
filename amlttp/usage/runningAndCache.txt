@@ -1,0 +1,111 @@
+.. highlight:: Matlab
+
+.. _sec-amlttp-runningAndCache:
+
+Running the Pipeline
+--------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The pipeline is tightly coupled with the |blackboard| in that it makes use of |blackboard| components as well as having pipeline components integrated into the blackboard. This allows for integrating |blackboard| components into the pipeline for training new models as well as plugging in said models back into a knowledge source to use inside the blackboard.
+
+Generating scenes and training new models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Interaction and configuration of the pipeline is done through a single and central ``TwoEarsIdTrainPipe`` object.
+
+.. table:: Key value pairs for arguments to the ``TwoEarsIdTrainPipe`` constructor:
+
+    +-------------------------+--------------------------------------------+------------------------------------------------------+
+    | Argument key            | Default value                              |  Description                                         |
+    +=========================+============================================+======================================================+
+    | cacheSystemDir          | ``TwoEarsIdTrainPipe.m``/../../idPipeCache | Path to cache directory                              |
+    +-------------------------+--------------------------------------------+------------------------------------------------------+
+    | nPathLevelsForCacheName | 3                                          | path level distance between ``TwoEarsIdTrainPipe.m`` |
+    |                         |                                            |                                                      |
+    |                         |                                            | and cache directory                                  |
+    +-------------------------+--------------------------------------------+------------------------------------------------------+
+
+:ref:sec-examples-train-identification provides an example and a step by step walkthrough on how to configure, initialize and run the pipeline to generate auditory scenes and train as well test a model.
+
+Initialising the pipeline after it has been configured: ::
+
+   pipe.init( sc, 'fs', 16000 );
+   
+The first argument to the ``init()`` is the set of scene configurations. More on :ref:`configuring auditory scenes <sec-amlttp-scenes>`. Optional arguments are:
+
+.. table:: Key value pairs for optional arguments to the ``TwoEarsIdTrainPipe``'s ``init()`` method:
+
+    +-----------------------+----------------------------------------+-------------------------------------------------------------+
+    | Argument key          | Default value                          |  Description                                                |
+    +=======================+========================================+=============================================================+
+    | hrir                  | impulse_responses/qu_kemar_anechoic/   | Path to :ref:`HRIR measurement files <sec-hrtf>`,           |
+    |                       |                                        |                                                             |
+    |                       | QU_KEMAR_anechoic_3m.sofa              | pass ``[]`` when simulating with `BRIRs <sec-brirs>`        |
+    +-----------------------+----------------------------------------+-------------------------------------------------------------+
+    | sceneCfgDataUseRatio  | 1                                      | proportion of simulated data to use for training            |
+    +-----------------------+----------------------------------------+-------------------------------------------------------------+
+    | gatherFeaturesProc    | true                                   | whether to include the step of gathering extracted          |
+    |                       |                                        |                                                             |
+    |                       |                                        | features before training or not                             |
+    +-----------------------+----------------------------------------+-------------------------------------------------------------+
+    | stopAfterProc         | inf                                    | at which processing stage to stop                           |
+    +-----------------------+----------------------------------------+-------------------------------------------------------------+
+    | fs                    | 44100 Hz                               | sampling rate                                               |
+    +-----------------------+----------------------------------------+-------------------------------------------------------------+
+    
+Running the pipeline: ::
+
+   modelPath = pipe.pipeline.run( 'modelName', classname, ...
+                                  'modelPath', 'test_1vsAll_training' );
+
+.. _tab-pipeline-run:
+                            
+.. table:: Key value pairs for arguments to the ``TwoEarsIdTrainPipe.pipeline``'s ``run()`` method:
+
+    +------------------+--------------------------------+-----------------------------------------------------------------+
+    | Argument key     | Default value                  |  Description                                                    |
+    +==================+================================+=================================================================+
+    | nGenAssessFolds  | 0                              | number of folds of generalization assessment through            |
+    |                  |                                |                                                                 |
+    |                  |                                | cross validation (0 for no folds)                               |
+    +------------------+--------------------------------+-----------------------------------------------------------------+
+    | modelPath        | ``['amlttpRun', timestamp]``   | path to output directory containing trained model and logs      |
+    +------------------+--------------------------------+-----------------------------------------------------------------+
+    | modelName        | amlttp                         | name of the model to use for the saved model file               |
+    |                  |                                |                                                                 |
+    |                  |                                | features before training or not                                 |
+    +------------------+--------------------------------+-----------------------------------------------------------------+
+    | runOption        | empty                          | runs the pipeline in different modes:                           |
+    |                  |                                |                                                                 |
+    |                  |                                | ``'onlyGenCache'``: only generate data for cache. No training   |
+    |                  |                                |                                                                 |
+    |                  |                                | ``'dataStore'``: save objects of extracted features             |
+    |                  |                                |                                                                 |
+    |                  |                                | ``'dataStoreUni'``: save features in simple matrix form         |
+    +------------------+--------------------------------+-----------------------------------------------------------------+
+    | debug            | false                          | enable debug mode                                               |
+    +------------------+--------------------------------+-----------------------------------------------------------------+
+
+Using trained models inside the blackboard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When a new model is trained, all of the accompanying functionalty necessary for deploying the model inside the |blackboard| is saved alongside the trained model. Specifically, a successful training process not only logs what data was used during training but also the instances of the supporting objects that were used in the training process such as:
+
+- The *block creator* to know the duration of data to use before extracting features
+- The *feature creator* which takes care of making the |AFE| requests and extracting the correct features from the auditory representations.
+- The trained *model* for performing inference.
+
+`pipe.pipeline.run()` returns a path to a directory containing this file.
+
+Knowledge sources that drive models produced by the |amlttp| can inherit directly from :ref:sec-afe-dep-knowledge-source. They can also inherit from an intermediate `AbstractAMLTTPKS 
+<https://github.com/TWOEARS/blackboard-system/blob/master/src/knowledge_sources/AbstractAMLTTPKS.m>`_. That takes care of steps such as having the feature creator make the AFE requests and retrieving blocks using the correct duration. Example of knoledge sources that drive |amlttp| models in the |blackboard|  and follow this scheme are |IdentityKS|, |SegmentIdentityKS| and |NumberOfSourcesKS|.
+
+Caching System
+~~~~~~~~~~~~~~
+
+Each processing stage of the |amlttp| involves saving intermediate results. This allows for repeating stages without having to re-compute everything that preceeds that stage. The intermediate results for all pipeline stages are saved under a single directory specified by ``cacheSystemDir`` and ``nPathLevelsForCacheName`` arguments. Each stage is saved in its own directory.
+
+.. vim: filetype=rst spell:

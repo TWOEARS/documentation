@@ -1,0 +1,38 @@
+.. _sec-amlttp-select-model:
+
+Select Your Model
+-----------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+Once we've extracted the features for each block and assigned a label that 
+we want a new model to target, we select the type of model that can be optimized 
+to learn from the labels and then make its own predictions on new data points.
+
+Models and model trainers
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The |amlttp| distinguishes between a model, what can be optimized to perform a task, 
+and a model trainer which drives the the optimization process and produces a model. 
+All models in the pipeline are derived from the ``Models.Base`` class, while the model trainers are all derived from the ``ModelTrainers.Base`` class.
+
+The interaction between a model and its trainer can take the form of having the model such as  ``Models.GlmNetModel`` implement logistic regression using online gradient descent, while the model trainer takes care of performing a k-fold cross validation and measure the variance in performance of multiple variations of this model. The model trainer can also take care of performing a hyper parameter exploration for the underlying model such as varying the model's regularization term and selecting the one with the highest cross validation performance. Each model trainer is tied to a specific model type.
+
+A list of available `model types 
+<v>`_.
+
+A list of available `model trainers 
+<https://github.com/TWOEARS/Auditory-Machine-Learning-Training-and-Testing-Pipeline/tree/master/src/%2BModelTrainers>`_.
+
+Performance measure
+~~~~~~~~~~~~~~~~~~~
+
+Selecting a model and its corresponding trainer requires choosing the performance measure used during the training process and evaluating the model. The performance measure is not to be confused with the cost function used for optimizing the model but rather as a measure that is applied to the validation or test set for evaluating a trained model or for steering the model trainer's model selection process during hyper parameter exploration or k-fold cross validation.
+
+All performance measures are derived from ``PerformanceMeasures.Base``. Basic usage usually only involves specifying the type and passing it to the model trainer to make use of it.
+
+A list of available `performance measures 
+<https://github.com/TWOEARS/Auditory-Machine-Learning-Training-and-Testing-Pipeline/tree/master/src/%2BPerformanceMeasures>`_.
+

@@ -1,0 +1,22 @@
+.. _sec-amlttp-getting-started:
+
+Getting started
+---------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |amlttp| was developed entirely using Matlab version R2015b. It was tested for backward compatibility down to Matlab. The source code, test and demo scripts are
+all available from the public repository at
+https://github.com/TWOEARS/Auditory-Machine-Learning-Training-and-Testing-Pipeline.
+
+All files are divided into three folders: ``/src``, ``/test`` and ``/third_party_software``
+containing respectively the source code, various test scripts and source files of external software used throughout |amlttp|. Once Matlab opened, the source code directory (and if needed the
+other folders) should be added to the Matlab path. This can be done by executing
+the script ``startAMLTTP`` in the root directory::
+
+    >> startAMLTTP;
+
+
+.. vim: filetype=rst spell:

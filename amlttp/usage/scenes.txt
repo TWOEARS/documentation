@@ -1,0 +1,82 @@
+.. _sec-amlttp-scenes:
+
+Setting up Scenes
+-----------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The |amlttp| is capable of generating auditory scenes under various conditions. The generation is performed by the |BinSim|. The |amlttp| takes care of setting up the simulator and driving it to produce scenes under specific and various conditions using a dataset of sound files.
+
+A scene is configured by specifying:
+* The room
+* Individual sound sources
+* The SNRs of the sound sources relative to the first sound source
+* Charactersitics of the virtual head in the room (e.g. orientation)
+* The duration of the sounds
+
+This instantiates a scene configuration:
+::
+
+   sc = SceneConfig.SceneConfiguration();
+   
+By default the scene is configured so that sound sources are positioned at 0° azimuth relative
+to the head. There is no interfering noise, and no reverberation (i.e. free-field conditions).
+
+Adding a sound source to the scene involves calling ``addSource`` method and passing it ``SourceBase`` object. Available source types include:
+* ``PointSource`` for directional sounds
+* ``BRIRsource`` for directional sounds with reverberations
+* ``DiffuseSource`` for non-directional ambient sounds
+
+.. code-block:: Matlab
+
+   sc.addSource( SceneConfig.PointSource( ...
+        'data', SceneConfig.FileListValGen( 'pipeInput' ) ) );
+ 
+.. table:: Key value pairs to pass to the source constructors common between all Source types:
+
+    +-------------------+-------------------------+------------------------------------------------+
+    | Argument key      | Default value           |  Description                                   |
+    +===================+=========================+================================================+
+    | data              | white noise at 44.1Khz  | source of the data to emit from this source    |
+    +-------------------+-------------------------+------------------------------------------------+
+    | offset            | 0.5 sec                 | offset at which to begin sounds                |
+    +-------------------+-------------------------+------------------------------------------------+
+    | normalize         | true                    | whether to normalize the sound emitted or not  |
+    +-------------------+-------------------------+------------------------------------------------+
+    | normalizeLevel    | 1.0                     | Normalization level                            |
+    +-------------------+-------------------------+------------------------------------------------+
+
+Point Source
+~~~~~~~~~~~~
+
+Constructing a source for emitting directional sounds in free-field conditions.
+
+.. table:: key value pairs for a point source in addition to the specifications that are common for all source types:
+
+    +-------------------+----------------------------+--------------------------------+
+    | Argument key      | Default value              |  Description                   |
+    +===================+============================+================================+
+    | azimuth           | 0^{o}                      | angle between source and nose  |
+    +-------------------+----------------------------+--------------------------------+
+    | distance          | distance from the listener | 3 m                            |
+    +-------------------+----------------------------+--------------------------------+
+
+BRIR Source
+~~~~~~~~~~~
+
+Constructing a source for emitting directional sounds with reverb.
+
+.. table:: key value pairs for a BRIR source in addition to the specifications that are common for all source types
+
+    +-------------------+----------------------------+---------------------------------------+
+    | Argument key      | Default value              |  Description                          |
+    +===================+============================+=======================================+
+    | speakerId         | None                       | Id or index of the speaker in a room  |
+    +-------------------+----------------------------+---------------------------------------+
+
+Diffuse Source
+~~~~~~~~~~~~~~
+
+Constructing a source for emitting non-directional ambient sounds in free-field conditions.

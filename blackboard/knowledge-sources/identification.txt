@@ -17,7 +17,7 @@ Identity knowledge source: ``IdentityKS``
 
 Objects of class ``IdentityKS`` implement source type models, by incorporating
 an instance of a model (which has to implement the `models.Base
-<https://github.com/TWOEARS/TwoEars/blob/master/IdentificationTraining/src/%2Bmodels/Base.m>`_
+<https://github.com/TWOEARS/Auditory-Machine-Learning-Training-and-Testing-Pipeline/blob/master/src/%2BModels/Base.m>`_
 interface) with knowledge about the relationship of auditory cues and certain
 sound source types. Many Identity knowledge sources can be used concurrently;
 usually, for each sound class to be identified, you would instantiate an object

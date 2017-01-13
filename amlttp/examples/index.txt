@@ -1,0 +1,12 @@
+.. _sec-amlttp-examples:
+
+Examples
+========
+
+.. toctree::
+    :maxdepth: 1
+
+    identificationfullstream
+    numsrcs
+
+.. vim: filetype=rst spell:

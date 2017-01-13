@@ -1,0 +1,44 @@
+.. _sec-numSrcsKSs:
+
+Number of source estimation knowledge sources
+---------------------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+    
+This section focuses on implementation of knowledge sources for the 
+estimation of active sound sourcs in an auditory scene within the blackboard framework.
+
+.. _sec-number-of-sources-knowledge-source:
+
+Number of Sources knowledge source: ``NumberOfsourcesKS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Objects of class ``NumberOfsourcesKS`` implement models, by incorporating
+an instance of a model (which has to implement the `models.Base
+<https://github.com/TWOEARS/Auditory-Machine-Learning-Training-and-Testing-Pipeline/blob/master/src/%2BModels/Base.m>`_
+interface) with knowledge about the relationship of auditory cues and the number of active sound sources.
+The model gets loaded from directories you specify upon construction, and should be created with the
+:ref:`sec-amlttp-numsrcs`.  The model object of ``NumberOfsourcesKS`` can
+employ any kind of model, such as a linear support vector machine, or a Gaussian
+mixture model. The ``NumberOfsourcesKS`` needs access to |AFE| signals, thus it is a
+subclass of ``AuditoryFrontEndDepKS`` (see
+Section :ref:`sec-afe-dep-knowledge-source`).  The model object holds the signal
+request structure.
+
+The knowledge source predicts, based on the incorporated source model the number of active sound sources in the currently received auditory stream.
+
++------------------------+----------------------------------------------------------------------------------+
+| binds to               | ``AuditoryFrontEndKS.KsFiredEvent``                                              |
++------------------------+----------------------------------------------------------------------------------+
+| reads data category    | ``locationHypothesis`` (otherwise ``sourcesAzimuthsDistributionHypotheses``)     |
+|                        | possible also ``identityHypotheses`` if required by the model's feature creator  |
+|                        | (see :ref:sec-amlttp-select-features)                                            |
++------------------------+----------------------------------------------------------------------------------+
+| writes data category   | ``NumberOfSourcesHypotheses``                                                    |
++------------------------+----------------------------------------------------------------------------------+
+| triggers event         | ``KsFiredEvent``                                                                 |
++------------------------+----------------------------------------------------------------------------------+
+
+.. vim: filetype=rst spell:

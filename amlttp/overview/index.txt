@@ -1,0 +1,194 @@
+.. _sec-amlttp-overview:
+
+Overview
+========
+
+.. toctree::
+    :maxdepth: 1
+
+    getting-started
+
+Multi-conditional auditory scene simulation 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In stage one of the data generation, ear-signals are produced from audio
+files using the Binaural Simulator from the system. This can be done
+under various conditions, set up through a configuration object of the
+amlttp:
+
+-  An arbitrary number of sources can be created, either diffuse
+   (non-directional), or point-sources with specific positions relative
+   to the head, whose azimuth can be set as well.
+
+-  The “head”, i.e. the hrir used, can be exchanged. By default, it is
+   defined as a KEMAR head.
+
+-  Sources can be set up to emit white noise or specific audio files.
+
+-  Sources can be set up to playback one audio file and then mute, or
+   loop over this audio file, or playback audio files from a set in
+   random order, for a defined duration.
+
+-  Ear-signal-level average SNRs between sources can be fixed. They are
+   defined as the ratio of powers between the individual sources’
+   ear-signals.
+
+-  Simulated reverb (shoe-box room model) can be defined, or
+
+-  brir can be used instead of hrir, in which case sources’ positions
+   are predefined by the brir. Multi-speaker brir are supported to allow
+   for setting up multiple sources.
+
+-  The ear-signals average level can be adjusted.
+
+The above conditions together define a scene configuration. An arbitrary
+number of such scenes can be specified and will be simulated to produce
+*multi-conditional* training data. While models trained from
+single-conditional data, i.e. data generated from a single
+configuration, possibly perform better within this condition because of
+their specialization, we opted to train models using multi-conditional
+data. The motivation to use multi-conditional data is to train models
+that can generalize across different conditions by using data that
+enforces invariance. Both condition modes were used. Additionally,
+different scene configurations can be used across training and testing
+to perform, so called, “cross-testing” of configurations. This way,
+models can be evaluated under conditions that were not included in their
+training data, which allows for assessing the models’ robustness.
+Multi-conditional models can still be tested on individual conditions to
+evaluate them in more detail.
+
+Sample feature generation 
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After ear-signals have been generated, stage two is about constructing
+features for all the samples. This stage consists of three subsequent
+steps: First, basic auditory feature like ratemaps or ild are created by
+the afe, which takes the ear-signals as inputs. Then, these basic
+feature streams get cut into blocks with predefined length and overlap.
+The afe operates directly on the ear-signal streams to avoid artefacts
+on borders of blocks. After block extraction, the features within each
+block get transformed with statistical or any other functions into
+sample feature vectors to use as model input. This is performed in the
+amlttp by so-called FeatureCreators, producing one sample vector per
+block.
+
+FeatureCreators, which inherit from a common base interface and are thus
+seamlessly usable, are modules to be implemented by the user of the
+amlttp to construct data vectors in a form that is suitable for the
+model to be trained. Part of implementing the common interface involves
+defining “AFE-requests” which set up the afe’s output. These requests
+are made in exactly the same way as in the blackboard system. To be able
+to later evaluate models on a feature-level, e.g. for dimensionality
+reduction, FeatureCreators automatically produce a detailed description
+of each feature dimension. Masks can be used to incorporate results of
+feature selection methods and only train or test with selected
+dimensions. The description of each feature also has its use for
+combining the amlttp with external third-party tools such as the Caffe
+library for training neural networks, as showcased in
+[sss:ml\ :sub:`j`\ oint\ :sub:`c`\ affe].
+
+Label creation 
+~~~~~~~~~~~~~~~
+
+Similar to the generation of sample vectors described in the section
+above, the corresponding target vectors (also called “labels”) are
+produced by “LabelCreators”. These labels are used in the supervised
+training of models, and serve as ground truth in the testing of models.
+Analogous to FeatureCreators, LabelCreators also implement a common
+interface for quickly creating new labellers describing different object
+attributes. Any of these object attributes are derived from annotations
+at different levels of abstraction (e.g. active sources, source
+energies, etc.) around the ear-signals streams which were produced in
+the scene generation stage and are passed through the pipeline.
+LabelCreators for producing *source class*, *source location* and
+*number of sources* targets are already available and can be used ‘right
+out of the box’, including combinations thereof. Binomial, multinomial,
+or regression targets can be produced, and combined to form multivariate
+labels.
+
+Model training algorithms 
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Consistent with the concept of modularity and extendability, common
+interfaces exist for *models* and their corresponding *model trainers*.
+Any algorithm for model construction can be used, and any model type can
+be constructed and tested. A class inheriting from the interfaces can
+implement its own technique and can be plugged into the amlttp. Along
+with this, wrapper trainers for conducting stratified cross-validation
+or hyper-parameter search are provided and can be used with any
+algorithm. We have already implemented:
+
+-  Elastic net with Gaussian or poisson regression;
+
+-  Elastic net with binomial or multinomial classification;
+
+-  Online gradient descent with logistic, Gaussian, or hinge regression,
+   with or without regularization;
+
+-  Support-vector machines.
+
+It is also possible to let the amlttp generate and save training samples
+to file, in order to use external training tools such as the Caffe
+library for training neural networks as presented in
+[sss:ml\ :sub:`j`\ oint\ :sub:`c`\ affe].
+
+Tight coupling with the blackboard-system 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[sss:amlttp\ :sub:`b`\ bs\ :sub:`c`\ oupling] The amlttp and the
+Two!Ears blackboad-system are tightly coupled in two central aspects:
+amlttp-trained models can be used from within the blackboard system, and
+blackboard system knowledge sources can be used from within the amlttp.
+
+Models created by the amlttp can be plugged into the blackboard-system
+and be used there without any modification or interface adjustments:
+they fit into the respective amlttp-knowledge source. They automatically
+employ the right FeatureCreator and model, feeding the system with
+hypotheses about auditory object attributes. Regardless of whether the
+ear-signals that are fed into the blackboard system were produced using
+a binaural simulator or acquired from actual microphones, features are
+produced in exactly the same manner as in the amlttp. The same block
+length is used, the same afe requests are made, and the features are
+constructed using the exact same code.
+
+A particularly interesting feature is that the reverse of this process
+is also possible: existing knowledge sources and the models that come
+packaged with them can be included as “data processors” in the amlttp
+through a blackboard-KS wrapper interface. This enables the
+incorporation of other models’ hypotheses about the auditory data, and
+modifying the data passed to the FeatureCreator or adding to it, or
+modifying the attribute annotations passed to the LabelCreator. Models
+that use other models’ outputs can be built through this feature,
+incorporating into the training process the properties of the other
+models instead of only adapting to ground truth. Four knowledge sources
+have already been plugged into the amlttp through the blackboard-KS
+wrapper: DnnLocationKS, SegmentationKS, NumberOfSourcesKS and
+IdentificationKS (see Deliverable D6.1.3 for descriptions of these
+knowledge sources).
+
+Utility 
+~~~~~~~~
+
+A lot of work has gone into making the amlttp both easy and effective to
+use. While the first is accomplished through a clean high-level
+interface, the latter is enabled to a large extent through the following
+two points:
+
+-  All products from intermediate stages, such as the generated
+   ear-signals, or features produced by the afe, are saved together with
+   their corresponding configurations inside a caching system. Since
+   these stages can be very time-costly for large data sets: repeating
+   trainings with a different model, resuming a process after a crash,
+   etc., are made possible without having to recompute everything again.
+   Also, data are saved in such a way that they will be recombined
+   automatically whenever parts of a configuration have already been
+   computed before. This saves a lot of computation time and helps
+   assigning the produced data to many different experiments’
+   configurations and reproduce experiments more easily.
+
+-  The amlttp can be run concurrently on many processes and/or machines,
+   whilst working from the same data. This is secured through file
+   semaphores so that processes don’t interfere with one another when
+   operating on the same configuration in the same stage.
+
+.. vim: filetype=rst spell:

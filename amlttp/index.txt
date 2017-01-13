@@ -1,0 +1,31 @@
+.. _sec-amlttp:
+
+=======================================================
+Auditory Machine Learning Training and Testing Pipeline
+=======================================================
+
+.. toctree::
+    :maxdepth: 1
+
+    overview/index
+    usage/index
+    examples/index
+
+The Auditory Machine Learning Training and Testing Pipeline (AMLTTP) is an object-oriented framework for building and
+evaluating models for auditory sound object annotation and assigning
+attributes to them. It faciliatates the training of models by inductive learning from labeled training data. The framework is called the amlttp. It is tightly
+coupled with the |TwoEars| system and its components. The |amlttp| consists of two
+parts, namely generating model training and testing data and carrying out the actual training as well as testing of models. Each part is broken down into further sub-stages and components. While the pipeline is designed with flexibility in mind and is extendable to new target attributes, data features, or model and training algorithms, it serves the specific purpose of training and evaluation of block-based auditory object-*type* (|IdentityKS|, |SegmentIdentityKS|), object-*location*, and *number-of-sources* |NumberOfSourcesKS| classifiers
+using data from simulated auditory scenes generated within the same
+framework.
+
+
+Credits
+=======
+
+The |amlttp| is developed by Ivo Trowitzsch from Technische Universität
+Berlin, and the rest of the `Two!Ears team`_.
+
+.. _Two!Ears team: http://twoears.aipa.tu-berlin.de/consortium
+
+.. vim: filetype=rst spell:

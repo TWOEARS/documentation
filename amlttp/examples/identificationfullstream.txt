@@ -1,0 +1,11 @@
+.. _sec-amlttp-idfullstream:
+
+Full-Stream Sound Event Detection
+---------------------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+An example for training and testing of full stream sound type identification models is described in :ref:`sec-examples-train-identification`, 
+while :ref:`sec-examples-identification` demonstrates performing inference with the model after it has been plugged into a :ref:`sec-identity-knowledge-source`.

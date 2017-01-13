@@ -11,6 +11,8 @@ replacements = """
 .. |robot|                  replace:: :ref:`sec-robot`
 .. |database|               replace:: :ref:`sec-database`
 .. |blackboard|             replace:: :ref:`sec-blackboard`
+.. |amlttpRef|              replace:: :ref:`sec-amlttp`
+.. |amlttp|                 replace:: :abbr:`AMLTTP (Auditory Machine Learning Training and Testing Pipeline)`
 .. |amtoolbox|              replace:: `Auditory Modeling Toolbox`_
 .. |LatestVersion|          replace:: `the latest version`_
 .. |AuditoryFrontEndKS|     replace:: :ref:`AuditoryFrontEndKS <sec-afe-knowledge-source>`
@@ -26,4 +28,5 @@ replacements = """
 .. |LocalisationDecisionKS| replace:: :ref:`LocalisationDecisionKS <sec-localisation-decision-knowledge-source>`
 .. |SegmentationKS|         replace:: :ref:`StreamSegregationKS <sec-segmentation-knowledge-source>`
 .. |SegmentIdentityKS|      replace:: :ref:`SegmentIdentityKS <sec-segmentation-identity-knowledge-source>`
+.. |NumberOfSourcesKS|      replace:: :ref:`NumberOfSourcesKS <sec-number-of-sources-knowledge-source>`
 """

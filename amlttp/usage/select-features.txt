@@ -1,0 +1,51 @@
+.. _sec-amlttp-select-features:
+
+Select Your Features
+--------------------
+
+.. contents::
+    :depth: 1
+    :local:
+
+The feature creator is responsible for making requests to the |AFE| and extracting 
+features from blocks o time windows obtained from the auditory representation. 
+The feature creator can be used to apply transformations to the auditory representations such as 
+averaging between left and right channels, computing derivatives, computing statistics over spatio-temporal features, etc.
+The extracted features will then be used for training a model. The feature creator can also be used inside an :ref:`sec-afe-dep-knowledge-source` for making the request and 
+driving an already trained model with the features it requires for inference. :ref:`sec-identity-knowledge-source` is an example of knowledge source that operates in this manner. 
+
+Some of the available feature creators
+--------------------------------------
+
+This is a short list of some of the feature creators already available in the pipeline:
+
+FeatureSet3Blockmean
+~~~~~~~~~~~~~~~~~~~~
+
+This feature creator requests :ref:`sec-amplitude-modulation-spectrogram`, :ref:`sec-rate-map` and :ref:`sec-spectral-features` from the |AFE|.
+It then computes the mean across the left and right channels. The magnitudes in the each representation are re-scaled to fall within the [0,1] range. Features are summarized by computing L-Moments over the temporal dimension as well as the summary of the first and second derivatives of those representations.
+
+Intended to be used alongside an identification model.
+
+FeatureSet4Blockmean
+~~~~~~~~~~~~~~~~~~~~
+
+This feature creator is similar to ``FeatureSet3Blockmean`` excpet that it makes an additional request to the |AFE|, namely Gabor filter responses and that the number of frequency channels are different. The handling of the features remains the same.
+
+Intended to be used alongside an identification model.
+
+FeatureSetNSrcDetection
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Intended to be used alongside a model for estimating the number of active sound sources.
+
+FeatureSetNSrcDetectionPlusModelOutputs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Uses ``FeatureSetNSrcDetection`` internally and extends the feature set by adding the output of other models (e.g. sound source localization  estimates)
+
+Intended to be used alongside a model for estimating the number of active sound sources.
+
+
+
+

@@ -15,6 +15,7 @@ Knowledge sources
     identification
     sound-quality
     segmentation
+    numSrcs
 
 In this section we describe knowledge sources that are currently available in
 the |blackboard|.
