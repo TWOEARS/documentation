@@ -50,11 +50,12 @@ The steps to assemble the mechanism are as follows:
    with the motor, it can help having a look at it while you mount the
    mechanism.
 
-#. Remove the original part below the head and place the new head piece
-   (blue). Keep and reuse the same screws. As this part will be placed above the
-   proximity optical sensors, an anti-reflection adhesive film must be stuck to
-   prevent any reflection (see :numref:`fig-kemar-motor-head`). The two audio
-   cables can be passed through the arc-shaped hole.
+#. Remove the original part below the head and place the new head piece (blue).
+   Keep and reuse the same screws. As this part will be placed above the proximity
+   optical sensors, an anti-reflection adhesive film must be stuck to prevent any
+   reflection (see :numref:`fig-kemar-motor-head`). The two audio cables can be
+   passed through the arc-shaped hole.  Screw two plastic screws for head alignment
+   inside the head (not present in :numref:`fig-kemar-motor-head`). 
 
    .. _fig-kemar-motor-head:
 
@@ -72,11 +73,12 @@ The steps to assemble the mechanism are as follows:
    second on left side). The nuts provided with the sensors are too big to be
    placed direcly. Nuts must be rounded first to be integrated.
 
-#. On the last aluminium piece (green), place two plastic screws for head
-   alignment (see :numref:`fig-kemar-motor-torso`). They will fit in the two
-   corresponding holes on the head piece. Then position the rotating piece
-   (green) on the motor shaft. There is a groove on the shaft. Align the two
-   hexagonal screws with the groove and fix them.
+#. Position the rotating piece (green) on the motor shaft. There is a groove
+   on the shaft. Align the two hexagonal screws with the groove and fix them.
+   On this aluminium piece (green), the two holes will fit with the corresponding
+   plastic screws present into the head piece. :numref:`fig-kemar-motor-torso`
+   shows an old design: the shape of the aluminium piece was slightly different;
+   plastic screws were fixed on it.  This is not the case anymore.
 
    .. _fig-kemar-motor-torso:
 
