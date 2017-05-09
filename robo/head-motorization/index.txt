@@ -35,27 +35,29 @@ For this part, you will need:
 * A 100W brushless DC motor SA01ACN-8 from A2V, with gearhead PGE12/1 i=9
 * Two proximity optical sensors VTF180-2N41112 from Sick
 * The designed aluminium pieces (see instructions below)
-* Anti-reflection adhesive film
+* An anti-reflection adhesive film
 * M4 screws
 
 The steps to assemble the mechanism are as follows:
 
-#. You first need to make the three aluminium pieces, visible in blue, red and
-   green on :numref:`fig-kemar-motor-assembly`. CAD models are available in the
-   `kemar-hardware <https://github.com/TWOEARS/kemar-hardware>`_ repository, in
-   folder ``motorized-neck/mechanics``. File ``head.stp`` is the blue piece,
-   fixed to the head. File ``torso.stp`` is the red piece, fixed to the
-   torso. File ``rotation.stp`` is the green piece, fixed to the rotating axis
-   of the motor. Last, file ``assembly.stp`` shows the pieces assembled together
-   with the motor, it can help having a look at it while you mount the
-   mechanism.
+#. You first need to manufacture the three aluminium pieces, visible
+   in blue, red and green on :numref:`fig-kemar-motor-assembly`. CAD
+   models are available in the `kemar-hardware
+   <https://github.com/TWOEARS/kemar-hardware>`_ repository, in folder
+   ``motorized-neck/mechanics``. File ``head.stp`` is the blue piece,
+   fixed to the head. File ``torso.stp`` is the red piece, fixed to
+   the torso. File ``rotation.stp`` is the green piece, fixed to the
+   rotating axis of the motor. Last, file ``assembly.stp`` shows the
+   pieces assembled together with the motor, it can help having a look
+   at it while you mount the mechanism.
 
-#. Remove the original part below the head and place the new head piece (blue).
-   Keep and reuse the same screws. As this part will be placed above the proximity
-   optical sensors, an anti-reflection adhesive film must be stuck to prevent any
-   reflection (see :numref:`fig-kemar-motor-head`). The two audio cables can be
-   passed through the arc-shaped hole.  Screw two plastic screws for head alignment
-   inside the head (not present in :numref:`fig-kemar-motor-head`). 
+#. Remove the original part below the head and place the new head
+   piece (blue).  Keep and reuse the same screws. As this part will be
+   placed above the proximity optical sensors, an anti-reflection
+   adhesive film must be stuck to prevent any reflection (see
+   :numref:`fig-kemar-motor-head`). The two audio cables can be passed
+   through the arc-shaped hole.  Screw two plastic screws for head
+   alignment inside the head as shown on :numref:`fig-kemar-motor-head`.
 
    .. _fig-kemar-motor-head:
 
@@ -63,7 +65,8 @@ The steps to assemble the mechanism are as follows:
        :align: center
        :width: 50 %
 
-       KEMAR head with the new piece in place and anti-reflection film fixed
+       KEMAR head with the new piece in place, the anti-reflection
+       film fixed, and the plastic screws.
 
 #. Assemble the motor to the new aluminium part that will be fixed to the torso
    (red) with four M4 screws.  The arc-shaped hole will go at the rear of the
@@ -73,12 +76,20 @@ The steps to assemble the mechanism are as follows:
    second on left side). The nuts provided with the sensors are too big to be
    placed direcly. Nuts must be rounded first to be integrated.
 
-#. Position the rotating piece (green) on the motor shaft. There is a groove
-   on the shaft. Align the two hexagonal screws with the groove and fix them.
-   On this aluminium piece (green), the two holes will fit with the corresponding
-   plastic screws present into the head piece. :numref:`fig-kemar-motor-torso`
-   shows an old design: the shape of the aluminium piece was slightly different;
-   plastic screws were fixed on it.  This is not the case anymore.
+#. Position the rotating piece (green) on the motor shaft
+   (:numref:`fig-kemar-motor-torso`). There is a groove on the
+   shaft. Align the two hexagonal screws with the groove and fix them.
+   On this aluminium piece (green), the two holes will fit with the
+   corresponding plastic screws present into the head piece.
+
+   .. _fig-rotating-part:
+
+   .. figure:: ../img/rotating-part.jpg
+       :align: center
+       :width: 50 %
+
+       Rotating part
+
 
    .. _fig-kemar-motor-torso:
 
