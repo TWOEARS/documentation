@@ -81,6 +81,20 @@ The steps to assemble the mechanism are as follows:
    shaft. Align the two hexagonal screws with the groove and fix them.
    On this aluminium piece (green), the two holes will fit with the
    corresponding plastic screws present into the head piece.
+   Countersunk holes (:numref:`fig-rotating-part`) correspond to a
+   previous version with plastic screws fixed on the rotating
+   part. For next designs, integrating plastic screws into the head is
+   better because this enables a tighter coupling of the head and the
+   rotating part.
+
+   .. _fig-kemar-motor-torso:
+
+   .. figure:: ../img/kemar-motor-torso.jpg
+       :align: center
+       :width: 50 %
+
+       KEMAR torso with the new mechanical devices
+
 
    .. _fig-rotating-part:
 
@@ -90,14 +104,6 @@ The steps to assemble the mechanism are as follows:
 
        Rotating part
 
-
-   .. _fig-kemar-motor-torso:
-
-   .. figure:: ../img/kemar-motor-torso.jpg
-       :align: center
-       :width: 50 %
-
-       KEMAR torso with the new mechanical devices
 
 #. Before placing the motor block at the top of the torso, optical sensor
    sensitivity must be adjusted on both sensors. Place the head and supply the
