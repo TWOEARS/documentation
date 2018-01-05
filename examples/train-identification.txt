@@ -81,7 +81,7 @@ call the ``trainAndTestCleanModel`` function with a different class name, a mode
 for the "speech" class will be trained (this is specified in the third line).
 Regardless of the class the model is trained for, all sounds listed in the
 flist (`have a look
-<https://dev.qu.tu-berlin.de/projects/twoears-database/repository/revisions/master/entry/learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist>`_)
+<https://dev.qu.tu-berlin.de/projects/twoears-getdata/repository/entry/learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist>`_)
 will be used for training -- but only the ones belonging to the model class will
 serve as "positive" examples. ::
 
