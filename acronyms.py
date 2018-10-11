@@ -15,6 +15,7 @@ acronyms = """
 .. |CASA|            replace:: :abbr:`CASA (Computational Auditory Scene Analysis)`
 .. |CASP|            replace:: :abbr:`CASP (Computational Auditory Signalprocessing and Perception)`
 .. |CCF|             replace:: :abbr:`CCF (Cross-Correlation Function)`
+.. |database-url|    replace:: https://avtshare01.rz.tu-ilmenau.de/two-ears/database/
 .. |DC|              replace:: :abbr:`DC (Direct Current)`
 .. |DNN|             replace:: :abbr:`DNN (deep neural network)`
 .. |DRNL|            replace:: :abbr:`DRNL (Dual-Resonance Non-Linear)`

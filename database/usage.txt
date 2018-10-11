@@ -6,9 +6,9 @@ Usage
 =====
 
 As explained in the :ref:`sec-tutorial-database` tutorial the database is
-located at https://dev.qu.tu-berlin.de/projects/twoears-getdata, but you don't
-have to download any files yourself as this is automatically performed by the
-|BinSim| or by explicitly calling ``db.getFile()``, for example::
+located at |database-url|, but you don't have to download any files yourself as
+this is automatically performed by the |BinSim| or by explicitly calling
+``db.getFile()``, for example::
 
     filename = db.getFile('stimuli/anechoic/instruments/anechoic_cello.wav');
     sig = wavread(filename);

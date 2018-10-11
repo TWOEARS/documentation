@@ -5,8 +5,7 @@
 Work with the database
 ======================
 
-The database is located at the following address:
-https://dev.qu.tu-berlin.de/projects/twoears-getdata/repository, where you can
+The database is located at the following address: |database-url|, where you can
 browse the data, or download single files. Fortunately, the |BinSim| has an
 automatic download and caching functionality, which gets the files from the
 database on demand. Downloading the files twice is prevented by the caching
