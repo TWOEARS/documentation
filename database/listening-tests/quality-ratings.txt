@@ -190,7 +190,7 @@ sketch shown in :numref:`tab-brir-qu-calypso-surround`.
     The |BRIR|\ s used in this experiment were not the one available under
     `10.5281/zenodo.160761 <https://doi.org/10.5281/zenodo.160761>`_, but an
     earlier version available under `10.5281/zenodo.49691
-    <http://doi.org/10.5281/zenodo.49691>`_.  That earlier version had an error
+    <https://doi.org/10.5281/zenodo.49691>`_.  That earlier version had an error
     in the metadata of the stored SOFA files, resulting in the fact that the
     listeners were not looking towards the front at all listening positions, but
     facing always towards the center loudspeaker.

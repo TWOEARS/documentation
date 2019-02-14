@@ -24,7 +24,7 @@ randomly selected sentences for each speaker. More details about GRID can be
 found on the `GRID website`_ or in the corresponding `GRID paper`_.
 
 .. _GRID website: http://spandh.dcs.shef.ac.uk/gridcorpus/
-.. _GRID paper: http://dx.doi.org/10.1121/1.2229005
+.. _GRID paper: https://doi.org/10.1121/1.2229005
 
 License
 ^^^^^^^

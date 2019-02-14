@@ -88,6 +88,6 @@ Read on for :ref:`further details on the blackboard architecture
 .. [Godsmark1999]
     Godsmark, D. and Brown, G. J. (1999), "A Blackboard Architecture for
     Computational Auditory Scene Analysis," Speech Commun. 27(3-4), pp. 351–366,
-    URL http://dx.doi.org/10.1016/S0167-6393(98)00082-X.
+    URL https://doi.org/10.1016/S0167-6393(98)00082-X.
 
 .. vim: filetype=rst spell:
